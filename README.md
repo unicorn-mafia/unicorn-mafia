@@ -1,46 +1,36 @@
-# Unicorn Mafia
-
-A community platform for London's most ambitious entrepreneurs and hackers building the next generation of unicorn companies.
-
-## Overview
-
-Unicorn Mafia is a vibrant community of 150+ motivated hackers and entrepreneurs working together to build successful startups. The platform serves as a meeting point for like-minded individuals who are passionate about technology and entrepreneurship.
-
-## Features
-
-- Modern, responsive landing page
-- Community engagement tools
-- Professional networking opportunities
-- Email contact functionality
-- Social media integration (LinkedIn, Twitter, WhatsApp)
-
-## Tech Stack
-
-- HTML5
-- CSS3
-- JavaScript
-- Framer Motion for animations
-- Modern web development best practices
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-1. Clone the repository:
+First, run the development server:
+
 ```bash
-git clone https://github.com/yourusername/unicorn-mafia.git
-cd unicorn-mafia
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-2. Open `index.html` in your browser to view the site locally
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Contact
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-- Email: hello@unicrnmafia.com
-- Phone: +44 (00) 0000 000
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Contributing
+## Learn More
 
-We welcome contributions from the community. Please read our contributing guidelines before submitting pull requests.
+To learn more about Next.js, take a look at the following resources:
 
-## License
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-All rights reserved, LUM ©2025
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
