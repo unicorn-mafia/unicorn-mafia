@@ -3,5 +3,6 @@
 @theme {
   --font-source: "Source Code Pro", monospace; 
   --font-inter: "Inter", sans-serif;
-
+  --text-10xl: 9rem;
+  --tracking-tightest: -0.08em; 
 }
