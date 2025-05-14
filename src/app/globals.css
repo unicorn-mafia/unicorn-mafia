@@ -1,8 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 @import "tailwindcss";
+
 @theme {
-  --font-source: "Source Code Pro", monospace; 
-  --font-inter: "Inter", sans-serif;
   --text-10xl: 9rem;
   --tracking-tightest: -0.08em; 
+}
+
+@layer base {
+  :root {
+    --font-sans: var(--font-inter);
+    --font-mono: var(--font-source);
+  }
+}
+
+/* Use these utility classes for the fonts */
+.font-inter {
+  font-family: var(--font-inter);
+}
+
+.font-source {
+  font-family: var(--font-source);
 }

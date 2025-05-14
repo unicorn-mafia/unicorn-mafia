@@ -15,7 +15,7 @@ export default function Navbar() {
             flex items-center gap-8 mr-4
             transition-opacity duration-300 ease-in-out 
             ${!toggle ? "opacity-0 pointer-events-none invisible" : "opacity-100 visible"} 
-            font-medium font-inter text-lg text-black
+            font-medium text-lg text-black font-inter
           `}
         >
           <Link href="/">Works</Link>
