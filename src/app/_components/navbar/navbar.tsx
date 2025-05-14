@@ -22,17 +22,71 @@ export default function Navbar() {
           <Link href="/">About</Link>
           <Link href="/">Contact</Link>
         </div>
-        <button 
-          onClick={() => setToggle(!toggle)} 
-          className="relative w-6 h-6 flex flex-wrap content-start justify-start gap-0.5 p-0.5 focus:outline-none"
-          aria-label={toggle ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={toggle}
-        >
-          <div className="w-2 h-2 bg-black"></div>
-          <div className="w-2 h-2 bg-black"></div>
-          <div className="w-2 h-2 bg-black"></div>
-          <div className="w-2 h-2 bg-black"></div>
-        </button>
+        <div className="relative w-[18px] h-[18px] flex-none">
+          <div 
+            className="h-full w-full" 
+            tabIndex={0} 
+            data-highlight="true"
+            onClick={() => setToggle(!toggle)}
+            aria-label={toggle ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={toggle}
+          >
+            <div style={{ transform: 'none', transformOrigin: '50% 50%' }}>
+              <div 
+                className="w-[5px] h-[5px] bg-black transition-all duration-300" 
+                style={{ 
+                  transform: 'none', 
+                  transformOrigin: '50% 50%', 
+                  position: 'absolute', 
+                  top: toggle ? '1.5px' : '0px', 
+                  left: toggle ? '1.5px' : '0px'
+                }}
+              ></div>
+              <div 
+                className="w-[5px] h-[5px] bg-black transition-all duration-300" 
+                style={{ 
+                  transform: 'none', 
+                  transformOrigin: '50% 50%', 
+                  position: 'absolute', 
+                  top: toggle ? '1.5px' : '0px', 
+                  left: toggle ? '11.5px' : '13px'
+                }}
+              ></div>
+            </div>
+            <div 
+              className="w-[5px] h-[5px] bg-black transition-opacity duration-300" 
+              style={{ 
+                opacity: toggle ? 1 : 0, 
+                willChange: 'transform', 
+                position: 'absolute', 
+                top: '6.5px', 
+                left: '6.5px' 
+              }}
+            ></div>
+            <div style={{ transform: 'none', transformOrigin: '50% 50%' }}>
+              <div 
+                className="w-[5px] h-[5px] bg-black transition-all duration-300" 
+                style={{ 
+                  transform: 'none', 
+                  transformOrigin: '50% 50%', 
+                  position: 'absolute', 
+                  top: toggle ? '11.5px' : '13px', 
+                  left: toggle ? '1.5px' : '0px'
+                }}
+              ></div>
+              <div 
+                className="w-[5px] h-[5px] bg-black transition-all duration-300" 
+                style={{ 
+                  transform: 'none', 
+                  transformOrigin: '50% 50%', 
+                  position: 'absolute', 
+                  top: toggle ? '11.5px' : '13px', 
+                  left: toggle ? '11.5px' : '13px'
+                }}
+              ></div>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
   )
