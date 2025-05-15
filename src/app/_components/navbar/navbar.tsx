@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import AnimatedToggle from './animated-toggle'
 
 export default function Navbar() {
     const [toggle, setToggle] = useState(false);
@@ -13,8 +14,8 @@ export default function Navbar() {
         <div 
           className={`
             flex items-center gap-8 mr-4
-            transition-opacity duration-300 ease-in-out 
-            ${!toggle ? "opacity-0 pointer-events-none invisible" : "opacity-100 visible"} 
+            transition-all duration-300 ease-in-out
+            ${toggle ? "opacity-100 visible" : "opacity-0 pointer-events-auto invisible"}
             font-medium text-lg text-black font-inter
           `}
         >
@@ -22,70 +23,11 @@ export default function Navbar() {
           <Link href="/">About</Link>
           <Link href="/">Contact</Link>
         </div>
-        <div className="relative w-[18px] h-[18px] flex-none">
-          <div 
-            className="h-full w-full" 
-            tabIndex={0} 
-            data-highlight="true"
-            onClick={() => setToggle(!toggle)}
-            aria-label={toggle ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={toggle}
-          >
-            <div style={{ transform: 'none', transformOrigin: '50% 50%' }}>
-              <div 
-                className="w-[5px] h-[5px] bg-black transition-all duration-300" 
-                style={{ 
-                  transform: 'none', 
-                  transformOrigin: '50% 50%', 
-                  position: 'absolute', 
-                  top: toggle ? '1.5px' : '0px', 
-                  left: toggle ? '1.5px' : '0px'
-                }}
-              ></div>
-              <div 
-                className="w-[5px] h-[5px] bg-black transition-all duration-300" 
-                style={{ 
-                  transform: 'none', 
-                  transformOrigin: '50% 50%', 
-                  position: 'absolute', 
-                  top: toggle ? '1.5px' : '0px', 
-                  left: toggle ? '11.5px' : '13px'
-                }}
-              ></div>
-            </div>
-            <div 
-              className="w-[5px] h-[5px] bg-black transition-opacity duration-300" 
-              style={{ 
-                opacity: toggle ? 1 : 0, 
-                willChange: 'transform', 
-                position: 'absolute', 
-                top: '6.5px', 
-                left: '6.5px' 
-              }}
-            ></div>
-            <div style={{ transform: 'none', transformOrigin: '50% 50%' }}>
-              <div 
-                className="w-[5px] h-[5px] bg-black transition-all duration-300" 
-                style={{ 
-                  transform: 'none', 
-                  transformOrigin: '50% 50%', 
-                  position: 'absolute', 
-                  top: toggle ? '11.5px' : '13px', 
-                  left: toggle ? '1.5px' : '0px'
-                }}
-              ></div>
-              <div 
-                className="w-[5px] h-[5px] bg-black transition-all duration-300" 
-                style={{ 
-                  transform: 'none', 
-                  transformOrigin: '50% 50%', 
-                  position: 'absolute', 
-                  top: toggle ? '11.5px' : '13px', 
-                  left: toggle ? '11.5px' : '13px'
-                }}
-              ></div>
-            </div>
-          </div>
+        <div className="relative w-[18px] h-[18px] flex-none ">
+          <AnimatedToggle 
+            toggle={toggle} 
+            onToggle={() => setToggle(!toggle)} 
+          />
         </div>
       </div>
     </nav>
