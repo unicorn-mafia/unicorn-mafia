@@ -20,8 +20,8 @@ export default function Navbar() {
           `}
         >
           <Link href="/">Works</Link>
-          <Link href="/">About</Link>
-          <Link href="/">Contact</Link>
+          <Link href="#about">About</Link>
+          <Link href="#contact">Contact</Link>
         </div>
         <div className="relative w-[18px] h-[18px] flex-none ">
           <AnimatedToggle 
