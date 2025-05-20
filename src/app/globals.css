@@ -20,3 +20,11 @@
 .font-source {
   font-family: var(--font-source);
 }
+
+/* Gradient text styling */
+.framer-text[data-text-fill] {
+  display: inline-block;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
