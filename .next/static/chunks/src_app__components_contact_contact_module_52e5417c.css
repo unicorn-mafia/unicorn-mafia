@@ -1,0 +1,48 @@
+/* [project]/src/app/_components/contact/contact.module.css [app-client] (css) */
+.contact-module__G8A-6W__dotContainer {
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  position: relative;
+}
+
+.contact-module__G8A-6W__dot {
+  z-index: 2;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  position: relative;
+}
+
+.contact-module__G8A-6W__dotPulse {
+  z-index: 1;
+  background-color: #fff6;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  animation: 2s infinite contact-module__G8A-6W__pulseRing;
+  position: absolute;
+}
+
+@keyframes contact-module__G8A-6W__pulseRing {
+  0% {
+    opacity: .9;
+    transform: scale(.9);
+  }
+
+  50% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(.9);
+  }
+}
+
+
+/*# sourceMappingURL=src_app__components_contact_contact_module_52e5417c.css.map*/
