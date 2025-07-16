@@ -3,28 +3,32 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <div className="flex flex-col items-center justify-between w-full h-full px-20 pt-12 pb-24 border-b-2 border-gray-100">
-      <div className="flex flex-row items-center justify-between w-full bg">
-        <div className="text-10xl leading-none font-semibold font-inter tracking-tightest text-black">
-          <div>LONDON&apos;S</div>
-          <div>UNICORN</div>
-          <div>MAFIA</div>
+    <div className="flex flex-col w-full px-6 md:px-12 lg:px-20 pt-8 md:pt-12 pb-16 md:pb-24 border-b border-gray-200">
+      <div className="flex flex-col lg:flex-row items-start justify-between w-full gap-8 lg:gap-10">
+        <div className="flex flex-col gap-0 flex-1">
+          <h1 className="text-[48px] sm:text-[60px] md:text-[80px] lg:text-[100px] xl:text-[120px] leading-[0.85] font-semibold font-inter tracking-tighter text-black">
+            <div>LONDON'S</div>
+            <div>UNICORN</div>
+            <div>MAFIA</div>
+          </h1>
         </div>
-        <div className="flex h-full justify-end items-start">
+        <div className="flex justify-center lg:justify-end items-start w-full lg:w-auto mt-4 lg:mt-0">
           <Image
             src="/hero.avif"
             alt="London unicorn mafia hero image"
             width={841}
             height={686}
-            className="block w-4/5 rounded-inherit object-center object-cover"
+            className="w-[80%] sm:w-[60%] md:w-[50%] lg:w-full max-w-[300px] lg:max-w-[334px] h-auto object-cover"
+            priority
           />
         </div>
       </div>
-      <div className="grid grid-cols-2 w-full text-3xl">
-        <div className=" font-inter font-medium tracking-tighter text-black">hello@unicrnmafia.com</div>
-        <div className="flex flex-col font-source font-normal tracking-tighter pl-12 text-black gap-4 text-justify">
-          <div>community.members = 350+</div>
-          <div>console.log(&quot;London&apos;s smartest minds, building the future.&quot;)</div>
+      <div className="flex flex-col md:grid md:grid-cols-2 gap-6 md:gap-12 w-full mt-10 md:mt-16">
+        <div className="font-inter font-medium text-lg sm:text-xl md:text-2xl lg:text-3xl tracking-tighter text-black">
+          hello@unicrnmafia.com
+        </div>
+        <div className="font-mono font-normal text-base sm:text-lg md:text-xl lg:text-2xl tracking-tight text-black md:text-justify">
+          <div>// 350+ hackers. One mission: build the next unicorn.</div>
         </div>
       </div>
     </div>

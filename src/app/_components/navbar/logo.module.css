@@ -1,0 +1,30 @@
+@keyframes colorCycle {
+  0% { fill: #B307EB; }
+  25% { fill: #3198F1; }
+  50% { fill: #4EF9BD; }
+  75% { fill: #EE1701; }
+  100% { fill: #B307EB; }
+}
+
+.logo:hover .horn1,
+.logo:hover .horn2,
+.logo:hover .horn3,
+.logo:hover .horn4 {
+  animation: colorCycle 2s ease-in-out infinite;
+}
+
+.logo:hover .horn1 {
+  animation-delay: 0s;
+}
+
+.logo:hover .horn2 {
+  animation-delay: 0.15s;
+}
+
+.logo:hover .horn3 {
+  animation-delay: 0.3s;
+}
+
+.logo:hover .horn4 {
+  animation-delay: 0.45s;
+}
