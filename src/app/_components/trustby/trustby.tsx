@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import styles from './trustby.module.css';
+import { InfiniteSlider } from '../ui/infinite-slider';
 
 const companies = [
   { name: 'Amazon', logo: '/companies/amazon.svg' },
@@ -21,56 +21,33 @@ const companies = [
 
 export default function TrustBy() {
   return (
-    <section className="w-full py-16 md:py-24 border-b border-gray-200 overflow-hidden">
-      <div className="px-6 md:px-12 lg:px-20">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold font-inter tracking-tighter text-black mb-12 text-center">
+    <section className="w-full py-16 md:py-24 border-b border-gray-200">
+      <div className="px-6 md:px-12 lg:px-20 mb-12">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold font-inter tracking-tighter text-black text-center">
           Trusted by hackers from
         </h2>
       </div>
       
-      {/* Carousel container */}
-      <div className="relative">
-        {/* Gradient masks for smooth edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
-        
-        {/* Scrolling container */}
-        <div className={`flex ${styles['animate-scroll']}`}>
-          {/* First set of logos */}
-          <div className="flex items-center gap-12 md:gap-16 px-6 md:px-12">
-            {companies.map((company) => (
-              <div
-                key={company.name}
-                className="flex-shrink-0 w-32 md:w-40 h-16 md:h-20 relative grayscale hover:grayscale-0 transition-all duration-300"
-              >
-                <Image
-                  src={company.logo}
-                  alt={company.name}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            ))}
+      <InfiniteSlider 
+        duration={60} 
+        durationOnHover={120}
+        gap={48}
+        reverse={false}
+      >
+        {companies.map((company) => (
+          <div
+            key={company.name}
+            className="flex-shrink-0 w-32 md:w-40 h-16 md:h-20 relative grayscale hover:grayscale-0 transition-all duration-300"
+          >
+            <Image
+              src={company.logo}
+              alt={company.name}
+              fill
+              className="object-contain"
+            />
           </div>
-          
-          {/* Duplicate set for seamless loop */}
-          <div className="flex items-center gap-12 md:gap-16 px-6 md:px-12">
-            {companies.map((company) => (
-              <div
-                key={`${company.name}-duplicate`}
-                className="flex-shrink-0 w-32 md:w-40 h-16 md:h-20 relative grayscale hover:grayscale-0 transition-all duration-300"
-              >
-                <Image
-                  src={company.logo}
-                  alt={company.name}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+        ))}
+      </InfiniteSlider>
     </section>
   );
 }
