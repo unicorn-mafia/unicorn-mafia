@@ -8,7 +8,7 @@ export default function Navbar() {
     const [toggle, setToggle] = useState(false);
   return (
     <>
-      <nav className="flex w-full justify-between px-6 md:px-9 py-6 md:py-6 border-b border-gray-200">
+      <nav className="flex w-full justify-between px-2 md:px-9 py-2 md:py-2 border-b border-gray-200">
         <Link href="/" className={styles.logo}>
           <svg width="48" height="48" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="255.273" y="480.364" width="64.2727" height="64.2727" fill="black"/>
@@ -61,7 +61,7 @@ export default function Navbar() {
               font-medium text-lg text-black font-inter
             `}
           >
-            <Link href="/" className="hover:opacity-70 transition-opacity">Works</Link>
+            <Link href="#works" className="hover:opacity-70 transition-opacity">Works</Link>
             <Link href="#about" className="hover:opacity-70 transition-opacity">About</Link>
             <Link href="#contact" className="hover:opacity-70 transition-opacity">Contact</Link>
           </div>
