@@ -10,6 +10,10 @@
     --font-sans: var(--font-inter);
     --font-mono: var(--font-source);
   }
+  
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Use these utility classes for the fonts */
