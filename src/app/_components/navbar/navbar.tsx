@@ -53,7 +53,7 @@ export default function Navbar() {
           </svg>
         </Link>
         <div className="flex items-center">
-          <div 
+          <div
             className={`
               items-center gap-8 mr-6
               transition-all duration-300 ease-in-out
@@ -66,16 +66,16 @@ export default function Navbar() {
             <Link href="#contact" className="hover:opacity-70 transition-opacity">Contact</Link>
           </div>
           <div className="relative w-[18px] h-[18px] flex-none cursor-pointer">
-            <AnimatedToggle 
-              toggle={toggle} 
-              onToggle={() => setToggle(!toggle)} 
+            <AnimatedToggle
+              toggle={toggle}
+              onToggle={() => setToggle(!toggle)}
             />
           </div>
         </div>
       </nav>
-      
+
       {/* Mobile menu overlay */}
-      <div 
+      <div
         className={`
           fixed inset-0 top-[73px] bg-white z-40 md:hidden
           transition-all duration-300 ease-in-out
@@ -83,22 +83,22 @@ export default function Navbar() {
         `}
       >
         <div className="flex flex-col items-center justify-center h-full gap-12 font-medium text-5xl text-black font-inter">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="hover:opacity-70 transition-opacity"
             onClick={() => setToggle(false)}
           >
             Works
           </Link>
-          <Link 
-            href="#about" 
+          <Link
+            href="#about"
             className="hover:opacity-70 transition-opacity"
             onClick={() => setToggle(false)}
           >
             About
           </Link>
-          <Link 
-            href="#contact" 
+          <Link
+            href="#contact"
             className="hover:opacity-70 transition-opacity"
             onClick={() => setToggle(false)}
           >
