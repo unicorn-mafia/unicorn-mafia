@@ -1,6 +1,6 @@
 import Hero from "./_components/hero/hero";
 import Navbar from "./_components/navbar/navbar";
-import Affiliations from "./_components/affiliations/affiliations";
+import TrustBy from "./_components/trustby/trustby";
 import About from "./_components/about/about";
 import Contact from "./_components/contact/contact";
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
         <Navbar />
         <Hero />
       </div>
-      <Affiliations />
+      <TrustBy />
       <About />
       <Contact />
     </div>
