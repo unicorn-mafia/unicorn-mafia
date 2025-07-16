@@ -23,7 +23,7 @@ export default function Hero() {
       <div className="grid grid-cols-2 w-full text-3xl">
         <div className=" font-inter font-medium tracking-tighter text-black">hello@unicrnmafia.com</div>
         <div className="flex flex-col font-source font-normal tracking-tighter pl-12 text-black gap-4 text-justify">
-          <div>community.members = 150+</div>
+          <div>community.members = 350+</div>
           <div>console.log(&quot;London&apos;s smartest minds, building the future.&quot;)</div>
         </div>
       </div>

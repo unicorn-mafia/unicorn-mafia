@@ -71,4 +71,4 @@ export default function AnimatedToggle({ toggle, onToggle }: AnimatedToggleProps
       </div>
     </div>
   );
-} 
+}
