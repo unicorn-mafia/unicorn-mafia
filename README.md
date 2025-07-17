@@ -1,27 +1,16 @@
 # Unicorn Mafia
 
-The highest signal community of developers in London.
+*"The highest signal community of developers in London."*
 
-## About Us
+### About Us
 
-We are highly technical builders who turn ideas into reality. We organize hackathons, build companies, and ship products that matter.
-
-### Our Community
-
-- **350+ active members** - London's smartest minds, building the future
-- **40+ hackathon wins** - Proven track record of building winning solutions
-- **University partnerships** - Trusted by top UK universities including Oxford, Cambridge, Imperial College London, UCL, LSE, and King's College London
-
-### What We Do
-
-- **Hackathons** - Regular events where we build innovative solutions
-- **Company Building** - Supporting entrepreneurs from idea to unicorn
-- **Technical Excellence** - Maintaining the highest standards in development
-- **Community** - Creating connections between London's best developers
+- **40+ hackathon wins**
+- **30+ companies being built**
+- **350+ developers**
 
 ### Contact
 
-- **Email**: mafia@unicrnmafia.com
+- **Email**: um@unicrnmafia.com
 - **GitHub**: [github.com/unicorn-mafia](https://github.com/unicorn-mafia)
 - **Events**: [lu.ma/mafia](https://lu.ma/mafia?period=past)
 
