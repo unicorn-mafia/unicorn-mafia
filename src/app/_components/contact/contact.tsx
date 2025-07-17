@@ -46,7 +46,7 @@ export default function Contact() {
             </div>
             <div className="flex flex-row justify-between w-full items-center">
                 <div className="flex flex-col text-white font-inter font-medium text-md">
-                    <div>mafia@unicrnmafia.com</div>
+                    <div>um@unicrnmafia.com</div>
                 </div>
                 <div className="flex flex-col text-white font-inter font-medium text-md">
                     <div>All rights reserved</div>

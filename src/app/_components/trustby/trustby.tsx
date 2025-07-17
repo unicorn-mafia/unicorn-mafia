@@ -24,12 +24,12 @@ export default function TrustBy() {
     <section className="w-full py-16 md:py-24 border-b border-gray-200">
       <div className="px-6 md:px-12 lg:px-20 mb-12">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold font-inter tracking-tighter text-black text-center">
-          Trusted by hackers from
+          The best hackers from
         </h2>
       </div>
-      
-      <InfiniteSlider 
-        duration={60} 
+
+      <InfiniteSlider
+        duration={60}
         durationOnHover={120}
         gap={48}
         reverse={false}
