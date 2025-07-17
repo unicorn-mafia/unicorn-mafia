@@ -49,7 +49,6 @@ export default function Contact() {
                     <div>um@unicrnmafia.com</div>
                 </div>
                 <div className="flex flex-col text-white font-inter font-medium text-md">
-                    <div>All rights reserved</div>
                     <div>UM ©2025 </div>
                 </div>
             </div>
