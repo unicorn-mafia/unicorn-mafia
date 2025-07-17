@@ -23,11 +23,11 @@ export default function Hero() {
           />
         </div>
       </div>
-      
+
       {/* Footer content */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 sm:gap-8">
         <div className="font-inter font-medium text-lg sm:text-xl md:text-2xl lg:text-3xl tracking-tighter text-black">
-          mafia@unicrnmafia.com
+          um@unicrnmafia.com
         </div>
         <div className="font-mono font-normal text-base sm:text-lg md:text-xl lg:text-2xl tracking-tight text-black sm:text-right">
           // 350+ hackers. One mission: build the next unicorn.

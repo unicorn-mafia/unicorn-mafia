@@ -61,8 +61,9 @@ export default function Navbar() {
               font-medium text-lg text-black font-inter
             `}
           >
-            <Link href="#works" className="hover:opacity-70 transition-opacity">Works</Link>
             <Link href="#about" className="hover:opacity-70 transition-opacity">About</Link>
+            <Link href="#hackathons" className="hover:opacity-70 transition-opacity">Hackathons</Link>
+            <Link href="#companies" className="hover:opacity-70 transition-opacity">Companies</Link>
             <Link href="#contact" className="hover:opacity-70 transition-opacity">Contact</Link>
           </div>
           <div className="relative w-[18px] h-[18px] flex-none cursor-pointer">
