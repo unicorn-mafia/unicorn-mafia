@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 import { cn } from '@/lib/utils';
 import { useMotionValue, animate, motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
@@ -93,14 +94,49 @@ export function InfiniteSlider({
           ...(direction === 'horizontal'
             ? { x: translation }
             : { y: translation }),
-          gap: `${gap}px`,
           flexDirection: direction === 'horizontal' ? 'row' : 'column',
         }}
         ref={ref}
         {...hoverProps}
       >
-        {children}
-        {children}
+        <div 
+          className="flex"
+          style={{
+            flexDirection: direction === 'horizontal' ? 'row' : 'column',
+            marginRight: direction === 'horizontal' ? `${gap}px` : '0',
+            marginBottom: direction === 'vertical' ? `${gap}px` : '0',
+          }}
+        >
+          {React.Children.map(children, (child, index) => (
+            <div
+              key={index}
+              style={{
+                marginRight: direction === 'horizontal' && index < React.Children.count(children) - 1 ? `${gap}px` : '0',
+                marginBottom: direction === 'vertical' && index < React.Children.count(children) - 1 ? `${gap}px` : '0',
+              }}
+            >
+              {child}
+            </div>
+          ))}
+        </div>
+        <div 
+          className="flex"
+          style={{
+            flexDirection: direction === 'horizontal' ? 'row' : 'column',
+          }}
+        >
+          {React.Children.map(children, (child, index) => (
+            <div
+              key={index}
+              style={{
+                marginRight: direction === 'horizontal' && index < React.Children.count(children) - 1 ? `${gap}px` : '0',
+                marginBottom: direction === 'vertical' && index < React.Children.count(children) - 1 ? `${gap}px` : '0',
+              }}
+            >
+              {child}
+            </div>
+          ))}
+        </div>
       </motion.div>
     </div>
   );

@@ -6,10 +6,8 @@ import Contact from "./_components/contact/contact";
 export default function Home() {
   return (
     <div className="flex flex-col items-center">
-      <div className="flex flex-col items-center w-full h-screen">
-        <Navbar />
-        <Hero />
-      </div>
+      <Navbar />
+      <Hero />
       <TrustBy />
       <About />
       <Contact />

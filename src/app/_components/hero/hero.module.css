@@ -1,0 +1,47 @@
+.heroContent {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Safari-compatible spacing using margins instead of gap */
+@media (max-width: 1023px) {
+  .heroContent {
+    flex-direction: column;
+  }
+  .heroContent > *:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroContent {
+    flex-direction: row;
+  }
+  .heroContent > *:not(:last-child) {
+    margin-right: 3rem;
+  }
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .footerContent {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .footerContent > *:not(:last-child) {
+    margin-right: 2rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .footerContent > *:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}

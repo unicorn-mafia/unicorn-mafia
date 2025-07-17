@@ -25,19 +25,23 @@
   border-radius: 50%;
   z-index: 1;
   animation: pulseRing 2s infinite;
+  -webkit-animation: pulseRing 2s infinite;
 }
 
 @keyframes pulseRing {
   0% {
     transform: scale(0.9);
+    -webkit-transform: scale(0.9);
     opacity: 0.9;
   }
   50% {
     transform: scale(1.8);
+    -webkit-transform: scale(1.8);
     opacity: 0;
   }
   100% {
     transform: scale(0.9);
+    -webkit-transform: scale(0.9);
     opacity: 0;
   }
-} 
+}

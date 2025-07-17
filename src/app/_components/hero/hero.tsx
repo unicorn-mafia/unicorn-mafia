@@ -1,11 +1,12 @@
 import React from "react";
 import Image from "next/image";
+import styles from './hero.module.css';
 
 export default function Hero() {
   return (
-    <section className="h-screen w-full flex flex-col justify-between px-6 md:px-12 lg:px-20 py-8 md:py-12 border-b border-gray-200">
+    <section className="w-full flex flex-col justify-between px-6 md:px-12 lg:px-20 py-8 md:py-12 border-b border-gray-200" style={{ minHeight: 'calc(100vh - 77px)' }}>
       {/* Main hero content */}
-      <div className="flex-1 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+      <div className={styles.heroContent}>
         <div className="flex-1 flex items-center justify-center lg:justify-start">
           <h1 className="text-[60px] sm:text-[80px] md:text-[100px] lg:text-[120px] xl:text-[140px] leading-[0.85] font-semibold font-inter tracking-tighter text-black text-center lg:text-left">
             <div>UNICORN</div>
@@ -25,7 +26,7 @@ export default function Hero() {
       </div>
       
       {/* Footer content */}
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 sm:gap-8">
+      <div className={styles.footerContent}>
         <div className="font-inter font-medium text-lg sm:text-xl md:text-2xl lg:text-3xl tracking-tighter text-black">
           mafia@unicrnmafia.com
         </div>

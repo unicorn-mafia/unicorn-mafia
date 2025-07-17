@@ -5,9 +5,13 @@ export default function Contact() {
   return (
     <div id="contact" className="flex flex-col items-center justify-between w-full min-h-screen px-6 md:px-12 lg:px-20 py-16 bg-black">
         <div className="flex flex-col items-center justify-between w-full flex-1">
-            <div className="flex flex-row gap-10 justify-end w-full text-white font-inter font-medium text-md">
-                <a href="https://github.com/unicorn-mafia">Github</a>
-                <a href="https://lu.ma/mafia?period=past" target="_blank" rel="noopener noreferrer">Luma</a>
+            <div className="flex flex-row justify-end w-full text-white font-inter font-medium text-md">
+                <div style={{ marginRight: '2.5rem' }}>
+                    <a href="https://github.com/unicorn-mafia">Github</a>
+                </div>
+                <div>
+                    <a href="https://lu.ma/mafia?period=past" target="_blank" rel="noopener noreferrer">Luma</a>
+                </div>
                 {/* <a href="#">Linkedin</a>
                 <a href="#">X / Twitter</a> */}
             </div>
@@ -25,8 +29,8 @@ export default function Contact() {
                 >
                     Want to build the next unicorn together?
                 </h2>
-                <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2">
+                <div className="flex items-center" style={{ gap: '1rem' }}>
+                    <div className="flex items-center" style={{ gap: '0.5rem' }}>
                         <div className={styles.dotContainer}>
                             <div className={styles.dot}></div>
                             <div className={styles.dotPulse}></div>
@@ -35,7 +39,7 @@ export default function Contact() {
                           className="text-white"
                           style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
                         >
-                          Get in touch
+                          It could be you
                         </span>
                     </div>
                 </div>
