@@ -45,3 +45,18 @@
     opacity: 0;
   }
 }
+
+.cursor {
+  animation: blink 1s infinite;
+  -webkit-animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@-webkit-keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}

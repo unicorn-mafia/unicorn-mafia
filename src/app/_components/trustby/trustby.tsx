@@ -3,6 +3,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { InfiniteSlider } from '../ui/infinite-slider';
+import { useScrollAnimation } from '../../_hooks/useScrollAnimation';
+import animationStyles from '../../_styles/animations.module.css';
 
 const companies = [
   { name: 'Amazon', logo: '/companies/amazon.svg' },
@@ -20,8 +22,13 @@ const companies = [
 ];
 
 export default function TrustBy() {
+  const [ref, isVisible] = useScrollAnimation();
+
   return (
-    <section className="w-full py-16 md:py-24 border-b border-gray-200">
+    <section 
+      ref={ref}
+      className={`w-full py-16 md:py-24 border-b border-gray-200 ${animationStyles.fadeInUp} ${isVisible ? animationStyles.visible : ''}`}
+    >
       <div className="px-6 md:px-12 lg:px-20 mb-12">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold font-inter tracking-tighter text-black text-center">
           The best hackers from

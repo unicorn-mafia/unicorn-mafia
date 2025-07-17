@@ -1,9 +1,19 @@
-import React from 'react'
-import styles from './contact.module.css'
+'use client';
+
+import React from 'react';
+import styles from './contact.module.css';
+import { useScrollAnimation } from '../../_hooks/useScrollAnimation';
+import animationStyles from '../../_styles/animations.module.css';
 
 export default function Contact() {
+  const [ref, isVisible] = useScrollAnimation();
+
   return (
-    <div id="contact" className="flex flex-col items-center justify-between w-full min-h-screen px-6 md:px-12 lg:px-20 py-16 bg-black">
+    <div 
+      id="contact" 
+      ref={ref}
+      className={`flex flex-col items-center justify-between w-full min-h-screen px-6 md:px-12 lg:px-20 py-16 bg-black ${animationStyles.fadeInUpSlow} ${isVisible ? animationStyles.visible : ''}`}
+    >
         <div className="flex flex-col items-center justify-between w-full flex-1">
             <div className="flex flex-row justify-end w-full text-white font-inter font-medium text-md">
                 <div style={{ marginRight: '2.5rem' }}>
@@ -39,7 +49,7 @@ export default function Contact() {
                           className="text-white"
                           style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
                         >
-                          It could be you
+                          It could be you<span className={styles.cursor}>|</span>
                         </span>
                     </div>
                 </div>
