@@ -63,7 +63,7 @@ export default function Navbar() {
           >
             <Link href="#about" className="hover:opacity-70 transition-opacity">About</Link>
             <Link href="#hackathons" className="hover:opacity-70 transition-opacity">Hackathons</Link>
-            <Link href="#companies" className="hover:opacity-70 transition-opacity">Companies</Link>
+            <Link href="/companies" className="hover:opacity-70 transition-opacity">Companies</Link>
             <Link href="#contact" className="hover:opacity-70 transition-opacity">Contact</Link>
           </div>
           <div className="relative w-[18px] h-[18px] flex-none cursor-pointer">
@@ -85,18 +85,25 @@ export default function Navbar() {
       >
         <div className="flex flex-col items-center justify-center h-full gap-12 font-medium text-5xl text-black font-inter">
           <Link
-            href="/"
-            className="hover:opacity-70 transition-opacity"
-            onClick={() => setToggle(false)}
-          >
-            Works
-          </Link>
-          <Link
             href="#about"
             className="hover:opacity-70 transition-opacity"
             onClick={() => setToggle(false)}
           >
             About
+          </Link>
+          <Link
+            href="#hackathons"
+            className="hover:opacity-70 transition-opacity"
+            onClick={() => setToggle(false)}
+          >
+            Hackathons
+          </Link>
+          <Link
+            href="/companies"
+            className="hover:opacity-70 transition-opacity"
+            onClick={() => setToggle(false)}
+          >
+            Companies
           </Link>
           <Link
             href="#contact"

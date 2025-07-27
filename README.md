@@ -8,6 +8,13 @@
 - **30+ companies being built**
 - **350+ developers**
 
+### Features
+
+- **Member Companies Showcase**: Discover innovative companies built by our community members
+- **Interactive Company Directory**: Browse companies by category and filter by tags
+- **Grid and List Views**: Switch between visual card layout and detailed table view
+- **Company Contributions**: Easy process for members to add their companies
+
 ### Contact
 
 - **Email**: um@unicrnmafia.com
