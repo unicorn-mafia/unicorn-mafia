@@ -1,61 +1,76 @@
 domains:
-- name: "Example Domain"
-  categories:
-  - description: "Example Category"
-    level: 1
-    name: "Example Category"
-    tools:
-    - date_added: "12/03/2025"
-      description: "A specification language for AI-first development that shifts focus from implementation to intent through structured solution space reduction. AISpec implements the What-Boundaries-Success (WBS) framework as a prompting framework, providing a practical system for intent engineering in AI applications."
-      icon_url: ""
-      name: "AIspec"
-      oss: true
-      popular: false
-      tags:
-      - "OSS"
-      - "GA"
-      - "Requirements"
-      - "Product"
-      verified: false
-      website_url: "https://github.com/cbora/aispec"
-    - date_added: "12/03/2025"
-      description: "Carrot: Simplifying and Enhancing PRD Creation"
-      icon_url: ""
-      name: "Carrot"
-      oss: true
-      popular: false
-      tags:
-      - "OSS"
-      - "GA"
-      - "Requirements"
-      - "Product"
-      verified: false
-      website_url: "https://github.com/talvinder/carrot-product-requirements-document-prd"
-    - date_added: "12/03/2025"
-      description: "The #1 AI tool for product managers & their teams.Write great product docs—fast, and use AI to become an elite PM. ChatPRD is a PM copilot that can think faster than you can type. Let ChatPRD write your docs and get back to building."
-      icon_url: "https://chatprd.ai/favicon.ico"
-      name: "Chat PRD"
-      oss: false
-      popular: false
-      tags:
-      - "GA"
-      - "Requirements"
-      - "Product"
-      verified: false
-      website_url: "https://chatprd.ai/"
-    - date_added: "26/03/2025"
-      description: "Cloud Architect AI transforms how developers and architects design cloud infrastructure by leveraging AI to generate architecture diagrams and infrastructure-as-code from natural language requirements. Simply describe what you need, and the AI will propose multiple architecture options with cost estimates and ready-to-deploy Terraform code."
-      icon_url: "https://github.com/favicon.ico"
-      keywords:
-      - "Documentation"
-      - "Knowledge sharing"
-      - "Architecture"
-      name: "Cloud Architect AI"
-      oss: false
-      popular: false
-      tags:
-      - "GA"
-      - "Requirements"
-      - "Product"
-      verified: false
-      website_url: "https://cloudarchitectai.com/"
+    - name: "Example Domain"
+      categories:
+          - description: "Example Category"
+            level: 1
+            name: "Example Category"
+            tools:
+                - date_added: "12/03/2025"
+                  description: "A specification language for AI-first development that shifts focus from implementation to intent through structured solution space reduction. AISpec implements the What-Boundaries-Success (WBS) framework as a prompting framework, providing a practical system for intent engineering in AI applications."
+                  icon_url: ""
+                  name: "AIspec"
+                  oss: true
+                  popular: false
+                  tags:
+                      - "OSS"
+                      - "GA"
+                      - "Requirements"
+                      - "Product"
+                  verified: false
+                  website_url: "https://github.com/cbora/aispec"
+                - date_added: "12/03/2025"
+                  description: "Carrot: Simplifying and Enhancing PRD Creation"
+                  icon_url: ""
+                  name: "Carrot"
+                  oss: true
+                  popular: false
+                  tags:
+                      - "OSS"
+                      - "GA"
+                      - "Requirements"
+                      - "Product"
+                  verified: false
+                  website_url: "https://github.com/talvinder/carrot-product-requirements-document-prd"
+                - date_added: "12/03/2025"
+                  description: "The #1 AI tool for product managers & their teams.Write great product docs—fast, and use AI to become an elite PM. ChatPRD is a PM copilot that can think faster than you can type. Let ChatPRD write your docs and get back to building."
+                  icon_url: "https://chatprd.ai/favicon.ico"
+                  name: "Chat PRD"
+                  oss: false
+                  popular: false
+                  tags:
+                      - "GA"
+                      - "Requirements"
+                      - "Product"
+                  verified: false
+                  website_url: "https://chatprd.ai/"
+                - date_added: "26/03/2025"
+                  description: "Cloud Architect AI transforms how developers and architects design cloud infrastructure by leveraging AI to generate architecture diagrams and infrastructure-as-code from natural language requirements. Simply describe what you need, and the AI will propose multiple architecture options with cost estimates and ready-to-deploy Terraform code."
+                  icon_url: "https://github.com/favicon.ico"
+                  keywords:
+                      - "Documentation"
+                      - "Knowledge sharing"
+                      - "Architecture"
+                  name: "Cloud Architect AI"
+                  oss: false
+                  popular: false
+                  tags:
+                      - "GA"
+                      - "Requirements"
+                      - "Product"
+                  verified: false
+                  website_url: "https://cloudarchitectai.com/"
+                - date_added: "28/03/2025"
+                  description: "Stop guessing what works. Use data-driven experiments to optimize your prompts, improve user experiences, and drive measurable business outcomes."
+                  icon_url: "https://promptstream.ai/logo.png"
+                  keywords:
+                      - "Prompts"
+                      - "Experimentation"
+                      - "AI"
+                  name: "PromptStream"
+                  oss: false
+                  popular: false
+                  tags:
+                      - "AI"
+                      - "Product"
+                  verified: false
+                  website_url: "https://promptstream.ai/"
