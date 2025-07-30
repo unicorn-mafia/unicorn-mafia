@@ -63,7 +63,7 @@ export default function Navbar() {
           >
             <Link href="#about" className="hover:opacity-70 transition-opacity">About</Link>
             <Link href="#hackathons" className="hover:opacity-70 transition-opacity">Hackathons</Link>
-            <Link href="#companies" className="hover:opacity-70 transition-opacity">Companies</Link>
+            <Link href="/companies" className="hover:opacity-70 transition-opacity">Companies</Link>
             <Link href="#contact" className="hover:opacity-70 transition-opacity">Contact</Link>
           </div>
           <div className="relative w-[18px] h-[18px] flex-none cursor-pointer">
@@ -97,6 +97,13 @@ export default function Navbar() {
             onClick={() => setToggle(false)}
           >
             About
+          </Link>
+          <Link
+            href="/companies"
+            className="hover:opacity-70 transition-opacity"
+            onClick={() => setToggle(false)}
+          >
+            Companies
           </Link>
           <Link
             href="#contact"

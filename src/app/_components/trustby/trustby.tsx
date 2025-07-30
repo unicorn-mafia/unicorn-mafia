@@ -6,22 +6,11 @@ import { InfiniteSlider } from '../ui/infinite-slider';
 import { useScrollAnimation } from '../../_hooks/useScrollAnimation';
 import animationStyles from '../../_styles/animations.module.css';
 
-const companies = [
-  { name: 'Amazon', logo: '/companies/amazon.svg' },
-  { name: 'Anthropic', logo: '/companies/anthropic.svg' },
-  { name: 'Apple', logo: '/companies/apple.svg' },
-  { name: 'Cambridge', logo: '/companies/cambridge.svg' },
-  { name: 'Google', logo: '/companies/google.svg' },
-  { name: 'Imperial', logo: '/companies/imperial.svg' },
-  { name: 'Meta', logo: '/companies/meta.svg' },
-  { name: 'Nvidia', logo: '/companies/nvidia.svg' },
-  { name: 'OpenAI', logo: '/companies/openai.svg' },
-  { name: 'Oxford', logo: '/companies/oxford.svg' },
-  { name: 'UCL', logo: '/companies/ucl.svg' },
-  { name: 'Y Combinator', logo: '/companies/ycombinator.svg' },
-];
-
-export default function TrustBy() {
+export type Company = {
+  name: string;
+  logo: string;
+};
+export default function TrustBy({ companies }: { companies: Company[] }) {
   const [ref, isVisible] = useScrollAnimation();
 
   return (

@@ -1,0 +1,42 @@
+{
+  "domains": [
+    {
+      "name": "Members",
+      "categories": [
+        {
+          "name": "Companies",
+          "description": "Companies building with Unicorn Mafia hackers.",
+          "level": 1,
+          "tools": [
+            { "name": "Amazon", "icon_url": "/companies/amazon.svg", "website_url": "https://amazon.com" },
+            { "name": "Anthropic", "icon_url": "/companies/anthropic.svg", "website_url": "https://www.anthropic.com" },
+            { "name": "Apple", "icon_url": "/companies/apple.svg", "website_url": "https://apple.com" },
+            { "name": "Google", "icon_url": "/companies/google.svg", "website_url": "https://google.com" },
+            { "name": "Meta", "icon_url": "/companies/meta.svg", "website_url": "https://about.meta.com" },
+            { "name": "Nvidia", "icon_url": "/companies/nvidia.svg", "website_url": "https://www.nvidia.com" },
+            { "name": "OpenAI", "icon_url": "/companies/openai.svg", "website_url": "https://openai.com" }
+          ]
+        },
+        {
+          "name": "Universities",
+          "description": "Top universities represented by our community.",
+          "level": 1,
+          "tools": [
+            { "name": "Cambridge", "icon_url": "/companies/cambridge.svg", "website_url": "https://www.cam.ac.uk" },
+            { "name": "Imperial", "icon_url": "/companies/imperial.svg", "website_url": "https://www.imperial.ac.uk" },
+            { "name": "Oxford", "icon_url": "/companies/oxford.svg", "website_url": "https://www.ox.ac.uk" },
+            { "name": "UCL", "icon_url": "/companies/ucl.svg", "website_url": "https://www.ucl.ac.uk" }
+          ]
+        },
+        {
+          "name": "Investors",
+          "description": "Accelerators and investors backing our builders.",
+          "level": 1,
+          "tools": [
+            { "name": "Y Combinator", "icon_url": "/companies/ycombinator.svg", "website_url": "https://www.ycombinator.com" }
+          ]
+        }
+      ]
+    }
+  ]
+}
