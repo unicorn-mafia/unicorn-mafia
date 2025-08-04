@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "Unicorn Mafia",
     images: [
       {
-        url: "/hero.avif",
+        url: "/social-preview.png",
         width: 841,
         height: 686,
         alt: "Unicorn Mafia hero image",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Unicorn Mafia",
     description: "The highest signal community of developers in London",
-    images: ["/hero.avif"],
+    images: ["/social-preview.png"],
   },
 };
 
