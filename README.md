@@ -6,7 +6,7 @@
 
 - **400+ hackathon wins**
 - **30+ companies being built**
-- **350+ developers**
+- **500+ developers**
 
 ### Contact
 

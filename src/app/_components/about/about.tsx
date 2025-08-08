@@ -8,8 +8,8 @@ export default function About() {
   const [ref, isVisible] = useScrollAnimation();
 
   return (
-    <div 
-      id="about" 
+    <div
+      id="about"
       ref={ref}
       className={`flex flex-col items-center justify-between w-full px-6 md:px-12 lg:px-20 pt-20 pb-24 gap-20 ${animationStyles.fadeInUpDelayed} ${isVisible ? animationStyles.visible : ''}`}
     >
@@ -29,7 +29,7 @@ export default function About() {
                     <div className="text-lg sm:text-xl text-gray-600">Companies being built</div>
                 </div>
                 <div className="flex flex-col items-center">
-                    <div className="font-mono text-5xl sm:text-6xl font-bold text-black">350+</div>
+                    <div className="font-mono text-5xl sm:text-6xl font-bold text-black">500+</div>
                     <div className="text-lg sm:text-xl text-gray-600">Developers</div>
                 </div>
             </div>

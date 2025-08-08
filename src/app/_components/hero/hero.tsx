@@ -6,8 +6,8 @@ import styles from './hero.module.css';
 
 export default function Hero() {
   const [typewriterText, setTypewriterText] = useState('');
-  const fullText = '// 350+ hackers. One mission: build the next unicorn.';
-  
+  const fullText = '// 500+ hackers. One mission: build the next unicorn.';
+
   useEffect(() => {
     let index = 0;
     const interval = setInterval(() => {
@@ -18,7 +18,7 @@ export default function Hero() {
         clearInterval(interval);
       }
     }, 50);
-    
+
     return () => clearInterval(interval);
   }, []);
 
