@@ -29,36 +29,23 @@ To add your company to our member showcase, please ensure it meets our criteria:
 
 ```yaml
 - name: "Your Company Name"
-  description: "Brief description of what your company does and its mission"
   website_url: "https://yourcompany.com"
-  logo_url: "https://yourcompany.com/logo.svg" # or path to logo in /public/companies/
-  industry: "Technology" # e.g., AI, Fintech, Healthcare, etc.
-  founded_year: 2023
-  location: "London, UK"
-  stage: "Seed" # e.g., Idea, Pre-seed, Seed, Series A, B, C, etc.
-  team_size: "1-10" # or specific number
-  verified: false # Will be set to true after verification
-  tags:
-    - "AI"
-    - "SaaS"
-    - "B2B"
-  social_links:
-    twitter: "https://twitter.com/yourcompany"
-    linkedin: "https://linkedin.com/company/yourcompany"
-    github: "https://github.com/yourcompany" # if applicable
+  logo_url: "https://yourcompany.com/logo.svg" # or favicon.ico
 ```
+
+That's it! Just 3 simple fields required:
+- **name**: Your company name
+- **website_url**: Your company website
+- **logo_url**: Direct link to your company logo/favicon
 
 ### Logo Guidelines
 
-- **Format**: SVG preferred, PNG acceptable
-- **Size**: Optimized for web (under 50KB)
-- **Dimensions**: Rectangular format preferred (2:1 or 3:1 ratio)
-- **Background**: Transparent or white background
-- **Colors**: Should work well on light backgrounds
+- **Format**: SVG, PNG, or even favicon.ico works fine
+- **Size**: Small files preferred (under 100KB)
+- **Background**: Should work on light backgrounds
+- **Tip**: Your website's favicon usually works perfectly!
 
-You can either:
-1. Host your logo externally and provide the `logo_url`
-2. Add your logo to `/public/companies/` and reference it as `/companies/yourlogo.svg`
+Simply provide the direct URL to your logo or favicon (e.g., `https://yoursite.com/favicon.ico`)
 
 ## Development Process
 

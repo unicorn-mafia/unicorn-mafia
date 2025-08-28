@@ -51,13 +51,13 @@ export default function Companies() {
     );
   }
 
-  // Get all companies from all categories
+  // Get all companies from all categories and shuffle for fairness
   const allCompanies = companiesData.categories.flatMap((category) =>
     category.companies.map((company) => ({
       ...company,
       categoryName: category.name,
     }))
-  );
+  ).sort(() => Math.random() - 0.5); // Random shuffle for fair display
 
   return (
     <div className="min-h-screen bg-neutral-100">
