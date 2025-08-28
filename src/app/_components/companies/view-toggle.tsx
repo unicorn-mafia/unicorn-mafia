@@ -9,54 +9,39 @@ interface ViewToggleProps {
 
 export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
   return (
-    <div className="flex items-center space-x-2">
-      <span className="text-sm text-gray-500">View:</span>
-      <div className="flex bg-gray-100 rounded-lg p-1">
+    <div className="flex items-center gap-2">
+      <span className="text-xs text-neutral-600 font-source tracking-wide">VIEW:</span>
+      <div className="flex border border-neutral-600">
         <button
           onClick={() => onViewModeChange("grid")}
-          className={`flex items-center px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+          className={`flex items-center px-3 py-2 text-xs font-source font-medium tracking-wide transition-colors border-r border-neutral-600 ${
             viewMode === "grid"
-              ? "bg-white text-gray-900 shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
+              ? "bg-neutral-900 text-white"
+              : "bg-neutral-200 text-neutral-900 hover:bg-neutral-300"
           }`}
         >
-          <svg
-            className="w-4 h-4 mr-1.5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-            />
-          </svg>
-          Grid
+          <div className="w-3 h-3 mr-2 grid grid-cols-2 grid-rows-2 gap-px">
+            <div className="bg-current"></div>
+            <div className="bg-current"></div>
+            <div className="bg-current"></div>
+            <div className="bg-current"></div>
+          </div>
+          GRID
         </button>
         <button
           onClick={() => onViewModeChange("list")}
-          className={`flex items-center px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+          className={`flex items-center px-3 py-2 text-xs font-source font-medium tracking-wide transition-colors ${
             viewMode === "list"
-              ? "bg-white text-gray-900 shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
+              ? "bg-neutral-900 text-white"
+              : "bg-neutral-200 text-neutral-900 hover:bg-neutral-300"
           }`}
         >
-          <svg
-            className="w-4 h-4 mr-1.5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 10h16M4 14h16M4 18h16"
-            />
-          </svg>
-          List
+          <div className="w-3 h-3 mr-2 flex flex-col justify-between">
+            <div className="h-px bg-current"></div>
+            <div className="h-px bg-current"></div>
+            <div className="h-px bg-current"></div>
+          </div>
+          LIST
         </button>
       </div>
     </div>
