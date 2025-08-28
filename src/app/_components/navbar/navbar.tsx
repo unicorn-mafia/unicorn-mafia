@@ -83,7 +83,7 @@ export default function Navbar() {
             `}
           >
             <Link href="#about" className="hover:opacity-70 transition-opacity">About</Link>
-            <Link href="#hackathons" className="hover:opacity-70 transition-opacity">Hackathons</Link>
+            <Link href="/hackathons" className="hover:opacity-70 transition-opacity">Hackathons</Link>
             <Link href="/companies" className="hover:opacity-70 transition-opacity">Companies</Link>
             <Link href="#contact" className="hover:opacity-70 transition-opacity">Contact</Link>
           </div>
@@ -113,7 +113,7 @@ export default function Navbar() {
             About
           </Link>
           <Link
-            href="#hackathons"
+            href="/hackathons"
             className="hover:opacity-70 transition-opacity"
             onClick={() => setToggle(false)}
           >
