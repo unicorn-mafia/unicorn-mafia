@@ -46,12 +46,8 @@ export default function Hero() {
 
       {/* Footer content */}
       <div className={styles.footerContent}>
-        <div className="font-inter font-medium text-lg sm:text-xl md:text-2xl lg:text-3xl tracking-tighter text-black">
-          um@unicrnmafia.com
-        </div>
         <div className="font-mono font-normal text-base sm:text-lg md:text-xl lg:text-2xl tracking-tight text-black sm:text-right">
           {typewriterText}
-          <span className={styles.cursor}>|</span>
         </div>
       </div>
     </section>

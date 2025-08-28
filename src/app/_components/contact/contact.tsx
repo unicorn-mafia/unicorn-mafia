@@ -57,9 +57,11 @@ export default function Contact() {
             </div>
             <div className="flex flex-row justify-between w-full items-center">
                 <div className="flex flex-col text-white font-inter font-medium text-md">
-                    <div>um@unicrnmafia.com</div>
+                    <a href="mailto:stable@unicrnmafia.com" className="hover:underline">stable@unicrnmafia.com</a>
                 </div>
-                <div className="flex flex-col text-white font-inter font-medium text-md">
+                <div className="flex flex-row text-white font-inter font-medium text-md" style={{ gap: '1rem' }}>
+                    <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Sponsor</a>
+                    <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Invest</a>
                     <div>UM ©2025 </div>
                 </div>
             </div>
