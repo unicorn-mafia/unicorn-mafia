@@ -9,8 +9,8 @@ export default function Contact() {
   const [ref, isVisible] = useScrollAnimation();
 
   return (
-    <div 
-      id="contact" 
+    <div
+      id="contact"
       ref={ref}
       className={`flex flex-col items-center justify-between w-full min-h-screen px-6 md:px-12 lg:px-20 py-16 bg-black ${animationStyles.fadeInUpSlow} ${isVisible ? animationStyles.visible : ''}`}
     >
@@ -56,9 +56,11 @@ export default function Contact() {
             </div>
             <div className="flex flex-row justify-between w-full items-center">
                 <div className="flex flex-col text-white font-inter font-medium text-md">
-                    <a href="mailto:stable@unicrnmafia.com">stable@unicrnmafia.com</a>
+                    <a href="mailto:stable@unicrnmafia.com" className="hover:underline">stable@unicrnmafia.com</a>
                 </div>
-                <div className="flex flex-col text-white font-inter font-medium text-md">
+                <div className="flex flex-row text-white font-inter font-medium text-md" style={{ gap: '1rem' }}>
+                    <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Sponsor</a>
+                    <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Invest</a>
                     <div>UM ©2025 </div>
                 </div>
             </div>
