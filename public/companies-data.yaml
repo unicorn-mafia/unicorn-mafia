@@ -1,0 +1,10 @@
+categories:
+  - name: "Member Companies"
+    description: "Companies founded, co-founded, or where mafia members hold key positions"
+    companies:
+      - name: "T1V"
+        website_url: "https://t1v.co"
+        logo_url: "https://www.t1v.co/icon0.svg"
+      - name: "60x"
+        website_url: "https://60x.ai"
+        logo_url: "https://60x.ai/favicon.svg"
