@@ -1,30 +1,7 @@
 categories:
-  - name: AI & ML
-    description: Machine learning and AI-focused hackathons
+  - name: Hackathon Wins
+    description: LinkedIn posts showcasing hackathon wins
     wins:
-      - event_name: Example Hackathon
-        project_name: Smart Unicorn
-        prize: Grand Prize
-        year: 2025
-        members:
-          - Alice Example
-          - Bob Example
-        project_url: https://example.com/smart-unicorn
-        repo_url: https://github.com/example/smart-unicorn
-        logo_url: https://www.recurse.ml/static/logo.png
-        location: Remote
-        tags: [ai, ml]
-  - name: Fintech
-    description: Finance and blockchain related hackathons
-    wins:
-      - event_name: Chain Sprint
-        project_name: ClearPay
-        prize: Best Use of API
-        year: 2024
-        members:
-          - Charlie Example
-        project_url: https://t1v.co
-        repo_url: https://github.com/example/clearpay
-        logo_url: https://t1v.co/wp-content/uploads/2021/10/t1v-logo.png
-        tags: [fintech, blockchain]
-
+      - linkedin_url: https://www.linkedin.com/posts/adam-oneill-technical-founder_we-turned-being-clueless-into-32000-literally-activity-7358066704364494848-2jiD
+      - linkedin_url: https://www.linkedin.com/posts/davidgelberg_built-a-scrappy-media-dashboard-in-3-hours-activity-7353745539001118720-GjXh
+      - linkedin_url: https://www.linkedin.com/posts/charliecheesman_can-you-build-launch-and-sell-a-company-activity-7363154526922502144-pVr-

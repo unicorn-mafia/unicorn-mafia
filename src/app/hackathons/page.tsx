@@ -28,7 +28,7 @@ export default function Hackathons() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-neutral-100">
+      <div className="min-h-screen flex flex-col bg-white">
         <Navbar />
         <div className="flex-1 flex items-center justify-center">
           <div className="border border-neutral-600 bg-neutral-50 p-6">
@@ -41,7 +41,7 @@ export default function Hackathons() {
 
   if (!hackathonsData) {
     return (
-      <div className="min-h-screen flex flex-col bg-neutral-100">
+      <div className="min-h-screen flex flex-col bg-white">
         <Navbar />
         <div className="flex-1 flex items-center justify-center">
           <div className="border border-neutral-600 bg-neutral-50 p-6">
@@ -62,7 +62,7 @@ export default function Hackathons() {
     .sort(() => Math.random() - 0.5);
 
   return (
-    <div className="min-h-screen bg-neutral-100">
+    <div className="min-h-screen bg-white">
       <Navbar />
 
       <section className="py-8 px-6 md:px-12 lg:px-20 border-b border-neutral-600">
@@ -97,10 +97,10 @@ export default function Hackathons() {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <AddYoursCard />
-              {allWins.map((win) => (
-                <HackathonCard key={`${win.categoryName}-${win.project_name}-${win.event_name}`} win={win} />
+              {allWins.map((win, index) => (
+                <HackathonCard key={`${win.categoryName}-${index}`} win={win} />
               ))}
             </div>
           )}

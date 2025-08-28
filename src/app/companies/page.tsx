@@ -27,7 +27,7 @@ export default function Companies() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-neutral-100">
+      <div className="min-h-screen flex flex-col bg-white">
         <Navbar />
         <div className="flex-1 flex items-center justify-center">
           <div className="border border-neutral-600 bg-neutral-50 p-6">
@@ -40,7 +40,7 @@ export default function Companies() {
 
   if (!companiesData) {
     return (
-      <div className="min-h-screen flex flex-col bg-neutral-100">
+      <div className="min-h-screen flex flex-col bg-white">
         <Navbar />
         <div className="flex-1 flex items-center justify-center">
           <div className="border border-neutral-600 bg-neutral-50 p-6">
@@ -60,7 +60,7 @@ export default function Companies() {
   ).sort(() => Math.random() - 0.5); // Random shuffle for fair display
 
   return (
-    <div className="min-h-screen bg-neutral-100">
+    <div className="min-h-screen bg-white">
       <Navbar />
       
       {/* Hero Section */}
