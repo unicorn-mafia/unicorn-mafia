@@ -9,8 +9,8 @@ export default function Contact() {
   const [ref, isVisible] = useScrollAnimation();
 
   return (
-    <div 
-      id="contact" 
+    <div
+      id="contact"
       ref={ref}
       className={`flex flex-col items-center justify-between w-full min-h-screen px-6 md:px-12 lg:px-20 py-16 bg-black ${animationStyles.fadeInUpSlow} ${isVisible ? animationStyles.visible : ''}`}
     >
@@ -19,11 +19,12 @@ export default function Contact() {
                 <div style={{ marginRight: '2.5rem' }}>
                     <a href="https://github.com/unicorn-mafia">Github</a>
                 </div>
-                <div>
+                <div style={{ marginRight: '2.5rem' }}>
                     <a href="https://lu.ma/mafia?period=past" target="_blank" rel="noopener noreferrer">Luma</a>
                 </div>
-                {/* <a href="#">Linkedin</a>
-                <a href="#">X / Twitter</a> */}
+                <div>
+                    <a href="https://www.linkedin.com/company/unicorn-mafia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                </div>
             </div>
             <div className="flex flex-col items-start justify-center w-full">
                 <h2
@@ -49,7 +50,7 @@ export default function Contact() {
                           className="text-white"
                           style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
                         >
-                          It could be you<span className={styles.cursor}>|</span>
+                          <a href="https://wa.me/447874943523" target="_blank" rel="noopener noreferrer">Get in touch</a><span className={styles.cursor}>|</span>
                         </span>
                     </div>
                 </div>

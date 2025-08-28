@@ -8,3 +8,6 @@ categories:
       - name: "60x"
         website_url: "https://60x.ai"
         logo_url: "https://60x.ai/favicon.svg"
+      - name: "Add yours"
+        website_url: "https://github.com/unicorn-mafia/unicorn-mafia"
+        logo_url: "/companies/placeholder-logo.svg"

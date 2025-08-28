@@ -1,14 +1,36 @@
 'use client'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AnimatedToggle from './animated-toggle'
 import styles from './logo.module.css'
 
 export default function Navbar() {
     const [toggle, setToggle] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+      const controlNavbar = () => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > lastScrollY && currentScrollY > 80) {
+          setIsVisible(false);
+        } else {
+          setIsVisible(true);
+        }
+
+        setLastScrollY(currentScrollY);
+      };
+
+      window.addEventListener('scroll', controlNavbar);
+
+      return () => {
+        window.removeEventListener('scroll', controlNavbar);
+      };
+    }, [lastScrollY]);
   return (
     <>
-      <nav className="flex w-full justify-between px-6 md:px-9 py-6 md:py-6 border-b border-gray-200">
+      <nav className={`sticky z-50 bg-white flex w-full justify-between px-6 md:px-9 py-6 md:py-3 border-b border-gray-200 transition-all duration-300 ease-in-out ${isVisible ? 'top-0' : '-top-24'}`}>
         <Link href="/" className={styles.logo}>
           <svg width="48" height="48" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="255.273" y="480.364" width="64.2727" height="64.2727" fill="black"/>
@@ -55,9 +77,8 @@ export default function Navbar() {
         <div className="flex items-center">
           <div
             className={`
-              items-center gap-8 mr-6
+              hidden md:flex items-center gap-8 mr-6
               transition-all duration-300 ease-in-out
-              ${toggle ? "hidden md:flex" : "hidden"}
               font-medium text-lg text-black font-inter
             `}
           >

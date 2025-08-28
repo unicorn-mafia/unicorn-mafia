@@ -4,7 +4,7 @@
 
 ### About Us
 
-- **400+ hackathon wins**
+- **500+ hackathon wins**
 - **30+ companies being built**
 - **500+ developers**
 
