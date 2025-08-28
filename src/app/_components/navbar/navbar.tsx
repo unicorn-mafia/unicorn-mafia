@@ -8,7 +8,7 @@ export default function Navbar() {
     const [toggle, setToggle] = useState(false);
   return (
     <>
-      <nav className="flex w-full justify-between px-6 md:px-9 py-6 md:py-6 border-b border-gray-200">
+      <nav className="sticky top-0 z-50 bg-white flex w-full justify-between px-6 md:px-9 py-6 md:py-6 border-b border-gray-200">
         <Link href="/" className={styles.logo}>
           <svg width="48" height="48" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="255.273" y="480.364" width="64.2727" height="64.2727" fill="black"/>
@@ -55,9 +55,8 @@ export default function Navbar() {
         <div className="flex items-center">
           <div
             className={`
-              items-center gap-8 mr-6
+              hidden md:flex items-center gap-8 mr-6
               transition-all duration-300 ease-in-out
-              ${toggle ? "hidden md:flex" : "hidden"}
               font-medium text-lg text-black font-inter
             `}
           >

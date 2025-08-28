@@ -21,7 +21,7 @@ export default function About() {
             </div>
             <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 md:gap-16 mt-8">
                 <div className="flex flex-col items-center">
-                    <div className="font-mono text-5xl sm:text-6xl font-bold text-black">40+</div>
+                    <div className="font-mono text-5xl sm:text-6xl font-bold text-black">500+</div>
                     <div className="text-lg sm:text-xl text-gray-600">Hackathon wins</div>
                 </div>
                 <div className="flex flex-col items-center">

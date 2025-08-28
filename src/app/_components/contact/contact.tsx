@@ -22,8 +22,9 @@ export default function Contact() {
                 <div>
                     <a href="https://lu.ma/mafia?period=past" target="_blank" rel="noopener noreferrer">Luma</a>
                 </div>
-                {/* <a href="#">Linkedin</a>
-                <a href="#">X / Twitter</a> */}
+                <div>
+                    <a href="https://www.linkedin.com/company/unicorn-mafia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                </div>
             </div>
             <div className="flex flex-col items-start justify-center w-full">
                 <h2
@@ -49,7 +50,7 @@ export default function Contact() {
                           className="text-white"
                           style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
                         >
-                          It could be you<span className={styles.cursor}>|</span>
+                          <a href="https://wa.me/447874943523" target="_blank" rel="noopener noreferrer">Get in touch</a><span className={styles.cursor}>|</span>
                         </span>
                     </div>
                 </div>
