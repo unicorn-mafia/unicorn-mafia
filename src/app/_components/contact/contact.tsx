@@ -56,7 +56,7 @@ export default function Contact() {
             </div>
             <div className="flex flex-row justify-between w-full items-center">
                 <div className="flex flex-col text-white font-inter font-medium text-md">
-                    <div>um@unicrnmafia.com</div>
+                    <a href="mailto:stable@unicrnmafia.com">stable@unicrnmafia.com</a>
                 </div>
                 <div className="flex flex-col text-white font-inter font-medium text-md">
                     <div>UM ©2025 </div>

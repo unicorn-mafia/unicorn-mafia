@@ -17,7 +17,7 @@
 
 ### Contact
 
-- **Email**: um@unicrnmafia.com
+- **Email**: [stable@unicrnmafia.com](mailto:stable@unicrnmafia.com)
 - **GitHub**: [github.com/unicorn-mafia](https://github.com/unicorn-mafia)
 - **Events**: [lu.ma/mafia](https://lu.ma/mafia?period=past)
 
