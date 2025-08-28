@@ -51,13 +51,23 @@ export default function Companies() {
     );
   }
 
-  // Get all companies from all categories and shuffle for fairness
-  const allCompanies = companiesData.categories.flatMap((category) =>
+  // Get all companies from all categories
+  const companiesWithCategory = companiesData.categories.flatMap((category) =>
     category.companies.map((company) => ({
       ...company,
       categoryName: category.name,
     }))
-  ).sort(() => Math.random() - 0.5); // Random shuffle for fair display
+  );
+  
+  // Separate "Add yours" placeholder from real companies
+  const addYoursCard = companiesWithCategory.find(company => company.name === "Add yours");
+  const realCompanies = companiesWithCategory.filter(company => company.name !== "Add yours");
+  
+  // Random shuffle real companies for fairness, but keep "Add yours" first
+  const allCompanies = [
+    ...(addYoursCard ? [addYoursCard] : []),
+    ...realCompanies.sort(() => Math.random() - 0.5)
+  ];
 
   return (
     <div className="min-h-screen bg-white">

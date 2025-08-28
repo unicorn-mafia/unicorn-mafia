@@ -26,7 +26,9 @@ export function CompanyCard({ company, category }: CompanyCardProps) {
               src={company.logo_url}
               alt={`${company.name} logo`}
               fill
-              className="object-contain"
+              className={`object-contain ${
+                company.logo_url.includes('favicon') ? 'brightness-0' : ''
+              }`}
               onError={(e) => {
                 e.currentTarget.src = "/companies/placeholder-logo.svg";
               }}
