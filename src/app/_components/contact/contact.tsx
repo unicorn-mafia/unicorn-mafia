@@ -9,8 +9,8 @@ export default function Contact() {
   const [ref, isVisible] = useScrollAnimation();
 
   return (
-    <div 
-      id="contact" 
+    <div
+      id="contact"
       ref={ref}
       className={`flex flex-col items-center justify-between w-full min-h-screen px-6 md:px-12 lg:px-20 py-16 bg-black ${animationStyles.fadeInUpSlow} ${isVisible ? animationStyles.visible : ''}`}
     >
@@ -19,7 +19,7 @@ export default function Contact() {
                 <div style={{ marginRight: '2.5rem' }}>
                     <a href="https://github.com/unicorn-mafia">Github</a>
                 </div>
-                <div>
+                <div style={{ marginRight: '2.5rem' }}>
                     <a href="https://lu.ma/mafia?period=past" target="_blank" rel="noopener noreferrer">Luma</a>
                 </div>
                 <div>
