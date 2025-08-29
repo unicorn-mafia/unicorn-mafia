@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hackathons | Unicorn Mafia",
-  description: "Learn about the hackatons that Unicorn Mafia members have won.",
+  description: "Learn about the hackathons that Unicorn Mafia members have won.",
   openGraph: {
     title: "Hackathons | Unicorn Mafia",
     description: "Learn about the hackathons Unicorn Mafia members have won.",
