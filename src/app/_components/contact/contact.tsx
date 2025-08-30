@@ -55,14 +55,14 @@ export default function Contact() {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-row justify-between w-full items-center">
+            <div className="flex flex-col sm:flex-row justify-between w-full items-start sm:items-center gap-4 sm:gap-0">
                 <div className="flex flex-col text-white font-inter font-medium text-md">
                     <a href="mailto:stable@unicrnmafia.com" className="hover:underline">stable@unicrnmafia.com</a>
                 </div>
-                <div className="flex flex-row text-white font-inter font-medium text-md" style={{ gap: '1rem' }}>
+                <div className="flex flex-row text-white font-inter font-medium text-md gap-4">
                     <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Sponsor</a>
                     <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Invest</a>
-                    <div>UM ©2025 </div>
+                    <div>UM ©2025</div>
                 </div>
             </div>
         </div>
