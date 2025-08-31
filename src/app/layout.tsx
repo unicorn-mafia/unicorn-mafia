@@ -16,29 +16,61 @@ const sourceCodePro = Source_Code_Pro({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://unicrnmafia.com"),
-  title: "Unicorn Mafia",
-  description: "The highest signal community of developers in London",
+  title: "Unicorn Mafia. London's elite developer community.",
+  description: "Where the best developers build together. Join London's most selective community of engineers and founders.",
+  keywords: [
+    "developer community London",
+    "tech community",
+    "software engineers",
+    "startup founders",
+    "London tech",
+    "engineering community",
+    "unicorn startups"
+  ],
+  authors: [{ name: "Unicorn Mafia" }],
+  creator: "Unicorn Mafia",
+  publisher: "Unicorn Mafia",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
-    title: "Unicorn Mafia",
-    description: "The highest signal community of developers in London",
+    title: "Unicorn Mafia. London's elite developer community.",
+    description: "Where the best developers build together. Join London's most selective community of engineers and founders.",
     url: "https://unicrnmafia.com",
     siteName: "Unicorn Mafia",
     images: [
       {
         url: "/social-preview.png",
-        width: 841,
-        height: 686,
-        alt: "Unicorn Mafia hero image",
+        width: 1200,
+        height: 630,
+        alt: "Unicorn Mafia",
       },
     ],
-    locale: "en_US",
+    locale: "en_GB",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Unicorn Mafia",
-    description: "The highest signal community of developers in London",
+    description: "Where the best developers build together.",
+    creator: "@unicornmafia",
     images: ["/social-preview.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: "https://unicrnmafia.com",
   },
 };
 
