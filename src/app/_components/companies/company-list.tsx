@@ -53,7 +53,7 @@ export function CompanyList({ companies }: CompanyListProps) {
               {/* Company Name with Logo */}
               <td className="sticky left-0 z-20 bg-white px-6 py-4 whitespace-nowrap">
                 <div className="flex items-center">
-                  <div className="flex-shrink-0 h-8 w-8 relative">
+                  <div className="flex-shrink-0 h-8 w-16 relative">
                     <Image
                       src={company.logo_url}
                       alt={`${company.name} logo`}
