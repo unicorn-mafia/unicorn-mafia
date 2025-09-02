@@ -4,10 +4,10 @@ categories:
     companies:
       - name: "T1V"
         website_url: "https://t1v.co"
-        logo_url: "https://t1v.co/favicon.svg"
+        logo_url: "/companies/t1v.svg"
       - name: "60x"
         website_url: "https://60x.ai"
-        logo_url: "https://60x.ai/favicon.svg"
+        logo_url: "/companies/60x.svg"
       - name: "Recurse ML"
         website_url: "https://www.recurse.ml/"
         logo_url: "/companies/recurse.svg"
