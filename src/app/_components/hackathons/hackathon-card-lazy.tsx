@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
 import type { HackathonWinWithCategory } from "../../_types/hackathons";
 
-interface HackathonCardProps {
+interface HackathonCardLazyProps {
   win: HackathonWinWithCategory;
 }
 
@@ -18,19 +17,58 @@ interface OgData {
   author?: string;
 }
 
-export function HackathonCard({ win }: HackathonCardProps) {
+// In-memory cache for OG data
+const ogCache = new Map<string, OgData>();
+
+export function HackathonCardLazy({ win }: HackathonCardLazyProps) {
   const [og, setOg] = useState<OgData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin: "100px" }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
     let cancelled = false;
     const load = async () => {
       try {
+        // Check cache first
+        const cached = ogCache.get(win.linkedin_url);
+        if (cached) {
+          setOg(cached);
+          setLoading(false);
+          return;
+        }
+
         setLoading(true);
         const res = await fetch(`/api/og?url=${encodeURIComponent(win.linkedin_url)}`);
         const data: OgData = await res.json();
+        
         if (!cancelled) {
+          ogCache.set(win.linkedin_url, data);
           setOg(data);
           setLoading(false);
         }
@@ -41,30 +79,27 @@ export function HackathonCard({ win }: HackathonCardProps) {
         }
       }
     };
+    
     load();
     return () => {
       cancelled = true;
     };
-  }, [win.linkedin_url]);
+  }, [win.linkedin_url, isVisible]);
 
-  if (loading) {
-    return (
-      <div className="block aspect-square border border-neutral-600 bg-neutral-50 overflow-hidden animate-pulse">
-        <div className="w-full h-1/2 bg-neutral-200" />
-        <div className="h-1/2 flex flex-col p-3">
-          <div className="h-4 bg-neutral-200 rounded mb-2" />
-          <div className="h-3 bg-neutral-200 rounded w-3/4 mb-2" />
-          <div className="h-2 bg-neutral-200 rounded w-full mb-1" />
-          <div className="h-2 bg-neutral-200 rounded w-5/6 mb-1" />
-          <div className="mt-auto pt-2">
-            <div className="h-3 bg-neutral-200 rounded w-12" />
-          </div>
+  const content = loading ? (
+    <div className="block aspect-square border border-neutral-600 bg-neutral-50 overflow-hidden animate-pulse">
+      <div className="w-full h-1/2 bg-neutral-200" />
+      <div className="h-1/2 flex flex-col p-3">
+        <div className="h-4 bg-neutral-200 rounded mb-2" />
+        <div className="h-3 bg-neutral-200 rounded w-3/4 mb-2" />
+        <div className="h-2 bg-neutral-200 rounded w-full mb-1" />
+        <div className="h-2 bg-neutral-200 rounded w-5/6 mb-1" />
+        <div className="mt-auto pt-2">
+          <div className="h-3 bg-neutral-200 rounded w-12" />
         </div>
       </div>
-    );
-  }
-
-  return (
+    </div>
+  ) : (
     <a
       href={win.linkedin_url}
       target="_blank"
@@ -74,7 +109,12 @@ export function HackathonCard({ win }: HackathonCardProps) {
       {og?.image ? (
         <div className="relative w-full h-1/2 bg-neutral-100">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={og.image} alt={og.title || "Preview image"} className="w-full h-full object-cover" />
+          <img 
+            src={og.image} 
+            alt={og.title || "Preview image"} 
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
         </div>
       ) : (
         <div className="w-full h-1/2 bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center">
@@ -92,7 +132,7 @@ export function HackathonCard({ win }: HackathonCardProps) {
         <div className="flex items-center gap-2 mb-2 min-h-5">
           {og?.favicon && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={og.favicon} alt="" className="w-4 h-4" />
+            <img src={og.favicon} alt="" className="w-4 h-4" loading="lazy" />
           )}
           <span className="text-[10px] text-neutral-600 font-source tracking-wide truncate">
             {og?.siteName || new URL(win.linkedin_url).hostname}
@@ -108,4 +148,6 @@ export function HackathonCard({ win }: HackathonCardProps) {
       </div>
     </a>
   );
+
+  return <div ref={cardRef}>{content}</div>;
 }
