@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../_components/navbar/navbar";
 import { loadHackathonsData } from "../_lib/hackathons-data";
 import type { HackathonsData } from "../_types/hackathons";
-import { HackathonCard } from "../_components/hackathons/hackathon-card";
+import { HackathonCardLazy } from "../_components/hackathons/hackathon-card-lazy";
 import { AddYoursCard } from "../_components/hackathons/add-yours-card";
 
 export default function Hackathons() {
@@ -100,7 +100,7 @@ export default function Hackathons() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <AddYoursCard />
               {allWins.map((win, index) => (
-                <HackathonCard key={`${win.categoryName}-${index}`} win={win} />
+                <HackathonCardLazy key={`${win.categoryName}-${index}`} win={win} />
               ))}
             </div>
           )}
