@@ -87,7 +87,7 @@ export default function Navbar() {
             <Link href="/companies" className="hover:opacity-70 transition-opacity">Companies</Link>
             <Link href="/#contact" className="hover:opacity-70 transition-opacity">Contact</Link>
           </div>
-          <div className="relative w-[18px] h-[18px] flex-none cursor-pointer">
+          <div className="relative w-[18px] h-[18px] flex-none cursor-pointer md:hidden">
             <AnimatedToggle
               toggle={toggle}
               onToggle={() => setToggle(!toggle)}
