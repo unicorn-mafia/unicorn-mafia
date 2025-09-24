@@ -82,7 +82,7 @@ export default function Navbar() {
               font-medium text-lg text-black font-inter
             `}
           >
-            <Link href="/#about" className="hover:opacity-70 transition-opacity">About</Link>
+            <Link href="/about" className="hover:opacity-70 transition-opacity">About</Link>
             <Link href="/hackathons" className="hover:opacity-70 transition-opacity">Hackathons</Link>
             <Link href="/companies" className="hover:opacity-70 transition-opacity">Companies</Link>
             <Link href="/#contact" className="hover:opacity-70 transition-opacity">Contact</Link>
@@ -106,7 +106,7 @@ export default function Navbar() {
       >
         <div className="flex flex-col items-center justify-center h-full gap-12 font-medium text-5xl text-black font-inter">
           <Link
-            href="/#about"
+            href="/about"
             className="hover:opacity-70 transition-opacity"
             onClick={() => setToggle(false)}
           >
