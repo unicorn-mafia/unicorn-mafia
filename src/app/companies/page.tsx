@@ -86,7 +86,7 @@ export default function Companies() {
               Companies founded, co-founded, or where mafia members hold key positions.
             </p>
             <div className="text-xs font-source text-neutral-600 tracking-wide">
-              <span className="border border-neutral-400 px-2 py-1 bg-white">{allCompanies.length} COMPANIES</span>
+              <span className="border border-neutral-400 px-2 py-1 bg-white">{realCompanies.length} COMPANIES</span>
             </div>
           </div>
         </div>

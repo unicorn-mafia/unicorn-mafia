@@ -21,7 +21,7 @@ export function CompanyCard({ company, category }: CompanyCardProps) {
       <div className="h-full flex flex-col">
         {/* Company Logo Area - fills most of the space */}
         <div className="flex-1 flex items-center justify-center p-4">
-          <div className="w-20 h-20 relative">
+          <div className="w-[128px] h-[30px] relative">
             <Image
               src={company.logo_url}
               alt={`${company.name} logo`}
