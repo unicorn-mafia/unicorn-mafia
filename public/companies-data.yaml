@@ -19,7 +19,7 @@ categories:
         logo_url: "https://www.remedylegal.ai/images/logo.svg"
       - name: "Noggin"
         website_url: "https://www.nogginuk.com"
-        logo_url: "https://nogginuk.com/images/noggin_full_logo_black.png"
+        logo_url: "/companies/noggin.svg"
       - name: "Add yours"
         website_url: "https://github.com/unicorn-mafia/unicorn-mafia/blob/main/CONTRIBUTING.md"
         logo_url: "/companies/placeholder-logo.svg"
