@@ -2,6 +2,9 @@ categories:
   - name: "Member Companies"
     description: "Companies founded, co-founded, or where mafia members hold key positions"
     companies:
+      - name: "Sailia"
+        website_url: "https://sailia.com/?utm_source=unicorn-mafia&utm_medium=community"
+        logo_url: "https://s3.sailia.com/websiteAssets/SailiaLogo.png"
       - name: "NearHuman(Scootrr)"
         website_url: "https://www.scootrr.com"
         logo_url: "/companies/Scootrr.svg"
