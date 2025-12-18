@@ -40,12 +40,35 @@ That's it! Just 3 simple fields required:
 
 ### Logo Guidelines
 
-- **Format**: SVG, PNG, or even favicon.ico works fine
-- **Size**: Small files preferred (under 100KB)
-- **Background**: Should work on light backgrounds
-- **Tip**: Your website's favicon usually works perfectly!
+Your logo will be displayed in a **128px × 30px** area (wide rectangle). Please follow these guidelines:
 
-Simply provide the direct URL to your logo or favicon (e.g., `https://yoursite.com/favicon.ico`)
+![Logo Area Guide](public/logo-area.png)
+
+#### Dimensions & Format
+- **Display area**: 128px wide × 30px tall
+- **Aspect ratio**: ~4:1 (wide horizontal logos work best)
+- **Format**: SVG preferred, PNG also works
+- **File size**: Under 100KB
+
+#### Do's
+- Use a **horizontal/wordmark** version of your logo
+- Export your logo **without extra padding or margins**
+- Make sure the logo fills the width OR height of your artboard
+- Use transparent backgrounds
+
+#### Don'ts
+- Don't use square logos with large margins (they'll appear tiny)
+- Don't include excessive whitespace around the logo
+- Don't use very tall/vertical logos
+
+#### Quick Test
+Before submitting, check: if your logo SVG/PNG has lots of empty space around it, crop it! The logo should fill most of its artboard.
+
+#### Easy Option
+Your website's favicon or a direct link to your logo works fine:
+```
+logo_url: "https://yoursite.com/logo.svg"
+```
 
 ## Development Process
 
