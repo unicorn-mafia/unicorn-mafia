@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { CompanyCard } from "../_components/companies/company-card";
 import { loadCompaniesData } from "../_lib/companies-data";
-import type { CompaniesData, Company } from "../_types/companies";
+import type { CompaniesData } from "../_types/companies";
 import Navbar from "../_components/navbar/navbar";
 
 export default function Companies() {
