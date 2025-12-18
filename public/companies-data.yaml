@@ -2,6 +2,9 @@ categories:
   - name: "Member Companies"
     description: "Companies founded, co-founded, or where mafia members hold key positions"
     companies:
+      - name: "First Concepts"
+        website_url: "https://firstconcepts.co/"
+        logo_url: "https://framerusercontent.com/images/n2377lRm0VKhzKNOcjpOXC8uU4.png"
       - name: "T1V"
         website_url: "https://t1v.co"
         logo_url: "/companies/t1v.svg"
