@@ -3,7 +3,7 @@ categories:
     description: "Companies founded, co-founded, or where mafia members hold key positions"
     companies:
       - name: "NearHuman(Scootrr)"
-        website_url: "https://wwww.scootrr.com"
+        website_url: "https://www.scootrr.com"
         logo_url: "/companies/Scootrr.svg"
       - name: "T1V"
         website_url: "https://t1v.co"
