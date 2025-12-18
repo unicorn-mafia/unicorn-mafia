@@ -58,6 +58,7 @@ export function CompanyList({ companies }: CompanyListProps) {
                       src={company.logo_url}
                       alt={`${company.name} logo`}
                       fill
+                      unoptimized={company.logo_url.startsWith('http')}
                       className="object-contain rounded"
                       onError={(e) => {
                         e.currentTarget.src = "/companies/placeholder-logo.svg";

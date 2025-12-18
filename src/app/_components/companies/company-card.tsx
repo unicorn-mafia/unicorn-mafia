@@ -26,6 +26,7 @@ export function CompanyCard({ company, category }: CompanyCardProps) {
               src={company.logo_url}
               alt={`${company.name} logo`}
               fill
+              unoptimized={company.logo_url.startsWith('http')}
               className={`object-contain ${
                 company.logo_url.includes('favicon') ? 'brightness-0' : ''
               }`}
