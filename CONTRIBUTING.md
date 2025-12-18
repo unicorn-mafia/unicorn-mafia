@@ -42,7 +42,7 @@ That's it! Just 3 simple fields required:
 
 Your logo will be displayed in a **128px × 30px** area (wide rectangle). Please follow these guidelines:
 
-![Logo Area Guide](public/logo-area.png)
+<img src="public/logo-area.png" width="400" alt="Logo Area Guide">
 
 #### Dimensions & Format
 - **Display area**: 128px wide × 30px tall
