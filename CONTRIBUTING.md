@@ -30,13 +30,13 @@ To add your company to our member showcase, please ensure it meets our criteria:
 ```yaml
 - name: "Your Company Name"
   website_url: "https://yourcompany.com"
-  logo_url: "https://yourcompany.com/logo.svg" # or favicon.ico
+  logo_url: "https://yourcompany.com/logo.svg"
 ```
 
 That's it! Just 3 simple fields required:
 - **name**: Your company name
 - **website_url**: Your company website
-- **logo_url**: Direct link to your company logo/favicon
+- **logo_url**: Full URL to your company logo (must be SVG or PNG)
 
 ### Logo Guidelines
 
@@ -60,12 +60,13 @@ Your logo will be displayed in a **128px × 30px** area (wide rectangle). Please
 - Don't use square logos with large margins (they'll appear tiny)
 - Don't include excessive whitespace around the logo
 - Don't use very tall/vertical logos
+- Don't use `.ico` files (favicon.ico) - they render poorly and may display as a black box
 
 #### Quick Test
 Before submitting, check: if your logo SVG/PNG has lots of empty space around it, crop it! The logo should fill most of its artboard.
 
 #### Easy Option
-Your website's favicon or a direct link to your logo works fine:
+A direct link to your logo works fine:
 ```
 logo_url: "https://yoursite.com/logo.svg"
 ```
