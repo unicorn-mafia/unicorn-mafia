@@ -6,7 +6,7 @@ import { useScrollAnimation } from '../../_hooks/useScrollAnimation';
 import animationStyles from '../../_styles/animations.module.css';
 
 const workspaceProviders = [
-  { name: 'Halkin', logo: '/companies/halkin.svg', url: 'https://halkin.com' },
+  { name: 'Halkin', logo: '/companies/halkin.svg', url: 'https://www.halkin.com/locations/1-2-paris-garden' },
 ];
 
 export default function TrustBy() {
