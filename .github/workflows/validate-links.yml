@@ -1,0 +1,199 @@
+name: Validate Links
+
+on:
+  pull_request:
+    paths:
+      - "public/hackathons-data.yaml"
+      - "public/companies-data.yaml"
+      - "public/companies/**"
+
+jobs:
+  validate-links:
+    name: Validate URLs and Images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout base branch for diff
+        run: |
+          git fetch origin ${{ github.base_ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml requests pillow
+
+      - name: Validate links in changed files
+        run: |
+          python << 'EOF'
+          import yaml
+          import requests
+          import subprocess
+          import sys
+          import os
+          from PIL import Image
+          from io import BytesIO
+
+          def get_changed_files():
+              """Get list of files changed in this PR"""
+              result = subprocess.run(
+                  ['git', 'diff', '--name-only', f'origin/${{ github.base_ref }}...HEAD'],
+                  capture_output=True,
+                  text=True
+              )
+              return result.stdout.strip().split('\n')
+
+          def check_url_accessible(url, timeout=10):
+              """Check if a URL is accessible"""
+              try:
+                  headers = {
+                      'User-Agent': 'Mozilla/5.0 (compatible; GitHubActions/1.0; +https://github.com)'
+                  }
+                  response = requests.head(url, headers=headers, timeout=timeout, allow_redirects=True)
+                  if response.status_code >= 400:
+                      # Try GET as some servers don't support HEAD
+                      response = requests.get(url, headers=headers, timeout=timeout, allow_redirects=True, stream=True)
+                  return response.status_code < 400, response.status_code
+              except requests.RequestException as e:
+                  return False, str(e)
+
+          def check_image_valid(path):
+              """Check if a local image file is valid"""
+              try:
+                  with Image.open(path) as img:
+                      img.verify()
+                  return True, "OK"
+              except Exception as e:
+                  return False, str(e)
+
+          def get_diff_additions(file_path):
+              """Get only the added lines in a file"""
+              result = subprocess.run(
+                  ['git', 'diff', f'origin/${{ github.base_ref }}...HEAD', '--', file_path],
+                  capture_output=True,
+                  text=True
+              )
+              added_lines = []
+              for line in result.stdout.split('\n'):
+                  if line.startswith('+') and not line.startswith('+++'):
+                      added_lines.append(line[1:])  # Remove the leading +
+              return '\n'.join(added_lines)
+
+          changed_files = get_changed_files()
+          errors = []
+          warnings = []
+
+          # Check hackathons-data.yaml
+          if 'public/hackathons-data.yaml' in changed_files:
+              print("🔍 Checking hackathons-data.yaml...")
+              diff_content = get_diff_additions('public/hackathons-data.yaml')
+              
+              with open('public/hackathons-data.yaml', 'r') as f:
+                  data = yaml.safe_load(f)
+              
+              # Extract LinkedIn URLs from diff
+              import re
+              linkedin_urls = re.findall(r'https://www\.linkedin\.com/[^\s"\']+', diff_content)
+              
+              for url in linkedin_urls:
+                  # Clean up URL (remove trailing characters that might be YAML artifacts)
+                  url = url.rstrip(',')
+                  print(f"  Checking: {url}")
+                  is_valid, status = check_url_accessible(url)
+                  if not is_valid:
+                      errors.append(f"LinkedIn URL not accessible: {url} (Status: {status})")
+                  else:
+                      print(f"    ✅ OK")
+
+          # Check companies-data.yaml
+          if 'public/companies-data.yaml' in changed_files:
+              print("🔍 Checking companies-data.yaml...")
+              diff_content = get_diff_additions('public/companies-data.yaml')
+              
+              with open('public/companies-data.yaml', 'r') as f:
+                  data = yaml.safe_load(f)
+              
+              # Extract website URLs from diff
+              import re
+              website_urls = re.findall(r'website_url:\s*["\']?(https?://[^\s"\']+)', diff_content)
+              logo_paths = re.findall(r'logo_url:\s*["\']?(/[^\s"\']+)', diff_content)
+              
+              for url in website_urls:
+                  url = url.rstrip(',')
+                  print(f"  Checking website: {url}")
+                  is_valid, status = check_url_accessible(url)
+                  if not is_valid:
+                      errors.append(f"Website URL not accessible: {url} (Status: {status})")
+                  else:
+                      print(f"    ✅ OK")
+              
+              for logo_path in logo_paths:
+                  logo_path = logo_path.rstrip(',')
+                  full_path = f"public{logo_path}"
+                  print(f"  Checking logo: {full_path}")
+                  
+                  if not os.path.exists(full_path):
+                      errors.append(f"Logo file not found: {full_path}")
+                  else:
+                      # Check if it's a valid image
+                      is_valid, status = check_image_valid(full_path)
+                      if not is_valid:
+                          # SVG files won't pass PIL validation, check if it's valid XML
+                          if full_path.endswith('.svg'):
+                              try:
+                                  with open(full_path, 'r') as f:
+                                      content = f.read()
+                                      if '<svg' in content and '</svg>' in content:
+                                          print(f"    ✅ OK (SVG)")
+                                      else:
+                                          errors.append(f"Invalid SVG file: {full_path}")
+                              except Exception as e:
+                                  errors.append(f"Cannot read SVG file {full_path}: {e}")
+                          else:
+                              errors.append(f"Invalid image file: {full_path} ({status})")
+                      else:
+                          print(f"    ✅ OK")
+
+          # Check for new image files in public/companies/
+          company_images = [f for f in changed_files if f.startswith('public/companies/') and f != 'public/companies/']
+          for img_path in company_images:
+              print(f"🔍 Checking new image: {img_path}")
+              if os.path.exists(img_path):
+                  is_valid, status = check_image_valid(img_path)
+                  if not is_valid:
+                      if img_path.endswith('.svg'):
+                          try:
+                              with open(img_path, 'r') as f:
+                                  content = f.read()
+                                  if '<svg' in content and '</svg>' in content:
+                                      print(f"  ✅ OK (SVG)")
+                                  else:
+                                      errors.append(f"Invalid SVG file: {img_path}")
+                          except Exception as e:
+                              errors.append(f"Cannot read SVG file {img_path}: {e}")
+                      else:
+                          errors.append(f"Invalid image file: {img_path} ({status})")
+                  else:
+                      print(f"  ✅ OK")
+
+          # Report results
+          if warnings:
+              print("\n⚠️ Warnings:")
+              for warning in warnings:
+                  print(f"  - {warning}")
+
+          if errors:
+              print("\n❌ Errors found:")
+              for error in errors:
+                  print(f"  - {error}")
+              sys.exit(1)
+          else:
+              print("\n✅ All links and images are valid!")
+          EOF
