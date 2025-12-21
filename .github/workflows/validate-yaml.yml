@@ -214,8 +214,8 @@ jobs:
                           print(f"❌ Invalid website URL for {company.get('name')}: {website}")
                           sys.exit(1)
                       
-                      if not logo.startswith('/'):
-                          print(f"❌ logo_url should be a relative path starting with '/' for {company.get('name')}: {logo}")
+                      if not (logo.startswith('/') or logo.startswith('http')):
+                          print(f"❌ logo_url should be a relative path starting with '/' or an external URL for {company.get('name')}: {logo}")
                           sys.exit(1)
               
               print("✅ companies-data.yaml is valid")

@@ -123,7 +123,8 @@ jobs:
               # Extract website URLs from diff
               import re
               website_urls = re.findall(r'website_url:\s*["\']?(https?://[^\s"\']+)', diff_content)
-              logo_paths = re.findall(r'logo_url:\s*["\']?(/[^\s"\']+)', diff_content)
+              local_logo_paths = re.findall(r'logo_url:\s*["\']?(/[^\s"\']+)', diff_content)
+              external_logo_urls = re.findall(r'logo_url:\s*["\']?(https?://[^\s"\']+)', diff_content)
               
               for url in website_urls:
                   url = url.rstrip(',')
@@ -134,7 +135,18 @@ jobs:
                   else:
                       print(f"    ✅ OK")
               
-              for logo_path in logo_paths:
+              # Check external logo URLs
+              for logo_url in external_logo_urls:
+                  logo_url = logo_url.rstrip(',')
+                  print(f"  Checking external logo: {logo_url}")
+                  is_valid, status = check_url_accessible(logo_url)
+                  if not is_valid:
+                      errors.append(f"External logo URL not accessible: {logo_url} (Status: {status})")
+                  else:
+                      print(f"    ✅ OK")
+              
+              # Check local logo paths
+              for logo_path in local_logo_paths:
                   logo_path = logo_path.rstrip(',')
                   full_path = f"public{logo_path}"
                   print(f"  Checking logo: {full_path}")
