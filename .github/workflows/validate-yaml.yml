@@ -1,0 +1,226 @@
+name: Validate YAML Format
+
+on:
+  pull_request:
+    paths:
+      - "public/hackathons-data.yaml"
+      - "public/companies-data.yaml"
+
+jobs:
+  validate-yaml:
+    name: Validate YAML Structure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml jsonschema
+
+      - name: Validate hackathons-data.yaml
+        run: |
+          python << 'EOF'
+          import yaml
+          import sys
+
+          HACKATHONS_SCHEMA = {
+              "type": "object",
+              "required": ["categories"],
+              "properties": {
+                  "categories": {
+                      "type": "array",
+                      "items": {
+                          "type": "object",
+                          "required": ["name", "description", "wins"],
+                          "properties": {
+                              "name": {"type": "string"},
+                              "description": {"type": "string"},
+                              "wins": {
+                                  "type": "array",
+                                  "items": {
+                                      "type": "object",
+                                      "required": ["linkedin_url"],
+                                      "properties": {
+                                          "linkedin_url": {"type": "string"}
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+
+          def validate_structure(data, schema, path="root"):
+              errors = []
+              
+              if schema.get("type") == "object":
+                  if not isinstance(data, dict):
+                      errors.append(f"{path}: Expected object, got {type(data).__name__}")
+                      return errors
+                  
+                  for required_key in schema.get("required", []):
+                      if required_key not in data:
+                          errors.append(f"{path}: Missing required key '{required_key}'")
+                  
+                  props = schema.get("properties", {})
+                  for key, value in data.items():
+                      if key in props:
+                          errors.extend(validate_structure(value, props[key], f"{path}.{key}"))
+              
+              elif schema.get("type") == "array":
+                  if not isinstance(data, list):
+                      errors.append(f"{path}: Expected array, got {type(data).__name__}")
+                      return errors
+                  
+                  item_schema = schema.get("items", {})
+                  for i, item in enumerate(data):
+                      errors.extend(validate_structure(item, item_schema, f"{path}[{i}]"))
+              
+              elif schema.get("type") == "string":
+                  if not isinstance(data, str):
+                      errors.append(f"{path}: Expected string, got {type(data).__name__}")
+              
+              return errors
+
+          try:
+              with open('public/hackathons-data.yaml', 'r') as f:
+                  data = yaml.safe_load(f)
+              
+              if data is None:
+                  print("❌ hackathons-data.yaml is empty")
+                  sys.exit(1)
+              
+              errors = validate_structure(data, HACKATHONS_SCHEMA)
+              
+              if errors:
+                  print("❌ hackathons-data.yaml validation failed:")
+                  for error in errors:
+                      print(f"  - {error}")
+                  sys.exit(1)
+              
+              # Additional validation for LinkedIn URLs
+              for cat in data.get('categories', []):
+                  for i, win in enumerate(cat.get('wins', [])):
+                      url = win.get('linkedin_url', '')
+                      if not url.startswith('https://www.linkedin.com/'):
+                          print(f"❌ Invalid LinkedIn URL at wins[{i}]: {url}")
+                          sys.exit(1)
+              
+              print("✅ hackathons-data.yaml is valid")
+              
+          except yaml.YAMLError as e:
+              print(f"❌ hackathons-data.yaml has invalid YAML syntax: {e}")
+              sys.exit(1)
+          EOF
+
+      - name: Validate companies-data.yaml
+        run: |
+          python << 'EOF'
+          import yaml
+          import sys
+
+          COMPANIES_SCHEMA = {
+              "type": "object",
+              "required": ["categories"],
+              "properties": {
+                  "categories": {
+                      "type": "array",
+                      "items": {
+                          "type": "object",
+                          "required": ["name", "description", "companies"],
+                          "properties": {
+                              "name": {"type": "string"},
+                              "description": {"type": "string"},
+                              "companies": {
+                                  "type": "array",
+                                  "items": {
+                                      "type": "object",
+                                      "required": ["name", "website_url", "logo_url"],
+                                      "properties": {
+                                          "name": {"type": "string"},
+                                          "website_url": {"type": "string"},
+                                          "logo_url": {"type": "string"}
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+
+          def validate_structure(data, schema, path="root"):
+              errors = []
+              
+              if schema.get("type") == "object":
+                  if not isinstance(data, dict):
+                      errors.append(f"{path}: Expected object, got {type(data).__name__}")
+                      return errors
+                  
+                  for required_key in schema.get("required", []):
+                      if required_key not in data:
+                          errors.append(f"{path}: Missing required key '{required_key}'")
+                  
+                  props = schema.get("properties", {})
+                  for key, value in data.items():
+                      if key in props:
+                          errors.extend(validate_structure(value, props[key], f"{path}.{key}"))
+              
+              elif schema.get("type") == "array":
+                  if not isinstance(data, list):
+                      errors.append(f"{path}: Expected array, got {type(data).__name__}")
+                      return errors
+                  
+                  item_schema = schema.get("items", {})
+                  for i, item in enumerate(data):
+                      errors.extend(validate_structure(item, item_schema, f"{path}[{i}]"))
+              
+              elif schema.get("type") == "string":
+                  if not isinstance(data, str):
+                      errors.append(f"{path}: Expected string, got {type(data).__name__}")
+              
+              return errors
+
+          try:
+              with open('public/companies-data.yaml', 'r') as f:
+                  data = yaml.safe_load(f)
+              
+              if data is None:
+                  print("❌ companies-data.yaml is empty")
+                  sys.exit(1)
+              
+              errors = validate_structure(data, COMPANIES_SCHEMA)
+              
+              if errors:
+                  print("❌ companies-data.yaml validation failed:")
+                  for error in errors:
+                      print(f"  - {error}")
+                  sys.exit(1)
+              
+              # Additional validation for URLs
+              for cat in data.get('categories', []):
+                  for i, company in enumerate(cat.get('companies', [])):
+                      website = company.get('website_url', '')
+                      logo = company.get('logo_url', '')
+                      
+                      if not (website.startswith('https://') or website.startswith('http://')):
+                          print(f"❌ Invalid website URL for {company.get('name')}: {website}")
+                          sys.exit(1)
+                      
+                      if not (logo.startswith('/') or logo.startswith('http')):
+                          print(f"❌ logo_url should be a relative path starting with '/' or an external URL for {company.get('name')}: {logo}")
+                          sys.exit(1)
+              
+              print("✅ companies-data.yaml is valid")
+              
+          except yaml.YAMLError as e:
+              print(f"❌ companies-data.yaml has invalid YAML syntax: {e}")
+              sys.exit(1)
+          EOF
