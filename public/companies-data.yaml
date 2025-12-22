@@ -2,6 +2,9 @@ categories:
   - name: "Member Companies"
     description: "Companies founded, co-founded, or where mafia members hold key positions"
     companies:
+      - name: "01C"
+        website_url: "https://www.01c.ai/"
+        logo_url: "https://framerusercontent.com/images/yJ6yBeEV20Cd9DUOgJmLJ2DSjk.png?scale-down-to=1024&width=2000&height=2000"
       - name: "Sailia"
         website_url: "https://sailia.com/?utm_source=unicorn-mafia&utm_medium=community"
         logo_url: "https://s3.sailia.com/websiteAssets/SailiaLogo.png"
