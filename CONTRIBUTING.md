@@ -30,22 +30,46 @@ To add your company to our member showcase, please ensure it meets our criteria:
 ```yaml
 - name: "Your Company Name"
   website_url: "https://yourcompany.com"
-  logo_url: "https://yourcompany.com/logo.svg" # or favicon.ico
+  logo_url: "https://yourcompany.com/logo.svg"
 ```
 
 That's it! Just 3 simple fields required:
 - **name**: Your company name
 - **website_url**: Your company website
-- **logo_url**: Direct link to your company logo/favicon
+- **logo_url**: Full URL to your company logo (must be SVG or PNG)
 
 ### Logo Guidelines
 
-- **Format**: SVG, PNG, or even favicon.ico works fine
-- **Size**: Small files preferred (under 100KB)
-- **Background**: Should work on light backgrounds
-- **Tip**: Your website's favicon usually works perfectly!
+Your logo will be displayed in a **128px × 30px** area (wide rectangle). Please follow these guidelines:
 
-Simply provide the direct URL to your logo or favicon (e.g., `https://yoursite.com/favicon.ico`)
+<img src="public/logo-area.png" width="215" alt="Logo Area Guide">
+
+#### Dimensions & Format
+- **Display area**: 128px wide × 30px tall
+- **Aspect ratio**: ~4:1 (wide horizontal logos work best)
+- **Format**: SVG preferred, PNG also works
+- **File size**: Under 100KB
+
+#### Do's
+- Use a **horizontal/wordmark** version of your logo
+- Export your logo **without extra padding or margins**
+- Make sure the logo fills the width OR height of your artboard
+- Use transparent backgrounds
+
+#### Don'ts
+- Don't use square logos with large margins (they'll appear tiny)
+- Don't include excessive whitespace around the logo
+- Don't use very tall/vertical logos
+- Don't use `.ico` files (favicon.ico) - they render poorly and may display as a black box
+
+#### Quick Test
+Before submitting, check: if your logo SVG/PNG has lots of empty space around it, crop it! The logo should fill most of its artboard.
+
+#### Easy Option
+A direct link to your logo works fine:
+```
+logo_url: "https://yoursite.com/logo.svg"
+```
 
 ## Development Process
 
