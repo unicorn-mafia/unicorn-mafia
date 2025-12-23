@@ -7,22 +7,26 @@
 
 @layer base {
   :root {
-    --font-sans: var(--font-inter);
-    --font-mono: var(--font-source);
+    --font-sans: var(--font-mono);
+    --font-title: var(--font-title);
   }
-  
+
   html {
     scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-mono);
   }
 }
 
 /* Use these utility classes for the fonts */
-.font-inter {
-  font-family: var(--font-inter);
+.font-title {
+  font-family: var(--font-title);
 }
 
-.font-source {
-  font-family: var(--font-source);
+.font-body {
+  font-family: var(--font-mono);
 }
 
 /* Gradient text styling */

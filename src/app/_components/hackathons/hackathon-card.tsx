@@ -33,7 +33,7 @@ export function HackathonCard({ win }: HackathonCardProps) {
           rel="noopener noreferrer"
           className="flex items-center justify-center h-full p-4 hover:bg-neutral-100 transition-colors"
         >
-          <span className="text-xs font-source text-neutral-700 text-center">
+          <span className="text-xs font-body text-neutral-700 text-center">
             VIEW ON LINKEDIN
           </span>
         </a>

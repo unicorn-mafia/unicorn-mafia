@@ -15,7 +15,7 @@ export default function Contact() {
       className={`flex flex-col items-center justify-between w-full min-h-screen px-6 md:px-12 lg:px-20 py-16 bg-black ${animationStyles.fadeInUpSlow} ${isVisible ? animationStyles.visible : ''}`}
     >
         <div className="flex flex-col items-center justify-between w-full flex-1">
-            <div className="flex flex-row justify-end w-full text-white font-inter font-medium text-md">
+            <div className="flex flex-row justify-end w-full text-white font-title font-medium text-md">
                 <div style={{ marginRight: '2.5rem' }}>
                     <a href="https://github.com/unicorn-mafia">Github</a>
                 </div>
@@ -28,10 +28,9 @@ export default function Contact() {
             </div>
             <div className="flex flex-col items-start justify-center w-full">
                 <h2
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight mb-8 framer-text leading-tight"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight mb-8 framer-text leading-tight font-title"
                   data-text-fill="true"
                   style={{
-                    fontFamily: 'Helvetica, Arial, sans-serif',
                     backgroundImage: 'linear-gradient(95deg, rgb(255, 255, 255) 37%, rgb(56, 56, 56) 95%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -46,20 +45,17 @@ export default function Contact() {
                             <div className={styles.dot}></div>
                             <div className={styles.dotPulse}></div>
                         </div>
-                        <span
-                          className="text-white"
-                          style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
-                        >
+                        <span className="text-white font-body">
                           <a href="https://wa.me/447874943523" target="_blank" rel="noopener noreferrer">Get in touch</a><span className={styles.cursor}>|</span>
                         </span>
                     </div>
                 </div>
             </div>
             <div className="flex flex-col sm:flex-row justify-between w-full items-start sm:items-center gap-4 sm:gap-0">
-                <div className="flex flex-col text-white font-inter font-medium text-md">
+                <div className="flex flex-col text-white font-title font-medium text-md">
                     <a href="mailto:stable@unicrnmafia.com" className="hover:underline">stable@unicrnmafia.com</a>
                 </div>
-                <div className="flex flex-row text-white font-inter font-medium text-md gap-4">
+                <div className="flex flex-row text-white font-title font-medium text-md gap-4">
                     <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Sponsor</a>
                     <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Invest</a>
                     <div>UM ©2025</div>

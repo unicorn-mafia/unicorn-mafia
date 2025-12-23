@@ -26,7 +26,7 @@ export default function Hero() {
       {/* Main hero content */}
       <div className={styles.heroContent}>
         <div className="flex-1 flex items-center justify-center lg:justify-start">
-          <h1 className="text-[60px] sm:text-[80px] md:text-[100px] lg:text-[120px] xl:text-[140px] leading-[0.85] font-semibold font-inter tracking-tighter text-black text-center lg:text-left">
+          <h1 className="text-[60px] sm:text-[80px] md:text-[100px] lg:text-[120px] xl:text-[140px] leading-[0.85] font-semibold font-title tracking-tighter text-black text-center lg:text-left">
             <div>UNICORN</div>
             <div>MAFIA</div>
           </h1>

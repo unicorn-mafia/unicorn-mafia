@@ -79,7 +79,7 @@ export default function Navbar() {
             className={`
               hidden md:flex items-center gap-8 mr-6
               transition-all duration-300 ease-in-out
-              font-medium text-lg text-black font-inter
+              font-medium text-lg text-black font-title
             `}
           >
             <Link href="/#about" className="hover:opacity-70 transition-opacity">About</Link>
@@ -104,7 +104,7 @@ export default function Navbar() {
           ${toggle ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}
         `}
       >
-        <div className="flex flex-col items-center justify-center h-full gap-12 font-medium text-5xl text-black font-inter">
+        <div className="flex flex-col items-center justify-center h-full gap-12 font-medium text-5xl text-black font-title">
           <Link
             href="/#about"
             className="hover:opacity-70 transition-opacity"

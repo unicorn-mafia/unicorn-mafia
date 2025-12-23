@@ -39,7 +39,7 @@ export function CompanyCard({ company, category }: CompanyCardProps) {
         
         {/* Company Name - compact bottom section */}
         <div className="border-t border-neutral-400 px-1 py-2 text-center">
-          <h3 className="text-[10px] font-source font-medium text-neutral-900 tracking-wide leading-none truncate group-hover:text-neutral-700">
+          <h3 className="text-[10px] font-body font-medium text-neutral-900 tracking-wide leading-none truncate group-hover:text-neutral-700">
             {company.name.toUpperCase()}
           </h3>
         </div>
