@@ -20,6 +20,7 @@
 - **Email**: [stable@unicrnmafia.com](mailto:stable@unicrnmafia.com)
 - **GitHub**: [github.com/unicorn-mafia](https://github.com/unicorn-mafia)
 - **Events**: [lu.ma/mafia](https://lu.ma/mafia?period=past)
+- **Brand Guide**: [unicorn-mafia.github.io/UM-brand-style](https://unicorn-mafia.github.io/UM-brand-style/)
 
 ---
 

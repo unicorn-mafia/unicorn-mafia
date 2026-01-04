@@ -62,6 +62,7 @@ export default function Contact() {
                 <div className="flex flex-row text-white font-inter font-medium text-md gap-4">
                     <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Sponsor</a>
                     <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Invest</a>
+                    <a href="https://unicorn-mafia.github.io/UM-brand-style/" target="_blank" rel="noopener noreferrer" className="hover:underline">Brand Guide</a>
                     <div>UM ©2025</div>
                 </div>
             </div>
