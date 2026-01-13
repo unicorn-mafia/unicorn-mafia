@@ -1,36 +1,18 @@
 'use client'
 import Link from 'next/link'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import AnimatedToggle from './animated-toggle'
 import styles from './logo.module.css'
+import { useKeyboardNav, menuItems } from '@/app/_hooks/useKeyboardNav'
 
 export default function Navbar() {
-    const [toggle, setToggle] = useState(false);
-    const [isVisible, setIsVisible] = useState(true);
-    const [lastScrollY, setLastScrollY] = useState(0);
+  const [toggle, setToggle] = useState(false)
+  useKeyboardNav()
 
-    useEffect(() => {
-      const controlNavbar = () => {
-        const currentScrollY = window.scrollY;
-
-        if (currentScrollY > lastScrollY && currentScrollY > 80) {
-          setIsVisible(false);
-        } else {
-          setIsVisible(true);
-        }
-
-        setLastScrollY(currentScrollY);
-      };
-
-      window.addEventListener('scroll', controlNavbar);
-
-      return () => {
-        window.removeEventListener('scroll', controlNavbar);
-      };
-    }, [lastScrollY]);
   return (
     <>
-      <nav className={`sticky z-50 bg-white flex w-full justify-between px-6 md:px-9 py-6 md:py-3 border-b border-gray-200 transition-all duration-300 ease-in-out ${isVisible ? 'top-0' : '-top-24'}`}>
+      <nav className="bg-white flex items-center px-6 md:px-9 py-6 md:py-3 border border-black">
+        {/* Left - Logo */}
         <Link href="/" className={styles.logo}>
           <svg width="48" height="48" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="255.273" y="480.364" width="64.2727" height="64.2727" fill="black"/>
@@ -74,19 +56,29 @@ export default function Navbar() {
             <rect x="191" y="480.364" width="64.2727" height="64.2727" fill="black"/>
           </svg>
         </Link>
-        <div className="flex items-center">
-          <div
-            className={`
-              hidden md:flex items-center gap-8 mr-6
-              transition-all duration-300 ease-in-out
-              font-medium text-lg text-black font-title
-            `}
-          >
-            <Link href="/#about" className="hover:opacity-70 transition-opacity">About</Link>
-            <Link href="/hackathons" className="hover:opacity-70 transition-opacity">Hackathons</Link>
-            <Link href="/companies" className="hover:opacity-70 transition-opacity">Companies</Link>
-            <Link href="/#contact" className="hover:opacity-70 transition-opacity">Contact</Link>
-          </div>
+
+        {/* Center - Navigation Links */}
+        <div
+          className={`
+            hidden md:flex items-center justify-center gap-8 flex-1
+            transition-all duration-300 ease-in-out
+            font-medium text-lg text-black font-title
+          `}
+        >
+          {menuItems.map((item) => (
+            <Link
+              key={item.shortcut}
+              href={item.href}
+              className="nav-link"
+            >
+              {item.label}
+              <span className="keyboard-badge">{item.shortcut}</span>
+            </Link>
+          ))}
+        </div>
+
+        {/* Right - Mobile toggle (spacer on desktop) */}
+        <div className="w-[48px] flex justify-end">
           <div className="relative w-[18px] h-[18px] flex-none cursor-pointer md:hidden">
             <AnimatedToggle
               toggle={toggle}
@@ -105,34 +97,16 @@ export default function Navbar() {
         `}
       >
         <div className="flex flex-col items-center justify-center h-full gap-12 font-medium text-5xl text-black font-title">
-          <Link
-            href="/#about"
-            className="hover:opacity-70 transition-opacity"
-            onClick={() => setToggle(false)}
-          >
-            About
-          </Link>
-          <Link
-            href="/hackathons"
-            className="hover:opacity-70 transition-opacity"
-            onClick={() => setToggle(false)}
-          >
-            Hackathons
-          </Link>
-          <Link
-            href="/companies"
-            className="hover:opacity-70 transition-opacity"
-            onClick={() => setToggle(false)}
-          >
-            Companies
-          </Link>
-          <Link
-            href="/#contact"
-            className="hover:opacity-70 transition-opacity"
-            onClick={() => setToggle(false)}
-          >
-            Contact
-          </Link>
+          {menuItems.map((item) => (
+            <Link
+              key={item.shortcut}
+              href={item.href}
+              className="hover:opacity-70 transition-opacity"
+              onClick={() => setToggle(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
         </div>
       </div>
     </>

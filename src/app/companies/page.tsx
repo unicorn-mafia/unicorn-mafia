@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { CompanyCard } from "../_components/companies/company-card";
 import { loadCompaniesData } from "../_lib/companies-data";
 import type { CompaniesData, Company } from "../_types/companies";
-import Navbar from "../_components/navbar/navbar";
 
 export default function Companies() {
   const [companiesData, setCompaniesData] = useState<CompaniesData | null>(null);
@@ -27,12 +26,9 @@ export default function Companies() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-white">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="border border-neutral-600 bg-neutral-50 p-6">
-            <div className="text-sm font-body tracking-wide text-neutral-900">LOADING COMPANIES...</div>
-          </div>
+      <div className="flex-1 flex items-center justify-center">
+        <div className="border border-neutral-600 bg-neutral-50 p-6">
+          <div className="text-sm font-body tracking-wide text-neutral-900">LOADING COMPANIES...</div>
         </div>
       </div>
     );
@@ -40,12 +36,9 @@ export default function Companies() {
 
   if (!companiesData) {
     return (
-      <div className="min-h-screen flex flex-col bg-white">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="border border-neutral-600 bg-neutral-50 p-6">
-            <div className="text-sm font-body tracking-wide text-neutral-900">FAILED TO LOAD COMPANIES DATA</div>
-          </div>
+      <div className="flex-1 flex items-center justify-center">
+        <div className="border border-neutral-600 bg-neutral-50 p-6">
+          <div className="text-sm font-body tracking-wide text-neutral-900">FAILED TO LOAD COMPANIES DATA</div>
         </div>
       </div>
     );
@@ -70,9 +63,7 @@ export default function Companies() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      
+    <div className="bg-white">
       {/* Hero Section */}
       <section className="py-8 px-6 md:px-12 lg:px-20 border-b border-neutral-600">
         <div className="max-w-6xl mx-auto">

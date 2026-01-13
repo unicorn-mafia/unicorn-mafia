@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Navbar from "../_components/navbar/navbar";
 import { loadHackathonsData } from "../_lib/hackathons-data";
 import type { HackathonsData } from "../_types/hackathons";
 import { HackathonCard } from "../_components/hackathons/hackathon-card";
@@ -28,12 +27,9 @@ export default function Hackathons() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-white">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="border border-neutral-600 bg-neutral-50 p-6">
-            <div className="text-sm font-body tracking-wide text-neutral-900">LOADING HACKATHONS...</div>
-          </div>
+      <div className="flex-1 flex items-center justify-center">
+        <div className="border border-neutral-600 bg-neutral-50 p-6">
+          <div className="text-sm font-body tracking-wide text-neutral-900">LOADING HACKATHONS...</div>
         </div>
       </div>
     );
@@ -41,12 +37,9 @@ export default function Hackathons() {
 
   if (!hackathonsData) {
     return (
-      <div className="min-h-screen flex flex-col bg-white">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="border border-neutral-600 bg-neutral-50 p-6">
-            <div className="text-sm font-body tracking-wide text-neutral-900">FAILED TO LOAD HACKATHONS DATA</div>
-          </div>
+      <div className="flex-1 flex items-center justify-center">
+        <div className="border border-neutral-600 bg-neutral-50 p-6">
+          <div className="text-sm font-body tracking-wide text-neutral-900">FAILED TO LOAD HACKATHONS DATA</div>
         </div>
       </div>
     );
@@ -62,9 +55,7 @@ export default function Hackathons() {
     .sort(() => Math.random() - 0.5);
 
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-
+    <div className="bg-white">
       <section className="py-8 px-6 md:px-12 lg:px-20 border-b border-neutral-600">
         <div className="max-w-6xl mx-auto">
           <div className="border border-neutral-600 bg-neutral-50 p-6">

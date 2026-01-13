@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Navbar from "./_components/navbar/navbar";
+import GallopingHorseFrame from "./_components/horse/galloping-horse-frame";
 
 const ppNeueBit = localFont({
   src: "../../public/fonts/PPNeueBit-Bold.otf",
@@ -112,18 +114,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${ppNeueBit.variable} ${ppNeueMontrealMono.variable}`}>
-      <body className="antialiased bg-white min-h-screen">
-        {/* Fixed border frame */}
-        <div className="fixed inset-0 pointer-events-none z-50">
-          <div className="absolute top-0 left-0 right-0 h-4 md:h-6 lg:h-8 bg-neutral-900" />
-          <div className="absolute bottom-0 left-0 right-0 h-4 md:h-6 lg:h-8 bg-neutral-900" />
-          <div className="absolute top-0 left-0 bottom-0 w-8 md:w-20 lg:w-32 bg-neutral-900" />
-          <div className="absolute top-0 right-0 bottom-0 w-8 md:w-20 lg:w-32 bg-neutral-900" />
-        </div>
-        {/* Content with matching padding */}
-        <div className="relative mx-8 md:mx-20 lg:mx-32 my-4 md:my-6 lg:my-8 bg-white rounded-lg overflow-hidden min-h-[calc(100vh-2rem)] md:min-h-[calc(100vh-3rem)] lg:min-h-[calc(100vh-4rem)]">
+      <body className="antialiased bg-gray-300 min-h-screen">
+        {/* Animated horse background */}
+        <GallopingHorseFrame />
+
+        {/* Header box */}
+        <header className="relative z-10 mx-8 md:mx-20 lg:mx-32 mt-4 md:mt-6 lg:mt-8 bg-white">
+          <Navbar />
+        </header>
+
+        {/* Main content box - gap created by mt-2 md:mt-3 lg:mt-4 */}
+        <main className="relative z-10 mx-8 md:mx-20 lg:mx-32 mt-2 md:mt-3 lg:mt-4 mb-4 md:mb-6 lg:mb-8 bg-white min-h-[calc(100vh-10rem)] border border-black">
           {children}
-        </div>
+        </main>
       </body>
     </html>
   );

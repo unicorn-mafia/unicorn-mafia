@@ -2,17 +2,12 @@
 
 import React from 'react';
 import styles from './contact.module.css';
-import { useScrollAnimation } from '../../_hooks/useScrollAnimation';
-import animationStyles from '../../_styles/animations.module.css';
 
 export default function Contact() {
-  const [ref, isVisible] = useScrollAnimation();
-
   return (
     <div
       id="contact"
-      ref={ref}
-      className={`flex flex-col items-center justify-between w-full min-h-screen px-6 md:px-12 lg:px-20 py-16 bg-black ${animationStyles.fadeInUpSlow} ${isVisible ? animationStyles.visible : ''}`}
+      className="flex flex-col items-center justify-between w-full min-h-screen px-6 md:px-12 lg:px-20 py-16 bg-black"
     >
         <div className="flex flex-col items-center justify-between w-full flex-1">
             <div className="flex flex-row justify-end w-full text-white font-title font-medium text-md">
@@ -51,10 +46,7 @@ export default function Contact() {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col sm:flex-row justify-between w-full items-start sm:items-center gap-4 sm:gap-0">
-                <div className="flex flex-col text-white font-title font-medium text-md">
-                    <a href="mailto:stable@unicrnmafia.com" className="hover:underline">stable@unicrnmafia.com</a>
-                </div>
+            <div className="flex flex-col sm:flex-row justify-end w-full items-start sm:items-center gap-4 sm:gap-0">
                 <div className="flex flex-row text-white font-title font-medium text-md gap-4">
                     <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Sponsor</a>
                     <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Invest</a>
