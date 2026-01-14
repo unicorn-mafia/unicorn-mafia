@@ -47,8 +47,8 @@
 }
 
 .cursor {
-  animation: blink 1s infinite;
-  -webkit-animation: blink 1s infinite;
+  animation: blink 0.8s infinite;
+  -webkit-animation: blink 0.8s infinite;
 }
 
 @keyframes blink {
@@ -59,4 +59,32 @@
 @-webkit-keyframes blink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
+}
+
+.asciiArt {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  color: black;
+  white-space: pre;
+  transition: transform 0.1s ease-out, opacity 0.15s ease-out;
+}
+
+@media (min-width: 640px) {
+  .asciiArt {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .asciiArt {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .asciiArt {
+    font-size: 16px;
+  }
 }
