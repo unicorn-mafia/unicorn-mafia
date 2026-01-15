@@ -3,87 +3,123 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from './hero.module.css';
 
-const ASCII_FRAMES = [
-  `
-    ██████╗ ██╗   ██╗██╗██╗     ██████╗ 
-    ██╔══██╗██║   ██║██║██║     ██╔══██╗
-    ██████╔╝██║   ██║██║██║     ██║  ██║
-    ██╔══██╗██║   ██║██║██║     ██║  ██║
-    ██████╔╝╚██████╔╝██║███████╗██████╔╝
-    ╚═════╝  ╚═════╝ ╚═╝╚══════╝╚═════╝ 
-  `,
-  `
-    ███████╗██╗  ██╗██╗██████╗ 
-    ██╔════╝██║  ██║██║██╔══██╗
-    ███████╗███████║██║██████╔╝
-    ╚════██║██╔══██║██║██╔═══╝ 
-    ███████║██║  ██║██║██║     
-    ╚══════╝╚═╝  ╚═╝╚═╝╚═╝     
-  `,
-  `
-    ██╗  ██╗██╗██████╗ ███████╗
-    ██║  ██║██║██╔══██╗██╔════╝
-    ███████║██║██████╔╝█████╗  
-    ██╔══██║██║██╔══██╗██╔══╝  
-    ██║  ██║██║██║  ██║███████╗
-    ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝
-  `,
-  `
-    ██████╗ ███████╗███╗   ███╗ ██████╗ 
-    ██╔══██╗██╔════╝████╗ ████║██╔═══██╗
-    ██║  ██║█████╗  ██╔████╔██║██║   ██║
-    ██║  ██║██╔══╝  ██║╚██╔╝██║██║   ██║
-    ██████╔╝███████╗██║ ╚═╝ ██║╚██████╔╝
-    ╚═════╝ ╚══════╝╚═╝     ╚═╝ ╚═════╝ 
-  `,
-  `
-    ██╗      █████╗ ██╗   ██╗███╗   ██╗ ██████╗██╗  ██╗
-    ██║     ██╔══██╗██║   ██║████╗  ██║██╔════╝██║  ██║
-    ██║     ███████║██║   ██║██╔██╗ ██║██║     ███████║
-    ██║     ██╔══██║██║   ██║██║╚██╗██║██║     ██╔══██║
-    ███████╗██║  ██║╚██████╔╝██║ ╚████║╚██████╗██║  ██║
-    ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝╚═╝  ╚═╝
-  `,
+const UNICORN_ASCII = `               ,,))))))));,
+            __)))))))))))))),
+ \\|/       -\\(((((''''((((((((.
+ -*-==//////((''  .     \`)))))),
+ /|\\      ))| o    ;-.    '(((((                                  ,(,
+          ( \`|    /  )    ;))))'                               ,_))^;(~
+             |   |   |   ,))((((_     _____------~~~-.        %,;(;(>';'~
+             o_);   ;    )))(((  ~---~  \`::\`           \\      %%~~)(v;(\`('~
+                   ;    ''''\`\`\`\`         \`:       \`:::|\\,__,%%    );\`'; ~
+                  |   _                )     /      \`:|\`----'     \`-'
+            ______/\\/~    |                 /        /
+          /~;;.____/;;'  /          ___--,-(   \`;;;/
+         / //  _;______;'------~~~~~    /;;/\\    /
+        //  | |                        / ;   \\;;,\\
+       (<_  | ;                      /',/-----'  _>
+        \\_| ||_                     //~;~~~~~~~~~
+            \`\\_|                   (,~~
+                                    \\~\\
+                                     ~~`;
+
+const WORDS = ['ship', 'build', 'hire', 'demo', 'launch'];
+
+const PIXEL_FRAMES = [
+  `               ░░▒▒▓▓████▓▓▒▒
+            ░░▒▒▓▓████████▓▓▒▒░░
+ ░▒▓       ░▒▓███████████████▓▒░
+ ▓█▓══════▒▓██▓▓  ░░   ▒▓████▓▒
+ ░▒▓      ▓██▒ ●    ░░    ▒███▓                                  ░▒▓
+          ▒ ▓▒    ░  ▒    ░▓██▓▒                               ░▒▓▓▒░
+             ▓   ▒   ▒   ░▓▓███▓     ▓▓▓▓▓▓▓▓▓▓▓▓▓░░        ▒▓▓▓▓▓▒░
+             ●▒▓   ░    ▓▓▓███  ▓▓▓▓▓  ░░▒▒           ▓      ▒▒▓▓▓▓▒░
+                   ░    ▒▒▒▒▓▓▓▓         ░       ░░░▓▓░▓▓▒▒    ▓▒▒ ░
+                  ▓   ▓                ▒     ░      ░▓▒▓▓▓▒     ▒▒
+            ▓▓▓▓▓▓▒▒▓    ▓                 ░        ░
+          ░▓▓▓░▓▓▓▓░▓▓  ░          ▓▓▓▓▓░▒   ▒▓▓▓░
+         ░ ░░  ▓▓▓▓▓▓▓▒▓▓▓▓▓▓▓▓▓    ░▓▓░▓    ░
+        ░░  ▓ ▓                        ░ ▓   ▓▓▓░▓
+       ░▓▓  ▓ ░                      ░▒░░▓▓▓▓▓  ▓▒
+        ▓▓▓ ▓▓▓                     ░░▓░▓▓▓▓▓▓▓▓
+            ▒▓▓▓                   ░▒▓▓
+                                    ▓▓▓
+                                     ▓▓`,
+  `               ▓▓████████▓▓▒▒
+            ▒▒▓▓██████████████▒▒
+ ▒▓█       ▒▓█████████████████▓░
+ ███══════▓███▓▓  ▒▒   ▓█████▓▒
+ ▒▓█      ███▓ ◉    ▓▓    ████▓                                  ▒▓█
+          ▓ █▓    ▒  ▓    ▓███▓▒                               ▒▓██▓▒
+             █   ▓   ▓   ▓█████▓     █████████████▓▒▒        ▓█████▓▒
+             ◉▓█   ▒    █████▓  █████  ▒▒▓▓           █      ▓▓████▓▒
+                   ▒    ▓▓▓▓████         ▒       ▒▒▒██▒██▓▓    █▓▓ ▒
+                  █   █                ▓     ▒      ▒█▓██▓▒     ▓▓
+            ██████▓▓█    █                 ▒        ▒
+          ▒███▒████▒██  ▒          █████▒▓   ▓███▒
+         ▒ ▒▒  ██████▓██████████    ▒██▒█    ▒
+        ▒▒  █ █                        ▒ █   ███▒█
+       ▒██  █ ▒                      ▒▓▒▒████▓  █▓
+        ███ ███                     ▒▒█▒████████
+            ▓███                   ▒▓██
+                                    ███
+                                     ██`,
 ];
 
-const WORDS = ['build', 'ship', 'hire', 'demo', 'launch'];
-
 export default function Hero() {
-  const [frameIndex, setFrameIndex] = useState(0);
-  const [glitchOffset, setGlitchOffset] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [pixelFrame, setPixelFrame] = useState(0);
+  const [wordIndex, setWordIndex] = useState(0);
+  const hoverIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setFrameIndex((prev) => (prev + 1) % ASCII_FRAMES.length);
-      setGlitchOffset(Math.random() * 2 - 1);
-    }, 1800);
+    const wordInterval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % WORDS.length);
+    }, 2000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(wordInterval);
   }, []);
 
+  useEffect(() => {
+    if (isHovered) {
+      hoverIntervalRef.current = setInterval(() => {
+        setPixelFrame((prev) => (prev + 1) % PIXEL_FRAMES.length);
+      }, 150);
+    } else {
+      if (hoverIntervalRef.current) {
+        clearInterval(hoverIntervalRef.current);
+      }
+    }
+
+    return () => {
+      if (hoverIntervalRef.current) {
+        clearInterval(hoverIntervalRef.current);
+      }
+    };
+  }, [isHovered]);
+
   return (
-    <section className="w-full flex flex-col justify-between px-6 md:px-12 lg:px-20 py-8 md:py-12 border-b border-gray-200" style={{ minHeight: 'calc(100vh - 77px)' }}>
+    <section className={styles.heroSection}>
       <div className={styles.heroContent}>
-        <div className="flex-1 flex items-center justify-center lg:justify-start">
-          <h1 className="text-[60px] sm:text-[80px] md:text-[100px] lg:text-[120px] xl:text-[140px] leading-[0.85] font-semibold font-title tracking-tighter text-black text-center lg:text-left">
+        <div className={styles.titleWrapper}>
+          <h1 className={styles.title}>
             <div>UNICORN</div>
             <div>MAFIA</div>
           </h1>
         </div>
-        <div className="flex-1 flex items-center justify-center">
-          <pre 
-            className={styles.asciiArt}
-            style={{ transform: `translateX(${glitchOffset}px)` }}
-          >
-            {ASCII_FRAMES[frameIndex]}
+        <div 
+          className={styles.artWrapper}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <pre className={`${styles.asciiArt} ${isHovered ? styles.pixelated : ''}`}>
+            {isHovered ? PIXEL_FRAMES[pixelFrame] : UNICORN_ASCII}
           </pre>
         </div>
       </div>
 
       <div className={styles.footerContent}>
-        <div className="font-mono font-normal text-sm sm:text-base md:text-lg tracking-tight text-black/60">
-          <span className={styles.cursor}>_</span> devs helping devs {WORDS[frameIndex]}
-        </div>
+        <span className={styles.cursor}>_</span> devs helping devs {WORDS[wordIndex]}
       </div>
     </section>
   );
