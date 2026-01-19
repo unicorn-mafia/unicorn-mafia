@@ -21,9 +21,6 @@ export default function UnicornBorder({ direction }: UnicornBorderProps) {
   return (
     <div
       className={`flex ${direction === 'horizontal' ? 'flex-row' : 'flex-col'}`}
-      style={{
-        contain: 'layout style paint',
-      }}
     >
       {Array.from({ length: unicornCount }, (_, i) => (
         <AnimatedUnicorn

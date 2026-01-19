@@ -45,7 +45,7 @@ export default function AsciiUnicorn() {
       <pointLight position={[-10, -10, -5]} intensity={0.5} />
 
       <Suspense fallback={null}>
-        <UnicornModel scale={12} position={[0, -2, 0]} />
+        <UnicornModel scale={10} position={[0, -1.6, 0]} />
         <Environment preset="studio" />
       </Suspense>
 

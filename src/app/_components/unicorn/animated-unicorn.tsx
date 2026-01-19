@@ -28,12 +28,13 @@ const AnimatedUnicorn = memo(function AnimatedUnicorn({
   return (
     <svg
       width={size}
-      height={size}
-      viewBox="-20 -20 420 380"
+      height={size * 1.2}
+      viewBox="-20 -20 420 500"
       fill="none"
       style={{
         opacity: 0.1,
         flexShrink: 0,
+        overflow: 'visible',
       }}
     >
       {/* Body elements (non-legs) - main unicorn body, head, horn, etc. */}
