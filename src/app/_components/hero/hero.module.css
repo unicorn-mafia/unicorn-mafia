@@ -64,6 +64,41 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
+}
+
+.canvasContainer {
+  width: 320px;
+  height: 160px;
+  overflow: visible;
+}
+
+@media (min-width: 640px) {
+  .canvasContainer {
+    width: 420px;
+    height: 200px;
+  }
+}
+
+@media (min-width: 768px) {
+  .canvasContainer {
+    width: 500px;
+    height: 240px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .canvasContainer {
+    width: 580px;
+    height: 280px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .canvasContainer {
+    width: 650px;
+    height: 320px;
+  }
 }
 
 .asciiArt {

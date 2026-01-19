@@ -1,76 +1,17 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import styles from './hero.module.css';
 
-const UNICORN_ASCII = `               ,,))))))));,
-            __)))))))))))))),
- \\|/       -\\(((((''''((((((((.
- -*-==//////((''  .     \`)))))),
- /|\\      ))| o    ;-.    '(((((                                  ,(,
-          ( \`|    /  )    ;))))'                               ,_))^;(~
-             |   |   |   ,))((((_     _____------~~~-.        %,;(;(>';'~
-             o_);   ;    )))(((  ~---~  \`::\`           \\      %%~~)(v;(\`('~
-                   ;    ''''\`\`\`\`         \`:       \`:::|\\,__,%%    );\`'; ~
-                  |   _                )     /      \`:|\`----'     \`-'
-            ______/\\/~    |                 /        /
-          /~;;.____/;;'  /          ___--,-(   \`;;;/
-         / //  _;______;'------~~~~~    /;;/\\    /
-        //  | |                        / ;   \\;;,\\
-       (<_  | ;                      /',/-----'  _>
-        \\_| ||_                     //~;~~~~~~~~~
-            \`\\_|                   (,~~
-                                    \\~\\
-                                     ~~`;
+const AsciiUnicorn = dynamic(() => import("./ascii-unicorn"), {
+  ssr: false,
+});
 
 const WORDS = ['ship', 'build', 'hire', 'demo', 'launch'];
 
-const PIXEL_FRAMES = [
-  `               ░░▒▒▓▓████▓▓▒▒
-            ░░▒▒▓▓████████▓▓▒▒░░
- ░▒▓       ░▒▓███████████████▓▒░
- ▓█▓══════▒▓██▓▓  ░░   ▒▓████▓▒
- ░▒▓      ▓██▒ ●    ░░    ▒███▓                                  ░▒▓
-          ▒ ▓▒    ░  ▒    ░▓██▓▒                               ░▒▓▓▒░
-             ▓   ▒   ▒   ░▓▓███▓     ▓▓▓▓▓▓▓▓▓▓▓▓▓░░        ▒▓▓▓▓▓▒░
-             ●▒▓   ░    ▓▓▓███  ▓▓▓▓▓  ░░▒▒           ▓      ▒▒▓▓▓▓▒░
-                   ░    ▒▒▒▒▓▓▓▓         ░       ░░░▓▓░▓▓▒▒    ▓▒▒ ░
-                  ▓   ▓                ▒     ░      ░▓▒▓▓▓▒     ▒▒
-            ▓▓▓▓▓▓▒▒▓    ▓                 ░        ░
-          ░▓▓▓░▓▓▓▓░▓▓  ░          ▓▓▓▓▓░▒   ▒▓▓▓░
-         ░ ░░  ▓▓▓▓▓▓▓▒▓▓▓▓▓▓▓▓▓    ░▓▓░▓    ░
-        ░░  ▓ ▓                        ░ ▓   ▓▓▓░▓
-       ░▓▓  ▓ ░                      ░▒░░▓▓▓▓▓  ▓▒
-        ▓▓▓ ▓▓▓                     ░░▓░▓▓▓▓▓▓▓▓
-            ▒▓▓▓                   ░▒▓▓
-                                    ▓▓▓
-                                     ▓▓`,
-  `               ▓▓████████▓▓▒▒
-            ▒▒▓▓██████████████▒▒
- ▒▓█       ▒▓█████████████████▓░
- ███══════▓███▓▓  ▒▒   ▓█████▓▒
- ▒▓█      ███▓ ◉    ▓▓    ████▓                                  ▒▓█
-          ▓ █▓    ▒  ▓    ▓███▓▒                               ▒▓██▓▒
-             █   ▓   ▓   ▓█████▓     █████████████▓▒▒        ▓█████▓▒
-             ◉▓█   ▒    █████▓  █████  ▒▒▓▓           █      ▓▓████▓▒
-                   ▒    ▓▓▓▓████         ▒       ▒▒▒██▒██▓▓    █▓▓ ▒
-                  █   █                ▓     ▒      ▒█▓██▓▒     ▓▓
-            ██████▓▓█    █                 ▒        ▒
-          ▒███▒████▒██  ▒          █████▒▓   ▓███▒
-         ▒ ▒▒  ██████▓██████████    ▒██▒█    ▒
-        ▒▒  █ █                        ▒ █   ███▒█
-       ▒██  █ ▒                      ▒▓▒▒████▓  █▓
-        ███ ███                     ▒▒█▒████████
-            ▓███                   ▒▓██
-                                    ███
-                                     ██`,
-];
-
 export default function Hero() {
-  const [isHovered, setIsHovered] = useState(false);
-  const [pixelFrame, setPixelFrame] = useState(0);
   const [wordIndex, setWordIndex] = useState(0);
-  const hoverIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const wordInterval = setInterval(() => {
@@ -79,24 +20,6 @@ export default function Hero() {
 
     return () => clearInterval(wordInterval);
   }, []);
-
-  useEffect(() => {
-    if (isHovered) {
-      hoverIntervalRef.current = setInterval(() => {
-        setPixelFrame((prev) => (prev + 1) % PIXEL_FRAMES.length);
-      }, 150);
-    } else {
-      if (hoverIntervalRef.current) {
-        clearInterval(hoverIntervalRef.current);
-      }
-    }
-
-    return () => {
-      if (hoverIntervalRef.current) {
-        clearInterval(hoverIntervalRef.current);
-      }
-    };
-  }, [isHovered]);
 
   return (
     <section className={styles.heroSection}>
@@ -107,14 +30,10 @@ export default function Hero() {
             <div>MAFIA</div>
           </h1>
         </div>
-        <div 
-          className={styles.artWrapper}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <pre className={`${styles.asciiArt} ${isHovered ? styles.pixelated : ''}`}>
-            {isHovered ? PIXEL_FRAMES[pixelFrame] : UNICORN_ASCII}
-          </pre>
+        <div className={styles.artWrapper}>
+          <div className={styles.canvasContainer}>
+            <AsciiUnicorn />
+          </div>
         </div>
       </div>
 
