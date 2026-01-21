@@ -43,7 +43,9 @@ const staticCommands: Record<string, string> = {
                :   .'             Shell: good times
                 ''\`              Members: 850`,
   sudo: `permission denied: nice try tho`,
-  hack: `nice try 😏`,
+  hack: `nice try 😏
+
+but fr tho, cd hackathons to see our wins`,
 }
 
 export default function TerminalEasterEgg() {
@@ -245,11 +247,8 @@ export default function TerminalEasterEgg() {
           {showAscii && (
             <>
               <pre className="text-white whitespace-pre overflow-x-auto text-[5px] sm:text-[7px] md:text-[9px] leading-tight mb-4">{ASCII_ART}</pre>
-              <div className="text-green-400 mb-2">
+              <div className="text-green-400 mb-4">
                 so u wanna code?
-              </div>
-              <div className="text-neutral-500 text-xs mb-4">
-                type &apos;help&apos; for commands or &apos;ls&apos; to explore
               </div>
             </>
           )}
