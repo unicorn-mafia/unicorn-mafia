@@ -11,6 +11,7 @@ export interface MenuItem {
 export const menuItems: MenuItem[] = [
   { label: 'Hackathons', href: '/hackathons', shortcut: 'H' },
   { label: 'Companies', href: '/companies', shortcut: 'C' },
+  { label: 'Demos', href: '/d', shortcut: 'D' },
 ]
 
 export function useKeyboardNav() {
@@ -34,8 +35,15 @@ export function useKeyboardNav() {
       }
 
       const key = e.key.toUpperCase()
+
+      // B to go back
+      if (key === 'B') {
+        e.preventDefault()
+        router.back()
+        return
+      }
+
       const item = menuItems.find((m) => m.shortcut === key)
-      console.log('Key pressed:', key, 'Found item:', item)
 
       if (item) {
         e.preventDefault()
