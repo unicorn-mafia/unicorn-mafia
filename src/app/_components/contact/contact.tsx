@@ -17,8 +17,11 @@ export default function Contact() {
                 <div style={{ marginRight: '2.5rem' }}>
                     <a href="https://lu.ma/mafia?period=past" target="_blank" rel="noopener noreferrer">Luma</a>
                 </div>
-                <div>
+                <div style={{ marginRight: '2.5rem' }}>
                     <a href="https://www.linkedin.com/company/unicorn-mafia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                </div>
+                <div>
+                    <a href="https://x.com/unicorn_mafia" target="_blank" rel="noopener noreferrer">X</a>
                 </div>
             </div>
             <div className="flex flex-col items-start justify-center w-full">
@@ -41,7 +44,7 @@ export default function Contact() {
                             <div className={styles.dotPulse}></div>
                         </div>
                         <span className="text-white font-body">
-                          <a href="https://wa.me/447874943523" target="_blank" rel="noopener noreferrer">Get in touch</a><span className={styles.cursor}>|</span>
+                          <a href="https://wa.me/447488895960?text=tell%20me%20more" target="_blank" rel="noopener noreferrer">Get in touch</a><span className={styles.cursor}>|</span>
                         </span>
                     </div>
                 </div>
@@ -50,7 +53,7 @@ export default function Contact() {
                 <div className="flex flex-row text-white font-title font-medium text-md gap-4">
                     <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Sponsor</a>
                     <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Invest</a>
-                    <div>UM ©2025</div>
+                    <div>UM ©2026</div>
                 </div>
             </div>
         </div>
