@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./_components/navbar/navbar";
 import GallopingHorseFrame from "./_components/horse/galloping-horse-frame";
 import PreloaderWrapper from "./_components/preloader/preloader-wrapper";
+import TerminalEasterEgg from "./_components/terminal/terminal-easter-egg";
 
 const ppNeueBit = localFont({
   src: "../../public/fonts/PPNeueBit-Bold.otf",
@@ -116,6 +117,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${ppNeueBit.variable} ${ppNeueMontrealMono.variable}`}>
       <body className="antialiased bg-gray-300 min-h-screen">
+        <TerminalEasterEgg />
         <PreloaderWrapper>
           {/* Animated horse background */}
           <GallopingHorseFrame />
