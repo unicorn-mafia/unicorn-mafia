@@ -41,8 +41,9 @@ const staticCommands: Record<string, string> = {
         :.::/  '.'   .'           Kernel: pure energy
         o_i/   :    ;             Uptime: since apr 2025
                :   .'             Shell: good times
-                ''\`              Members: 850`,
+                ''\`               Members: 850`,
   sudo: `permission denied: nice try tho`,
+  charlie: `🧀🕺`,
   hack: `nice try 😏
 
 but fr tho, cd hackathons to see our wins`,
