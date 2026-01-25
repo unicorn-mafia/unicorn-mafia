@@ -7,7 +7,8 @@ export default function Contact() {
   return (
     <div
       id="contact"
-      className="flex flex-col items-center justify-between w-full min-h-screen px-6 md:px-12 lg:px-20 py-16 bg-black"
+      className="flex flex-col items-center justify-between w-full min-h-screen px-6 md:px-12 lg:px-20 py-16"
+      style={{ backgroundColor: '#14120B' }}
     >
         <div className="flex flex-col items-center justify-between w-full flex-1">
             <div className="flex flex-row justify-end w-full text-white font-title font-medium text-md">
@@ -57,11 +58,11 @@ export default function Contact() {
                 </div>
             </div>
         </div>
-        <div className="w-full mt-8">
+        <div className="w-full mt-8 flex justify-center">
             <img
-              src="/footer-um.png"
+              src="/footer-um.svg"
               alt="Unicorn Mafia"
-              className="w-full opacity-20"
+              className="max-w-2xl opacity-40"
             />
         </div>
     </div>
