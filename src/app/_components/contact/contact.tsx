@@ -58,11 +58,11 @@ export default function Contact() {
                 </div>
             </div>
         </div>
-        <div className="w-full mt-8 flex justify-center">
+        <div className="w-full mt-8 flex justify-center overflow-hidden px-4">
             <img
               src="/footer-um.svg"
               alt="Unicorn Mafia"
-              className="max-w-2xl opacity-40"
+              className="w-full max-w-2xl opacity-40"
             />
         </div>
     </div>

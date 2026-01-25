@@ -64,13 +64,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .canvasContainer {
-  width: 320px;
-  height: 200px;
-  overflow: visible;
+  width: 280px;
+  height: 175px;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 @media (min-width: 640px) {

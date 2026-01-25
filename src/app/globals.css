@@ -17,10 +17,12 @@
   html {
     scroll-behavior: smooth;
     overscroll-behavior: none;
+    overflow-x: hidden;
   }
 
   body {
     font-family: var(--font-mono);
+    overflow-x: hidden;
   }
 }
 
