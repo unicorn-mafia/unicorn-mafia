@@ -16,7 +16,7 @@ export function AddYoursCard() {
           <span className="text-xl leading-none">+</span>
         </div>
         <div className="px-2">
-          <h3 className="text-[11px] font-source font-medium text-neutral-900 tracking-wide leading-tight">
+          <h3 className="text-[11px] font-body font-medium text-neutral-900 tracking-wide leading-tight">
             ADD YOUR HACKATHON WIN
           </h3>
           <p className="mt-1 text-[9px] text-neutral-700 leading-snug">

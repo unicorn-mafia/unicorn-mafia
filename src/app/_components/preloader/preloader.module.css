@@ -1,0 +1,286 @@
+/* Preloader overlay */
+.preloaderOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background-color: #0a0a0a;
+  animation: fadeIn 0.3s ease;
+  transition: opacity 0.5s ease;
+}
+
+.fadeOut {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Preloader container - centers terminal */
+.preloaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  cursor: pointer;
+}
+
+/* Main content transitions */
+.mainContent {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.mainContentVisible {
+  opacity: 1;
+}
+
+/* Terminal container */
+.terminal {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: var(--font-mono), 'Courier New', monospace;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+  width: 100%;
+}
+
+/* Terminal header with traffic lights */
+.terminalHeader {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #2d2d2d;
+  gap: 8px;
+}
+
+.trafficLight {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.red {
+  background-color: #ff5f56;
+}
+
+.yellow {
+  background-color: #ffbd2e;
+}
+
+.green {
+  background-color: #27ca40;
+}
+
+.terminalTitle {
+  flex: 1;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+/* Terminal body */
+.terminalBody {
+  padding: 20px;
+  min-height: 320px;
+  color: #e5e7eb;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Prompt line */
+.promptLine {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.prompt {
+  color: #4EF9BD;
+  font-weight: 600;
+}
+
+.command {
+  color: #e5e7eb;
+}
+
+/* Blinking cursor */
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 18px;
+  background-color: #e5e7eb;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Claude Code frame */
+.claudeFrame {
+  margin-top: 16px;
+  border: 1px solid #404040;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.claudeHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #262626;
+  border-bottom: 1px solid #404040;
+}
+
+.claudeLogo {
+  color: #B307EB;
+  font-weight: bold;
+}
+
+.claudeTitle {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.claudeBody {
+  padding: 16px;
+}
+
+/* Boot sequence */
+.bootLine {
+  color: #6b7280;
+  margin-bottom: 4px;
+  opacity: 0;
+  animation: fadeSlideIn 0.3s ease forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading indicator */
+.loadingIndicator {
+  margin-top: 16px;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+}
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #404040;
+  border-top-color: #B307EB;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hint text */
+.hint {
+  margin-top: 16px;
+  color: #6b7280;
+  font-size: 12px;
+  text-align: center;
+}
+
+.hintKey {
+  display: inline-block;
+  padding: 2px 6px;
+  background-color: #404040;
+  border-radius: 4px;
+  font-size: 11px;
+  margin: 0 4px;
+}
+
+/* Focus state for keyboard interaction */
+.terminalFocused {
+  outline: 2px solid #B307EB;
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .terminalBody {
+    padding: 16px;
+    min-height: 280px;
+    font-size: 12px;
+  }
+
+  .terminal {
+    border-radius: 8px;
+  }
+
+  .terminalHeader {
+    padding: 10px 12px;
+  }
+
+  .trafficLight {
+    width: 10px;
+    height: 10px;
+  }
+
+  .preloaderContainer {
+    padding: 12px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+    opacity: 1;
+  }
+
+  .spinner {
+    animation: none;
+  }
+
+  .bootLine {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .preloaderOverlay {
+    animation: none;
+    transition: none;
+  }
+
+  .fadeOut {
+    opacity: 0;
+  }
+
+  .mainContent {
+    transition: none;
+  }
+}

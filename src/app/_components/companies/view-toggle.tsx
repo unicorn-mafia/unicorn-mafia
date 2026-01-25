@@ -10,11 +10,11 @@ interface ViewToggleProps {
 export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-xs text-neutral-600 font-source tracking-wide">VIEW:</span>
+      <span className="text-xs text-neutral-600 font-body tracking-wide">VIEW:</span>
       <div className="flex border border-neutral-600">
         <button
           onClick={() => onViewModeChange("grid")}
-          className={`flex items-center px-3 py-2 text-xs font-source font-medium tracking-wide transition-colors border-r border-neutral-600 ${
+          className={`flex items-center px-3 py-2 text-xs font-body font-medium tracking-wide transition-colors border-r border-neutral-600 ${
             viewMode === "grid"
               ? "bg-neutral-900 text-white"
               : "bg-neutral-200 text-neutral-900 hover:bg-neutral-300"
@@ -30,7 +30,7 @@ export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
         </button>
         <button
           onClick={() => onViewModeChange("list")}
-          className={`flex items-center px-3 py-2 text-xs font-source font-medium tracking-wide transition-colors ${
+          className={`flex items-center px-3 py-2 text-xs font-body font-medium tracking-wide transition-colors ${
             viewMode === "list"
               ? "bg-neutral-900 text-white"
               : "bg-neutral-200 text-neutral-900 hover:bg-neutral-300"
