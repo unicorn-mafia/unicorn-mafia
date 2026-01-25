@@ -36,8 +36,8 @@ export function useKeyboardNav() {
 
       const key = e.key.toUpperCase()
 
-      // B to go back
-      if (key === 'B') {
+      // B to go back (but not on home page - would leave the site)
+      if (key === 'B' && window.location.pathname !== '/') {
         e.preventDefault()
         router.back()
         return
