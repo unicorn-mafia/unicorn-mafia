@@ -85,40 +85,48 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
         const processedFrames: GifFrame[] = [];
 
         for (const frame of decompressedFrames) {
-          const frameWidth = Math.floor(Number(frame.dims?.width) || 0);
-          const frameHeight = Math.floor(Number(frame.dims?.height) || 0);
-          const frameLeft = Math.floor(Number(frame.dims?.left) || 0);
-          const frameTop = Math.floor(Number(frame.dims?.top) || 0);
+          try {
+            const frameWidth = Math.floor(Number(frame.dims?.width) || 0);
+            const frameHeight = Math.floor(Number(frame.dims?.height) || 0);
+            const frameLeft = Math.floor(Number(frame.dims?.left) || 0);
+            const frameTop = Math.floor(Number(frame.dims?.top) || 0);
 
-          if (!frameWidth || !frameHeight || !Number.isFinite(frameWidth) || !Number.isFinite(frameHeight)) continue;
+            // Skip invalid frames
+            if (frameWidth <= 0 || frameHeight <= 0) continue;
+            if (!Number.isFinite(frameWidth) || !Number.isFinite(frameHeight)) continue;
+            if (!frame.patch || frame.patch.length !== frameWidth * frameHeight * 4) continue;
 
-          // Create ImageData from the frame's patch
-          const frameImageData = new ImageData(
-            new Uint8ClampedArray(frame.patch),
-            frameWidth,
-            frameHeight
-          );
+            // Create ImageData from the frame's patch
+            const frameImageData = new ImageData(
+              new Uint8ClampedArray(frame.patch),
+              frameWidth,
+              frameHeight
+            );
 
-          // Always clear canvas for each frame to ensure self-contained frames
-          // This is important for scroll-based animation where we jump between frames
-          ctx.clearRect(0, 0, width, height);
+            // Always clear canvas for each frame to ensure self-contained frames
+            ctx.clearRect(0, 0, width, height);
 
-          // Draw the frame patch at its position
-          const tempCanvas = document.createElement('canvas');
-          tempCanvas.width = frameWidth;
-          tempCanvas.height = frameHeight;
-          const tempCtx = tempCanvas.getContext('2d')!;
-          tempCtx.putImageData(frameImageData, 0, 0);
+            // Draw the frame patch at its position
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = frameWidth;
+            tempCanvas.height = frameHeight;
+            const tempCtx = tempCanvas.getContext('2d')!;
+            tempCtx.putImageData(frameImageData, 0, 0);
 
-          ctx.drawImage(tempCanvas, frameLeft, frameTop);
+            ctx.drawImage(tempCanvas, frameLeft, frameTop);
 
-          // Get the full frame as standalone image
-          const fullFrameData = ctx.getImageData(0, 0, width, height);
+            // Get the full frame as standalone image
+            const fullFrameData = ctx.getImageData(0, 0, width, height);
 
-          processedFrames.push({
-            imageData: fullFrameData,
-            delay: frame.delay,
-          });
+            processedFrames.push({
+              imageData: fullFrameData,
+              delay: frame.delay,
+            });
+          } catch (frameErr) {
+            // Skip frames that fail to process
+            console.warn('Skipping frame due to error:', frameErr);
+            continue;
+          }
         }
 
         if (cancelled) return;
