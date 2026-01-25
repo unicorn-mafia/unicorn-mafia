@@ -152,22 +152,12 @@ export default function Navbar() {
           className="fixed bg-white md:hidden border border-black"
           style={{
             zIndex: 9999,
-            top: 'calc(1rem + 73px)',
+            top: 'calc(1rem + 105px)',
             left: '2rem',
             right: '2rem',
             bottom: '1rem'
           }}
         >
-          {/* Close button */}
-          <div className="absolute top-4 left-4">
-            <button
-              onClick={() => setToggle(false)}
-              className="text-3xl font-title text-black"
-              aria-label="Close menu"
-            >
-              ×
-            </button>
-          </div>
           <div className="flex flex-col items-center justify-center h-full gap-8 font-medium text-3xl text-black font-title">
             {menuItems.map((item) => (
               <Link

@@ -13,8 +13,8 @@ const companies = [
   { name: 'Oxford', logo: '/companies/oxford.png', logoHd: '/companies/oxford.svg' },
   { name: 'UCL', logo: '/companies/ucl.png', logoHd: '/companies/ucl.svg' },
   { name: 'Y Combinator', logo: '/companies/ycombinator.png', logoHd: '/companies/ycombinator.svg' },
-  { name: 'xAI', logo: '/companies/xai.svg', logoHd: '/companies/xai.svg' },
-  { name: 'Palantir', logo: '/companies/palantir.svg', logoHd: '/companies/palantir.svg' },
+  { name: 'xAI', logo: '/companies/xai.svg', logoHd: '/companies/xai-hd.svg' },
+  { name: 'Palantir', logo: '/companies/palantir.svg', logoHd: '/companies/palantir-hd.svg' },
 ];
 
 export default function TrustBy() {
