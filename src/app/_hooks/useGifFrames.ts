@@ -63,8 +63,12 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
           throw new Error('No frames found in GIF');
         }
 
-        const width = Math.floor(decompressedFrames[0].dims.width);
-        const height = Math.floor(decompressedFrames[0].dims.height);
+        const width = decompressedFrames[0].dims.width || 0;
+        const height = decompressedFrames[0].dims.height || 0;
+
+        if (!width || !height) {
+          throw new Error('Invalid GIF dimensions');
+        }
 
         // Create a canvas for compositing frames
         if (!canvasRef.current) {
@@ -79,11 +83,16 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
         const processedFrames: GifFrame[] = [];
 
         for (const frame of decompressedFrames) {
+          const frameWidth = frame.dims.width || 0;
+          const frameHeight = frame.dims.height || 0;
+
+          if (!frameWidth || !frameHeight) continue;
+
           // Create ImageData from the frame's patch
           const frameImageData = new ImageData(
             new Uint8ClampedArray(frame.patch),
-            frame.dims.width,
-            frame.dims.height
+            frameWidth,
+            frameHeight
           );
 
           // Always clear canvas for each frame to ensure self-contained frames
@@ -92,12 +101,12 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
 
           // Draw the frame patch at its position
           const tempCanvas = document.createElement('canvas');
-          tempCanvas.width = frame.dims.width;
-          tempCanvas.height = frame.dims.height;
+          tempCanvas.width = frameWidth;
+          tempCanvas.height = frameHeight;
           const tempCtx = tempCanvas.getContext('2d')!;
           tempCtx.putImageData(frameImageData, 0, 0);
 
-          ctx.drawImage(tempCanvas, frame.dims.left, frame.dims.top);
+          ctx.drawImage(tempCanvas, frame.dims.left || 0, frame.dims.top || 0);
 
           // Get the full frame as standalone image
           const fullFrameData = ctx.getImageData(0, 0, width, height);
