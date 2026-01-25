@@ -63,10 +63,12 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
           throw new Error('No frames found in GIF');
         }
 
-        const width = decompressedFrames[0].dims.width || 0;
-        const height = decompressedFrames[0].dims.height || 0;
+        const rawWidth = decompressedFrames[0].dims?.width;
+        const rawHeight = decompressedFrames[0].dims?.height;
+        const width = Math.floor(Number(rawWidth) || 0);
+        const height = Math.floor(Number(rawHeight) || 0);
 
-        if (!width || !height) {
+        if (!width || !height || !Number.isFinite(width) || !Number.isFinite(height)) {
           throw new Error('Invalid GIF dimensions');
         }
 
@@ -83,10 +85,12 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
         const processedFrames: GifFrame[] = [];
 
         for (const frame of decompressedFrames) {
-          const frameWidth = frame.dims.width || 0;
-          const frameHeight = frame.dims.height || 0;
+          const frameWidth = Math.floor(Number(frame.dims?.width) || 0);
+          const frameHeight = Math.floor(Number(frame.dims?.height) || 0);
+          const frameLeft = Math.floor(Number(frame.dims?.left) || 0);
+          const frameTop = Math.floor(Number(frame.dims?.top) || 0);
 
-          if (!frameWidth || !frameHeight) continue;
+          if (!frameWidth || !frameHeight || !Number.isFinite(frameWidth) || !Number.isFinite(frameHeight)) continue;
 
           // Create ImageData from the frame's patch
           const frameImageData = new ImageData(
@@ -106,7 +110,7 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
           const tempCtx = tempCanvas.getContext('2d')!;
           tempCtx.putImageData(frameImageData, 0, 0);
 
-          ctx.drawImage(tempCanvas, frame.dims.left || 0, frame.dims.top || 0);
+          ctx.drawImage(tempCanvas, frameLeft, frameTop);
 
           // Get the full frame as standalone image
           const fullFrameData = ctx.getImageData(0, 0, width, height);

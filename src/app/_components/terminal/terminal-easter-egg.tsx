@@ -31,11 +31,18 @@ const staticCommands: Record<string, string> = {
   pwd          - current location
   whoami       - who are you?
   neofetch     - system info
+  flex         - add your own easter egg
   clear        - clear terminal
   exit         - close terminal`,
   whoami: `a builder, obviously`,
   neofetch: `[NEOFETCH]`,
-  sudo: `permission denied: nice try tho`,
+  flex: `want your own easter egg? submit a PR:
+github.com/unicorn-mafia/unicorn-mafia
+
+add yourself to staticCommands in:
+src/app/_components/terminal/terminal-easter-egg.tsx
+
+example: charlie → 🧀🕺`,
   charlie: `🧀🕺`,
   hack: `nice try 😏
 
@@ -49,6 +56,8 @@ export default function TerminalEasterEgg() {
   const [buffer, setBuffer] = useState('')
   const [input, setInput] = useState('')
   const [history, setHistory] = useState<HistoryItem[]>([])
+  const [commandHistory, setCommandHistory] = useState<string[]>([])
+  const [historyIndex, setHistoryIndex] = useState(-1)
   const [showAscii, setShowAscii] = useState(true)
   const inputRef = useRef<HTMLInputElement>(null)
   const terminalRef = useRef<HTMLDivElement>(null)
@@ -68,6 +77,8 @@ export default function TerminalEasterEgg() {
           setIsOpen(false)
           setBuffer('')
           setHistory([])
+          setCommandHistory([])
+          setHistoryIndex(-1)
           setShowAscii(true)
           setInput('')
         }
@@ -127,7 +138,7 @@ export default function TerminalEasterEgg() {
 
     if (command === 'clear') {
       setHistory([])
-      setShowAscii(true)
+      setShowAscii(false)
       return
     }
 
@@ -135,11 +146,12 @@ export default function TerminalEasterEgg() {
       setIsOpen(false)
       setBuffer('')
       setHistory([])
+      setCommandHistory([])
+      setHistoryIndex(-1)
       setShowAscii(true)
       return
     }
 
-    setShowAscii(false)
     let output = ''
 
     // Handle commands
@@ -204,8 +216,33 @@ export default function TerminalEasterEgg() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (input.trim()) {
+      setCommandHistory(prev => [...prev, input])
+      setHistoryIndex(-1)
       handleCommand(input)
       setInput('')
+    }
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (commandHistory.length === 0) return
+      const newIndex = historyIndex === -1
+        ? commandHistory.length - 1
+        : Math.max(0, historyIndex - 1)
+      setHistoryIndex(newIndex)
+      setInput(commandHistory[newIndex])
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      if (historyIndex === -1) return
+      const newIndex = historyIndex + 1
+      if (newIndex >= commandHistory.length) {
+        setHistoryIndex(-1)
+        setInput('')
+      } else {
+        setHistoryIndex(newIndex)
+        setInput(commandHistory[newIndex])
+      }
     }
   }
 
@@ -236,7 +273,7 @@ export default function TerminalEasterEgg() {
         {/* Terminal content */}
         <div
           ref={terminalRef}
-          className="p-4 font-mono text-sm max-h-[60vh] overflow-y-auto"
+          className="p-4 font-mono text-sm h-[400px] overflow-y-auto"
         >
           {showAscii && (
             <>
@@ -288,6 +325,7 @@ export default function TerminalEasterEgg() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
               className="flex-1 bg-transparent text-green-400 outline-none font-mono"
               spellCheck={false}
               autoComplete="off"
