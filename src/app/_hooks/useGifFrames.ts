@@ -63,8 +63,8 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
           throw new Error('No frames found in GIF');
         }
 
-        const width = decompressedFrames[0].dims.width;
-        const height = decompressedFrames[0].dims.height;
+        const width = Math.floor(decompressedFrames[0].dims.width);
+        const height = Math.floor(decompressedFrames[0].dims.height);
 
         // Create a canvas for compositing frames
         if (!canvasRef.current) {

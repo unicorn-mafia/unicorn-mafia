@@ -1,12 +1,28 @@
+'use client'
+
+import { useEffect } from 'react'
+
 export default function Chapter1() {
   const demos = [
-    { name: "lewis" },
-    { name: "louis" },
-    { name: "matt" },
-    { name: "peter" },
-    { name: "charlie" },
-    { name: "ben" },
-  ];
+    { name: "peter", x: "steipete", project: "clawdbot", tweetId: "2015154809263853680" },
+    { name: "lewis", x: "lewis_b_metcalf", project: "ampcode" },
+    { name: "louis", x: "tokengobbler", project: "review.fast" },
+    { name: "matt", x: "mattzcarey", project: "model context problem (mcp)" },
+    { name: "charlie", x: "charlielidbury", project: "agentica" },
+    { name: "ben", x: "benclarkeio", project: "a2anet" },
+  ]
+
+  useEffect(() => {
+    // Load Twitter widget script
+    const script = document.createElement('script')
+    script.src = 'https://platform.twitter.com/widgets.js'
+    script.async = true
+    document.body.appendChild(script)
+
+    return () => {
+      document.body.removeChild(script)
+    }
+  }, [])
 
   return (
     <div className="min-h-screen bg-white text-black">
@@ -19,20 +35,34 @@ export default function Chapter1() {
         </div>
 
         <div className="border-t border-black/10 pt-8">
-          <p className="text-neutral-500 text-sm mb-6">demos 👇</p>
+          <p className="text-neutral-500 text-sm mb-6">demos</p>
 
-          <div className="space-y-3">
+          <div className="space-y-6">
             {demos.map((demo) => (
-              <div
-                key={demo.name}
-                className="text-lg font-body text-neutral-700 hover:text-black transition-colors"
-              >
-                {demo.name}
+              <div key={demo.name}>
+                <div className="flex items-baseline gap-2">
+                  <a
+                    href={`https://x.com/${demo.x}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg font-body text-black hover:underline"
+                  >
+                    {demo.name}
+                  </a>
+                  <span className="text-neutral-500 text-sm">— {demo.project}</span>
+                </div>
+                {demo.tweetId && (
+                  <div className="mt-3">
+                    <blockquote className="twitter-tweet" data-media-max-width="560">
+                      <a href={`https://twitter.com/davidgelberg/status/${demo.tweetId}`}></a>
+                    </blockquote>
+                  </div>
+                )}
               </div>
             ))}
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

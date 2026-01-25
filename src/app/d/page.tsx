@@ -31,17 +31,17 @@ export default function Demos() {
         <div className="border-t border-black/10 pt-8">
           <p className="text-neutral-500 text-sm mb-6">past events 👇</p>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-wrap gap-6">
             {demoEvents.map((event) => (
               <a
                 key={event.name}
                 href={event.link}
-                className="group"
+                className="group inline-block"
               >
                 <img
                   src={event.stamp}
                   alt={event.name}
-                  className="w-full max-w-[200px] hover:opacity-80 transition-opacity"
+                  className="w-[120px] hover:opacity-80 transition-opacity"
                   loading="lazy"
                 />
                 <div className="mt-2">

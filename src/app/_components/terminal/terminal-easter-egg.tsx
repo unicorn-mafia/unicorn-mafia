@@ -34,14 +34,7 @@ const staticCommands: Record<string, string> = {
   clear        - clear terminal
   exit         - close terminal`,
   whoami: `a builder, obviously`,
-  neofetch: `_______\\)%%%%%%%%._              unicorn-mafia@london
-\`''''-'-;   % % % % %'-._         ----------------------
-        :b) \\            '-.      OS: big tony
-        : :__)'    .'    .'       Host: halkin
-        :.::/  '.'   .'           Kernel: pure energy
-        o_i/   :    ;             Uptime: since apr 2025
-               :   .'             Shell: good times
-                ''\`               Members: 850`,
+  neofetch: `[NEOFETCH]`,
   sudo: `permission denied: nice try tho`,
   charlie: `🧀🕺`,
   hack: `nice try 😏
@@ -260,7 +253,30 @@ export default function TerminalEasterEgg() {
               <div className="text-green-400">
                 <span className="text-neutral-500">{getCurrentDir()} $</span> {item.command}
               </div>
-              <pre className="text-neutral-300 whitespace-pre-wrap mt-1">{item.output}</pre>
+              <div className="text-neutral-300 whitespace-pre-wrap mt-1 font-mono">
+                {item.output === '[NEOFETCH]' ? (
+                  <div>
+                    <span>_______\)</span><span style={{ color: '#B307EB' }}>%%</span><span style={{ color: '#3198F1' }}>%%</span><span style={{ color: '#4EF9BD' }}>%%</span><span style={{ color: '#EE1701' }}>%%</span><span>._              unicorn-mafia@london</span>{'\n'}
+                    <span>`&apos;&apos;&apos;&apos;-&apos;-;   </span><span style={{ color: '#B307EB' }}>% </span><span style={{ color: '#3198F1' }}>% </span><span style={{ color: '#4EF9BD' }}>% </span><span style={{ color: '#EE1701' }}>% </span><span>%&apos;-._         ----------------------</span>{'\n'}
+                    <span>        :b) \            &apos;-.      OS: big tony</span>{'\n'}
+                    <span>        : :__)&apos;    .&apos;    .&apos;       Host: halkin</span>{'\n'}
+                    <span>        :.::/  &apos;.&apos;   .&apos;           Kernel: pure energy</span>{'\n'}
+                    <span>        o_i/   :    ;             Uptime: since apr 2025</span>{'\n'}
+                    <span>               :   .&apos;             Shell: good times</span>{'\n'}
+                    <span>                &apos;&apos;`               Members: 850</span>{'\n'}
+                    {'\n'}
+                    <span>                                  </span>
+                    <span className="inline-flex gap-0">
+                      <span className="inline-block w-6 h-3" style={{ backgroundColor: '#B307EB' }}></span>
+                      <span className="inline-block w-6 h-3" style={{ backgroundColor: '#3198F1' }}></span>
+                      <span className="inline-block w-6 h-3" style={{ backgroundColor: '#4EF9BD' }}></span>
+                      <span className="inline-block w-6 h-3" style={{ backgroundColor: '#EE1701' }}></span>
+                    </span>
+                  </div>
+                ) : (
+                  <pre>{item.output}</pre>
+                )}
+              </div>
             </div>
           ))}
 
