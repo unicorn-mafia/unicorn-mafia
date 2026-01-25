@@ -52,6 +52,7 @@ export default function Contact() {
             <div className="flex flex-row text-white font-title font-medium text-md gap-4 mt-4">
                 <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Sponsor</a>
                 <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Invest</a>
+                <a href="/brand" className="hover:underline">Brand</a>
                 <div>UM ©2026</div>
             </div>
         </div>
