@@ -57,6 +57,13 @@ export default function Contact() {
                 </div>
             </div>
         </div>
+        <div className="w-full mt-8">
+            <img
+              src="/footer-um.png"
+              alt="Unicorn Mafia"
+              className="w-full opacity-20"
+            />
+        </div>
     </div>
   )
 }
