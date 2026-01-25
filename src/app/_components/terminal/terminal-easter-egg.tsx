@@ -256,8 +256,8 @@ export default function TerminalEasterEgg() {
               <div className="text-neutral-300 whitespace-pre-wrap mt-1 font-mono">
                 {item.output === '[NEOFETCH]' ? (
                   <div>
-                    <span>_______\)</span><span style={{ color: '#B307EB' }}>%%</span><span style={{ color: '#3198F1' }}>%%</span><span style={{ color: '#4EF9BD' }}>%%</span><span style={{ color: '#EE1701' }}>%%</span><span>._              unicorn-mafia@london</span>{'\n'}
-                    <span>`&apos;&apos;&apos;&apos;-&apos;-;   </span><span style={{ color: '#B307EB' }}>% </span><span style={{ color: '#3198F1' }}>% </span><span style={{ color: '#4EF9BD' }}>% </span><span style={{ color: '#EE1701' }}>% </span><span>%&apos;-._         ----------------------</span>{'\n'}
+                    <span style={{ color: '#EE1701' }}>__</span><span style={{ color: '#4EF9BD' }}>__</span><span style={{ color: '#3198F1' }}>__</span><span style={{ color: '#B307EB' }}>_</span><span>\)%%%%%%%%._              unicorn-mafia@london</span>{'\n'}
+                    <span>`&apos;&apos;&apos;&apos;-&apos;-;   % % % % %&apos;-._         ----------------------</span>{'\n'}
                     <span>        :b) \            &apos;-.      OS: big tony</span>{'\n'}
                     <span>        : :__)&apos;    .&apos;    .&apos;       Host: halkin</span>{'\n'}
                     <span>        :.::/  &apos;.&apos;   .&apos;           Kernel: pure energy</span>{'\n'}
