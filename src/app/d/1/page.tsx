@@ -7,7 +7,7 @@ export default function Chapter1() {
     { name: "peter", x: "steipete", project: "clawdbot", tweetId: "2015154809263853680" },
     { name: "lewis", x: "lewis_b_metcalf", project: "ampcode" },
     { name: "louis", x: "tokengobbler", project: "review.fast", tweetId: "2015538386895765806" },
-    { name: "matt", x: "mattzcarey", project: "model context problem (mcp)" },
+    { name: "matt", x: "mattzcarey", project: "model context problem (mcp)", tweetId: "2015916242226344444" },
     { name: "charlie", x: "charlielidbury", project: "agentica" },
     { name: "ben", x: "benclarkeio", project: "a2anet" },
   ]
