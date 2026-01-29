@@ -54,7 +54,7 @@ export default function Chapter1() {
                 {demo.tweetId && (
                   <div className="mt-3">
                     <blockquote className="twitter-tweet" data-media-max-width="560">
-                      <a href={`https://twitter.com/davidgelberg/status/${demo.tweetId}`}></a>
+                      <a href={`https://x.com/i/status/${demo.tweetId}`}></a>
                     </blockquote>
                   </div>
                 )}
