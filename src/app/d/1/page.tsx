@@ -9,7 +9,7 @@ export default function Chapter1() {
     { name: "louis", x: "tokengobbler", project: "review.fast", tweetId: "2015538386895765806" },
     { name: "matt", x: "mattzcarey", project: "model context problem (mcp)", tweetId: "2015916242226344444" },
     { name: "charlie", x: "charlielidbury", project: "agentica", tweetId: "2016636969795584220" },
-    { name: "ben", x: "benclarkeio", project: "a2anet" },
+    { name: "ben", x: "benclarkeio", project: "a2anet", tweetId: "2017021908529614880" },
   ]
 
   useEffect(() => {
