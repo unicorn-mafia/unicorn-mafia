@@ -9,8 +9,8 @@ export interface MenuItem {
 }
 
 export const menuItems: MenuItem[] = [
-  { label: 'Hackathons', href: '/hackathons', shortcut: 'H' },
-  { label: 'Companies', href: '/companies', shortcut: 'C' },
+  { label: 'Hackathons', href: '/h', shortcut: 'H' },
+  { label: 'Companies', href: '/c', shortcut: 'C' },
   { label: 'Demos', href: '/d', shortcut: 'D' },
 ]
 

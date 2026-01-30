@@ -16,8 +16,8 @@ type HistoryItem = {
 }
 
 const routes: Record<string, { path: string; description: string }> = {
-  hackathons: { path: '/hackathons', description: 'hackathon wins by mafia members' },
-  companies: { path: '/companies', description: 'companies built by the community' },
+  hackathons: { path: '/h', description: 'hackathon wins by mafia members' },
+  companies: { path: '/c', description: 'companies built by the community' },
   demos: { path: '/d', description: 'demo nights & demo days' },
   contact: { path: '/#contact', description: 'get in touch' },
   home: { path: '/', description: 'main page' },
@@ -64,14 +64,32 @@ export default function TerminalEasterEgg() {
 
   const getCurrentDir = () => {
     if (pathname === '/') return '~'
-    if (pathname === '/hackathons') return '~/hackathons'
-    if (pathname === '/companies') return '~/companies'
+    if (pathname === '/h') return '~/hackathons'
+    if (pathname === '/c') return '~/companies'
     if (pathname.startsWith('/d')) return '~/demos'
     return '~' + pathname
   }
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // CMD+K toggles terminal from anywhere
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        if (isOpen) {
+          setIsOpen(false)
+          setBuffer('')
+          setHistory([])
+          setCommandHistory([])
+          setHistoryIndex(-1)
+          setShowAscii(true)
+          setInput('')
+        } else {
+          setIsOpen(true)
+          setBuffer('')
+        }
+        return
+      }
+
       if (isOpen) {
         if (e.key === 'Escape') {
           setIsOpen(false)

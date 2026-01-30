@@ -50,9 +50,10 @@ export default function Contact() {
               className="w-full max-w-2xl opacity-40"
             />
             <div className="flex flex-row text-white font-title font-medium text-md gap-4 mt-4">
-                <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Sponsor</a>
-                <a href="mailto:stable@unicrnmafia.com" className="hover:underline">Invest</a>
+                <a href="mailto:stable@unicornmafia.ai" className="hover:underline">Sponsor</a>
+                <a href="mailto:stable@unicornmafia.ai" className="hover:underline">Invest</a>
                 <a href="/brand" className="hover:underline">Brand</a>
+                <a href="https://www.halkin.com/" target="_blank" rel="noopener noreferrer" className="hover:underline">Office</a>
                 <div>UM ©2026</div>
             </div>
         </div>

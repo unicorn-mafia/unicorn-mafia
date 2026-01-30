@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Companies | Unicorn Mafia",
     description: "Learn about the companies Unicorn Mafia members are building",
-    url: "https://unicrnmafia.com/companies",
+    url: "https://unicrnmafia.com/c",
 locale: "en_US",
 type: "website",
     images: [
