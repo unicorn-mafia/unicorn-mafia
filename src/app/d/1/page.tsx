@@ -1,6 +1,20 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+
+declare global {
+  interface Window {
+    twttr?: {
+      widgets: {
+        createTweet: (
+          tweetId: string,
+          container: HTMLElement,
+          options?: Record<string, string>
+        ) => Promise<HTMLElement | undefined>
+      }
+    }
+  }
+}
 
 export default function Chapter1() {
   const demos = [
@@ -12,16 +26,46 @@ export default function Chapter1() {
     { name: "ben", x: "benclarkeio", project: "a2anet", tweetId: "2017021908529614880" },
   ]
 
+  const [failedEmbeds, setFailedEmbeds] = useState<Set<string>>(new Set())
+
   useEffect(() => {
-    // Load Twitter widget script
     const script = document.createElement('script')
     script.src = 'https://platform.twitter.com/widgets.js'
     script.async = true
-    document.body.appendChild(script)
 
+    script.onload = () => {
+      if (!window.twttr?.widgets) return
+
+      demos.forEach((demo) => {
+        if (!demo.tweetId) return
+        const container = document.getElementById(`tweet-${demo.tweetId}`)
+        if (!container) return
+        window.twttr!.widgets.createTweet(demo.tweetId, container).catch(() => {})
+      })
+
+      // Twitter renders a tiny ~76px iframe for "Not found" errors
+      // vs 400px+ for successful embeds. Check after embeds have loaded.
+      setTimeout(() => {
+        const failed = new Set<string>()
+        demos.forEach((demo) => {
+          if (!demo.tweetId) return
+          const container = document.getElementById(`tweet-${demo.tweetId}`)
+          if (!container) return
+          const wrapper = container.querySelector('.twitter-tweet-rendered')
+          if (!wrapper || (wrapper as HTMLElement).offsetHeight < 100) {
+            if (wrapper) wrapper.remove()
+            failed.add(demo.tweetId)
+          }
+        })
+        if (failed.size > 0) setFailedEmbeds(failed)
+      }, 5000)
+    }
+
+    document.body.appendChild(script)
     return () => {
       document.body.removeChild(script)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -53,9 +97,18 @@ export default function Chapter1() {
                 </div>
                 {demo.tweetId && (
                   <div className="mt-3">
-                    <blockquote className="twitter-tweet" data-media-max-width="560">
-                      <a href={`https://twitter.com/davidgelberg/status/${demo.tweetId}`}></a>
-                    </blockquote>
+                    <div id={`tweet-${demo.tweetId}`} />
+                    {failedEmbeds.has(demo.tweetId) && (
+                      <a
+                        href={`https://x.com/${demo.x}/status/${demo.tweetId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-black transition-colors font-body border border-black/10 rounded-md px-3 py-2"
+                      >
+                        View demo on X
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    )}
                   </div>
                 )}
               </div>
