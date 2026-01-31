@@ -18,7 +18,7 @@ declare global {
 
 export default function Chapter1() {
   const demos = [
-    { name: "peter", x: "steipete", project: "clawdbot", tweetId: "2015154809263853680" },
+    { name: "peter", x: "steipete", project: "openclaw", tweetId: "2015154809263853680" },
     { name: "lewis", x: "lewis_b_metcalf", project: "ampcode", tweetId: "2016246283720159606" },
     { name: "louis", x: "tokengobbler", project: "review.fast", tweetId: "2015538386895765806" },
     { name: "matt", x: "mattzcarey", project: "model context problem (mcp)", tweetId: "2015916242226344444" },
