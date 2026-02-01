@@ -10,25 +10,29 @@ const ORGANIZATION = {
   website: 'https://unicrnmafia.com',
   location: 'London, United Kingdom',
   email: 'stable@unicrnmafia.com',
+  linkedInPage: 'https://www.linkedin.com/company/unicorn-mafia',
+  linkedInCompanyId: '108478332',
 };
 
 /**
  * Generate LinkedIn Add to Profile URL
  * Uses LinkedIn's official certification add-to-profile feature
  */
-function generateLinkedInUrl(year?: number, month?: number): string {
-  // Default to Unicorn Mafia inception date: March 2025
-  const issueYear = year || 2025;
-  const issueMonth = month || 3;
-  
+function generateLinkedInUrl(year: number, month: number): string {
   const params = new URLSearchParams({
     startTask: 'CERTIFICATION_NAME',
     name: 'Community Member',
-    organizationName: ORGANIZATION.name,
-    issueYear: issueYear.toString(),
-    issueMonth: issueMonth.toString(),
+    issueYear: year.toString(),
+    issueMonth: month.toString(),
     certUrl: ORGANIZATION.website,
   });
+  
+  // Use organizationId if available (links to company page), otherwise use name
+  if (ORGANIZATION.linkedInCompanyId) {
+    params.set('organizationId', ORGANIZATION.linkedInCompanyId);
+  } else {
+    params.set('organizationName', ORGANIZATION.name);
+  }
   
   return `https://www.linkedin.com/profile/add?${params.toString()}`;
 }
@@ -93,9 +97,9 @@ function ContentSection({
 
 export default function LinkedInBadgePage() {
   const [linkedInUrl, setLinkedInUrl] = useState('');
-  // Default to Unicorn Mafia inception date: March 2025
-  const [joinYear, setJoinYear] = useState<number>(2025);
-  const [joinMonth, setJoinMonth] = useState<number>(3);
+  // Default to current date
+  const [joinYear, setJoinYear] = useState<number>(new Date().getFullYear());
+  const [joinMonth, setJoinMonth] = useState<number>(new Date().getMonth() + 1);
 
   useEffect(() => {
     setLinkedInUrl(generateLinkedInUrl(joinYear, joinMonth));
