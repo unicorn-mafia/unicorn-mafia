@@ -249,29 +249,6 @@ export default function LinkedInBadgePage() {
         </p>
       </ContentSection>
 
-      {/* CLI Tool */}
-      <div className="border border-dashed border-gray-400 p-6 bg-gray-50">
-        <h3 className="text-lg font-bold mb-2">For Developers: CLI Tool</h3>
-        <p className="text-sm text-gray-600 mb-4">
-          Prefer the command line? Clone our repo and run:
-        </p>
-        <pre className="bg-black text-green-400 p-4 text-sm overflow-x-auto">
-          <code>
-            {`git clone https://github.com/unicorn-mafia/unicorn-mafia.git
-cd unicorn-mafia
-node scripts/linkedin-badge.js --open  # Opens LinkedIn directly!`}
-          </code>
-        </pre>
-        <p className="text-sm text-gray-500 mt-4">
-          Options: <code className="bg-gray-200 px-1">--open</code>{' '}
-          <code className="bg-gray-200 px-1">--url-only</code>{' '}
-          <code className="bg-gray-200 px-1">--year</code>{' '}
-          <code className="bg-gray-200 px-1">--month</code>{' '}
-          <code className="bg-gray-200 px-1">--copy</code>{' '}
-          <code className="bg-gray-200 px-1">--json</code>
-        </p>
-      </div>
-
       {/* Footer */}
       <div className="mt-12 pt-8 border-t border-gray-200">
         <p className="text-sm text-gray-500">
