@@ -10,6 +10,43 @@ const ASCII_ART = `██╗   ██╗███╗   ██╗██╗ ██
 ╚██████╔╝██║ ╚████║██║╚██████╗╚██████╔╝██║  ██║██║ ╚████║    ██║ ╚═╝ ██║██║  ██║██║     ██║██║  ██║
  ╚═════╝ ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝`
 
+/**
+ * Generate LinkedIn Add to Profile URL for community membership badge
+ */
+function generateLinkedInUrl(): string {
+  const now = new Date()
+  const params = new URLSearchParams({
+    startTask: 'CERTIFICATION_NAME',
+    name: 'Community Member',
+    issueYear: now.getFullYear().toString(),
+    issueMonth: (now.getMonth() + 1).toString(),
+    certUrl: 'https://unicrnmafia.com',
+    organizationId: '108478332', // Unicorn Mafia LinkedIn company ID
+  })
+  return `https://www.linkedin.com/profile/add?${params.toString()}`
+}
+
+function LinkedInOutput() {
+  useEffect(() => {
+    // Small delay before opening to let the user see the message
+    const timer = setTimeout(() => {
+      window.open(generateLinkedInUrl(), '_blank')
+    }, 800)
+    return () => clearTimeout(timer)
+  }, [])
+
+  return (
+    <div>
+      <span className="text-[#0A66C2]">🦄 adding unicorn mafia badge to linkedin...</span>{'\n'}
+      {'\n'}
+      <span className="text-neutral-400">opening linkedin in new tab...</span>{'\n'}
+      <span className="text-neutral-400">select your join date on linkedin to complete.</span>{'\n'}
+      {'\n'}
+      <span className="text-neutral-500">tip: use current month or when you actually joined</span>
+    </div>
+  )
+}
+
 type HistoryItem = {
   command: string
   output: string
@@ -31,11 +68,15 @@ const staticCommands: Record<string, string> = {
   pwd          - current location
   whoami       - who are you?
   neofetch     - system info
+  linkedin     - add badge to your LinkedIn
+  certification- alias for linkedin
   flex         - add your own easter egg
   clear        - clear terminal
   exit         - close terminal`,
   whoami: `a builder, obviously`,
   neofetch: `[NEOFETCH]`,
+  linkedin: `[LINKEDIN]`,
+  certification: `[LINKEDIN]`,
   flex: `want your own easter egg? submit a PR:
 github.com/unicorn-mafia/unicorn-mafia
 
@@ -328,6 +369,8 @@ export default function TerminalEasterEgg() {
                       <span className="inline-block w-6 h-3" style={{ backgroundColor: '#EE1701' }}></span>
                     </span>
                   </div>
+                ) : item.output === '[LINKEDIN]' ? (
+                  <LinkedInOutput />
                 ) : (
                   <pre>{item.output}</pre>
                 )}
