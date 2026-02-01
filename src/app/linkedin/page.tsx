@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -11,6 +11,27 @@ const ORGANIZATION = {
   location: 'London, United Kingdom',
   email: 'stable@unicrnmafia.com',
 };
+
+/**
+ * Generate LinkedIn Add to Profile URL
+ * Uses LinkedIn's official certification add-to-profile feature
+ */
+function generateLinkedInUrl(year?: number, month?: number): string {
+  const currentDate = new Date();
+  const issueYear = year || currentDate.getFullYear();
+  const issueMonth = month || currentDate.getMonth() + 1;
+  
+  const params = new URLSearchParams({
+    startTask: 'CERTIFICATION_NAME',
+    name: 'Community Member',
+    organizationName: ORGANIZATION.name,
+    issueYear: issueYear.toString(),
+    issueMonth: issueMonth.toString(),
+    certUrl: ORGANIZATION.website,
+  });
+  
+  return `https://www.linkedin.com/profile/add?${params.toString()}`;
+}
 
 const BADGE_CONTENT = {
   title: 'Community Member',
@@ -94,10 +115,25 @@ function ContentSection({
 }
 
 export default function LinkedInBadgePage() {
+  const [linkedInUrl, setLinkedInUrl] = useState('');
+  const [joinYear, setJoinYear] = useState<number>(new Date().getFullYear());
+  const [joinMonth, setJoinMonth] = useState<number>(new Date().getMonth() + 1);
+
+  useEffect(() => {
+    setLinkedInUrl(generateLinkedInUrl(joinYear, joinMonth));
+  }, [joinYear, joinMonth]);
+
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
   return (
     <div className="min-h-screen p-8 md:p-12 lg:p-16">
       {/* Header */}
-      <div className="mb-12">
+      <div className="mb-8">
         <Link href="/" className="text-sm hover:underline mb-4 inline-block">
           ← Back to Home
         </Link>
@@ -120,12 +156,69 @@ export default function LinkedInBadgePage() {
         </div>
       </div>
 
+      {/* Main CTA - Add to LinkedIn Button */}
+      <div className="mb-12 p-8 border-2 border-black bg-gray-50">
+        <h2 className="text-2xl font-bold mb-4">One-Click Add to LinkedIn</h2>
+        <p className="text-gray-600 mb-6">
+          Click the button below to instantly add your Unicorn Mafia community membership to your LinkedIn profile.
+        </p>
+        
+        {/* Date Selection */}
+        <div className="flex flex-wrap gap-4 mb-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-500 mb-1">
+              When did you join?
+            </label>
+            <div className="flex gap-2">
+              <select
+                value={joinMonth}
+                onChange={(e) => setJoinMonth(parseInt(e.target.value))}
+                className="px-3 py-2 border border-black bg-white text-sm"
+              >
+                {months.map((month, idx) => (
+                  <option key={month} value={idx + 1}>
+                    {month}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={joinYear}
+                onChange={(e) => setJoinYear(parseInt(e.target.value))}
+                className="px-3 py-2 border border-black bg-white text-sm"
+              >
+                {years.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Big Add Button */}
+        <a
+          href={linkedInUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-3 px-8 py-4 bg-[#0A66C2] text-white text-lg font-bold hover:bg-[#004182] transition-colors"
+        >
+          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          Add to LinkedIn
+        </a>
+
+        <p className="text-sm text-gray-500 mt-4">
+          This will open LinkedIn and pre-fill your community membership details.
+        </p>
+      </div>
+
       {/* Introduction */}
       <div className="mb-12 max-w-3xl">
         <p className="text-lg leading-relaxed">
-          Show your Unicorn Mafia membership on LinkedIn! Copy the content below to add to your 
-          profile. You can add it as a <strong>Volunteer Experience</strong>, update your 
-          <strong> Headline</strong>, or share an <strong>Announcement Post</strong>.
+          Alternatively, you can manually add content to your profile. Copy the content below to add as a 
+          <strong> Volunteer Experience</strong>, update your <strong>Headline</strong>, or share an <strong>Announcement Post</strong>.
         </p>
       </div>
 
@@ -283,12 +376,14 @@ export default function LinkedInBadgePage() {
           <code>
             {`git clone https://github.com/unicorn-mafia/unicorn-mafia.git
 cd unicorn-mafia
-node scripts/linkedin-badge.js --help`}
+node scripts/linkedin-badge.js --open  # Opens LinkedIn directly!`}
           </code>
         </pre>
         <p className="text-sm text-gray-500 mt-4">
-          Options: <code className="bg-gray-200 px-1">--name</code>{' '}
-          <code className="bg-gray-200 px-1">--since</code>{' '}
+          Options: <code className="bg-gray-200 px-1">--open</code>{' '}
+          <code className="bg-gray-200 px-1">--url-only</code>{' '}
+          <code className="bg-gray-200 px-1">--year</code>{' '}
+          <code className="bg-gray-200 px-1">--month</code>{' '}
           <code className="bg-gray-200 px-1">--copy</code>{' '}
           <code className="bg-gray-200 px-1">--json</code>
         </p>

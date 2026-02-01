@@ -11,8 +11,12 @@
  * Options:
  *   --name <name>       Your name (for personalized output)
  *   --since <date>      When you joined (e.g., "2024" or "January 2024")
+ *   --year <year>       Year you joined (for LinkedIn URL, e.g., "2024")
+ *   --month <month>     Month you joined (1-12, for LinkedIn URL)
  *   --copy              Copy content to clipboard (macOS/Linux)
  *   --json              Output as JSON
+ *   --url-only          Only output the LinkedIn URL
+ *   --open              Open the LinkedIn URL in browser
  *   --help              Show this help message
  */
 
@@ -26,6 +30,28 @@ const ORGANIZATION = {
   email: 'stable@unicrnmafia.com',
   location: 'London, United Kingdom',
 };
+
+/**
+ * Generate LinkedIn Add to Profile URL
+ * Uses LinkedIn's official certification add-to-profile feature
+ * https://addtoprofile.linkedin.com/
+ */
+function generateLinkedInUrl(options = {}) {
+  const currentDate = new Date();
+  const year = options.year || currentDate.getFullYear();
+  const month = options.month || currentDate.getMonth() + 1;
+  
+  const params = new URLSearchParams({
+    startTask: 'CERTIFICATION_NAME',
+    name: 'Community Member',
+    organizationName: ORGANIZATION.name,
+    issueYear: year.toString(),
+    issueMonth: month.toString(),
+    certUrl: ORGANIZATION.website,
+  });
+  
+  return `https://www.linkedin.com/profile/add?${params.toString()}`;
+}
 
 const BADGE_TEMPLATES = {
   // For LinkedIn Experience/Volunteer section
@@ -80,8 +106,12 @@ function parseArgs() {
   const options = {
     name: null,
     since: null,
+    year: null,
+    month: null,
     copy: false,
     json: false,
+    urlOnly: false,
+    open: false,
     help: false,
   };
 
@@ -93,11 +123,23 @@ function parseArgs() {
       case '--since':
         options.since = args[++i];
         break;
+      case '--year':
+        options.year = parseInt(args[++i], 10);
+        break;
+      case '--month':
+        options.month = parseInt(args[++i], 10);
+        break;
       case '--copy':
         options.copy = true;
         break;
       case '--json':
         options.json = true;
+        break;
+      case '--url-only':
+        options.urlOnly = true;
+        break;
+      case '--open':
+        options.open = true;
         break;
       case '--help':
       case '-h':
@@ -140,12 +182,15 @@ function generateBadgeContent(options) {
     );
   }
 
+  const linkedInUrl = generateLinkedInUrl(options);
+
   const content = {
     organization: ORGANIZATION,
     experience: template,
     headline: BADGE_TEMPLATES.headline,
     aboutAddition: BADGE_TEMPLATES.aboutAddition,
     announcementPost: BADGE_TEMPLATES.announcementPost,
+    linkedInUrl: linkedInUrl,
     dates: {
       startDate: options.since || 'Present',
       endDate: 'Present',
@@ -153,6 +198,27 @@ function generateBadgeContent(options) {
   };
 
   return content;
+}
+
+// Open URL in browser
+function openInBrowser(url) {
+  const { exec } = require('child_process');
+  const platform = process.platform;
+  
+  let command;
+  if (platform === 'darwin') {
+    command = `open "${url}"`;
+  } else if (platform === 'win32') {
+    command = `start "" "${url}"`;
+  } else {
+    command = `xdg-open "${url}"`;
+  }
+  
+  exec(command, (error) => {
+    if (error) {
+      console.error('Could not open browser:', error.message);
+    }
+  });
 }
 
 // Print help message
@@ -168,16 +234,21 @@ USAGE:
   node scripts/linkedin-badge.js [options]
 
 OPTIONS:
+  --open            Open LinkedIn directly to add badge (recommended!)
+  --url-only        Output just the LinkedIn URL
   --name <name>     Your name (for personalized output)
   --since <date>    When you joined (e.g., "2024" or "January 2024")
-  --copy            Copy main content to clipboard
+  --year <year>     Year you joined (for LinkedIn, e.g., "2024")
+  --month <month>   Month you joined (1-12, for LinkedIn)
+  --copy            Copy LinkedIn URL to clipboard
   --json            Output as JSON (for programmatic use)
   --help, -h        Show this help message
 
 EXAMPLES:
-  node scripts/linkedin-badge.js
+  node scripts/linkedin-badge.js --open              # Opens LinkedIn directly!
+  node scripts/linkedin-badge.js --url-only          # Get the URL only
+  node scripts/linkedin-badge.js --year 2024 --month 6 --open
   node scripts/linkedin-badge.js --name "Alex" --since "2024"
-  node scripts/linkedin-badge.js --copy
   node scripts/linkedin-badge.js --json
 
 WEBSITE:
@@ -187,6 +258,20 @@ WEBSITE:
 
 // Print formatted output
 function printOutput(content, options) {
+  // Handle URL-only mode
+  if (options.urlOnly) {
+    console.log(content.linkedInUrl);
+    return;
+  }
+
+  // Handle open mode
+  if (options.open) {
+    console.log(`\n🦄 Opening LinkedIn to add your Unicorn Mafia badge...\n`);
+    console.log(`URL: ${content.linkedInUrl}\n`);
+    openInBrowser(content.linkedInUrl);
+    return;
+  }
+
   if (options.json) {
     console.log(JSON.stringify(content, null, 2));
     return;
@@ -199,6 +284,17 @@ function printOutput(content, options) {
 ╔${divider}╗
 ║          🦄 Unicorn Mafia LinkedIn Badge Generator 🦄            ║
 ╚${divider}╝
+`);
+
+  // LinkedIn Direct Link - MOST IMPORTANT
+  console.log(`🚀 ONE-CLICK ADD TO LINKEDIN
+${thinDivider}
+
+Click this link to add your Unicorn Mafia membership to LinkedIn:
+
+  ${content.linkedInUrl}
+
+Or run: node scripts/linkedin-badge.js --open
 `);
 
   // LinkedIn Experience/Volunteer Section
@@ -299,17 +395,9 @@ Need help? Contact us at ${content.organization.email}
 
   // Copy to clipboard if requested
   if (options.copy) {
-    const mainContent = `Title: ${content.experience.title}
-Organization: ${content.organization.name}
-Location: ${content.organization.location}
-Description:
-${content.experience.description}
-
-Skills: ${content.experience.skills.join(', ')}`;
-
-    if (copyToClipboard(mainContent)) {
+    if (copyToClipboard(content.linkedInUrl)) {
       console.log(`
-✅ Experience section content copied to clipboard!
+✅ LinkedIn URL copied to clipboard!
 `);
     } else {
       console.log(`
