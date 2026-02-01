@@ -10,39 +10,179 @@ const ASCII_ART = `██╗   ██╗███╗   ██╗██╗ ██
 ╚██████╔╝██║ ╚████║██║╚██████╗╚██████╔╝██║  ██║██║ ╚████║    ██║ ╚═╝ ██║██║  ██║██║     ██║██║  ██║
  ╚═════╝ ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝`
 
-/**
- * Generate LinkedIn Add to Profile URL for community membership badge
- */
-function generateLinkedInUrl(): string {
-  const now = new Date()
+const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+const START_YEAR = 2025
+const START_MONTH = 2 // index into MONTHS (mar = 2)
+const LINKEDIN_BLUE = '#0A66C2'
+const LINKEDIN_LIGHT = '#70B5F9'
+
+function generateLinkedInUrl(year: number, monthIndex: number): string {
   const params = new URLSearchParams({
     startTask: 'CERTIFICATION_NAME',
     name: 'Community Member',
-    issueYear: now.getFullYear().toString(),
-    issueMonth: (now.getMonth() + 1).toString(),
-    certUrl: 'https://unicrnmafia.com',
-    organizationId: '108478332', // Unicorn Mafia LinkedIn company ID
+    issueYear: year.toString(),
+    issueMonth: (monthIndex + 1).toString(),
+    certUrl: 'https://www.unicornmafia.ai',
+    organizationId: '108478332',
   })
   return `https://www.linkedin.com/profile/add?${params.toString()}`
 }
 
-function LinkedInOutput() {
+function LinkedInOutput({ onComplete }: { onComplete: () => void }) {
+  const [phase, setPhase] = useState<'typing' | 'pick-year' | 'pick-month' | 'launching' | 'done'>('typing')
+  const [typedText, setTypedText] = useState('')
+  const [monthIdx, setMonthIdx] = useState(START_MONTH)
+  const [year, setYear] = useState(START_YEAR)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const currentYear = new Date().getFullYear()
+
+  const fullText = 'adding unicorn mafia to your linkedin...'
+
+  // Typewriter effect
   useEffect(() => {
-    // Small delay before opening to let the user see the message
-    const timer = setTimeout(() => {
-      window.open(generateLinkedInUrl(), '_blank')
-    }, 800)
-    return () => clearTimeout(timer)
-  }, [])
+    if (phase !== 'typing') return
+    if (typedText.length < fullText.length) {
+      const t = setTimeout(() => setTypedText(fullText.slice(0, typedText.length + 1)), 25)
+      return () => clearTimeout(t)
+    }
+    const t = setTimeout(() => setPhase('pick-year'), 400)
+    return () => clearTimeout(t)
+  }, [phase, typedText])
+
+  // Keyboard handler for picking
+  useEffect(() => {
+    if (phase !== 'pick-year' && phase !== 'pick-month') return
+
+    const handler = (e: KeyboardEvent) => {
+      e.preventDefault()
+      e.stopPropagation()
+
+      if (phase === 'pick-year') {
+        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          setYear(prev => prev > START_YEAR ? prev - 1 : prev)
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          setYear(prev => prev < currentYear ? prev + 1 : prev)
+        } else if (e.key === 'Enter') {
+          // Clamp month when entering month picker if year is start year
+          setMonthIdx(prev => year === START_YEAR && prev < START_MONTH ? START_MONTH : prev)
+          setPhase('pick-month')
+        }
+      } else if (phase === 'pick-month') {
+        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          setMonthIdx(prev => {
+            const min = year === START_YEAR ? START_MONTH : 0
+            return prev > min ? prev - 1 : prev
+          })
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          setMonthIdx(prev => prev < 11 ? prev + 1 : prev)
+        } else if (e.key === 'Enter') {
+          setPhase('launching')
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handler, true)
+    return () => window.removeEventListener('keydown', handler, true)
+  }, [phase, year, currentYear])
+
+  // Launch LinkedIn after selection
+  useEffect(() => {
+    if (phase !== 'launching') return
+    const t = setTimeout(() => {
+      window.open(generateLinkedInUrl(year, monthIdx), '_blank')
+      setPhase('done')
+      onComplete()
+    }, 600)
+    return () => clearTimeout(t)
+  }, [phase, year, monthIdx, onComplete])
+
+  // Scroll into view
+  useEffect(() => {
+    containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+  }, [phase, monthIdx, year])
+
+  const availableMonths = year === START_YEAR ? MONTHS.slice(START_MONTH) : MONTHS
 
   return (
-    <div>
-      <span className="text-[#0A66C2]">🦄 adding unicorn mafia badge to linkedin...</span>{'\n'}
-      {'\n'}
-      <span className="text-neutral-400">opening linkedin in new tab...</span>{'\n'}
-      <span className="text-neutral-400">select your join date on linkedin to complete.</span>{'\n'}
-      {'\n'}
-      <span className="text-neutral-500">tip: use current month or when you actually joined</span>
+    <div ref={containerRef}>
+      {/* Typing phase */}
+      <span style={{ color: LINKEDIN_BLUE }}>{typedText}</span>
+      {phase === 'typing' && <span className="animate-pulse" style={{ color: LINKEDIN_BLUE }}>_</span>}
+
+      {/* Year picker */}
+      {(phase === 'pick-year' || phase === 'pick-month' || phase === 'launching' || phase === 'done') && (
+        <div className="mt-3">
+          <span className="text-neutral-400">when did you join?</span>{'\n'}
+          {'\n'}
+          <span className="text-neutral-500">  year </span>
+          {phase === 'pick-year' && <span className="text-neutral-600">[arrow keys to select, enter to confirm]</span>}
+          {'\n'}
+          <div className="flex gap-1 mt-1 ml-2">
+            {Array.from({ length: currentYear - START_YEAR + 1 }, (_, i) => START_YEAR + i).map((y) => (
+              <span
+                key={y}
+                className="inline-block px-2 py-0.5 text-xs transition-all duration-150"
+                style={
+                  y === year
+                    ? { backgroundColor: LINKEDIN_BLUE, color: '#fff' }
+                    : phase !== 'pick-year'
+                      ? { color: '#525252' }
+                      : { color: '#737373' }
+                }
+              >
+                {y}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Month picker */}
+      {(phase === 'pick-month' || phase === 'launching' || phase === 'done') && (
+        <div className="mt-3">
+          <span className="text-neutral-500">  month </span>
+          {phase === 'pick-month' && <span className="text-neutral-600">[arrow keys to select, enter to confirm]</span>}
+          {'\n'}
+          <div className="flex flex-wrap gap-1 mt-1 ml-2">
+            {availableMonths.map((m) => {
+              const actualIdx = MONTHS.indexOf(m)
+              const isSelected = actualIdx === monthIdx
+              const isPast = phase !== 'pick-month'
+              return (
+                <span
+                  key={m}
+                  className="inline-block px-2 py-0.5 text-xs transition-all duration-150"
+                  style={
+                    isSelected
+                      ? { backgroundColor: LINKEDIN_BLUE, color: '#fff' }
+                      : isPast
+                        ? { color: '#525252' }
+                        : { color: '#737373' }
+                  }
+                >
+                  {m}
+                </span>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Launching */}
+      {(phase === 'launching' || phase === 'done') && (
+        <div className="mt-3">
+          <span style={{ color: LINKEDIN_LIGHT }}>
+            opening linkedin — {MONTHS[monthIdx]} {year}
+          </span>
+          {phase === 'launching' && <span className="animate-pulse" style={{ color: LINKEDIN_LIGHT }}>...</span>}
+          {phase === 'done' && (
+            <>
+              {'\n'}
+              <span className="text-neutral-500">done. complete the badge on linkedin.</span>
+            </>
+          )}
+        </div>
+      )}
     </div>
   )
 }
@@ -100,6 +240,7 @@ export default function TerminalEasterEgg() {
   const [commandHistory, setCommandHistory] = useState<string[]>([])
   const [historyIndex, setHistoryIndex] = useState(-1)
   const [showAscii, setShowAscii] = useState(true)
+  const [linkedInActive, setLinkedInActive] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const terminalRef = useRef<HTMLDivElement>(null)
 
@@ -269,6 +410,9 @@ export default function TerminalEasterEgg() {
       output = `command not found: ${command}. type 'help' for commands.`
     }
 
+    if (output === '[LINKEDIN]') {
+      setLinkedInActive(true)
+    }
     setHistory([...history, { command: cmd, output }])
   }
 
@@ -357,7 +501,7 @@ export default function TerminalEasterEgg() {
                     <span>        :b) \            &apos;-.      OS: big tony</span>{'\n'}
                     <span>        : :__)&apos;    .&apos;    .&apos;       Host: halkin</span>{'\n'}
                     <span>        :.::/  &apos;.&apos;   .&apos;           Kernel: pure energy</span>{'\n'}
-                    <span>        o_i/   :    ;             Uptime: since apr 2025</span>{'\n'}
+                    <span>        o_i/   :    ;             Uptime: since 18 mar 2025</span>{'\n'}
                     <span>               :   .&apos;             Shell: good times</span>{'\n'}
                     <span>                &apos;&apos;`               Members: 850</span>{'\n'}
                     {'\n'}
@@ -370,7 +514,10 @@ export default function TerminalEasterEgg() {
                     </span>
                   </div>
                 ) : item.output === '[LINKEDIN]' ? (
-                  <LinkedInOutput />
+                  <LinkedInOutput onComplete={() => {
+                    setLinkedInActive(false)
+                    setTimeout(() => inputRef.current?.focus(), 100)
+                  }} />
                 ) : (
                   <pre>{item.output}</pre>
                 )}
@@ -379,6 +526,7 @@ export default function TerminalEasterEgg() {
           ))}
 
           {/* Input line */}
+          {!linkedInActive && (
           <form onSubmit={handleSubmit} className="flex items-center">
             <span className="text-neutral-500 mr-2">{getCurrentDir()} $</span>
             <input
@@ -393,6 +541,7 @@ export default function TerminalEasterEgg() {
             />
             <span className="text-green-400 animate-pulse">▌</span>
           </form>
+          )}
         </div>
       </div>
     </div>
