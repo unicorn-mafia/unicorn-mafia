@@ -316,7 +316,7 @@ export default function TerminalEasterEgg() {
                     <span>        :b) \            &apos;-.      OS: big tony</span>{'\n'}
                     <span>        : :__)&apos;    .&apos;    .&apos;       Host: halkin</span>{'\n'}
                     <span>        :.::/  &apos;.&apos;   .&apos;           Kernel: pure energy</span>{'\n'}
-                    <span>        o_i/   :    ;             Uptime: since apr 2025</span>{'\n'}
+                    <span>        o_i/   :    ;             Uptime: since 18 mar 2025</span>{'\n'}
                     <span>               :   .&apos;             Shell: good times</span>{'\n'}
                     <span>                &apos;&apos;`               Members: 850</span>{'\n'}
                     {'\n'}
