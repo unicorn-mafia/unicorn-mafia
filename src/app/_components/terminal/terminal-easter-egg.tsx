@@ -29,7 +29,7 @@ function generateLinkedInUrl(year: number, monthIndex: number): string {
 }
 
 function LinkedInOutput({ onComplete }: { onComplete: () => void }) {
-  const [phase, setPhase] = useState<'typing' | 'pick-year' | 'pick-month' | 'launching' | 'done'>('typing')
+  const [phase, setPhase] = useState<'typing' | 'pick-year' | 'pick-month' | 'launching' | 'done' | 'cancelled'>('typing')
   const [typedText, setTypedText] = useState('')
   const [monthIdx, setMonthIdx] = useState(START_MONTH)
   const [year, setYear] = useState(START_YEAR)
@@ -56,6 +56,13 @@ function LinkedInOutput({ onComplete }: { onComplete: () => void }) {
     const handler = (e: KeyboardEvent) => {
       e.preventDefault()
       e.stopPropagation()
+
+      // Cancel with Escape or Cmd+C / Ctrl+C
+      if (e.key === 'Escape' || (e.key === 'c' && (e.metaKey || e.ctrlKey))) {
+        setPhase('cancelled')
+        onComplete()
+        return
+      }
 
       if (phase === 'pick-year') {
         if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
@@ -181,6 +188,13 @@ function LinkedInOutput({ onComplete }: { onComplete: () => void }) {
               <span className="text-neutral-500">done. complete the badge on linkedin.</span>
             </>
           )}
+        </div>
+      )}
+
+      {/* Cancelled */}
+      {phase === 'cancelled' && (
+        <div className="mt-3">
+          <span className="text-neutral-500">^C cancelled</span>
         </div>
       )}
     </div>
