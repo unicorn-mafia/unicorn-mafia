@@ -37,9 +37,9 @@ const ORGANIZATION = {
  * https://addtoprofile.linkedin.com/
  */
 function generateLinkedInUrl(options = {}) {
-  const currentDate = new Date();
-  const year = options.year || currentDate.getFullYear();
-  const month = options.month || currentDate.getMonth() + 1;
+  // Default to Unicorn Mafia inception date: March 2025
+  const year = options.year || 2025;
+  const month = options.month || 3;
   
   const params = new URLSearchParams({
     startTask: 'CERTIFICATION_NAME',
@@ -54,37 +54,6 @@ function generateLinkedInUrl(options = {}) {
 }
 
 const BADGE_TEMPLATES = {
-  // For LinkedIn Experience/Volunteer section
-  experience: {
-    title: 'Community Member',
-    organization: ORGANIZATION.name,
-    description: `Active member of ${ORGANIZATION.name} - ${ORGANIZATION.headline}.
-
-🦄 500+ hackathon wins across the community
-🚀 30+ companies being built by members
-👥 500+ developers collaborating and building together
-
-Key activities:
-• Attending hackathons, meetups, and community events
-• Collaborating with fellow developers on innovative projects
-• Contributing to the London tech ecosystem
-• Sharing knowledge and supporting fellow community members`,
-    skills: [
-      'Hackathons',
-      'Community Building',
-      'Software Development',
-      'Networking',
-      'Innovation',
-      'Collaboration',
-    ],
-  },
-
-  // For LinkedIn headline/bio
-  headline: `${ORGANIZATION.name} Community Member | Developer`,
-  
-  // For LinkedIn about section
-  aboutAddition: `\n\n🦄 Proud member of ${ORGANIZATION.name} - ${ORGANIZATION.headline}.\n\nLearn more: ${ORGANIZATION.website}`,
-
   // For a LinkedIn post announcing membership
   announcementPost: `🦄 Excited to be part of ${ORGANIZATION.name}!
 
@@ -172,29 +141,12 @@ function copyToClipboard(text) {
 
 // Generate the full badge content
 function generateBadgeContent(options) {
-  const template = { ...BADGE_TEMPLATES.experience };
-  
-  // Customize description with name if provided
-  if (options.name) {
-    template.description = template.description.replace(
-      'Active member',
-      `${options.name} is an active member`
-    );
-  }
-
   const linkedInUrl = generateLinkedInUrl(options);
 
   const content = {
     organization: ORGANIZATION,
-    experience: template,
-    headline: BADGE_TEMPLATES.headline,
-    aboutAddition: BADGE_TEMPLATES.aboutAddition,
     announcementPost: BADGE_TEMPLATES.announcementPost,
     linkedInUrl: linkedInUrl,
-    dates: {
-      startDate: options.since || 'Present',
-      endDate: 'Present',
-    },
   };
 
   return content;
@@ -297,51 +249,6 @@ Click this link to add your Unicorn Mafia membership to LinkedIn:
 Or run: node scripts/linkedin-badge.js --open
 `);
 
-  // LinkedIn Experience/Volunteer Section
-  console.log(`📋 LINKEDIN EXPERIENCE / VOLUNTEER SECTION
-${thinDivider}
-
-Copy these fields into LinkedIn:
-
-TITLE:
-  ${content.experience.title}
-
-ORGANIZATION:
-  ${content.organization.name}
-
-LOCATION:
-  ${content.organization.location}
-
-DATES:
-  Start: ${content.dates.startDate}
-  End: ${content.dates.endDate} (check "I currently work here")
-
-DESCRIPTION:
-${thinDivider}
-${content.experience.description}
-${thinDivider}
-
-SKILLS TO ADD:
-  ${content.experience.skills.join(', ')}
-`);
-
-  // LinkedIn Headline
-  console.log(`
-📝 LINKEDIN HEADLINE SUGGESTION
-${thinDivider}
-${content.headline}
-
-(Add this to your existing headline, e.g., "Software Engineer | ${ORGANIZATION.name} Community Member")
-`);
-
-  // About Section Addition
-  console.log(`
-📄 LINKEDIN ABOUT SECTION ADDITION
-${thinDivider}
-Add this to the end of your About section:
-${content.aboutAddition}
-`);
-
   // Logo Info
   console.log(`
 🖼️  LOGO FOR YOUR PROFILE
@@ -362,34 +269,8 @@ Share this post to announce you've joined:
 ${content.announcementPost}
 `);
 
-  // Step-by-step instructions
+  // Contact
   console.log(`
-📖 STEP-BY-STEP INSTRUCTIONS
-${thinDivider}
-
-1. ADDING TO EXPERIENCE/VOLUNTEER SECTION:
-   a. Go to your LinkedIn profile
-   b. Click "Add profile section" 
-   c. Choose "Add volunteer experience" (recommended) or "Add position"
-   d. Fill in the fields above
-   e. Click Save
-
-2. ADDING TO YOUR HEADLINE:
-   a. Click the pencil icon on your profile intro
-   b. Add "${ORGANIZATION.name} Community Member" to your headline
-   c. Click Save
-
-3. UPDATING YOUR ABOUT SECTION:
-   a. Click the pencil icon on your About section
-   b. Add the suggested text at the end
-   c. Click Save
-
-4. SHARING THE ANNOUNCEMENT:
-   a. Create a new post on LinkedIn
-   b. Copy and paste the announcement text above
-   c. Add a photo or the community logo
-   d. Post!
-
 Need help? Contact us at ${content.organization.email}
 `);
 

@@ -17,9 +17,9 @@ const ORGANIZATION = {
  * Uses LinkedIn's official certification add-to-profile feature
  */
 function generateLinkedInUrl(year?: number, month?: number): string {
-  const currentDate = new Date();
-  const issueYear = year || currentDate.getFullYear();
-  const issueMonth = month || currentDate.getMonth() + 1;
+  // Default to Unicorn Mafia inception date: March 2025
+  const issueYear = year || 2025;
+  const issueMonth = month || 3;
   
   const params = new URLSearchParams({
     startTask: 'CERTIFICATION_NAME',
@@ -34,29 +34,6 @@ function generateLinkedInUrl(year?: number, month?: number): string {
 }
 
 const BADGE_CONTENT = {
-  title: 'Community Member',
-  description: `Active member of ${ORGANIZATION.name} - ${ORGANIZATION.headline}.
-
-🦄 500+ hackathon wins across the community
-🚀 30+ companies being built by members
-👥 500+ developers collaborating and building together
-
-Key activities:
-• Attending hackathons, meetups, and community events
-• Collaborating with fellow developers on innovative projects
-• Contributing to the London tech ecosystem
-• Sharing knowledge and supporting fellow community members`,
-  skills: [
-    'Hackathons',
-    'Community Building',
-    'Software Development',
-    'Networking',
-    'Innovation',
-    'Collaboration',
-  ],
-  aboutAddition: `🦄 Proud member of ${ORGANIZATION.name} - ${ORGANIZATION.headline}.
-
-Learn more: ${ORGANIZATION.website}`,
   announcementPost: `🦄 Excited to be part of ${ORGANIZATION.name}!
 
 ${ORGANIZATION.headline} - a community of 500+ developers with:
@@ -116,8 +93,9 @@ function ContentSection({
 
 export default function LinkedInBadgePage() {
   const [linkedInUrl, setLinkedInUrl] = useState('');
-  const [joinYear, setJoinYear] = useState<number>(new Date().getFullYear());
-  const [joinMonth, setJoinMonth] = useState<number>(new Date().getMonth() + 1);
+  // Default to Unicorn Mafia inception date: March 2025
+  const [joinYear, setJoinYear] = useState<number>(2025);
+  const [joinMonth, setJoinMonth] = useState<number>(3);
 
   useEffect(() => {
     setLinkedInUrl(generateLinkedInUrl(joinYear, joinMonth));
@@ -214,104 +192,9 @@ export default function LinkedInBadgePage() {
         </p>
       </div>
 
-      {/* Introduction */}
-      <div className="mb-12 max-w-3xl">
-        <p className="text-lg leading-relaxed">
-          Alternatively, you can manually add content to your profile. Copy the content below to add as a 
-          <strong> Volunteer Experience</strong>, update your <strong>Headline</strong>, or share an <strong>Announcement Post</strong>.
-        </p>
-      </div>
-
-      {/* Volunteer/Experience Section */}
-      <ContentSection
-        title="1. LinkedIn Experience / Volunteer Section"
-        copyText={`Title: ${BADGE_CONTENT.title}\nOrganization: ${ORGANIZATION.name}\nLocation: ${ORGANIZATION.location}\nDescription:\n${BADGE_CONTENT.description}`}
-      >
-        <div className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <p className="text-sm font-medium text-gray-500 mb-1">Title</p>
-              <p className="font-medium">{BADGE_CONTENT.title}</p>
-            </div>
-            <div>
-              <p className="text-sm font-medium text-gray-500 mb-1">Organization</p>
-              <p className="font-medium">{ORGANIZATION.name}</p>
-            </div>
-            <div>
-              <p className="text-sm font-medium text-gray-500 mb-1">Location</p>
-              <p className="font-medium">{ORGANIZATION.location}</p>
-            </div>
-            <div>
-              <p className="text-sm font-medium text-gray-500 mb-1">Dates</p>
-              <p className="font-medium">Present (check &quot;I currently volunteer here&quot;)</p>
-            </div>
-          </div>
-          <div>
-            <p className="text-sm font-medium text-gray-500 mb-2">Description</p>
-            <pre className="whitespace-pre-wrap text-sm bg-gray-100 p-4 border border-gray-200 font-body">
-              {BADGE_CONTENT.description}
-            </pre>
-          </div>
-          <div>
-            <p className="text-sm font-medium text-gray-500 mb-2">Skills to Add</p>
-            <div className="flex flex-wrap gap-2">
-              {BADGE_CONTENT.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1 text-sm border border-black bg-white"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Step by step */}
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <p className="text-sm font-medium text-gray-500 mb-2">How to add:</p>
-          <ol className="text-sm space-y-1 text-gray-600 list-decimal list-inside">
-            <li>Go to your LinkedIn profile</li>
-            <li>Click &quot;Add profile section&quot;</li>
-            <li>Select &quot;Add volunteer experience&quot;</li>
-            <li>Fill in the fields above</li>
-            <li>Click Save</li>
-          </ol>
-        </div>
-      </ContentSection>
-
-      {/* Headline Section */}
-      <ContentSection
-        title="2. LinkedIn Headline"
-        copyText={`${ORGANIZATION.name} Community Member`}
-      >
-        <p className="text-sm text-gray-600 mb-2">
-          Add this to your existing headline:
-        </p>
-        <p className="font-medium bg-gray-100 p-4 border border-gray-200">
-          {ORGANIZATION.name} Community Member
-        </p>
-        <p className="text-sm text-gray-500 mt-4">
-          Example: &quot;Software Engineer | {ORGANIZATION.name} Community Member&quot;
-        </p>
-      </ContentSection>
-
-      {/* About Section */}
-      <ContentSection
-        title="3. About Section Addition"
-        copyText={BADGE_CONTENT.aboutAddition}
-      >
-        <p className="text-sm text-gray-600 mb-2">
-          Add this to the end of your About section:
-        </p>
-        <pre className="whitespace-pre-wrap text-sm bg-gray-100 p-4 border border-gray-200 font-body">
-          {BADGE_CONTENT.aboutAddition}
-        </pre>
-      </ContentSection>
-
       {/* Announcement Post */}
       <ContentSection
-        title="4. Announcement Post"
+        title="Announcement Post"
         copyText={BADGE_CONTENT.announcementPost}
       >
         <p className="text-sm text-gray-600 mb-2">
@@ -323,7 +206,7 @@ export default function LinkedInBadgePage() {
       </ContentSection>
 
       {/* Logo Download */}
-      <ContentSection title="5. Download Logo">
+      <ContentSection title="Download Logo">
         <p className="text-sm text-gray-600 mb-4">
           Download our logo to use on your profile or in posts:
         </p>
