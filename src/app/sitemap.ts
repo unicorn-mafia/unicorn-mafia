@@ -12,13 +12,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: `${baseUrl}/companies`,
+      url: `${baseUrl}/c`,
       lastModified: "2025-08-24T12:40:22.841Z",
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/hackathons`,
+      url: `${baseUrl}/h`,
       lastModified: "2025-08-24T12:40:22.841Z",
       changeFrequency: "weekly",
       priority: 0.5,

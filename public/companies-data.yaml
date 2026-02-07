@@ -50,9 +50,18 @@ categories:
       - name: "Structured AI"
         website_url: "https://getstructured.ai"
         logo_url: "https://app.getstructured.ai/structured_ai_logo.png"
-      - name: "VaNI"
-        website_url: "https://vani-beta.vercel.app/"
-        logo_url: "/companies/vani.svg"
+      - name: "Vani"
+        website_url: "https://www.vanimedi.com"
+        logo_url: "https://www.vanimedi.com/logo.svg"
+      - name: "VoltView"
+        website_url: "https://www.voltview.com"
+        logo_url: "https://www.voltview.com/logo.svg"
+      - name: "Wassist"
+        website_url: "https://wassist.app"
+        logo_url: "https://wassist.app/logo-full.svg"
       - name: "Add yours"
         website_url: "https://github.com/unicorn-mafia/unicorn-mafia/blob/main/CONTRIBUTING.md"
         logo_url: "/companies/placeholder-logo.svg"
+      - name: Suna Health
+        website_url: https://suna.health
+        logo_url: https://suna.health/icon.svg
