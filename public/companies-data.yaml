@@ -2,7 +2,7 @@ categories:
   - name: "Member Companies"
     description: "Companies founded, co-founded, or where mafia members hold key positions"
     companies:
-     - name: "HireGlide"
+      - name: "HireGlide"
         website_url: "https://hireglide.ai/"
         logo_url: "https://bookface-images.s3.amazonaws.com/small_logos/f43313bb066e1501a71f08b9bb9435ada83f0e9c.png"
       - name: "01C"
