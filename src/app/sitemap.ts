@@ -23,6 +23,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/cal`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "daily",
+      priority: 0.6,
+    },
   ];
   return staticPages
 }

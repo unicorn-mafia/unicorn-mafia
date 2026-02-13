@@ -12,6 +12,7 @@ export const menuItems: MenuItem[] = [
   { label: 'Hackathons', href: '/h', shortcut: 'H' },
   { label: 'Companies', href: '/c', shortcut: 'C' },
   { label: 'Demos', href: '/d', shortcut: 'D' },
+  { label: 'Calendar', href: '/cal', shortcut: 'K' },
 ]
 
 export function useKeyboardNav() {
