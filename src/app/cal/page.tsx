@@ -38,7 +38,7 @@ export default function Calendar() {
 
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center mt-12">
         <div className="border border-neutral-600 bg-neutral-50 p-6">
           <div className="text-sm font-body tracking-wide text-neutral-900">LOADING EVENTS...</div>
         </div>
@@ -48,7 +48,7 @@ export default function Calendar() {
 
   if (error) {
     return (
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center mt-12">
         <div className="border border-neutral-600 bg-neutral-50 p-6">
           <div className="text-sm font-body tracking-wide text-neutral-900">FAILED TO LOAD EVENTS</div>
         </div>
@@ -92,7 +92,7 @@ export default function Calendar() {
       </section>
 
       {/* Event grid */}
-      <section className="py-8 px-6 md:px-12 lg:px-20">
+      <section className="py-8 px-6 md:px-12 lg:px-20 mt-4">
         <div className="max-w-6xl mx-auto">
           {filteredEvents.length === 0 ? (
             <div className="border border-dashed border-neutral-300 py-12 text-center">

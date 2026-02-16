@@ -1,36 +1,13 @@
 import { NextResponse } from "next/server";
-
-const CALENDAR_ID =
-  "bd7d0051661085245197d1e689f90ae11a791735595bcd0f0a34a4aad4722d95@group.calendar.google.com";
-
-// Known event overrides — matched by substring in summary
-const KNOWN_EVENTS: Record<
-  string,
-  { externalUrl: string; imageUrl: string; hostedByUM?: boolean }
-> = {
-  HackEurope: {
-    externalUrl: "https://luma.com/london-hackathon?tk=xy9L0p",
-    imageUrl:
-      "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=500,height=500/event-covers/hh/7b10d668-43f4-45b7-a534-4641c4ac432b.png",
-  },
-  "START Hack": {
-    externalUrl: "https://starthack.eu/#/application?event_id=7",
-    imageUrl:
-      "https://framerusercontent.com/assets/KAQO6ZUrn6oWZg1A6KQkyx8Hi4.webp",
-  },
-};
-
-// Keywords that indicate an event is hosted by Unicorn Mafia
-const UM_KEYWORDS = ["unicorn mafia", "unicorn-mafia", "[um]", "hosted by um"];
+import type { RawGoogleEvent } from "../../_types/calendar";
+import { KNOWN_EVENTS, UM_KEYWORDS } from "../../_lib/consts";
 
 function isHostedByUM(event: {
   summary: string;
   description?: string;
 }): boolean {
   const text = `${event.summary} ${event.description || ""}`.toLowerCase();
-  // Check exact keywords
   if (UM_KEYWORDS.some((kw) => text.includes(kw))) return true;
-  // Check for standalone "um" as a word (e.g. "UM Turns 1 Party")
   if (/\bum\b/.test(text)) return true;
   return false;
 }
@@ -88,23 +65,16 @@ async function fetchOgImage(url: string): Promise<string | null> {
   }
 }
 
-interface RawEvent {
-  id: string;
-  summary: string;
-  description?: string;
-  location?: string;
-  htmlLink: string;
-  start: { dateTime?: string; date?: string; timeZone?: string };
-  end: { dateTime?: string; date?: string; timeZone?: string };
-}
-
 export async function GET() {
-  const encodedId = encodeURIComponent(CALENDAR_ID);
-  const baseUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodedId}/events`;
+  const calendarId = process.env.GOOGLE_CALENDAR_ID;
   const apiKey = process.env.GOOGLE_CALENDAR_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json({ error: 'Missing API key' }, { status: 500 });
+
+  if (!calendarId || !apiKey) {
+    return NextResponse.json({ error: 'Missing calendar configuration' }, { status: 500 });
   }
+
+  const encodedId = encodeURIComponent(calendarId);
+  const baseUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodedId}/events`;
 
   try {
     // Fetch a broad range of events: 6 months past to 6 months future
@@ -125,7 +95,7 @@ export async function GET() {
     }
 
     const data = await res.json();
-    const rawEvents: RawEvent[] = data.items || [];
+    const rawEvents: RawGoogleEvent[] = data.items || [];
 
     // Enrich events
     const enrichedEvents = await Promise.all(

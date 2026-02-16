@@ -42,6 +42,28 @@ export async function loadEvents(): Promise<EventsData> {
   }
 }
 
+export function formatDateRange(event: CalendarEvent): string {
+  const start = new Date(event.start.dateTime || event.start.date || "");
+  const end = new Date(event.end.dateTime || event.end.date || "");
+
+  const startDay = start.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }).toUpperCase();
+  const endDay = end.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }).toUpperCase();
+
+  const diffMs = end.getTime() - start.getTime();
+  const diffDays = diffMs / (1000 * 60 * 60 * 24);
+
+  if (diffDays > 1) {
+    const displayEnd = new Date(end);
+    displayEnd.setDate(displayEnd.getDate() - 1);
+    const displayEndLabel = displayEnd.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }).toUpperCase();
+    if (startDay === displayEndLabel) return startDay;
+    return `${startDay} — ${displayEndLabel}`;
+  }
+
+  const time = formatEventTime(event);
+  return time ? `${startDay} · ${time}` : startDay;
+}
+
 export function formatEventTime(event: CalendarEvent): string {
   const start = event.start.dateTime || event.start.date;
   if (!start) return '';

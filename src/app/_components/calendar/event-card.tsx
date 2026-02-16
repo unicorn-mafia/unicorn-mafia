@@ -3,10 +3,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import type { CalendarEvent } from "../../_types/calendar";
-import { formatEventTime } from "../../_lib/calendar-data";
+import { formatDateRange } from "../../_lib/calendar-data";
+import { BRAND_COLORS } from "../../_lib/consts";
 import styles from "./calendar.module.css";
-
-const BRAND_COLORS = ["#B307EB", "#3198F1", "#4EF9BD", "#EE1701"];
 
 interface EventCardProps {
   event: CalendarEvent;
@@ -18,30 +17,6 @@ function isHappeningNow(event: CalendarEvent): boolean {
   const start = new Date(event.start.dateTime || event.start.date || "");
   const end = new Date(event.end.dateTime || event.end.date || "");
   return now >= start && now <= end;
-}
-
-
-function formatDateRange(event: CalendarEvent): string {
-  const start = new Date(event.start.dateTime || event.start.date || "");
-  const end = new Date(event.end.dateTime || event.end.date || "");
-
-  const startDay = start.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }).toUpperCase();
-  const endDay = end.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }).toUpperCase();
-
-  const diffMs = end.getTime() - start.getTime();
-  const diffDays = diffMs / (1000 * 60 * 60 * 24);
-
-  if (diffDays > 1) {
-    // Subtract 1 day from end for display (end is typically midnight of the next day)
-    const displayEnd = new Date(end);
-    displayEnd.setDate(displayEnd.getDate() - 1);
-    const displayEndLabel = displayEnd.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }).toUpperCase();
-    if (startDay === displayEndLabel) return startDay;
-    return `${startDay} — ${displayEndLabel}`;
-  }
-
-  const time = formatEventTime(event);
-  return time ? `${startDay} · ${time}` : startDay;
 }
 
 export function EventCard({ event, index }: EventCardProps) {
