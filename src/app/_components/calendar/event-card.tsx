@@ -44,7 +44,7 @@ export function EventCard({ event, index }: EventCardProps) {
           />
         ) : (
           <img
-            src={event.hostedByUM ? "/event-fallback-um.png" : (index % 2 === 0 ? "/event-fallback.png" : "/event-fallback-2.png")}
+            src="/event-fallback-um.png"
             alt={event.summary}
             className="w-full h-full object-cover"
           />
