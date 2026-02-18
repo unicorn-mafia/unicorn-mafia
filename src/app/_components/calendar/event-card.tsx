@@ -7,6 +7,15 @@ import { formatDateRange } from "../../_lib/calendar-data";
 import { BRAND_COLORS } from "../../_lib/consts";
 import styles from "./calendar.module.css";
 
+const FALLBACK_IMAGES = [
+  "/fallback-hackathon.png",
+  "/fallback-code-review.png",
+  "/fallback-clean-code.png",
+  "/fallback-branching.png",
+  "/fallback-bug-fixed.png",
+  "/fallback-deprecated.png",
+];
+
 interface EventCardProps {
   event: CalendarEvent;
   index: number;
@@ -44,7 +53,7 @@ export function EventCard({ event, index }: EventCardProps) {
           />
         ) : (
           <img
-            src="/event-fallback-um.png"
+            src={FALLBACK_IMAGES[index % FALLBACK_IMAGES.length]}
             alt={event.summary}
             className="w-full h-full object-cover"
           />
