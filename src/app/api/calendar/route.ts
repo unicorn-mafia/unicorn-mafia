@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { RawGoogleEvent } from "../../_types/calendar";
-import { KNOWN_EVENTS, UM_KEYWORDS } from "../../_lib/consts";
+import { UM_KEYWORDS } from "../../_lib/consts";
 
 function isHostedByUM(event: {
   summary: string;
@@ -10,13 +10,6 @@ function isHostedByUM(event: {
   if (UM_KEYWORDS.some((kw) => text.includes(kw))) return true;
   if (/\bum\b/.test(text)) return true;
   return false;
-}
-
-function getKnownOverride(summary: string) {
-  for (const [key, value] of Object.entries(KNOWN_EVENTS)) {
-    if (summary.includes(key)) return value;
-  }
-  return null;
 }
 
 // Extract first URL from event description or location
@@ -70,7 +63,10 @@ export async function GET() {
   const apiKey = process.env.GOOGLE_CALENDAR_API_KEY;
 
   if (!calendarId || !apiKey) {
-    return NextResponse.json({ error: 'Missing calendar configuration' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Missing calendar configuration" },
+      { status: 500 },
+    );
   }
 
   const encodedId = encodeURIComponent(calendarId);
@@ -100,18 +96,7 @@ export async function GET() {
     // Enrich events
     const enrichedEvents = await Promise.all(
       rawEvents.map(async (event) => {
-        const override = getKnownOverride(event.summary);
-        const hostedByUM =
-          isHostedByUM(event) || (override?.hostedByUM ?? false);
-
-        if (override) {
-          return {
-            ...event,
-            externalUrl: override.externalUrl,
-            imageUrl: override.imageUrl,
-            hostedByUM,
-          };
-        }
+        const hostedByUM = isHostedByUM(event);
 
         const externalUrl = extractUrl(event);
         let imageUrl: string | null = null;
