@@ -1,16 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import { BRAND_PALETTE } from '../_lib/consts'
 
-const brandColors = [
-  { name: 'Purple', hex: '#B307EB', rgb: 'rgb(179, 7, 235)' },
-  { name: 'Blue', hex: '#3198F1', rgb: 'rgb(49, 152, 241)' },
-  { name: 'Green', hex: '#4EF9BD', rgb: 'rgb(78, 249, 189)' },
-  { name: 'Red', hex: '#EE1701', rgb: 'rgb(238, 23, 1)' },
-  { name: 'Black', hex: '#000000', rgb: 'rgb(0, 0, 0)' },
-  { name: 'White', hex: '#FFFFFF', rgb: 'rgb(255, 255, 255)' },
-  { name: 'Dark BG', hex: '#14120B', rgb: 'rgb(20, 18, 11)' },
-]
+const brandColors = BRAND_PALETTE
 
 function ColorCard({ color }: { color: typeof brandColors[0] }) {
   const [copied, setCopied] = useState(false)
