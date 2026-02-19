@@ -5,6 +5,7 @@ import Navbar from "./_components/navbar/navbar";
 import GallopingHorseFrame from "./_components/horse/galloping-horse-frame";
 import PreloaderWrapper from "./_components/preloader/preloader-wrapper";
 import TerminalEasterEgg from "./_components/terminal/terminal-easter-egg";
+import { Analytics } from "@vercel/analytics/next";
 
 const ppNeueBit = localFont({
   src: "../../public/fonts/PPNeueBit-Bold.otf",
@@ -132,6 +133,7 @@ export default function RootLayout({
             {children}
           </main>
         </PreloaderWrapper>
+        <Analytics />
       </body>
     </html>
   );
