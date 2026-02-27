@@ -223,7 +223,7 @@ export default function BrandPage() {
         </section>
 
         {/* Usage Section */}
-        <section>
+        <section className="mb-16">
           <h2 className="text-2xl font-title font-medium mb-6 pb-2 border-b border-black">
             Usage Guidelines
           </h2>
@@ -249,6 +249,66 @@ export default function BrandPage() {
                 </ul>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Brand Use for Members & Partners */}
+        <section className="mb-16">
+          <h2 className="text-2xl font-title font-medium mb-6 pb-2 border-b border-black">
+            For Members & Partners
+          </h2>
+
+          <div className="space-y-6 text-sm font-body text-gray-600">
+            <p>
+              We love that you&apos;re part of the community — and we want to make it easy to reference that. Here&apos;s a simple framework for how members and partners can use the Unicorn Mafia name and brand.
+            </p>
+
+            <div>
+              <h3 className="font-title text-base text-black mb-2">What&apos;s generally fine</h3>
+              <ul className="list-disc list-inside space-y-1">
+                <li>Mentioning Unicorn Mafia in your bio, LinkedIn, or personal website (e.g. &quot;Member of Unicorn Mafia&quot;)</li>
+                <li>Linking to unicornmafia.ai from your own site or project</li>
+                <li>Referencing Unicorn Mafia when talking about events you&apos;ve attended or projects you&apos;ve built within the community</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-title text-base text-black mb-2">What requires permission first</h3>
+              <ul className="list-disc list-inside space-y-1">
+                <li>Printing the Unicorn Mafia name or logo on any physical merchandise — including t-shirts, stickers, hoodies, or event materials</li>
+                <li>Using the logo or name in any commercial context, product, or promotional material</li>
+                <li>Co-branding anything as &quot;in partnership with Unicorn Mafia&quot; or similar</li>
+                <li>Reproducing brand assets in any form for distribution</li>
+              </ul>
+            </div>
+
+            <div className="border border-black p-4 bg-gray-50">
+              <p className="text-black font-body text-sm">
+                If you&apos;re unsure, just ask. Reach out to <a href="mailto:stable@unicrnmafia.com" className="underline hover:text-black">stable@unicrnmafia.com</a> and we&apos;ll get back to you quickly. We&apos;re generally very supportive of members representing the community — we just want to be in the loop.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Legal */}
+        <section>
+          <h2 className="text-2xl font-title font-medium mb-6 pb-2 border-b border-black">
+            Legal
+          </h2>
+
+          <div className="space-y-4 text-sm font-body text-gray-600">
+            <p>
+              The Unicorn Mafia name, logo, and associated brand assets are the intellectual property of Unicorn Mafia. All rights reserved.
+            </p>
+            <p>
+              Unauthorised use of the Unicorn Mafia brand — including reproduction, distribution, or commercial use of the name or logo without prior written consent — is not permitted. This applies to both digital and physical use.
+            </p>
+            <p>
+              Nothing in these guidelines grants you a licence to use the Unicorn Mafia brand beyond what is described above. Any permitted use must accurately represent your relationship with the community and must not imply official endorsement without explicit agreement.
+            </p>
+            <p>
+              We reserve the right to revoke permission at any time. If you become aware of misuse of the brand, please let us know at <a href="mailto:stable@unicrnmafia.com" className="underline hover:text-black">stable@unicrnmafia.com</a>.
+            </p>
           </div>
         </section>
       </div>
