@@ -1,15 +1,25 @@
 import { NextResponse } from "next/server";
 import type { RawGoogleEvent } from "../../_types/calendar";
-import { UM_KEYWORDS } from "../../_lib/consts";
 
-function isHostedByUM(event: {
-  summary: string;
-  description?: string;
-}): boolean {
-  const text = `${event.summary} ${event.description || ""}`.toLowerCase();
-  if (UM_KEYWORDS.some((kw) => text.includes(kw))) return true;
-  if (/\bum\b/.test(text)) return true;
-  return false;
+// Fetch events from a single Google Calendar
+async function fetchCalendarEvents(
+  calendarId: string,
+  apiKey: string,
+  timeMin: Date,
+  timeMax: Date,
+): Promise<RawGoogleEvent[]> {
+  const encodedId = encodeURIComponent(calendarId);
+  const baseUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodedId}/events`;
+  const res = await fetch(
+    `${baseUrl}?key=${apiKey}&singleEvents=true&orderBy=startTime&sanitizeHtml=true&timeMin=${timeMin.toISOString()}&timeMax=${timeMax.toISOString()}&maxResults=100`,
+  );
+  if (!res.ok) {
+    const errText = await res.text();
+    console.error(`Google Calendar API error for ${calendarId}:`, res.status, errText);
+    return [];
+  }
+  const data = await res.json();
+  return data.items || [];
 }
 
 // Extract first URL from event description or location
@@ -59,18 +69,30 @@ async function fetchOgImage(url: string): Promise<string | null> {
 }
 
 export async function GET() {
-  const calendarId = process.env.GOOGLE_CALENDAR_ID;
+  const umCalendarId = process.env.GOOGLE_CALENDAR_ID;
+  const communityCalendarId = process.env.GOOGLE_CALENDAR_ID_COMMUNITY;
   const apiKey = process.env.GOOGLE_CALENDAR_API_KEY;
 
-  if (!calendarId || !apiKey) {
-    return NextResponse.json(
-      { error: "Missing calendar configuration" },
-      { status: 500 },
-    );
+  // --- MOCK DATA: remove this block when real API keys are configured ---
+  if (!umCalendarId || !apiKey) {
+    const d = (offsetDays: number) => new Date(Date.now() + offsetDays * 864e5).toISOString();
+    const mock = (id: string, summary: string, loc: string, startDay: number, hours: number, um: boolean, extUrl?: string) => ({
+      id, summary, location: loc, htmlLink: "#", hostedByUM: um,
+      start: { dateTime: d(startDay) },
+      end: { dateTime: d(startDay + hours / 24) },
+      ...(extUrl && { externalUrl: extUrl }),
+    });
+    return NextResponse.json({ events: [
+      mock("m1", "Weekly Hack Night", "Engineering Building, Room 204", 2, 3, true),
+      mock("m2", "Spring Hackathon 2026", "Student Union Hall", 7, 48, true, "https://example.com/hackathon"),
+      mock("m3", "Intro to Web Dev Workshop", "Library Room 101", 5, 2, true),
+      mock("m4", "Tech Career Fair", "Convention Center", 14, 4, false),
+      mock("m5", "AI/ML Reading Group", "CS Building, Room 312", 3, 1.5, false),
+      mock("m6", "Resume Review Night", "Career Services Office", -3, 2, true),
+      mock("m7", "Open Source Contrib Day", "Online (Discord)", -7, 5, false),
+    ]}, { headers: { "Cache-Control": "no-store" } });
   }
-
-  const encodedId = encodeURIComponent(calendarId);
-  const baseUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodedId}/events`;
+  // --- END MOCK DATA ---
 
   try {
     // Fetch a broad range of events: 6 months past to 6 months future
@@ -80,40 +102,40 @@ export async function GET() {
     const timeMax = new Date(now);
     timeMax.setMonth(timeMax.getMonth() + 6);
 
-    const res = await fetch(
-      `${baseUrl}?key=${apiKey}&singleEvents=true&orderBy=startTime&sanitizeHtml=true&calendarId=${encodedId}&timeMin=${timeMin.toISOString()}&timeMax=${timeMax.toISOString()}&maxResults=100`,
-    );
+    // Fetch both calendars in parallel
+    const [umRawEvents, communityRawEvents] = await Promise.all([
+      fetchCalendarEvents(umCalendarId, apiKey, timeMin, timeMax),
+      communityCalendarId
+        ? fetchCalendarEvents(communityCalendarId, apiKey, timeMin, timeMax)
+        : Promise.resolve([]),
+    ]);
 
-    if (!res.ok) {
-      const errText = await res.text();
-      console.error("Google Calendar API response:", res.status, errText);
-      throw new Error("Failed to fetch from Google Calendar API");
-    }
+    // Enrich events, tagging by source calendar
+    const enrichUM = umRawEvents.map(async (event) => {
+      const externalUrl = extractUrl(event);
+      const imageUrl = externalUrl ? await fetchOgImage(externalUrl) : null;
+      return {
+        ...event,
+        externalUrl: externalUrl || undefined,
+        imageUrl: imageUrl || undefined,
+        hostedByUM: true,
+      };
+    });
 
-    const data = await res.json();
-    const rawEvents: RawGoogleEvent[] = data.items || [];
+    const enrichCommunity = communityRawEvents.map(async (event) => {
+      const externalUrl = extractUrl(event);
+      const imageUrl = externalUrl ? await fetchOgImage(externalUrl) : null;
+      return {
+        ...event,
+        externalUrl: externalUrl || undefined,
+        imageUrl: imageUrl || undefined,
+        hostedByUM: false,
+      };
+    });
 
-    // Enrich events
-    const enrichedEvents = await Promise.all(
-      rawEvents.map(async (event) => {
-        const hostedByUM = isHostedByUM(event);
+    const enrichedEvents = await Promise.all([...enrichUM, ...enrichCommunity]);
 
-        const externalUrl = extractUrl(event);
-        let imageUrl: string | null = null;
-        if (externalUrl) {
-          imageUrl = await fetchOgImage(externalUrl);
-        }
-
-        return {
-          ...event,
-          externalUrl: externalUrl || undefined,
-          imageUrl: imageUrl || undefined,
-          hostedByUM,
-        };
-      }),
-    );
-
-    // Sort: upcoming first (by start date descending so newest first)
+    // Sort: newest first (by start date descending)
     enrichedEvents.sort((a, b) => {
       const aDate = new Date(a.start.dateTime || a.start.date || "");
       const bDate = new Date(b.start.dateTime || b.start.date || "");
