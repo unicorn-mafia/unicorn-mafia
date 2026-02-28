@@ -44,7 +44,7 @@ export function EventCard({ event, index }: EventCardProps) {
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       {/* Image area */}
-      <div className="aspect-[4/3] relative overflow-hidden bg-neutral-100">
+      <div className="aspect-[3/2] relative overflow-hidden bg-neutral-100">
         {event.imageUrl ? (
           <img
             src={event.imageUrl}
@@ -59,10 +59,14 @@ export function EventCard({ event, index }: EventCardProps) {
           />
         )}
         {/* Badges */}
-        <div className="absolute top-2 right-2 flex flex-col gap-1 items-end">
-          {event.hostedByUM && (
+        <div className="absolute top-2 right-2 flex flex-row-reverse gap-1">
+          {event.hostedByUM ? (
             <div className="text-[9px] font-body tracking-wide bg-[#B307EB] px-1.5 py-0.5 text-white font-medium">
               HOSTED BY UM
+            </div>
+          ) : (
+            <div className="text-[9px] font-body tracking-wide bg-[#3198F1] px-1.5 py-0.5 text-white font-medium">
+              COMMUNITY
             </div>
           )}
           {event.externalUrl && (
@@ -106,7 +110,7 @@ export function EventCard({ event, index }: EventCardProps) {
 
         {/* Location */}
         {event.location && (
-          <p className="text-[10px] font-body text-neutral-500 tracking-wide truncate">
+          <p className="text-[10px] font-body text-neutral-500 tracking-wide line-clamp-2">
             {event.location}
           </p>
         )}
