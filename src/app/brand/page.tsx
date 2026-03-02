@@ -1,5 +1,4 @@
 'use client'
-
 import { useState } from 'react'
 import { BRAND_PALETTE } from '../_lib/consts'
 
@@ -58,7 +57,6 @@ export default function BrandPage() {
           <h2 className="text-2xl font-title font-medium mb-6 pb-2 border-b border-black">
             Logo Construction
           </h2>
-
           <div className="border border-black mb-6">
             <img
               src="/brand/logo-guidelines.png"
@@ -66,83 +64,69 @@ export default function BrandPage() {
               className="w-full"
             />
           </div>
-
           <div className="space-y-4 text-sm font-body text-gray-600">
             <p>The logo lockup combines the unicorn mark with the wordmark. Maintain the spacing shown in the grid above.</p>
             <p>The hatched areas represent the minimum clear space required around the logo.</p>
           </div>
         </section>
 
-        {/* Logo Section */}
+        {/* Logo Mark */}
         <section className="mb-16">
           <h2 className="text-2xl font-title font-medium mb-6 pb-2 border-b border-black">
             Logo Mark
           </h2>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            {/* Black on white */}
             <div className="border border-black p-8 flex items-center justify-center bg-white">
               <img src="/brand/um-black.svg" alt="Unicorn Mafia logo black" className="h-28" />
             </div>
-
-            {/* White on dark */}
             <div className="border border-black p-8 flex items-center justify-center" style={{ backgroundColor: '#14120B' }}>
               <img src="/brand/um-white.svg" alt="Unicorn Mafia logo white" className="h-28" />
             </div>
           </div>
-
           <div className="space-y-4 text-sm font-body text-gray-600">
             <p>The Unicorn Mafia logo mark is a pixelated unicorn with a rainbow-colored horn. The horn colors (from base to tip) are: Purple, Blue, Green, Red.</p>
           </div>
         </section>
 
-        {/* Wordmark Section */}
+        {/* Wordmark */}
         <section className="mb-16">
           <h2 className="text-2xl font-title font-medium mb-6 pb-2 border-b border-black">
             Wordmark
           </h2>
-
           <div className="grid grid-cols-1 gap-6 mb-6">
-            {/* Black on white */}
             <div className="border border-black p-8 flex items-center justify-center bg-white">
               <img src="/brand/wm-black.svg" alt="Unicorn Mafia wordmark black" className="h-12 max-w-full" />
             </div>
-
-            {/* White on dark */}
             <div className="border border-black p-8 flex items-center justify-center" style={{ backgroundColor: '#14120B' }}>
               <img src="/brand/wm-white.svg" alt="Unicorn Mafia wordmark white" className="h-12 max-w-full" />
             </div>
           </div>
-
           <div className="space-y-4 text-sm font-body text-gray-600">
             <p>The wordmark can be used independently when the logo mark is not suitable or when horizontal space is limited.</p>
           </div>
         </section>
 
-        {/* Colors Section */}
+        {/* Colors */}
         <section className="mb-16">
           <h2 className="text-2xl font-title font-medium mb-6 pb-2 border-b border-black">
             Colors
           </h2>
-
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             {brandColors.map((color) => (
               <ColorCard key={color.hex} color={color} />
             ))}
           </div>
-
           <div className="space-y-4 text-sm font-body text-gray-600">
             <p>The primary brand colors are derived from the unicorn horn gradient. Use these colors sparingly for accents and highlights.</p>
             <p>Black and white are the primary colors for text and backgrounds. The dark background (#14120B) is used for the footer section.</p>
           </div>
         </section>
 
-        {/* Typography Section */}
+        {/* Typography */}
         <section className="mb-16">
           <h2 className="text-2xl font-title font-medium mb-6 pb-2 border-b border-black">
             Typography
           </h2>
-
           <div className="space-y-8">
             <div className="border border-black p-6">
               <div className="text-xs font-mono text-gray-500 mb-2">PP Neue Bit — Headings</div>
@@ -159,7 +143,6 @@ export default function BrandPage() {
                 0 1 2 3 4 5 6 7 8 9
               </div>
             </div>
-
             <div className="border border-black p-6">
               <div className="text-xs font-mono text-gray-500 mb-2">PP Neue Montreal Mono — Body</div>
               <div className="font-body text-lg">
@@ -173,19 +156,17 @@ export default function BrandPage() {
               </div>
             </div>
           </div>
-
           <div className="mt-6 space-y-4 text-sm font-body text-gray-600">
             <p><strong>PP Neue Bit Bold</strong> — Used for all headings, navigation, and display text. Bold, pixelated aesthetic.</p>
             <p><strong>PP Neue Montreal Mono</strong> — Used for body text, UI elements, and technical content. Clean and readable.</p>
           </div>
         </section>
 
-        {/* Downloads Section */}
+        {/* Downloads */}
         <section className="mb-16">
           <h2 className="text-2xl font-title font-medium mb-6 pb-2 border-b border-black">
             Downloads
           </h2>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <a
               href="/brand/um-black.svg"
@@ -222,12 +203,11 @@ export default function BrandPage() {
           </div>
         </section>
 
-        {/* Usage Section */}
-        <section>
+        {/* Usage Guidelines */}
+        <section className="mb-16">
           <h2 className="text-2xl font-title font-medium mb-6 pb-2 border-b border-black">
             Usage Guidelines
           </h2>
-
           <div className="space-y-4 text-sm font-body text-gray-600">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -240,7 +220,7 @@ export default function BrandPage() {
                 </ul>
               </div>
               <div>
-                <h3 className="font-title text-lg text-black mb-2">Don&apos;t</h3>
+                <h3 className="font-title text-lg text-black mb-2">Don't</h3>
                 <ul className="list-disc list-inside space-y-1">
                   <li>Stretch or distort the logo</li>
                   <li>Change the horn colors or order</li>
@@ -249,6 +229,72 @@ export default function BrandPage() {
                 </ul>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* For Members & Partners + Legal */}
+        <section className="mb-16">
+          <h2 className="text-2xl font-title font-medium mb-6 pb-2 border-b border-black">
+            For Members & Partners
+          </h2>
+          <div className="space-y-6 text-sm font-body text-gray-600">
+            <p>
+              We love having you in the community — and we’d like to make it simple for you to show that. Here’s a clear guide on how members and partners can use the Unicorn Mafia name and brand.
+            </p>
+
+            <div>
+              <h3 className="font-title text-base text-black mb-2">What's generally fine</h3>
+              <ul className="list-disc list-inside space-y-1">
+                <li>Mentioning Unicorn Mafia in your bio, LinkedIn, or personal website (e.g. "Member of Unicorn Mafia")</li>
+                <li>Referencing Unicorn Mafia when talking about events you've attended or projects you've built within the community / as a member of the community</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-title text-base text-black mb-2">What's encouraged</h3>
+              <ul className="list-disc list-inside space-y-1">
+                <li>Inviting uber-cracked devs to join the mafia!</li>
+                <li>Tagging @UnicornMafia in your hackathon posts, project announcements, or wins when you've built something cool</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-title text-base text-black mb-2">What requires permission first</h3>
+              <ul className="list-disc list-inside space-y-1">
+                <li>Printing the Unicorn Mafia name or logo on any physical merchandise — including t-shirts, stickers, hoodies, or event materials</li>
+                <li>Using the logo or name in any commercial context, product, or promotional material</li>
+                <li>Co-branding anything as "in partnership with Unicorn Mafia" or similar</li>
+                <li>Reproducing brand assets in any form for distribution</li>
+                <li>Acting as an official representative or spokesperson for Unicorn Mafia</li>
+              </ul>
+            </div>
+
+            <div className="border border-black p-4 bg-gray-50">
+              <p className="text-black font-body text-sm">
+                <strong>If you're unsure, just ask.</strong><br />
+                Reach out to <a href="mailto:stable@unicrnmafia.com" className="underline hover:text-black">stable@unicrnmafia.com</a> and we'll get back to you quickly. We're generally very supportive of members representing the community — we just want to be in the loop.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-title font-medium mb-6 pb-2 border-b border-black">
+            Legal
+          </h2>
+          <div className="space-y-4 text-sm font-body text-gray-600">
+            <p>
+              The Unicorn Mafia name, logo, and associated brand assets are the intellectual property of Unicorn Mafia. All rights reserved.
+            </p>
+            <p>
+              Unauthorised use of the Unicorn Mafia brand — including reproduction, distribution, or commercial use of the name or logo without prior written consent — is not permitted. This applies to both digital and physical use.
+            </p>
+            <p>
+              Nothing in these guidelines grants you a licence to use the Unicorn Mafia brand beyond what is described above. Any permitted use must accurately represent your relationship with the community and must not imply official endorsement without explicit agreement.
+            </p>
+            <p>
+              We reserve the right to revoke permission at any time. If you become aware of misuse of the brand, please let us know at <a href="mailto:stable@unicrnmafia.com" className="underline hover:text-black">stable@unicrnmafia.com</a>.
+            </p>
           </div>
         </section>
       </div>
