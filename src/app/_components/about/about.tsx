@@ -9,8 +9,8 @@ export default function About() {
         <div className="w-full font-title font-medium text-3xl tracking-tighter">about.</div>
         <div className="flex flex-col font-title font-medium text-5xl tracking-tight w-full gap-8">
             <div className="flex flex-col gap-6 text-2xl text-gray-700">
-                <div>Unicorn Mafia is an invite-only community of London's sharpest developers.</div>
-                <div className="italic">"The highest signal community of builders in London."</div>
+                <div>Unicorn Mafia is an invite-only community of London&apos;s sharpest developers.</div>
+                <div className="italic">&quot;The highest signal community of builders in London.&quot;</div>
             </div>
             <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 md:gap-16 mt-8">
                 <div className="flex flex-col items-center">
