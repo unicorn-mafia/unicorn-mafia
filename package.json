@@ -17,6 +17,7 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@types/js-yaml": "^4.0.9",
+    "@vercel/analytics": "^1.6.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.6",
