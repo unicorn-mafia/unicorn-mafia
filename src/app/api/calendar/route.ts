@@ -12,7 +12,6 @@ function isHostedByUM(event: {
   return false;
 }
 
-// Extract first URL from event description or location
 function extractUrl(event: {
   description?: string;
   location?: string;
@@ -32,7 +31,6 @@ function extractUrl(event: {
   return null;
 }
 
-// Fetch OG image from a URL
 async function fetchOgImage(url: string): Promise<string | null> {
   try {
     const controller = new AbortController();
@@ -43,7 +41,6 @@ async function fetchOgImage(url: string): Promise<string | null> {
     });
     clearTimeout(timeout);
     if (!res.ok) return null;
-
     const html = await res.text();
     const ogMatch =
       html.match(
@@ -58,8 +55,29 @@ async function fetchOgImage(url: string): Promise<string | null> {
   }
 }
 
+async function fetchCalendarEvents(
+  calendarId: string,
+  apiKey: string,
+  timeMin: Date,
+  timeMax: Date,
+): Promise<RawGoogleEvent[]> {
+  const encodedId = encodeURIComponent(calendarId);
+  const baseUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodedId}/events`;
+  const res = await fetch(
+    `${baseUrl}?key=${apiKey}&singleEvents=true&orderBy=startTime&sanitizeHtml=true&calendarId=${encodedId}&timeMin=${timeMin.toISOString()}&timeMax=${timeMax.toISOString()}&maxResults=100`,
+  );
+  if (!res.ok) {
+    const errText = await res.text();
+    console.error(`Calendar API error for ${calendarId}:`, res.status, errText);
+    return [];
+  }
+  const data = await res.json();
+  return (data.items ?? []) as RawGoogleEvent[];
+}
+
 export async function GET() {
   const calendarId = process.env.GOOGLE_CALENDAR_ID;
+  const calendarId2 = process.env.GOOGLE_CALENDAR_ID_2;
   const apiKey = process.env.GOOGLE_CALENDAR_API_KEY;
 
   if (!calendarId || !apiKey) {
@@ -69,41 +87,40 @@ export async function GET() {
     );
   }
 
-  const encodedId = encodeURIComponent(calendarId);
-  const baseUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodedId}/events`;
-
   try {
-    // Fetch a broad range of events: 6 months past to 6 months future
     const now = new Date();
     const timeMin = new Date(now);
     timeMin.setMonth(timeMin.getMonth() - 6);
     const timeMax = new Date(now);
     timeMax.setMonth(timeMax.getMonth() + 6);
 
-    const res = await fetch(
-      `${baseUrl}?key=${apiKey}&singleEvents=true&orderBy=startTime&sanitizeHtml=true&calendarId=${encodedId}&timeMin=${timeMin.toISOString()}&timeMax=${timeMax.toISOString()}&maxResults=100`,
+    // Fetch both calendars in parallel; second is optional
+    const calendarIds = [calendarId, ...(calendarId2 ? [calendarId2] : [])];
+    const results = await Promise.all(
+      calendarIds.map((id) => fetchCalendarEvents(id, apiKey, timeMin, timeMax)),
     );
 
-    if (!res.ok) {
-      const errText = await res.text();
-      console.error("Google Calendar API response:", res.status, errText);
-      throw new Error("Failed to fetch from Google Calendar API");
+    // Merge and deduplicate by event id
+    const seen = new Set<string>();
+    const rawEvents: RawGoogleEvent[] = [];
+    for (const batch of results) {
+      for (const event of batch) {
+        if (!seen.has(event.id)) {
+          seen.add(event.id);
+          rawEvents.push(event);
+        }
+      }
     }
-
-    const data = await res.json();
-    const rawEvents: RawGoogleEvent[] = data.items || [];
 
     // Enrich events
     const enrichedEvents = await Promise.all(
       rawEvents.map(async (event) => {
         const hostedByUM = isHostedByUM(event);
-
         const externalUrl = extractUrl(event);
         let imageUrl: string | null = null;
         if (externalUrl) {
           imageUrl = await fetchOgImage(externalUrl);
         }
-
         return {
           ...event,
           externalUrl: externalUrl || undefined,
@@ -113,11 +130,11 @@ export async function GET() {
       }),
     );
 
-    // Sort: upcoming first (by start date descending so newest first)
+    // Sort: soonest upcoming first
     enrichedEvents.sort((a, b) => {
       const aDate = new Date(a.start.dateTime || a.start.date || "");
       const bDate = new Date(b.start.dateTime || b.start.date || "");
-      return bDate.getTime() - aDate.getTime();
+      return aDate.getTime() - bDate.getTime();
     });
 
     return NextResponse.json(
@@ -136,3 +153,4 @@ export async function GET() {
     );
   }
 }
+
