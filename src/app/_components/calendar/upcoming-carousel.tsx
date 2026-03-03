@@ -32,7 +32,9 @@ export function UpcomingCarousel({ events }: UpcomingCarouselProps) {
       const scrollAmount = 340;
       const currentScroll = containerRef.current.scrollLeft;
       containerRef.current.scrollTo({
-        left: currentScroll + (direction === "right" ? scrollAmount : -scrollAmount),
+        left:
+          currentScroll +
+          (direction === "right" ? scrollAmount : -scrollAmount),
         behavior: "smooth",
       });
     }
@@ -59,10 +61,7 @@ export function UpcomingCarousel({ events }: UpcomingCarouselProps) {
       </button>
 
       {/* Scrollable container */}
-      <div
-        ref={containerRef}
-        className="overflow-hidden mx-10"
-      >
+      <div ref={containerRef} className="overflow-hidden mx-10">
         <motion.div
           className="flex gap-4 py-2"
           drag="x"

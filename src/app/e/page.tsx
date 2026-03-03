@@ -40,7 +40,9 @@ export default function Calendar() {
     return (
       <div className="flex-1 flex items-center justify-center mt-12">
         <div className="border border-neutral-600 bg-neutral-50 p-6">
-          <div className="text-sm font-body tracking-wide text-neutral-900">LOADING EVENTS...</div>
+          <div className="text-sm font-body tracking-wide text-neutral-900">
+            LOADING EVENTS...
+          </div>
         </div>
       </div>
     );
@@ -50,7 +52,9 @@ export default function Calendar() {
     return (
       <div className="flex-1 flex items-center justify-center mt-12">
         <div className="border border-neutral-600 bg-neutral-50 p-6">
-          <div className="text-sm font-body tracking-wide text-neutral-900">FAILED TO LOAD EVENTS</div>
+          <div className="text-sm font-body tracking-wide text-neutral-900">
+            FAILED TO LOAD EVENTS
+          </div>
         </div>
       </div>
     );
@@ -86,7 +90,8 @@ export default function Calendar() {
             </button>
           </div>
           <p className="text-xs font-body text-neutral-500 tracking-wide mt-2">
-            {filteredEvents.length} {filteredEvents.length === 1 ? "EVENT" : "EVENTS"}
+            {filteredEvents.length}{" "}
+            {filteredEvents.length === 1 ? "EVENT" : "EVENTS"}
           </p>
         </div>
       </section>

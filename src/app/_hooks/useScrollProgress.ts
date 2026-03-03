@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export const useScrollProgress = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -12,7 +12,8 @@ export const useScrollProgress = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
           const scrollTop = window.scrollY;
-          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const docHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
           const progress = docHeight > 0 ? scrollTop / docHeight : 0;
           setScrollProgress(progress);
           ticking = false;
@@ -21,10 +22,10 @@ export const useScrollProgress = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Initial call
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return scrollProgress;

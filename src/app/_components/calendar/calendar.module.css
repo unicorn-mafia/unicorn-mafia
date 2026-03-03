@@ -6,7 +6,7 @@
 }
 
 .shimmer::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -41,7 +41,7 @@
 .liveDot {
   width: 8px;
   height: 8px;
-  background-color: #EE1701;
+  background-color: #ee1701;
   border-radius: 50%;
   position: relative;
 }

@@ -40,7 +40,11 @@ export function EventCard({ event, index }: EventCardProps) {
       target="_blank"
       rel="noopener noreferrer"
       className="block border border-neutral-600 bg-neutral-50 overflow-hidden aspect-square"
-      whileHover={{ scale: 1.02, y: -4, boxShadow: "0 8px 24px rgba(0,0,0,0.12)" }}
+      whileHover={{
+        scale: 1.02,
+        y: -4,
+        boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+      }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       {/* Image area */}
@@ -89,10 +93,14 @@ export function EventCard({ event, index }: EventCardProps) {
               <div className={styles.liveDot}>
                 <div className={styles.livePulse} />
               </div>
-              <span className="text-[10px] font-body text-red-600 tracking-wide font-medium">LIVE</span>
+              <span className="text-[10px] font-body text-red-600 tracking-wide font-medium">
+                LIVE
+              </span>
             </div>
           )}
-          <span className="text-[10px] font-body text-neutral-500 tracking-wide">{dateRange}</span>
+          <span className="text-[10px] font-body text-neutral-500 tracking-wide">
+            {dateRange}
+          </span>
         </div>
 
         {/* Title */}

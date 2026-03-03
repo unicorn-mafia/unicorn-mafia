@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import UnicornBorder from './unicorn-border';
+import UnicornBorder from "./unicorn-border";
 
 export default function UnicornFrame() {
   return (

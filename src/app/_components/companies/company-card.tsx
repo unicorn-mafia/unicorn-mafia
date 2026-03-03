@@ -7,10 +7,9 @@ import type { CompanyWithCategory } from "../../_types/companies";
 
 interface CompanyCardProps {
   company: CompanyWithCategory;
-  category: string;
 }
 
-export function CompanyCard({ company, category }: CompanyCardProps) {
+export function CompanyCard({ company }: CompanyCardProps) {
   return (
     <Link
       href={company.website_url}
@@ -26,9 +25,9 @@ export function CompanyCard({ company, category }: CompanyCardProps) {
               src={company.logo_url}
               alt={`${company.name} logo`}
               fill
-              unoptimized={company.logo_url.startsWith('http')}
+              unoptimized={company.logo_url.startsWith("http")}
               className={`object-contain ${
-                company.logo_url.includes('favicon') ? 'brightness-0' : ''
+                company.logo_url.includes("favicon") ? "brightness-0" : ""
               }`}
               onError={(e) => {
                 e.currentTarget.src = "/companies/placeholder-logo.svg";
@@ -36,7 +35,7 @@ export function CompanyCard({ company, category }: CompanyCardProps) {
             />
           </div>
         </div>
-        
+
         {/* Company Name - compact bottom section */}
         <div className="border-t border-neutral-400 px-1 py-2 text-center">
           <h3 className="text-[10px] font-body font-medium text-neutral-900 tracking-wide leading-none truncate group-hover:text-neutral-700">

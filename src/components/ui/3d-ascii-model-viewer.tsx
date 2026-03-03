@@ -10,7 +10,13 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface ModelProps {
   scale: number;
@@ -19,12 +25,7 @@ interface ModelProps {
   position: [number, number, number];
 }
 
-function Model({
-  scale,
-  rotation,
-  modelUrl,
-  position,
-}: ModelProps) {
+function Model({ scale, rotation, modelUrl, position }: ModelProps) {
   const { scene } = useGLTF(modelUrl);
 
   return (
@@ -71,9 +72,7 @@ const models = [
 ];
 
 export default function App() {
-  const [selectedModel, setSelectedModel] = useState(
-    models[0].url,
-  );
+  const [selectedModel, setSelectedModel] = useState(models[0].url);
   const [userScale, setUserScale] = useState(1);
   const [creditsOpen, setCreditsOpen] = useState(false);
 
@@ -105,9 +104,7 @@ export default function App() {
   };
 
   // Get the current model's base scale
-  const currentModel = models.find(
-    (model) => model.url === selectedModel,
-  );
+  const currentModel = models.find((model) => model.url === selectedModel);
   const finalScale = (currentModel?.baseScale || 1) * userScale;
 
   return (
@@ -154,17 +151,11 @@ export default function App() {
         }}
         gl={{ preserveDrawingBuffer: true }}
         onCreated={({ gl }) => {
-          gl.setSize(
-            gl.domElement.clientWidth,
-            gl.domElement.clientHeight,
-          );
+          gl.setSize(gl.domElement.clientWidth, gl.domElement.clientHeight);
         }}
       >
         <ambientLight intensity={0.5} />
-        <directionalLight
-          position={[10, 10, 5]}
-          intensity={1}
-        />
+        <directionalLight position={[10, 10, 5]} intensity={1} />
         <pointLight position={[-10, -10, -5]} intensity={0.5} />
 
         <Suspense fallback={null}>
@@ -351,7 +342,7 @@ export default function App() {
             </DialogTrigger>
             <DialogContent className="bg-white/95 backdrop-blur-sm">
               <DialogHeader>
-                <DialogTitle 
+                <DialogTitle
                   className="text-[15px] font-mono text-black"
                   style={{ fontFamily: "DM Mono, monospace" }}
                 >
@@ -359,7 +350,7 @@ export default function App() {
                 </DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
-                <div 
+                <div
                   className="text-[15px] font-mono text-black leading-relaxed"
                   style={{ fontFamily: "DM Mono, monospace" }}
                 >
@@ -369,7 +360,7 @@ export default function App() {
                   <div>Crystal model by GenEugene</div>
                   <div>Pothos (House Plant) by stevencmutter</div>
                 </div>
-                <div 
+                <div
                   className="text-[15px] font-mono text-black mt-6"
                   style={{ fontFamily: "DM Mono, monospace" }}
                 >

@@ -1,16 +1,16 @@
-'use client';
-import React from 'react';
-import { cn } from '@/lib/utils';
-import { useMotionValue, animate, motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import useMeasure from 'react-use-measure';
+"use client";
+import React from "react";
+import { cn } from "@/lib/utils";
+import { useMotionValue, animate, motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import useMeasure from "react-use-measure";
 
 type InfiniteSliderProps = {
   children: React.ReactNode;
   gap?: number;
   duration?: number;
   durationOnHover?: number;
-  direction?: 'horizontal' | 'vertical';
+  direction?: "horizontal" | "vertical";
   reverse?: boolean;
   className?: string;
 };
@@ -20,7 +20,7 @@ export function InfiniteSlider({
   gap = 16,
   duration = 25,
   durationOnHover,
-  direction = 'horizontal',
+  direction = "horizontal",
   reverse = false,
   className,
 }: InfiniteSliderProps) {
@@ -32,14 +32,14 @@ export function InfiniteSlider({
 
   useEffect(() => {
     let controls;
-    const size = direction === 'horizontal' ? width : height;
+    const size = direction === "horizontal" ? width : height;
     const contentSize = size + gap;
     const from = reverse ? -contentSize / 2 : 0;
     const to = reverse ? 0 : -contentSize / 2;
 
     if (isTransitioning) {
       controls = animate(translation, [translation.get(), to], {
-        ease: 'linear',
+        ease: "linear",
         duration:
           currentDuration * Math.abs((translation.get() - to) / contentSize),
         onComplete: () => {
@@ -49,10 +49,10 @@ export function InfiniteSlider({
       });
     } else {
       controls = animate(translation, [from, to], {
-        ease: 'linear',
+        ease: "linear",
         duration: currentDuration,
         repeat: Infinity,
-        repeatType: 'loop',
+        repeatType: "loop",
         repeatDelay: 0,
         onRepeat: () => {
           translation.set(from);
@@ -87,50 +87,66 @@ export function InfiniteSlider({
     : {};
 
   return (
-    <div className={cn('overflow-hidden', className)}>
+    <div className={cn("overflow-hidden", className)}>
       <motion.div
-        className='flex w-max'
+        className="flex w-max"
         style={{
-          ...(direction === 'horizontal'
+          ...(direction === "horizontal"
             ? { x: translation }
             : { y: translation }),
-          flexDirection: direction === 'horizontal' ? 'row' : 'column',
+          flexDirection: direction === "horizontal" ? "row" : "column",
         }}
         ref={ref}
         {...hoverProps}
       >
-        <div 
+        <div
           className="flex"
           style={{
-            flexDirection: direction === 'horizontal' ? 'row' : 'column',
-            marginRight: direction === 'horizontal' ? `${gap}px` : '0',
-            marginBottom: direction === 'vertical' ? `${gap}px` : '0',
+            flexDirection: direction === "horizontal" ? "row" : "column",
+            marginRight: direction === "horizontal" ? `${gap}px` : "0",
+            marginBottom: direction === "vertical" ? `${gap}px` : "0",
           }}
         >
           {React.Children.map(children, (child, index) => (
             <div
               key={index}
               style={{
-                marginRight: direction === 'horizontal' && index < React.Children.count(children) - 1 ? `${gap}px` : '0',
-                marginBottom: direction === 'vertical' && index < React.Children.count(children) - 1 ? `${gap}px` : '0',
+                marginRight:
+                  direction === "horizontal" &&
+                  index < React.Children.count(children) - 1
+                    ? `${gap}px`
+                    : "0",
+                marginBottom:
+                  direction === "vertical" &&
+                  index < React.Children.count(children) - 1
+                    ? `${gap}px`
+                    : "0",
               }}
             >
               {child}
             </div>
           ))}
         </div>
-        <div 
+        <div
           className="flex"
           style={{
-            flexDirection: direction === 'horizontal' ? 'row' : 'column',
+            flexDirection: direction === "horizontal" ? "row" : "column",
           }}
         >
           {React.Children.map(children, (child, index) => (
             <div
               key={index}
               style={{
-                marginRight: direction === 'horizontal' && index < React.Children.count(children) - 1 ? `${gap}px` : '0',
-                marginBottom: direction === 'vertical' && index < React.Children.count(children) - 1 ? `${gap}px` : '0',
+                marginRight:
+                  direction === "horizontal" &&
+                  index < React.Children.count(children) - 1
+                    ? `${gap}px`
+                    : "0",
+                marginBottom:
+                  direction === "vertical" &&
+                  index < React.Children.count(children) - 1
+                    ? `${gap}px`
+                    : "0",
               }}
             >
               {child}

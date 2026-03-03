@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -19,7 +19,8 @@ function UnicornModel({ scale, position }: ModelProps) {
       // Slow auto-rotation
       groupRef.current.rotation.y += 0.005;
       // Subtle breathing animation
-      groupRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 0.5) * 0.02;
+      groupRef.current.position.y =
+        position[1] + Math.sin(state.clock.elapsedTime * 0.5) * 0.02;
     }
   });
 
@@ -38,7 +39,7 @@ export default function AsciiUnicorn() {
         fov: 50,
       }}
       gl={{ preserveDrawingBuffer: true, alpha: true }}
-      style={{ background: 'transparent' }}
+      style={{ background: "transparent" }}
     >
       <ambientLight intensity={0.8} />
       <directionalLight position={[10, 10, 5]} intensity={1.5} />

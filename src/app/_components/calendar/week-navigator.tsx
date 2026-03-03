@@ -10,7 +10,12 @@ interface WeekNavigatorProps {
   onToday: () => void;
 }
 
-export function WeekNavigator({ weekOffset, onPrev, onNext, onToday }: WeekNavigatorProps) {
+export function WeekNavigator({
+  weekOffset,
+  onPrev,
+  onNext,
+  onToday,
+}: WeekNavigatorProps) {
   const now = new Date();
   const dayOfWeek = now.getDay();
   const daysUntilMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
