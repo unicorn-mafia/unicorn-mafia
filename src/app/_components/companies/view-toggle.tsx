@@ -10,7 +10,9 @@ interface ViewToggleProps {
 export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-xs text-neutral-600 font-body tracking-wide">VIEW:</span>
+      <span className="text-xs text-neutral-600 font-body tracking-wide">
+        VIEW:
+      </span>
       <div className="flex border border-neutral-600">
         <button
           onClick={() => onViewModeChange("grid")}

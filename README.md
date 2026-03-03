@@ -1,6 +1,6 @@
 # Unicorn Mafia
 
-*"The highest signal community of developers in London."*
+_"The highest signal community of developers in London."_
 
 ### About Us
 

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useRef, useEffect, memo } from 'react';
+import { useRef, useEffect, memo } from "react";
 
 interface GifFrame {
   imageData: ImageData;
@@ -8,7 +8,7 @@ interface GifFrame {
 }
 
 interface GallopingHorseBorderProps {
-  direction: 'horizontal' | 'vertical';
+  direction: "horizontal" | "vertical";
   scrollProgress: number;
   frames: GifFrame[];
   frameWidth: number;
@@ -26,18 +26,20 @@ const GallopingHorseBorder = memo(function GallopingHorseBorder({
   const offscreenCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Calculate number of horses needed
-  const horseCount = direction === 'horizontal' ? 25 : 15;
+  const horseCount = direction === "horizontal" ? 25 : 15;
   const horseSize = 80;
 
   // Calculate canvas dimensions
-  const canvasWidth = direction === 'horizontal' ? horseCount * horseSize : horseSize;
-  const canvasHeight = direction === 'vertical' ? horseCount * horseSize : horseSize;
+  const canvasWidth =
+    direction === "horizontal" ? horseCount * horseSize : horseSize;
+  const canvasHeight =
+    direction === "vertical" ? horseCount * horseSize : horseSize;
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || frames.length === 0) return;
 
-    const ctx = canvas.getContext('2d', { alpha: true });
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
     // Calculate which frame to show based on scroll progress
@@ -50,12 +52,12 @@ const GallopingHorseBorder = memo(function GallopingHorseBorder({
 
     // Create offscreen canvas for the frame if needed
     if (!offscreenCanvasRef.current) {
-      offscreenCanvasRef.current = document.createElement('canvas');
+      offscreenCanvasRef.current = document.createElement("canvas");
     }
     const offscreen = offscreenCanvasRef.current;
     offscreen.width = frameWidth;
     offscreen.height = frameHeight;
-    const offscreenCtx = offscreen.getContext('2d');
+    const offscreenCtx = offscreen.getContext("2d");
     if (!offscreenCtx) return;
 
     // Put the frame data on offscreen canvas
@@ -69,16 +71,32 @@ const GallopingHorseBorder = memo(function GallopingHorseBorder({
 
     // Draw horses
     for (let i = 0; i < horseCount; i++) {
-      const x = direction === 'horizontal' ? i * horseSize : 0;
-      const y = direction === 'vertical' ? i * horseSize : 0;
+      const x = direction === "horizontal" ? i * horseSize : 0;
+      const y = direction === "vertical" ? i * horseSize : 0;
 
       ctx.drawImage(
         offscreen,
-        0, 0, frameWidth, frameHeight,
-        x, y, horseSize, horseSize
+        0,
+        0,
+        frameWidth,
+        frameHeight,
+        x,
+        y,
+        horseSize,
+        horseSize,
       );
     }
-  }, [scrollProgress, frames, frameWidth, frameHeight, direction, horseCount, canvasWidth, canvasHeight, horseSize]);
+  }, [
+    scrollProgress,
+    frames,
+    frameWidth,
+    frameHeight,
+    direction,
+    horseCount,
+    canvasWidth,
+    canvasHeight,
+    horseSize,
+  ]);
 
   return (
     <canvas
@@ -86,7 +104,7 @@ const GallopingHorseBorder = memo(function GallopingHorseBorder({
       width={canvasWidth}
       height={canvasHeight}
       style={{
-        contain: 'layout style paint',
+        contain: "layout style paint",
         flexShrink: 0,
       }}
     />

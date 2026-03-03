@@ -1,20 +1,64 @@
-import React from 'react';
+import React from "react";
 
 const companies = [
-  { name: 'Amazon', logo: '/companies/amazon.png', logoHd: '/companies/amazon.svg' },
-  { name: 'Anthropic', logo: '/companies/anthropic.png', logoHd: '/companies/anthropic.svg' },
-  { name: 'Apple', logo: '/companies/apple.png', logoHd: '/companies/apple.svg' },
-  { name: 'Cambridge', logo: '/companies/cambridge.png', logoHd: '/companies/cambridge.svg' },
-  { name: 'Google', logo: '/companies/google.png', logoHd: '/companies/google.svg' },
-  { name: 'Imperial', logo: '/companies/imperial.png', logoHd: '/companies/imperial.svg' },
-  { name: 'Meta', logo: '/companies/meta.png', logoHd: '/companies/meta.svg' },
-  { name: 'Nvidia', logo: '/companies/nvidia.png', logoHd: '/companies/nvidia.svg' },
-  { name: 'OpenAI', logo: '/companies/openai.png', logoHd: '/companies/openai.svg' },
-  { name: 'Oxford', logo: '/companies/oxford.png', logoHd: '/companies/oxford.svg' },
-  { name: 'UCL', logo: '/companies/ucl.png', logoHd: '/companies/ucl.svg' },
-  { name: 'Y Combinator', logo: '/companies/ycombinator.png', logoHd: '/companies/ycombinator.svg' },
-  { name: 'xAI', logo: '/companies/xai.svg', logoHd: '/companies/xai-hd.svg' },
-  { name: 'Palantir', logo: '/companies/palantir.svg', logoHd: '/companies/palantir-hd.svg' },
+  {
+    name: "Amazon",
+    logo: "/companies/amazon.png",
+    logoHd: "/companies/amazon.svg",
+  },
+  {
+    name: "Anthropic",
+    logo: "/companies/anthropic.png",
+    logoHd: "/companies/anthropic.svg",
+  },
+  {
+    name: "Apple",
+    logo: "/companies/apple.png",
+    logoHd: "/companies/apple.svg",
+  },
+  {
+    name: "Cambridge",
+    logo: "/companies/cambridge.png",
+    logoHd: "/companies/cambridge.svg",
+  },
+  {
+    name: "Google",
+    logo: "/companies/google.png",
+    logoHd: "/companies/google.svg",
+  },
+  {
+    name: "Imperial",
+    logo: "/companies/imperial.png",
+    logoHd: "/companies/imperial.svg",
+  },
+  { name: "Meta", logo: "/companies/meta.png", logoHd: "/companies/meta.svg" },
+  {
+    name: "Nvidia",
+    logo: "/companies/nvidia.png",
+    logoHd: "/companies/nvidia.svg",
+  },
+  {
+    name: "OpenAI",
+    logo: "/companies/openai.png",
+    logoHd: "/companies/openai.svg",
+  },
+  {
+    name: "Oxford",
+    logo: "/companies/oxford.png",
+    logoHd: "/companies/oxford.svg",
+  },
+  { name: "UCL", logo: "/companies/ucl.png", logoHd: "/companies/ucl.svg" },
+  {
+    name: "Y Combinator",
+    logo: "/companies/ycombinator.png",
+    logoHd: "/companies/ycombinator.svg",
+  },
+  { name: "xAI", logo: "/companies/xai.svg", logoHd: "/companies/xai-hd.svg" },
+  {
+    name: "Palantir",
+    logo: "/companies/palantir.svg",
+    logoHd: "/companies/palantir-hd.svg",
+  },
 ];
 
 export default function TrustBy() {
@@ -27,7 +71,10 @@ export default function TrustBy() {
       </div>
 
       <div className="overflow-hidden">
-        <div className="flex items-center animate-scroll-left" style={{ width: 'max-content' }}>
+        <div
+          className="flex items-center animate-scroll-left"
+          style={{ width: "max-content" }}
+        >
           {/* First set of logos */}
           {companies.map((company) => (
             <div

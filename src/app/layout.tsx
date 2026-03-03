@@ -53,7 +53,8 @@ const ppNeueMontrealMono = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://unicrnmafia.com"),
   title: "Unicorn Mafia. London's elite developer community.",
-  description: "Where the best developers build together. Join London's most selective community of engineers and founders.",
+  description:
+    "Where the best developers build together. Join London's most selective community of engineers and founders.",
   keywords: [
     "developer community London",
     "tech community",
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
     "startup founders",
     "London tech",
     "engineering community",
-    "unicorn startups"
+    "unicorn startups",
   ],
   authors: [{ name: "Unicorn Mafia" }],
   creator: "Unicorn Mafia",
@@ -73,7 +74,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Unicorn Mafia. London's elite developer community.",
-    description: "Where the best developers build together. Join London's most selective community of engineers and founders.",
+    description:
+      "Where the best developers build together. Join London's most selective community of engineers and founders.",
     url: "https://unicrnmafia.com",
     siteName: "Unicorn Mafia",
     images: [
@@ -100,9 +102,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   alternates: {
@@ -116,7 +118,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ppNeueBit.variable} ${ppNeueMontrealMono.variable}`}>
+    <html
+      lang="en"
+      className={`${ppNeueBit.variable} ${ppNeueMontrealMono.variable}`}
+    >
       <body className="antialiased bg-gray-300 min-h-screen">
         <TerminalEasterEgg />
         <PreloaderWrapper>

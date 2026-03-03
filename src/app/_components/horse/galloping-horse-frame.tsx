@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useRef, useEffect, useState } from 'react';
-import { useGifFrames } from '@/app/_hooks/useGifFrames';
-import { useScrollProgress } from '@/app/_hooks/useScrollProgress';
+import { useRef, useEffect, useState } from "react";
+import { useGifFrames } from "@/app/_hooks/useGifFrames";
+import { useScrollProgress } from "@/app/_hooks/useScrollProgress";
 
 export default function GallopingHorseFrame() {
   const scrollProgress = useScrollProgress();
-  const { frames, loading, width, height } = useGifFrames('/uniiii.gif');
+  const { frames, loading, width, height } = useGifFrames("/uniiii.gif");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [dimensions, setDimensions] = useState({ w: 0, h: 0 });
 
@@ -16,16 +16,17 @@ export default function GallopingHorseFrame() {
       setDimensions({ w: window.innerWidth, h: window.innerHeight });
     };
     updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
   }, []);
 
   // Draw wallpaper pattern
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || frames.length === 0 || dimensions.w === 0 || width === 0) return;
+    if (!canvas || frames.length === 0 || dimensions.w === 0 || width === 0)
+      return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     // Calculate frame index based on scroll (3 cycles per page - slower/less sensitive)
@@ -35,10 +36,10 @@ export default function GallopingHorseFrame() {
     if (!frame) return;
 
     // Create a fresh canvas for this frame
-    const frameCanvas = document.createElement('canvas');
+    const frameCanvas = document.createElement("canvas");
     frameCanvas.width = width;
     frameCanvas.height = height;
-    const frameCtx = frameCanvas.getContext('2d');
+    const frameCtx = frameCanvas.getContext("2d");
     if (!frameCtx) return;
     frameCtx.putImageData(frame.imageData, 0, 0);
 
@@ -46,7 +47,7 @@ export default function GallopingHorseFrame() {
     ctx.save();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.globalAlpha = 1;
-    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Tile settings - preserve aspect ratio
@@ -74,8 +75,14 @@ export default function GallopingHorseFrame() {
 
         ctx.drawImage(
           frameCanvas,
-          0, 0, width, height,
-          x, y, tileWidth, tileHeight
+          0,
+          0,
+          width,
+          height,
+          x,
+          y,
+          tileWidth,
+          tileHeight,
         );
       }
     }

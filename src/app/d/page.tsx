@@ -17,14 +17,17 @@ export default function Demos() {
           </h1>
           <div className="space-y-4 text-neutral-600 text-[15px] leading-relaxed font-body">
             <p>
-              curated events we run for developers from our community in london and sf, bi-monthly. generally open to the public and catered for any developer or technical person who wants to learn from some of the best people out there.
+              curated events we run for developers from our community in london
+              and sf, bi-monthly. generally open to the public and catered for
+              any developer or technical person who wants to learn from some of
+              the best people out there.
             </p>
             <p>
-              the goal is simple - inspire more people to build and keep up with the latest trends and hacks in tech. think of it as bringing your x feed into a curated room.
+              the goal is simple - inspire more people to build and keep up with
+              the latest trends and hacks in tech. think of it as bringing your
+              x feed into a curated room.
             </p>
-            <p>
-              cool shit, real builders, no fluff.
-            </p>
+            <p>cool shit, real builders, no fluff.</p>
           </div>
         </div>
 
@@ -48,9 +51,7 @@ export default function Demos() {
                   <p className="text-sm text-neutral-600 group-hover:text-black transition-colors">
                     {event.name}
                   </p>
-                  <p className="text-xs text-neutral-400">
-                    {event.date}
-                  </p>
+                  <p className="text-xs text-neutral-400">{event.date}</p>
                 </div>
               </a>
             ))}

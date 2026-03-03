@@ -15,4 +15,3 @@ export interface HackathonCategory {
 export interface HackathonsData {
   categories: HackathonCategory[];
 }
-

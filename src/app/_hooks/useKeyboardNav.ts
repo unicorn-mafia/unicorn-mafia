@@ -1,68 +1,68 @@
-'use client'
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export interface MenuItem {
-  label: string
-  href: string
-  shortcut: string
+  label: string;
+  href: string;
+  shortcut: string;
 }
 
 export const menuItems: MenuItem[] = [
-  { label: 'Hackathons', href: '/h', shortcut: 'H' },
-  { label: 'Companies', href: '/c', shortcut: 'C' },
-  { label: 'Demos', href: '/d', shortcut: 'D' },
-  { label: 'Events', href: '/e', shortcut: 'E' },
-]
+  { label: "Hackathons", href: "/h", shortcut: "H" },
+  { label: "Companies", href: "/c", shortcut: "C" },
+  { label: "Demos", href: "/d", shortcut: "D" },
+  { label: "Events", href: "/e", shortcut: "E" },
+];
 
 export function useKeyboardNav() {
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Ignore if typing in input, textarea, or contenteditable
-      const target = e.target as HTMLElement
+      const target = e.target as HTMLElement;
       if (
         target instanceof HTMLInputElement ||
         target instanceof HTMLTextAreaElement ||
         target.isContentEditable
       ) {
-        return
+        return;
       }
 
       // Ignore if any modifier keys are pressed
       if (e.metaKey || e.ctrlKey || e.altKey) {
-        return
+        return;
       }
 
-      const key = e.key.toUpperCase()
+      const key = e.key.toUpperCase();
 
       // B to go back (but not on home page - would leave the site)
-      if (key === 'B' && window.location.pathname !== '/') {
-        e.preventDefault()
-        router.back()
-        return
+      if (key === "B" && window.location.pathname !== "/") {
+        e.preventDefault();
+        router.back();
+        return;
       }
 
-      const item = menuItems.find((m) => m.shortcut === key)
+      const item = menuItems.find((m) => m.shortcut === key);
 
       if (item) {
-        e.preventDefault()
+        e.preventDefault();
         // Handle hash links for same-page scrolling
-        if (item.href.startsWith('/#')) {
-          const hash = item.href.slice(1) // Remove leading /
-          const element = document.querySelector(hash)
+        if (item.href.startsWith("/#")) {
+          const hash = item.href.slice(1); // Remove leading /
+          const element = document.querySelector(hash);
           if (element) {
-            element.scrollIntoView({ behavior: 'smooth' })
+            element.scrollIntoView({ behavior: "smooth" });
           }
-          window.history.pushState(null, '', item.href)
+          window.history.pushState(null, "", item.href);
         } else {
-          router.push(item.href)
+          router.push(item.href);
         }
       }
-    }
+    };
 
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [router])
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [router]);
 }
