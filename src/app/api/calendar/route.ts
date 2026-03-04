@@ -15,7 +15,11 @@ async function fetchCalendarEvents(
   );
   if (!res.ok) {
     const errText = await res.text();
-    console.error(`Google Calendar API error for ${calendarId}:`, res.status, errText);
+    console.error(
+      `Google Calendar API error for ${calendarId}:`,
+      res.status,
+      errText,
+    );
     return [];
   }
   const data = await res.json();
@@ -74,7 +78,9 @@ export async function GET() {
   const apiKey = process.env.GOOGLE_CALENDAR_API_KEY;
 
   if (!umCalendarId || !apiKey) {
-    console.warn("Missing GOOGLE_CALENDAR_ID or GOOGLE_CALENDAR_API_KEY env vars");
+    console.warn(
+      "Missing GOOGLE_CALENDAR_ID or GOOGLE_CALENDAR_API_KEY env vars",
+    );
     return NextResponse.json({ events: [] });
   }
 
