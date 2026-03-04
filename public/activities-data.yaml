@@ -1,0 +1,87 @@
+categories:
+  - name: "Daily Activities"
+    description: "Recent daily activities logged"
+    activities:
+      - id: "act-001"
+        title: "Morning Workout"
+        description: "30-minute cardio and strength training session"
+        type: ["physical"]
+        date: "2026-03-04"
+        duration_minutes: 30
+        intensity: "high"
+        notes: "Felt energized after the workout"
+      
+      - id: "act-002"
+        title: "Team Meeting"
+        description: "Weekly sync with the product team"
+        type: ["mental", "social"]
+        date: "2026-03-04"
+        duration_minutes: 60
+        intensity: "medium"
+        notes: "Discussed roadmap priorities"
+      
+      - id: "act-003"
+        title: "Coding Session"
+        description: "Implemented activity logging feature"
+        type: ["mental"]
+        date: "2026-03-04"
+        duration_minutes: 120
+        intensity: "high"
+        notes: "Deep focus work on new feature"
+      
+      - id: "act-004"
+        title: "Lunch with Friends"
+        description: "Casual lunch at the local cafe"
+        type: ["social"]
+        date: "2026-03-03"
+        duration_minutes: 45
+        intensity: "low"
+        notes: "Great conversations"
+      
+      - id: "act-005"
+        title: "Running"
+        description: "5K run in the park"
+        type: ["physical"]
+        date: "2026-03-03"
+        duration_minutes: 35
+        intensity: "high"
+        notes: "Personal best time!"
+      
+      - id: "act-006"
+        title: "Reading"
+        description: "Reading technical documentation and articles"
+        type: ["mental"]
+        date: "2026-03-03"
+        duration_minutes: 90
+        intensity: "medium"
+        notes: "Learned about new design patterns"
+
+  - name: "Weekly Highlights"
+    description: "Notable activities from the past week"
+    activities:
+      - id: "act-007"
+        title: "Hackathon Participation"
+        description: "24-hour coding marathon building AI tools"
+        type: ["mental", "physical", "social"]
+        date: "2026-02-28"
+        duration_minutes: 1440
+        intensity: "high"
+        notes: "Won first place in AI category"
+      
+      - id: "act-008"
+        title: "Yoga Class"
+        description: "Attended evening yoga session"
+        type: ["physical", "mental"]
+        date: "2026-02-27"
+        duration_minutes: 60
+        intensity: "medium"
+        notes: "Focused on flexibility and mindfulness"
+      
+      - id: "act-009"
+        title: "Networking Event"
+        description: "Tech community meetup downtown"
+        type: ["social"]
+        date: "2026-02-26"
+        duration_minutes: 120
+        intensity: "medium"
+        notes: "Met several interesting founders"
