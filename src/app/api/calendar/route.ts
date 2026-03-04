@@ -73,26 +73,10 @@ export async function GET() {
   const communityCalendarId = process.env.GOOGLE_CALENDAR_ID_COMMUNITY;
   const apiKey = process.env.GOOGLE_CALENDAR_API_KEY;
 
-  // --- MOCK DATA: remove this block when real API keys are configured ---
   if (!umCalendarId || !apiKey) {
-    const d = (offsetDays: number) => new Date(Date.now() + offsetDays * 864e5).toISOString();
-    const mock = (id: string, summary: string, loc: string, startDay: number, hours: number, um: boolean, extUrl?: string) => ({
-      id, summary, location: loc, htmlLink: "#", hostedByUM: um,
-      start: { dateTime: d(startDay) },
-      end: { dateTime: d(startDay + hours / 24) },
-      ...(extUrl && { externalUrl: extUrl }),
-    });
-    return NextResponse.json({ events: [
-      mock("m1", "Weekly Hack Night", "Engineering Building, Room 204", 2, 3, true),
-      mock("m2", "Spring Hackathon 2026", "Student Union Hall", 7, 48, true, "https://example.com/hackathon"),
-      mock("m3", "Intro to Web Dev Workshop", "Library Room 101", 5, 2, true),
-      mock("m4", "Tech Career Fair", "Convention Center", 14, 4, false),
-      mock("m5", "AI/ML Reading Group", "CS Building, Room 312", 3, 1.5, false),
-      mock("m6", "Resume Review Night", "Career Services Office", -3, 2, true),
-      mock("m7", "Open Source Contrib Day", "Online (Discord)", -7, 5, false),
-    ]}, { headers: { "Cache-Control": "no-store" } });
+    console.warn("Missing GOOGLE_CALENDAR_ID or GOOGLE_CALENDAR_API_KEY env vars");
+    return NextResponse.json({ events: [] });
   }
-  // --- END MOCK DATA ---
 
   try {
     // Fetch a broad range of events: 6 months past to 6 months future
