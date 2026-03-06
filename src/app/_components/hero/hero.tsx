@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import styles from './hero.module.css';
+import styles from "./hero.module.css";
 
 const AsciiUnicorn = dynamic(() => import("./ascii-unicorn"), {
   ssr: false,
 });
 
-const WORDS = ['ship', 'build', 'hire', 'demo', 'launch'];
+const WORDS = ["ship", "build", "hire", "demo", "launch"];
 
 export default function Hero() {
   const [wordIndex, setWordIndex] = useState(0);
@@ -38,7 +38,8 @@ export default function Hero() {
       </div>
 
       <div className={styles.footerContent}>
-        <span className={styles.cursor}>_</span> devs helping devs {WORDS[wordIndex]}
+        <span className={styles.cursor}>_</span> devs helping devs{" "}
+        {WORDS[wordIndex]}
       </div>
     </section>
   );

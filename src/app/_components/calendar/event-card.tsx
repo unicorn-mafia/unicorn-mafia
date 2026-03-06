@@ -40,11 +40,15 @@ export function EventCard({ event, index }: EventCardProps) {
       target="_blank"
       rel="noopener noreferrer"
       className="block border border-neutral-600 bg-neutral-50 overflow-hidden aspect-square"
-      whileHover={{ scale: 1.02, y: -4, boxShadow: "0 8px 24px rgba(0,0,0,0.12)" }}
+      whileHover={{
+        scale: 1.02,
+        y: -4,
+        boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+      }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       {/* Image area */}
-      <div className="aspect-[4/3] relative overflow-hidden bg-neutral-100">
+      <div className="aspect-[3/2] relative overflow-hidden bg-neutral-100">
         {event.imageUrl ? (
           <img
             src={event.imageUrl}
@@ -59,10 +63,14 @@ export function EventCard({ event, index }: EventCardProps) {
           />
         )}
         {/* Badges */}
-        <div className="absolute top-2 right-2 flex flex-col gap-1 items-end">
-          {event.hostedByUM && (
+        <div className="absolute top-2 right-2 flex flex-row-reverse gap-1">
+          {event.hostedByUM ? (
             <div className="text-[9px] font-body tracking-wide bg-[#B307EB] px-1.5 py-0.5 text-white font-medium">
               HOSTED BY UM
+            </div>
+          ) : (
+            <div className="text-[9px] font-body tracking-wide bg-[#3198F1] px-1.5 py-0.5 text-white font-medium">
+              COMMUNITY
             </div>
           )}
           {event.externalUrl && (
@@ -89,10 +97,14 @@ export function EventCard({ event, index }: EventCardProps) {
               <div className={styles.liveDot}>
                 <div className={styles.livePulse} />
               </div>
-              <span className="text-[10px] font-body text-red-600 tracking-wide font-medium">LIVE</span>
+              <span className="text-[10px] font-body text-red-600 tracking-wide font-medium">
+                LIVE
+              </span>
             </div>
           )}
-          <span className="text-[10px] font-body text-neutral-500 tracking-wide">{dateRange}</span>
+          <span className="text-[10px] font-body text-neutral-500 tracking-wide">
+            {dateRange}
+          </span>
         </div>
 
         {/* Title */}
@@ -106,7 +118,7 @@ export function EventCard({ event, index }: EventCardProps) {
 
         {/* Location */}
         {event.location && (
-          <p className="text-[10px] font-body text-neutral-500 tracking-wide truncate">
+          <p className="text-[10px] font-body text-neutral-500 tracking-wide line-clamp-2">
             {event.location}
           </p>
         )}

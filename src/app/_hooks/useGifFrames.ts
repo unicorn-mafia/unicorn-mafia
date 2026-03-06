@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
-import { parseGIF, decompressFrames } from 'gifuct-js';
+import { useState, useEffect, useRef } from "react";
+import { parseGIF, decompressFrames } from "gifuct-js";
 
 interface GifFrame {
   imageData: ImageData;
@@ -18,7 +18,10 @@ interface UseGifFramesResult {
 
 // Cache for decoded GIF frames (shared across components)
 // Clear on module reload during development
-const frameCache = new Map<string, { frames: GifFrame[]; width: number; height: number }>();
+const frameCache = new Map<
+  string,
+  { frames: GifFrame[]; width: number; height: number }
+>();
 frameCache.clear();
 
 export function useGifFrames(gifUrl: string): UseGifFramesResult {
@@ -60,7 +63,7 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
         if (cancelled) return;
 
         if (decompressedFrames.length === 0) {
-          throw new Error('No frames found in GIF');
+          throw new Error("No frames found in GIF");
         }
 
         const rawWidth = decompressedFrames[0].dims?.width;
@@ -68,18 +71,23 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
         const width = Math.floor(Number(rawWidth) || 0);
         const height = Math.floor(Number(rawHeight) || 0);
 
-        if (!width || !height || !Number.isFinite(width) || !Number.isFinite(height)) {
-          throw new Error('Invalid GIF dimensions');
+        if (
+          !width ||
+          !height ||
+          !Number.isFinite(width) ||
+          !Number.isFinite(height)
+        ) {
+          throw new Error("Invalid GIF dimensions");
         }
 
         // Create a canvas for compositing frames
         if (!canvasRef.current) {
-          canvasRef.current = document.createElement('canvas');
+          canvasRef.current = document.createElement("canvas");
         }
         const canvas = canvasRef.current;
         canvas.width = width;
         canvas.height = height;
-        const ctx = canvas.getContext('2d')!;
+        const ctx = canvas.getContext("2d")!;
 
         // Convert each frame to ImageData
         const processedFrames: GifFrame[] = [];
@@ -93,24 +101,29 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
 
             // Skip invalid frames
             if (frameWidth <= 0 || frameHeight <= 0) continue;
-            if (!Number.isFinite(frameWidth) || !Number.isFinite(frameHeight)) continue;
-            if (!frame.patch || frame.patch.length !== frameWidth * frameHeight * 4) continue;
+            if (!Number.isFinite(frameWidth) || !Number.isFinite(frameHeight))
+              continue;
+            if (
+              !frame.patch ||
+              frame.patch.length !== frameWidth * frameHeight * 4
+            )
+              continue;
 
             // Create ImageData from the frame's patch
             const frameImageData = new ImageData(
               new Uint8ClampedArray(frame.patch),
               frameWidth,
-              frameHeight
+              frameHeight,
             );
 
             // Always clear canvas for each frame to ensure self-contained frames
             ctx.clearRect(0, 0, width, height);
 
             // Draw the frame patch at its position
-            const tempCanvas = document.createElement('canvas');
+            const tempCanvas = document.createElement("canvas");
             tempCanvas.width = frameWidth;
             tempCanvas.height = frameHeight;
-            const tempCtx = tempCanvas.getContext('2d')!;
+            const tempCtx = tempCanvas.getContext("2d")!;
             tempCtx.putImageData(frameImageData, 0, 0);
 
             ctx.drawImage(tempCanvas, frameLeft, frameTop);
@@ -124,7 +137,7 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
             });
           } catch (frameErr) {
             // Skip frames that fail to process
-            console.warn('Skipping frame due to error:', frameErr);
+            console.warn("Skipping frame due to error:", frameErr);
             continue;
           }
         }

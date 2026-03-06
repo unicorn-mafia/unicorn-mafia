@@ -8,8 +8,8 @@ export const metadata: Metadata = {
     title: "Companies | Unicorn Mafia",
     description: "Learn about the companies Unicorn Mafia members are building",
     url: "https://unicrnmafia.com/c",
-locale: "en_US",
-type: "website",
+    locale: "en_US",
+    type: "website",
     images: [
       {
         url: "https://unicrnmafia.com/social-preview.png",
@@ -17,7 +17,6 @@ type: "website",
         height: 686,
         alt: "Unicorn Mafia Open Graph",
       },
-      
     ],
   },
   twitter: {

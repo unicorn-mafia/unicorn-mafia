@@ -104,7 +104,7 @@
 }
 
 .asciiArt {
-  font-family: var(--font-mono), 'Courier New', monospace;
+  font-family: var(--font-mono), "Courier New", monospace;
   font-size: clamp(5.5px, 0.8vw, 9px);
   line-height: 1.05;
   letter-spacing: 0;
@@ -163,6 +163,12 @@
 }
 
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
 }

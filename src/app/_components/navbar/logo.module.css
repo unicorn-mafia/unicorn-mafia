@@ -1,9 +1,19 @@
 @keyframes colorCycle {
-  0% { fill: #B307EB; }
-  25% { fill: #3198F1; }
-  50% { fill: #4EF9BD; }
-  75% { fill: #EE1701; }
-  100% { fill: #B307EB; }
+  0% {
+    fill: #b307eb;
+  }
+  25% {
+    fill: #3198f1;
+  }
+  50% {
+    fill: #4ef9bd;
+  }
+  75% {
+    fill: #ee1701;
+  }
+  100% {
+    fill: #b307eb;
+  }
 }
 
 .logo:hover .horn1,

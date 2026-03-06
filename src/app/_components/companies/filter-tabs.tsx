@@ -8,7 +8,11 @@ interface FilterTabsProps {
   onTagsChange: (tags: string[]) => void;
 }
 
-export function FilterTabs({ tags, activeTags, onTagsChange }: FilterTabsProps) {
+export function FilterTabs({
+  tags,
+  activeTags,
+  onTagsChange,
+}: FilterTabsProps) {
   const handleTagClick = (tag: string) => {
     if (tag === "all") {
       onTagsChange(["all"]);
@@ -37,7 +41,9 @@ export function FilterTabs({ tags, activeTags, onTagsChange }: FilterTabsProps) 
 
   return (
     <div className="mt-6">
-      <h3 className="text-sm font-medium text-gray-700 mb-3">Filter by tags:</h3>
+      <h3 className="text-sm font-medium text-gray-700 mb-3">
+        Filter by tags:
+      </h3>
       <div className="flex flex-wrap gap-2">
         {tags.map((tag) => {
           const isActive = activeTags.includes(tag);
