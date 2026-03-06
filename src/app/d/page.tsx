@@ -1,3 +1,5 @@
+import ContactForm from "@/components/contact-form";
+
 export default function Demos() {
   const demoEvents = [
     {
@@ -61,14 +63,11 @@ export default function Demos() {
         <div className="mt-12 pt-6 border-t border-black/10">
           <p className="text-neutral-500 text-sm">
             want to demo?{" "}
-            <a
-              href="https://wa.me/447488895960?text=i%20want%20to%20demo"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-neutral-600 hover:text-black transition-colors"
-            >
-              reach out
-            </a>
+            <ContactForm>
+              <button className="text-neutral-600 hover:text-black transition-colors cursor-pointer">
+                reach out
+              </button>
+            </ContactForm>
           </p>
         </div>
       </div>

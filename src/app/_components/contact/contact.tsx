@@ -2,6 +2,7 @@
 
 import React from "react";
 import styles from "./contact.module.css";
+import ContactForm from "@/components/contact-form";
 
 export default function Contact() {
   return (
@@ -32,13 +33,11 @@ export default function Contact() {
                 <div className={styles.dotPulse}></div>
               </div>
               <span className="text-white font-body">
-                <a
-                  href="https://wa.me/447488895960?text=tell%20me%20more"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Get in touch
-                </a>
+                <ContactForm>
+                  <button className="cursor-pointer hover:opacity-70 transition-opacity">
+                    Get in touch
+                  </button>
+                </ContactForm>
                 <span className={styles.cursor}>|</span>
               </span>
             </div>
@@ -76,12 +75,12 @@ export default function Contact() {
           className="w-full max-w-2xl opacity-40"
         />
         <div className="flex flex-row text-white font-title font-medium text-md gap-4 mt-4">
-          <a href="mailto:stable@unicornmafia.ai" className="hover:underline">
-            Sponsor
-          </a>
-          <a href="mailto:stable@unicornmafia.ai" className="hover:underline">
-            Invest
-          </a>
+          <ContactForm>
+            <button className="hover:underline cursor-pointer">Sponsor</button>
+          </ContactForm>
+          <ContactForm>
+            <button className="hover:underline cursor-pointer">Invest</button>
+          </ContactForm>
           <a href="/brand" className="hover:underline">
             Brand
           </a>

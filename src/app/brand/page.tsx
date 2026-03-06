@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { BRAND_PALETTE } from "../_lib/consts";
+import ContactForm from "@/components/contact-form";
 
 const brandColors = BRAND_PALETTE;
 
@@ -361,13 +362,12 @@ export default function BrandPage() {
 
             <div className="border border-black p-4 bg-gray-50">
               <p className="text-black font-body text-sm">
-                If you&apos;re unsure, just ask. Reach out to{" "}
-                <a
-                  href="mailto:stable@unicrnmafia.com"
-                  className="underline hover:text-black"
-                >
-                  stable@unicrnmafia.com
-                </a>{" "}
+                If you&apos;re unsure, just ask.{" "}
+                <ContactForm>
+                  <button className="underline hover:text-black cursor-pointer">
+                    Reach out to us
+                  </button>
+                </ContactForm>{" "}
                 and we&apos;ll get back to you quickly. We&apos;re generally
                 very supportive of members representing the community — we just
                 want to be in the loop.
@@ -402,13 +402,12 @@ export default function BrandPage() {
             </p>
             <p>
               We reserve the right to revoke permission at any time. If you
-              become aware of misuse of the brand, please let us know at{" "}
-              <a
-                href="mailto:stable@unicrnmafia.com"
-                className="underline hover:text-black"
-              >
-                stable@unicrnmafia.com
-              </a>
+              become aware of misuse of the brand, please{" "}
+              <ContactForm>
+                <button className="underline hover:text-black cursor-pointer">
+                  let us know
+                </button>
+              </ContactForm>
               .
             </p>
           </div>
