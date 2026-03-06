@@ -89,7 +89,7 @@ export default function Calendar() {
                 }}
               >
                 <option value="all">All sources</option>
-                <option value="um">UM hosted</option>
+                <option value="um">Hosted by UM</option>
                 <option value="community">Community</option>
               </select>
               <button
