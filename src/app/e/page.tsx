@@ -88,9 +88,9 @@ export default function Calendar() {
                   backgroundPosition: "right 6px center",
                 }}
               >
-                <option value="all">ALL SOURCES</option>
-                <option value="um">UM ONLY</option>
-                <option value="community">COMMUNITY</option>
+                <option value="all">All sources</option>
+                <option value="um">UM hosted</option>
+                <option value="community">Community</option>
               </select>
               <button
                 onClick={() => setShowUpcomingOnly((v) => !v)}
