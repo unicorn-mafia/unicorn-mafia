@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import ContactForm from "@/components/contact-form";
 
 const ORGANIZATION = {
   name: "Unicorn Mafia",
@@ -193,12 +194,11 @@ export default function LinkedInBadgePage() {
         <div className="border-t border-black/10 pt-8">
           <p className="text-neutral-500 text-sm font-body">
             questions?{" "}
-            <a
-              href={`mailto:${ORGANIZATION.email}`}
-              className="text-black hover:underline"
-            >
-              {ORGANIZATION.email}
-            </a>
+            <ContactForm>
+              <button className="text-black hover:underline cursor-pointer">
+                get in touch
+              </button>
+            </ContactForm>
           </p>
         </div>
       </div>

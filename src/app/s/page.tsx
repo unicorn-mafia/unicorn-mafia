@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { loadSponsorsData } from "../_lib/sponsors-data";
 import type { SponsorsData } from "../_types/sponsors";
 import { SponsorCard } from "../_components/sponsors/sponsor-card";
+import ContactForm from "@/components/contact-form";
 
 export default function Sponsors() {
   const [sponsorsData, setSponsorsData] = useState<SponsorsData | null>(null);
@@ -122,12 +123,11 @@ export default function Sponsors() {
             engineers.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <a
-              href="mailto:stable@unicornmafia.ai?subject=Sponsorship%20Enquiry"
-              className="inline-flex items-center gap-2 border border-white text-white font-body text-sm tracking-wide px-6 py-3 hover:bg-white hover:text-black transition-colors"
-            >
-              GET IN TOUCH
-            </a>
+            <ContactForm>
+              <button className="inline-flex items-center gap-2 border border-white text-white font-body text-sm tracking-wide px-6 py-3 hover:bg-white hover:text-black transition-colors cursor-pointer">
+                GET IN TOUCH
+              </button>
+            </ContactForm>
           </div>
           <div className="border-t border-neutral-700 pt-6 mt-4">
             <p className="text-xs text-neutral-500 font-body tracking-wide">
