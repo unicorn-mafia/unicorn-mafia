@@ -119,7 +119,14 @@ async function fetchOgImage(url: string): Promise<string | null> {
       html.match(
         /<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["']/i,
       );
-    return ogMatch ? ogMatch[1] : null;
+    if (!ogMatch) return null;
+    // Decode HTML entities (e.g. &amp; -> &)
+    return ogMatch[1]
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'");
   } catch {
     return null;
   }
