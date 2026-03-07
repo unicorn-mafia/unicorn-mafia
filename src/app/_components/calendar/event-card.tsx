@@ -45,7 +45,7 @@ export function EventCard({ event, index }: EventCardProps) {
       href={linkUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="block border border-neutral-600 bg-neutral-50 overflow-hidden aspect-square"
+      className="block border border-neutral-300 bg-white overflow-hidden"
       whileHover={{
         scale: 1.02,
         y: -4,
@@ -53,35 +53,30 @@ export function EventCard({ event, index }: EventCardProps) {
       }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
-      {/* Image area */}
-      <div className="aspect-[3/2] relative overflow-hidden bg-neutral-100">
+      {/* Image area — square to match Luma poster covers */}
+      <div className="aspect-square relative overflow-hidden bg-neutral-100">
         {event.imageUrl ? (
           <img
             src={event.imageUrl}
-            alt={event.summary}
+            alt={stripLeadingEmojis(event.summary)}
             className="w-full h-full object-cover"
           />
         ) : (
           <img
             src={FALLBACK_IMAGES[index % FALLBACK_IMAGES.length]}
-            alt={event.summary}
+            alt={stripLeadingEmojis(event.summary)}
             className="w-full h-full object-cover"
           />
         )}
-        {/* Badges */}
-        <div className="absolute top-2 right-2 flex flex-row-reverse gap-1">
+        {/* Badge */}
+        <div className="absolute top-2 right-2">
           {event.hostedByUM ? (
             <div className="text-[9px] font-body tracking-wide bg-[#B307EB] px-1.5 py-0.5 text-white font-medium">
-              HOSTED BY UM
+              UM
             </div>
           ) : (
             <div className="text-[9px] font-body tracking-wide bg-[#3198F1] px-1.5 py-0.5 text-white font-medium">
               COMMUNITY
-            </div>
-          )}
-          {event.externalUrl && (
-            <div className="text-[9px] font-body tracking-wide bg-white/90 border border-neutral-300 px-1.5 py-0.5 text-neutral-600">
-              WEBSITE ↗
             </div>
           )}
         </div>
@@ -121,13 +116,6 @@ export function EventCard({ event, index }: EventCardProps) {
         >
           {stripLeadingEmojis(event.summary)}
         </motion.h3>
-
-        {/* Location */}
-        {event.location && (
-          <p className="text-[10px] font-body text-neutral-500 tracking-wide line-clamp-2">
-            {event.location}
-          </p>
-        )}
       </div>
     </motion.a>
   );

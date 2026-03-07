@@ -121,12 +121,24 @@ async function fetchOgImage(url: string): Promise<string | null> {
       );
     if (!ogMatch) return null;
     // Decode HTML entities (e.g. &amp; -> &)
-    return ogMatch[1]
+    const ogUrl = ogMatch[1]
       .replace(/&amp;/g, "&")
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">")
       .replace(/&quot;/g, '"')
       .replace(/&#39;/g, "'");
+
+    // For Luma OG URLs, extract the actual poster from the img= parameter
+    if (ogUrl.includes("og.luma.com")) {
+      try {
+        const imgParam = new URL(ogUrl).searchParams.get("img");
+        if (imgParam) return imgParam;
+      } catch {
+        // fall through to return full OG URL
+      }
+    }
+
+    return ogUrl;
   } catch {
     return null;
   }
