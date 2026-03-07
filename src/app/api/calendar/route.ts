@@ -26,6 +26,23 @@ async function fetchCalendarEvents(
   return data.items || [];
 }
 
+// Unwrap Google redirect URLs (google.com/url?q=actualUrl)
+function unwrapGoogleRedirect(url: string): string {
+  try {
+    const parsed = new URL(url);
+    if (
+      parsed.hostname.includes("google.com") &&
+      parsed.pathname === "/url" &&
+      parsed.searchParams.has("q")
+    ) {
+      return parsed.searchParams.get("q")!;
+    }
+  } catch {
+    // not a valid URL, return as-is
+  }
+  return url;
+}
+
 // Extract first URL from event description or location
 function extractUrl(event: {
   description?: string;
@@ -35,12 +52,15 @@ function extractUrl(event: {
   const urlRegex = /https?:\/\/[^\s<>"']+/gi;
   const matches = text.match(urlRegex);
   if (!matches) return null;
-  for (const url of matches) {
+  for (const rawUrl of matches) {
+    const cleaned = rawUrl.replace(/[.,;)]+$/, "");
+    const url = unwrapGoogleRedirect(cleaned);
     if (
       !url.includes("google.com/calendar") &&
-      !url.includes("googleapis.com")
+      !url.includes("googleapis.com") &&
+      !url.includes("google.com/url")
     ) {
-      return url.replace(/[.,;)]+$/, "");
+      return url;
     }
   }
   return null;

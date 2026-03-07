@@ -1,15 +1,70 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { loadEvents } from "../_lib/calendar-data";
 import type { CalendarEvent } from "../_types/calendar";
-import { EventCard } from "../_components/calendar/event-card";
+import { EventListItem } from "../_components/calendar/event-list-item";
+import { MiniCalendar } from "../_components/calendar/mini-calendar";
 
-export default function Calendar() {
+type SourceFilter = "all" | "um" | "community";
+
+function isSameDay(a: Date, b: Date): boolean {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
+function groupEventsByDate(events: CalendarEvent[]) {
+  const groups: { label: string; events: CalendarEvent[] }[] = [];
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const grouped = new Map<string, CalendarEvent[]>();
+
+  for (const event of events) {
+    const date = new Date(event.start.dateTime || event.start.date || "");
+    const dayKey = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    if (!grouped.has(dayKey)) grouped.set(dayKey, []);
+    grouped.get(dayKey)!.push(event);
+  }
+
+  for (const [, dayEvents] of grouped) {
+    const date = new Date(
+      dayEvents[0].start.dateTime || dayEvents[0].start.date || "",
+    );
+
+    let label: string;
+    if (isSameDay(date, today)) {
+      label = "TODAY";
+    } else if (isSameDay(date, tomorrow)) {
+      label = "TOMORROW";
+    } else {
+      label = date
+        .toLocaleDateString("en-GB", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+        })
+        .toUpperCase();
+    }
+
+    groups.push({ label, events: dayEvents });
+  }
+
+  return groups;
+}
+
+export default function EventsPage() {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [showUpcomingOnly, setShowUpcomingOnly] = useState(true);
+  const [sourceFilter, setSourceFilter] = useState<SourceFilter>("all");
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -28,13 +83,44 @@ export default function Calendar() {
     load();
   }, []);
 
-  const now = new Date();
-  const filteredEvents = showUpcomingOnly
-    ? events.filter((e) => {
+  const filteredEvents = useMemo(() => {
+    const now = new Date();
+    let result = events;
+
+    if (showUpcomingOnly) {
+      result = result.filter((e) => {
         const start = new Date(e.start.dateTime || e.start.date || "");
         return start >= now;
-      })
-    : events;
+      });
+    }
+
+    if (sourceFilter === "um") {
+      result = result.filter((e) => e.hostedByUM);
+    } else if (sourceFilter === "community") {
+      result = result.filter((e) => !e.hostedByUM);
+    }
+
+    if (selectedDate) {
+      result = result.filter((e) => {
+        const start = new Date(e.start.dateTime || e.start.date || "");
+        return isSameDay(start, selectedDate);
+      });
+    }
+
+    // Always sort nearest first (ascending by date)
+    result.sort((a, b) => {
+      const aDate = new Date(a.start.dateTime || a.start.date || "");
+      const bDate = new Date(b.start.dateTime || b.start.date || "");
+      return aDate.getTime() - bDate.getTime();
+    });
+
+    return result;
+  }, [events, showUpcomingOnly, sourceFilter, selectedDate]);
+
+  const groupedEvents = useMemo(
+    () => groupEventsByDate(filteredEvents),
+    [filteredEvents],
+  );
 
   if (loading) {
     return (
@@ -63,55 +149,126 @@ export default function Calendar() {
   return (
     <div className="bg-white min-h-screen">
       {/* Header */}
-      <section className="py-8 px-6 md:px-12 lg:px-20 border-b border-neutral-600">
+      <section className="py-8 px-6 md:px-12 lg:px-20 border-b border-neutral-300">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-medium font-body text-neutral-900 tracking-wide">
-              ALL EVENTS
-            </h1>
-            <button
-              onClick={() => setShowUpcomingOnly((v) => !v)}
-              className="flex items-center gap-2 text-xs font-body text-neutral-600 tracking-wide"
-            >
-              <div
-                className={`w-9 h-5 rounded-full border transition-colors relative ${
-                  showUpcomingOnly
-                    ? "bg-neutral-900 border-neutral-900"
-                    : "bg-neutral-200 border-neutral-400"
-                }`}
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <h1 className="text-2xl font-medium font-body text-neutral-900 tracking-wide">
+                EVENTS
+              </h1>
+              <p className="text-xs font-body text-neutral-500 tracking-wide mt-1">
+                {filteredEvents.length}{" "}
+                {filteredEvents.length === 1 ? "EVENT" : "EVENTS"}
+                {selectedDate && (
+                  <button
+                    onClick={() => setSelectedDate(null)}
+                    className="ml-2 text-neutral-400 hover:text-neutral-900 underline"
+                  >
+                    CLEAR DATE
+                  </button>
+                )}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-4">
+              {/* Source filter */}
+              <div className="flex border border-neutral-300">
+                {(
+                  [
+                    ["all", "ALL"],
+                    ["um", "UM"],
+                    ["community", "COMMUNITY"],
+                  ] as const
+                ).map(([value, label]) => (
+                  <button
+                    key={value}
+                    onClick={() => setSourceFilter(value)}
+                    className={`px-3 py-1.5 text-[10px] font-body tracking-wide transition-colors ${
+                      sourceFilter === value
+                        ? "bg-neutral-900 text-white"
+                        : "text-neutral-500 hover:bg-neutral-100"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Upcoming toggle */}
+              <button
+                onClick={() => setShowUpcomingOnly((v) => !v)}
+                className="flex items-center gap-2 text-[10px] font-body text-neutral-600 tracking-wide"
               >
                 <div
-                  className={`w-3.5 h-3.5 rounded-full bg-white absolute top-0.5 transition-all ${
-                    showUpcomingOnly ? "left-[18px]" : "left-0.5"
+                  className={`w-9 h-5 rounded-full transition-colors relative ${
+                    showUpcomingOnly ? "bg-neutral-900" : "bg-neutral-300"
                   }`}
-                />
-              </div>
-              UPCOMING ONLY
-            </button>
+                >
+                  <div
+                    className={`w-3.5 h-3.5 rounded-full bg-white absolute top-[3px] transition-all ${
+                      showUpcomingOnly ? "left-[17px]" : "left-[3px]"
+                    }`}
+                  />
+                </div>
+                UPCOMING
+              </button>
+            </div>
           </div>
-          <p className="text-xs font-body text-neutral-500 tracking-wide mt-2">
-            {filteredEvents.length}{" "}
-            {filteredEvents.length === 1 ? "EVENT" : "EVENTS"}
-          </p>
         </div>
       </section>
 
-      {/* Event grid */}
-      <section className="py-8 px-6 md:px-12 lg:px-20 mt-4">
-        <div className="max-w-6xl mx-auto">
-          {filteredEvents.length === 0 ? (
-            <div className="border border-dashed border-neutral-300 py-12 text-center">
-              <p className="text-xs font-body text-neutral-400 tracking-wide">
-                NO EVENTS FOUND
-              </p>
+      {/* Main content */}
+      <section className="py-6 px-6 md:px-12 lg:px-20">
+        <div className="max-w-6xl mx-auto flex gap-8">
+          {/* Event list */}
+          <div className="flex-1 min-w-0">
+            {filteredEvents.length === 0 ? (
+              <div className="border border-dashed border-neutral-300 py-12 text-center">
+                <p className="text-xs font-body text-neutral-400 tracking-wide">
+                  NO EVENTS FOUND
+                </p>
+              </div>
+            ) : (
+              <div>
+                {groupedEvents.map((group) => (
+                  <div key={group.label} className="mb-6">
+                    <h2 className="text-[10px] font-body font-medium text-neutral-400 tracking-widest mb-2 px-3">
+                      {group.label}
+                    </h2>
+                    <div>
+                      {group.events.map((event, i) => (
+                        <EventListItem key={event.id} event={event} index={i} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Sidebar */}
+          <aside className="hidden lg:block w-72 flex-shrink-0">
+            <div className="sticky top-24 space-y-6">
+              <MiniCalendar
+                events={events}
+                selectedDate={selectedDate}
+                onSelectDate={setSelectedDate}
+              />
+
+              {/* Location info */}
+              <div className="border border-neutral-300 bg-white p-4">
+                <h3 className="text-[10px] font-body font-medium text-neutral-400 tracking-widest mb-3">
+                  LOCATION
+                </h3>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#4EF9BD] rounded-full" />
+                  <span className="text-xs font-body text-neutral-700 tracking-wide">
+                    LONDON
+                  </span>
+                </div>
+              </div>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredEvents.map((event, i) => (
-                <EventCard key={event.id} event={event} index={i} />
-              ))}
-            </div>
-          )}
+          </aside>
         </div>
       </section>
     </div>
