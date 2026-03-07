@@ -4,9 +4,11 @@ import { useState, useEffect, useMemo } from "react";
 import { loadEvents } from "../_lib/calendar-data";
 import type { CalendarEvent } from "../_types/calendar";
 import { EventListItem } from "../_components/calendar/event-list-item";
+import { EventCard } from "../_components/calendar/event-card";
 import { MiniCalendar } from "../_components/calendar/mini-calendar";
 
 type SourceFilter = "all" | "um" | "community";
+type ViewMode = "list" | "grid";
 
 function isSameDay(a: Date, b: Date): boolean {
   return (
@@ -65,6 +67,7 @@ export default function EventsPage() {
   const [showUpcomingOnly, setShowUpcomingOnly] = useState(true);
   const [sourceFilter, setSourceFilter] = useState<SourceFilter>("all");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [viewMode, setViewMode] = useState<ViewMode>("list");
 
   useEffect(() => {
     const load = async () => {
@@ -191,6 +194,44 @@ export default function EventsPage() {
             </div>
 
             <div className="flex items-center gap-4">
+              {/* View toggle */}
+              <div className="flex border border-neutral-300">
+                <button
+                  onClick={() => setViewMode("list")}
+                  className={`px-2 py-1.5 transition-colors ${
+                    viewMode === "list"
+                      ? "bg-neutral-900 text-white"
+                      : "text-neutral-500 hover:bg-neutral-100"
+                  }`}
+                  aria-label="List view"
+                >
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    className="w-3.5 h-3.5"
+                  >
+                    <path d="M2 3h12v1.5H2V3zm0 4h12v1.5H2V7zm0 4h12v1.5H2V11z" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setViewMode("grid")}
+                  className={`px-2 py-1.5 transition-colors ${
+                    viewMode === "grid"
+                      ? "bg-neutral-900 text-white"
+                      : "text-neutral-500 hover:bg-neutral-100"
+                  }`}
+                  aria-label="Grid view"
+                >
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    className="w-3.5 h-3.5"
+                  >
+                    <path d="M1 1h6v6H1V1zm8 0h6v6H9V1zM1 9h6v6H1V9zm8 0h6v6H9V9z" />
+                  </svg>
+                </button>
+              </div>
+
               {/* Source filter */}
               <div className="flex border border-neutral-300">
                 {(
@@ -248,7 +289,7 @@ export default function EventsPage() {
                   NO EVENTS FOUND
                 </p>
               </div>
-            ) : (
+            ) : viewMode === "list" ? (
               <div>
                 {groupedEvents.map((group) => (
                   <div key={group.label} className="mb-6">
@@ -261,6 +302,12 @@ export default function EventsPage() {
                       ))}
                     </div>
                   </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                {filteredEvents.map((event, i) => (
+                  <EventCard key={event.id} event={event} index={i} />
                 ))}
               </div>
             )}
