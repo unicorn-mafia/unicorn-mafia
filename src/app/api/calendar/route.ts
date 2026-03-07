@@ -238,9 +238,13 @@ export async function GET() {
     const existingUrls = new Set(
       enrichedEvents.map((e) => e.externalUrl).filter(Boolean),
     );
-    const newYamlEvents = yamlEvents.filter(
-      (e) => !existingUrls.has(e.externalUrl),
-    );
+    const newYamlEvents = yamlEvents
+      .filter((e) => !existingUrls.has(e.externalUrl))
+      .map((e) => ({
+        ...e,
+        externalUrl: e.externalUrl || undefined,
+        imageUrl: e.imageUrl || undefined,
+      }));
     enrichedEvents.push(...newYamlEvents);
 
     // Sort: newest first (by start date descending)
