@@ -34,9 +34,15 @@ function isHappeningNow(event: CalendarEvent): boolean {
   return now >= start && now <= end;
 }
 
+function isPast(event: CalendarEvent): boolean {
+  const end = new Date(event.end.dateTime || event.end.date || "");
+  return end < new Date();
+}
+
 export function EventCard({ event, index }: EventCardProps) {
   const accentColor = BRAND_COLORS[index % BRAND_COLORS.length];
   const live = isHappeningNow(event);
+  const past = !live && isPast(event);
   const linkUrl = event.externalUrl || event.htmlLink;
   const dateRange = formatDateRange(event);
 
@@ -45,7 +51,7 @@ export function EventCard({ event, index }: EventCardProps) {
       href={linkUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="block border border-neutral-300 bg-white overflow-hidden"
+      className={`block border border-neutral-300 bg-white overflow-hidden ${past ? "opacity-40" : ""}`}
       whileHover={{
         scale: 1.02,
         y: -4,
