@@ -21,6 +21,12 @@ function getEventDate(event: CalendarEvent): Date {
   return new Date(event.start.dateTime || event.start.date || "");
 }
 
+function stripLeadingEmojis(text: string): string {
+  return text
+    .replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\s]+/u, "")
+    .trim();
+}
+
 function isPast(event: CalendarEvent): boolean {
   const end = new Date(event.end.dateTime || event.end.date || "");
   return end < new Date();
@@ -92,7 +98,7 @@ export function EventListItem({ event }: EventListItemProps) {
                 : "text-neutral-900 group-hover:underline"
             }`}
           >
-            {event.summary}
+            {stripLeadingEmojis(event.summary)}
           </h3>
           {event.hostedByUM && !past && (
             <svg

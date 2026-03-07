@@ -124,12 +124,32 @@ export default function EventsPage() {
 
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center mt-12">
-        <div className="border border-neutral-600 bg-neutral-50 p-6">
-          <div className="text-sm font-body tracking-wide text-neutral-900">
-            LOADING EVENTS...
+      <div className="bg-white min-h-screen">
+        <section className="py-8 px-6 md:px-12 lg:px-20 border-b border-neutral-300">
+          <div className="max-w-6xl mx-auto">
+            <h1 className="text-2xl font-medium font-body text-neutral-900 tracking-wide">
+              EVENTS
+            </h1>
           </div>
-        </div>
+        </section>
+        <section className="py-6 px-6 md:px-12 lg:px-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="space-y-4">
+              {[...Array(4)].map((_, i) => (
+                <div
+                  key={i}
+                  className="flex gap-4 py-4 px-3 border-b border-neutral-200 animate-pulse"
+                >
+                  <div className="w-14 h-14 bg-neutral-200 rounded" />
+                  <div className="flex-1 space-y-2 py-1">
+                    <div className="h-4 bg-neutral-200 rounded w-3/4" />
+                    <div className="h-3 bg-neutral-100 rounded w-1/3" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     );
   }
