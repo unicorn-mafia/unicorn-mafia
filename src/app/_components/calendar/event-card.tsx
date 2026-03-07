@@ -21,6 +21,12 @@ interface EventCardProps {
   index: number;
 }
 
+function stripLeadingEmojis(text: string): string {
+  return text
+    .replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\s]+/u, "")
+    .trim();
+}
+
 function isHappeningNow(event: CalendarEvent): boolean {
   const now = new Date();
   const start = new Date(event.start.dateTime || event.start.date || "");
@@ -113,7 +119,7 @@ export function EventCard({ event, index }: EventCardProps) {
           whileHover={{ x: 4 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
-          {event.summary}
+          {stripLeadingEmojis(event.summary)}
         </motion.h3>
 
         {/* Location */}

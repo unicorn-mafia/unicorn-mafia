@@ -66,14 +66,47 @@ function extractUrl(event: {
   return null;
 }
 
-// Fetch OG image from a URL
-async function fetchOgImage(url: string): Promise<string | null> {
+// Try Luma API for event cover image
+async function fetchLumaImage(url: string): Promise<string | null> {
   try {
+    const match = url.match(/luma\.com\/([a-zA-Z0-9-]+)/);
+    if (!match) return null;
+    const slug = match[1];
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 3000);
+    const res = await fetch(
+      `https://api.lu.ma/url?url=${encodeURIComponent(`https://lu.ma/${slug}`)}`,
+      {
+        signal: controller.signal,
+        headers: { accept: "application/json" },
+      },
+    );
+    clearTimeout(timeout);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data?.event?.cover_url || null;
+  } catch {
+    return null;
+  }
+}
+
+// Fetch OG image from a URL
+async function fetchOgImage(url: string): Promise<string | null> {
+  // Try Luma API first for luma.com URLs
+  if (url.includes("luma.com") || url.includes("lu.ma")) {
+    const lumaImage = await fetchLumaImage(url);
+    if (lumaImage) return lumaImage;
+  }
+
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
     const res = await fetch(url, {
       signal: controller.signal,
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; bot)" },
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      },
     });
     clearTimeout(timeout);
     if (!res.ok) return null;
