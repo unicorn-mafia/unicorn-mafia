@@ -193,7 +193,7 @@ export default function EventsPage() {
               </p>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 md:gap-4 flex-wrap">
               {/* View toggle */}
               <div className="flex border border-neutral-300">
                 <button
@@ -271,7 +271,7 @@ export default function EventsPage() {
                     }`}
                   />
                 </div>
-                UPCOMING
+                <span className="hidden sm:inline">UPCOMING</span>
               </button>
             </div>
           </div>

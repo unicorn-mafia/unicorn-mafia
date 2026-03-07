@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
-import type { RawGoogleEvent } from "../../_types/calendar";
+import { readFileSync } from "fs";
+import { join } from "path";
+import yaml from "js-yaml";
+import type { RawGoogleEvent, CalendarEvent } from "../../_types/calendar";
 
 // Fetch events from a single Google Calendar
 async function fetchCalendarEvents(
@@ -144,6 +147,39 @@ async function fetchOgImage(url: string): Promise<string | null> {
   }
 }
 
+interface CommunityEventYaml {
+  name: string;
+  start: string;
+  end: string;
+  cover: string;
+  location: string;
+  url: string;
+}
+
+function loadCommunityEventsFromYaml(): CalendarEvent[] {
+  try {
+    const filePath = join(process.cwd(), "public", "community-events.yaml");
+    const content = readFileSync(filePath, "utf-8");
+    const events = yaml.load(content) as CommunityEventYaml[];
+    if (!Array.isArray(events)) return [];
+
+    return events.map((e, i) => ({
+      id: `community-yaml-${i}`,
+      summary: e.name,
+      location: e.location || undefined,
+      start: { dateTime: e.start },
+      end: { dateTime: e.end },
+      htmlLink: e.url,
+      externalUrl: e.url,
+      imageUrl: e.cover || undefined,
+      hostedByUM: false,
+    }));
+  } catch (err) {
+    console.error("Failed to load community-events.yaml:", err);
+    return [];
+  }
+}
+
 export async function GET() {
   const umCalendarId = process.env.GOOGLE_CALENDAR_ID;
   const communityCalendarId = process.env.GOOGLE_CALENDAR_ID_COMMUNITY;
@@ -196,6 +232,16 @@ export async function GET() {
     });
 
     const enrichedEvents = await Promise.all([...enrichUM, ...enrichCommunity]);
+
+    // Load community events from YAML and merge (dedup by URL)
+    const yamlEvents = loadCommunityEventsFromYaml();
+    const existingUrls = new Set(
+      enrichedEvents.map((e) => e.externalUrl).filter(Boolean),
+    );
+    const newYamlEvents = yamlEvents.filter(
+      (e) => !existingUrls.has(e.externalUrl),
+    );
+    enrichedEvents.push(...newYamlEvents);
 
     // Sort: newest first (by start date descending)
     enrichedEvents.sort((a, b) => {
