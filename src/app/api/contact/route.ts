@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getPostHogClient } from "@/lib/posthog-server";
 
 export async function POST(req: NextRequest) {
   let body: Record<string, string>;
@@ -52,6 +53,20 @@ export async function POST(req: NextRequest) {
       { status: 500 },
     );
   }
+
+  // --- PostHog server-side tracking ---
+  const posthog = getPostHogClient();
+  posthog.capture({
+    distinctId: email,
+    event: "contact_form_submission_received",
+    properties: {
+      name,
+      email,
+      has_company: !!company,
+      has_whatsapp: !!whatsapp,
+    },
+  });
+  await posthog.shutdown();
 
   return NextResponse.json({ success: true });
 }

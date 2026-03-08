@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import posthog from "posthog-js";
 import AnimatedToggle from "./animated-toggle";
 import styles from "./logo.module.css";
 import { useKeyboardNav, menuItems } from "@/app/_hooks/useKeyboardNav";
@@ -23,7 +24,12 @@ export default function Navbar() {
           <div className="relative w-[18px] h-[18px] flex-none cursor-pointer">
             <AnimatedToggle
               toggle={toggle}
-              onToggle={() => setToggle(!toggle)}
+              onToggle={() => {
+                posthog.capture("mobile_menu_toggled", {
+                  action: toggle ? "closed" : "opened",
+                });
+                setToggle(!toggle);
+              }}
             />
           </div>
         </div>
@@ -326,7 +332,17 @@ export default function Navbar() {
           `}
         >
           {menuItems.map((item) => (
-            <Link key={item.shortcut} href={item.href} className="nav-link">
+            <Link
+              key={item.shortcut}
+              href={item.href}
+              className="nav-link"
+              onClick={() =>
+                posthog.capture("nav_link_clicked", {
+                  label: item.label,
+                  href: item.href,
+                })
+              }
+            >
               {item.label}
               <span className="keyboard-badge">{item.shortcut}</span>
             </Link>
@@ -644,7 +660,14 @@ export default function Navbar() {
                   key={item.shortcut}
                   href={item.href}
                   className="hover:opacity-70 transition-opacity"
-                  onClick={() => setToggle(false)}
+                  onClick={() => {
+                    posthog.capture("nav_link_clicked", {
+                      label: item.label,
+                      href: item.href,
+                      source: "mobile_menu",
+                    });
+                    setToggle(false);
+                  }}
                 >
                   {item.label}
                 </Link>

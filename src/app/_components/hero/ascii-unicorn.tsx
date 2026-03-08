@@ -1,7 +1,7 @@
 "use client";
 
-import { Suspense, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Suspense, useRef, useState, useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { AsciiRenderer, useGLTF, Environment } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -31,6 +31,22 @@ function UnicornModel({ scale, position }: ModelProps) {
   );
 }
 
+function DeferredAsciiRenderer(
+  props: React.ComponentProps<typeof AsciiRenderer>,
+) {
+  const { size } = useThree();
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (size.width > 0 && size.height > 0) {
+      setReady(true);
+    }
+  }, [size]);
+
+  if (!ready) return null;
+  return <AsciiRenderer {...props} />;
+}
+
 export default function AsciiUnicorn() {
   return (
     <Canvas
@@ -50,7 +66,7 @@ export default function AsciiUnicorn() {
         <Environment preset="studio" />
       </Suspense>
 
-      <AsciiRenderer
+      <DeferredAsciiRenderer
         resolution={0.15}
         characters=" .:-=+*#%@"
         fgColor="black"

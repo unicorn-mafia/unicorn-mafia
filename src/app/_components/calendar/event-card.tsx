@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import posthog from "posthog-js";
 import type { CalendarEvent } from "../../_types/calendar";
 import { formatDateRange } from "../../_lib/calendar-data";
 import { BRAND_COLORS } from "../../_lib/consts";
@@ -52,6 +53,14 @@ export function EventCard({ event, index }: EventCardProps) {
       target="_blank"
       rel="noopener noreferrer"
       className={`block border border-neutral-300 bg-white overflow-hidden ${past ? "opacity-40" : ""}`}
+      onClick={() =>
+        posthog.capture("event_card_clicked", {
+          event_name: event.summary,
+          is_live: live,
+          is_past: past,
+          hosted_by_um: event.hostedByUM ?? false,
+        })
+      }
       whileHover={{
         scale: 1.02,
         y: -4,
