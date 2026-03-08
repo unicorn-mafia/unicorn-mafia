@@ -66,10 +66,10 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
           throw new Error("No frames found in GIF");
         }
 
-        const rawWidth = decompressedFrames[0].dims?.width;
-        const rawHeight = decompressedFrames[0].dims?.height;
-        const width = Math.floor(Number(rawWidth) || 0);
-        const height = Math.floor(Number(rawHeight) || 0);
+        const rawWidth = gif.lsd?.width ?? decompressedFrames[0].dims?.width;
+        const rawHeight = gif.lsd?.height ?? decompressedFrames[0].dims?.height;
+        const width = (Number(rawWidth) || 0) | 0;
+        const height = (Number(rawHeight) || 0) | 0;
 
         if (
           !width ||
@@ -94,10 +94,10 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
 
         for (const frame of decompressedFrames) {
           try {
-            const frameWidth = Math.floor(Number(frame.dims?.width) || 0);
-            const frameHeight = Math.floor(Number(frame.dims?.height) || 0);
-            const frameLeft = Math.floor(Number(frame.dims?.left) || 0);
-            const frameTop = Math.floor(Number(frame.dims?.top) || 0);
+            const frameWidth = (Number(frame.dims?.width) || 0) | 0;
+            const frameHeight = (Number(frame.dims?.height) || 0) | 0;
+            const frameLeft = (Number(frame.dims?.left) || 0) | 0;
+            const frameTop = (Number(frame.dims?.top) || 0) | 0;
 
             // Skip invalid frames
             if (frameWidth <= 0 || frameHeight <= 0) continue;
@@ -129,7 +129,12 @@ export function useGifFrames(gifUrl: string): UseGifFramesResult {
             ctx.drawImage(tempCanvas, frameLeft, frameTop);
 
             // Get the full frame as standalone image
-            const fullFrameData = ctx.getImageData(0, 0, width, height);
+            const fullFrameData = ctx.getImageData(
+              0,
+              0,
+              canvas.width,
+              canvas.height,
+            );
 
             processedFrames.push({
               imageData: fullFrameData,

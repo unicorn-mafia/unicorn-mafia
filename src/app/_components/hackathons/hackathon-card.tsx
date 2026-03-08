@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import posthog from "posthog-js";
 import type { HackathonWinWithCategory } from "../../_types/hackathons";
 
 interface HackathonCardProps {
@@ -32,6 +33,11 @@ export function HackathonCard({ win }: HackathonCardProps) {
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center h-full p-4 hover:bg-neutral-100 transition-colors"
+          onClick={() =>
+            posthog.capture("hackathon_card_clicked", {
+              category: win.categoryName,
+            })
+          }
         >
           <span className="text-xs font-body text-neutral-700 text-center">
             VIEW ON LINKEDIN

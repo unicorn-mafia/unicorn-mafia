@@ -29,6 +29,8 @@
     "js-yaml": "^4.1.0",
     "lucide-react": "^0.562.0",
     "next": "^15.3.8",
+    "posthog-js": "^1.359.1",
+    "posthog-node": "^5.28.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-use-measure": "^2.1.7",

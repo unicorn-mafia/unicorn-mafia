@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import posthog from "posthog-js";
 import styles from "./contact.module.css";
 import ContactForm from "@/components/contact-form";
 
@@ -46,11 +47,21 @@ export default function Contact() {
       </div>
       <div className="w-full mt-8 flex flex-col items-center overflow-hidden px-4">
         <div className="flex flex-row text-white font-title font-medium text-md gap-10 mb-4">
-          <a href="https://github.com/unicorn-mafia">Github</a>
+          <a
+            href="https://github.com/unicorn-mafia"
+            onClick={() =>
+              posthog.capture("social_link_clicked", { platform: "github" })
+            }
+          >
+            Github
+          </a>
           <a
             href="https://lu.ma/mafia?period=past"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              posthog.capture("social_link_clicked", { platform: "luma" })
+            }
           >
             Luma
           </a>
@@ -58,6 +69,9 @@ export default function Contact() {
             href="https://www.linkedin.com/company/unicorn-mafia/"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              posthog.capture("social_link_clicked", { platform: "linkedin" })
+            }
           >
             LinkedIn
           </a>
@@ -65,6 +79,9 @@ export default function Contact() {
             href="https://x.com/unicorn_mafia"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              posthog.capture("social_link_clicked", { platform: "x" })
+            }
           >
             X
           </a>

@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import posthog from "posthog-js";
 import type { CompanyWithCategory } from "../../_types/companies";
 
 interface CompanyCardProps {
@@ -16,6 +17,13 @@ export function CompanyCard({ company }: CompanyCardProps) {
       target="_blank"
       rel="noopener noreferrer"
       className="block aspect-square border border-neutral-600 bg-neutral-50 hover:bg-neutral-100 transition-colors group"
+      onClick={() =>
+        posthog.capture("company_card_clicked", {
+          company_name: company.name,
+          category: company.categoryName,
+          website_url: company.website_url,
+        })
+      }
     >
       <div className="h-full flex flex-col">
         {/* Company Logo Area - fills most of the space */}

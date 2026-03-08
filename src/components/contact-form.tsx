@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
+import posthog from "posthog-js";
 import {
   Dialog,
   DialogTrigger,
@@ -84,13 +85,19 @@ export default function ContactForm({
           throw new Error(data.error || "Something went wrong");
         }
 
+        posthog.capture("contact_form_submitted", {
+          has_company: !!form.company,
+          has_whatsapp: !!form.whatsapp,
+        });
         setForm(INITIAL_FORM);
         setWhatsappError(null);
         setOpen(false);
       } catch (err) {
-        setSubmitError(
-          err instanceof Error ? err.message : "Failed to send message",
-        );
+        const errorMessage =
+          err instanceof Error ? err.message : "Failed to send message";
+        posthog.capture("contact_form_error", { error_message: errorMessage });
+        posthog.captureException(err);
+        setSubmitError(errorMessage);
       } finally {
         setSubmitting(false);
       }
@@ -107,8 +114,15 @@ export default function ContactForm({
     [handleSubmit],
   );
 
+  const handleOpenChange = useCallback((nextOpen: boolean) => {
+    if (nextOpen) {
+      posthog.capture("contact_form_opened");
+    }
+    setOpen(nextOpen);
+  }, []);
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="bg-[#14120B] border-neutral-700 text-white max-w-md font-body sm:rounded-none">
         <DialogHeader>

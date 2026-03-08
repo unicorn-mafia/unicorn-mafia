@@ -1,11 +1,12 @@
-import { Suspense, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Suspense, useState, useEffect } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
 import {
   OrbitControls,
   AsciiRenderer,
   useGLTF,
   Environment,
 } from "@react-three/drei";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -23,6 +24,22 @@ interface ModelProps {
   rotation: [number, number, number];
   modelUrl: string;
   position: [number, number, number];
+}
+
+function DeferredAsciiRenderer(
+  props: React.ComponentProps<typeof AsciiRenderer>,
+) {
+  const { size } = useThree();
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (size.width > 0 && size.height > 0) {
+      setReady(true);
+    }
+  }, [size]);
+
+  if (!ready) return null;
+  return <AsciiRenderer {...props} />;
 }
 
 function Model({ scale, rotation, modelUrl, position }: ModelProps) {
@@ -171,7 +188,7 @@ export default function App() {
 
         {/* AsciiRenderer with explicit key to force re-render when settings change */}
         <Suspense fallback={null}>
-          <AsciiRenderer
+          <DeferredAsciiRenderer
             key={`${asciiSettings.resolution}-${asciiSettings.characters}-${asciiSettings.fgColor}-${asciiSettings.bgColor}-${asciiSettings.invert}`}
             resolution={asciiSettings.resolution}
             characters={asciiSettings.characters}
