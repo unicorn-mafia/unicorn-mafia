@@ -13,6 +13,7 @@ export const menuItems: MenuItem[] = [
   { label: "Companies", href: "/c", shortcut: "C" },
   { label: "Demos", href: "/d", shortcut: "D" },
   { label: "Events", href: "/e", shortcut: "E" },
+  { label: "London", href: "/l", shortcut: "L" },
   { label: "Sponsors", href: "/s", shortcut: "S" },
 ];
 
@@ -42,13 +43,6 @@ export function useKeyboardNav() {
       if (key === "B" && window.location.pathname !== "/") {
         e.preventDefault();
         router.back();
-        return;
-      }
-
-      // Hidden shortcuts (not in navbar)
-      if (key === "L") {
-        e.preventDefault();
-        router.push("/l");
         return;
       }
 
