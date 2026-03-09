@@ -117,7 +117,7 @@
 - name: "Agents Anonymous, London Chapter"
   start: "2026-03-23T18:30:00.000Z"
   end: "2026-03-23T21:30:00.000Z"
-  cover: "https://images.lumacdn.com/event-covers/ig/9ccc483d-0cf1-4767-8b25-d81f1de5e551.png"
+  cover: "https://images.lumacdn.com/gallery-images/g2/644b2e86-b3a3-446d-a96c-937d2035ce44.png"
   location: "London, England"
   url: "https://luma.com/6cnzck71"
 
@@ -211,3 +211,10 @@
   cover: "https://images.lumacdn.com/event-covers/pz/833994ef-7973-4220-898a-87abeda8b3c5.png"
   location: "London, England"
   url: "https://luma.com/clawconlondon"
+
+- name: "ClawClub AI Agents Hackday London"
+  start: "2026-03-15T14:00:00.000Z"
+  end: "2026-03-15T18:00:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/xh/0a6145ef-2923-4c3a-a4e4-b246a27fb597.png"
+  location: "London, England"
+  url: "https://luma.com/d04bupgn"
