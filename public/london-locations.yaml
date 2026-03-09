@@ -667,6 +667,14 @@
   url: "https://www.marshmallow.com/careers"
   tagline: "Insurance built for newcomers"
 
+- name: "Movable Voice"
+  category: "startup"
+  lat: 51.5286239
+  lng: -0.1320676
+  area: "King's Cross"
+  url: "https://www.movablevoice.com"
+  tagline: "Voice AI for the Frontline Workforce"
+
 # ── Big Tech ───────────────────────────────────────────
 
 - name: "Google / DeepMind"
