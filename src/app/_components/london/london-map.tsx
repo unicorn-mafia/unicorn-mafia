@@ -256,6 +256,9 @@ export default function LondonMap({
         .london-search-circle {
           animation: searchGlow 3s ease-in-out infinite;
         }
+        .leaflet-container {
+          clip-path: inset(0);
+        }
       `}</style>
       <div ref={containerRef} className="w-full h-full bg-neutral-100" />
     </>
