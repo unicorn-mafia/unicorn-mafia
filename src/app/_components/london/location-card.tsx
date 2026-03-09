@@ -66,11 +66,41 @@ export function LocationCard({ location, onClose }: LocationCardProps) {
               {location.area}
             </p>
 
-            {/* Tagline */}
-            {location.tagline && (
-              <p className="text-[11px] font-mono text-neutral-400 tracking-wide mb-3">
+            {/* Stages (VCs) */}
+            {location.stages && (
+              <p className="text-[10px] font-mono text-neutral-500 tracking-wide mb-1.5">
+                <span className="text-neutral-400">STAGES</span>{" "}
+                {location.stages}
+              </p>
+            )}
+
+            {/* Tagline (non-VCs) */}
+            {location.tagline && !location.stages && (
+              <p className="text-[11px] font-mono text-neutral-400 tracking-wide mb-1.5">
                 {location.tagline}
               </p>
+            )}
+
+            {/* Twitter handles */}
+            {location.twitter && location.twitter.length > 0 && (
+              <div className="flex items-center gap-2 mb-3 flex-wrap">
+                {location.twitter.map((handle) => (
+                  <a
+                    key={handle}
+                    href={`https://x.com/${handle}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-mono text-neutral-400 hover:text-neutral-900 tracking-wide transition-colors"
+                  >
+                    @{handle}
+                  </a>
+                ))}
+              </div>
+            )}
+
+            {/* Spacer when no twitter */}
+            {(!location.twitter || location.twitter.length === 0) && (
+              <div className="mb-1.5" />
             )}
 
             {/* CTA */}

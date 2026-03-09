@@ -54,7 +54,8 @@ export function Sidebar({
         (loc) =>
           loc.name.toLowerCase().includes(q) ||
           loc.area.toLowerCase().includes(q) ||
-          (loc.tagline || "").toLowerCase().includes(q),
+          (loc.tagline || "").toLowerCase().includes(q) ||
+          (loc.stages || "").toLowerCase().includes(q),
       );
     }
     // If searching by area, show nearby first
@@ -274,7 +275,11 @@ export function Sidebar({
                     </p>
                     <p className="text-[10px] font-mono text-neutral-400 tracking-wide truncate">
                       {loc.area}
-                      {loc.tagline ? ` — ${loc.tagline}` : ""}
+                      {loc.stages
+                        ? ` · ${loc.stages}`
+                        : loc.tagline
+                          ? ` — ${loc.tagline}`
+                          : ""}
                     </p>
                   </div>
                 </button>

@@ -13,6 +13,8 @@ interface LocationYaml {
   url: string;
   tagline?: string;
   logo?: string;
+  stages?: string;
+  twitter?: string[];
 }
 
 export async function GET() {
@@ -34,6 +36,8 @@ export async function GET() {
       url: loc.url,
       tagline: loc.tagline,
       logo: loc.logo,
+      stages: loc.stages,
+      twitter: loc.twitter,
     }));
 
     return NextResponse.json(

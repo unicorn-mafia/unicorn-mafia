@@ -107,7 +107,9 @@ export default function Chapter1() {
           <h1 className="text-2xl font-medium font-title tracking-tight mb-2">
             chapter 1
           </h1>
-          <p className="text-neutral-500 text-sm font-body">jan 2025</p>
+          <p className="text-neutral-500 text-sm font-body">
+            jan 2025 · kings cross
+          </p>
         </div>
 
         <div className="border-t border-black/10 pt-8">

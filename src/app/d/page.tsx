@@ -5,6 +5,7 @@ export default function Demos() {
     {
       name: "chapter 1",
       date: "jan 2025",
+      location: "kings cross",
       stamp: "/demos/chapter1-stamp.png",
       link: "/d/1",
     },
@@ -46,14 +47,17 @@ export default function Demos() {
                 <img
                   src={event.stamp}
                   alt={event.name}
-                  className="w-[120px] hover:opacity-80 transition-opacity"
+                  className="w-[120px] transition-opacity group-hover:opacity-80"
                   loading="lazy"
                 />
-                <div className="mt-2">
-                  <p className="text-sm text-neutral-600 group-hover:text-black transition-colors">
+                <div className="mt-2 leading-tight">
+                  <p className="text-sm text-neutral-600 transition-colors group-hover:text-black">
                     {event.name}
                   </p>
-                  <p className="text-xs text-neutral-400">{event.date}</p>
+                  <p className="mt-1 text-xs text-neutral-400">{event.date}</p>
+                  {event.location ? (
+                    <p className="text-xs text-neutral-400">{event.location}</p>
+                  ) : null}
                 </div>
               </a>
             ))}

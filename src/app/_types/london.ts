@@ -15,6 +15,9 @@ export interface LondonLocation {
   url: string;
   tagline?: string;
   logo?: string;
+  // VC-specific
+  stages?: string;
+  twitter?: string[];
   // Events only
   eventDate?: string;
 }
