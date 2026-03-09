@@ -190,7 +190,7 @@ export default function LondonPage() {
         <div
           className={`hidden md:flex flex-col transition-all duration-300 border-r border-neutral-200 ${
             sidebarOpen ? "w-80" : "w-0"
-          } overflow-hidden flex-shrink-0`}
+          } overflow-hidden flex-shrink-0 relative z-10`}
         >
           <Sidebar
             locations={locations}
