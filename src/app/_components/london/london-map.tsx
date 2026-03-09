@@ -257,7 +257,7 @@ export default function LondonMap({
           animation: searchGlow 3s ease-in-out infinite;
         }
       `}</style>
-      <div ref={containerRef} className="w-full h-full" />
+      <div ref={containerRef} className="w-full h-full bg-neutral-100" />
     </>
   );
 }
