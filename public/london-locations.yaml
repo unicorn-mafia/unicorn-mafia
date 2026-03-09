@@ -183,9 +183,9 @@
 
 - name: "Sovereign AI"
   category: "vc"
-  lat: 51.5034
-  lng: -0.1276
-  area: "Westminster"
+  lat: 51.5046
+  lng: -0.1257
+  area: "Whitehall"
   url: "https://www.sovereignai.gov.uk/"
   stages: "Seed, Scale"
   twitter: ["Jameswise"]
