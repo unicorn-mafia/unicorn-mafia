@@ -18,7 +18,7 @@ export function LocationCard({ location, onClose }: LocationCardProps) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ type: "spring", stiffness: 400, damping: 30 }}
-          className="absolute bottom-4 left-4 right-4 md:right-auto md:w-80 z-[1000] bg-white border border-neutral-300 shadow-lg"
+          className="absolute bottom-14 left-4 right-4 md:bottom-4 md:right-auto md:w-80 z-[1000] bg-white border border-neutral-300 shadow-lg"
         >
           {/* Accent bar */}
           <div
