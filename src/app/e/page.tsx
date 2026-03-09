@@ -322,18 +322,26 @@ export default function EventsPage() {
                 onSelectDate={setSelectedDate}
               />
 
-              {/* Location info */}
-              <div className="border border-neutral-300 bg-white p-4">
+              {/* Location — links to map */}
+              <a
+                href="/l"
+                className="block border border-neutral-300 bg-white p-4 hover:bg-neutral-50 transition-colors group"
+              >
                 <h3 className="text-[10px] font-body font-medium text-neutral-400 tracking-widest mb-3">
                   LOCATION
                 </h3>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-[#4EF9BD] rounded-full" />
-                  <span className="text-xs font-body text-neutral-700 tracking-wide">
-                    LONDON
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-[#4EF9BD] rounded-full" />
+                    <span className="text-xs font-body text-neutral-700 tracking-wide">
+                      LONDON
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-body text-neutral-400 group-hover:text-neutral-900 tracking-widest transition-colors">
+                    MAP →
                   </span>
                 </div>
-              </div>
+              </a>
             </div>
           </aside>
         </div>

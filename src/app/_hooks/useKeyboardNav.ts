@@ -45,6 +45,13 @@ export function useKeyboardNav() {
         return;
       }
 
+      // Hidden shortcuts (not in navbar)
+      if (key === "L") {
+        e.preventDefault();
+        router.push("/l");
+        return;
+      }
+
       const item = menuItems.find((m) => m.shortcut === key);
 
       if (item) {
