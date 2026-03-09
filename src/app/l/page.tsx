@@ -220,7 +220,7 @@ export default function LondonPage() {
         </button>
 
         {/* Map */}
-        <div className="flex-1 relative min-w-0 overflow-hidden">
+        <div className="flex-1 relative min-w-0 overflow-hidden [clip-path:inset(0)]">
           <LondonMap
             locations={locations}
             activeCategories={activeCategories}
