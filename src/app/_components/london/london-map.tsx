@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { LondonLocation, LocationCategory } from "../../_types/london";
@@ -30,6 +30,7 @@ export default function LondonMap({
   const ringsRef = useRef<Map<string, L.CircleMarker>>(new Map());
   const searchCircleRef = useRef<L.Circle | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [ready, setReady] = useState(false);
 
   // Initialize map
   useEffect(() => {
@@ -42,10 +43,12 @@ export default function LondonMap({
       attributionControl: false,
     });
 
-    L.tileLayer(
+    const tileLayer = L.tileLayer(
       "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
       { maxZoom: 19 },
-    ).addTo(map);
+    );
+    tileLayer.addTo(map);
+    tileLayer.once("load", () => setReady(true));
 
     L.control.zoom({ position: "bottomright" }).addTo(map);
     mapRef.current = map;
@@ -257,7 +260,10 @@ export default function LondonMap({
           animation: searchGlow 3s ease-in-out infinite;
         }
       `}</style>
-      <div ref={containerRef} className="w-full h-full bg-neutral-100" />
+      <div
+        ref={containerRef}
+        className={`w-full h-full bg-neutral-100 transition-opacity duration-300 ${ready ? "opacity-100" : "opacity-0"}`}
+      />
     </>
   );
 }
