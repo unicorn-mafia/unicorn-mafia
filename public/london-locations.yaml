@@ -1,0 +1,314 @@
+# London tech ecosystem locations curated by Unicorn Mafia
+# Categories: coworking, vc, startup, bigtech
+
+# ── Co-working spaces ──────────────────────────────────
+
+- name: "Second Home"
+  category: "coworking"
+  lat: 51.5247
+  lng: -0.0780
+  area: "Spitalfields"
+  url: "https://secondhome.io/london"
+  tagline: "Creative workspace, Hanbury Street"
+
+- name: "Plexal"
+  category: "coworking"
+  lat: 51.5387
+  lng: -0.0083
+  area: "Queen Elizabeth Olympic Park"
+  url: "https://www.plexal.com"
+  tagline: "Innovation centre, 800+ members"
+
+- name: "Google for Startups Campus"
+  category: "coworking"
+  lat: 51.5256
+  lng: -0.0854
+  area: "Shoreditch"
+  url: "https://campus.co/london"
+  tagline: "Free workspace & events, Bonhill St"
+
+- name: "WeWork Moorgate"
+  category: "coworking"
+  lat: 51.5186
+  lng: -0.0886
+  area: "Moorgate"
+  url: "https://www.wework.com/buildings/1-fore-st-ave--london"
+  tagline: "1 Fore Street Avenue"
+
+- name: "Huckletree Shoreditch"
+  category: "coworking"
+  lat: 51.5268
+  lng: -0.0792
+  area: "Shoreditch"
+  url: "https://www.huckletree.com/locations/shoreditch"
+  tagline: "Curated community workspace"
+
+- name: "TechHub London"
+  category: "coworking"
+  lat: 51.5257
+  lng: -0.0878
+  area: "Old Street"
+  url: "https://techhub.com"
+  tagline: "Tech community workspace since 2010"
+
+- name: "Uncommon Borough"
+  category: "coworking"
+  lat: 51.5057
+  lng: -0.0892
+  area: "Borough"
+  url: "https://uncommon.co.uk/locations/borough"
+  tagline: "Premium workspace, Borough High St"
+
+- name: "Huckletree White City"
+  category: "coworking"
+  lat: 51.5120
+  lng: -0.2245
+  area: "White City"
+  url: "https://www.huckletree.com/locations/white-city"
+  tagline: "Inside White City Place"
+
+- name: "Runway East Soho"
+  category: "coworking"
+  lat: 51.5142
+  lng: -0.1348
+  area: "Soho"
+  url: "https://runwayeast.com/coworking-spaces/soho"
+  tagline: "Flexible tech workspace"
+
+- name: "Founders Factory"
+  category: "coworking"
+  lat: 51.5163
+  lng: -0.1357
+  area: "Covent Garden"
+  url: "https://foundersfactory.com"
+  tagline: "Venture studio & workspace"
+
+# ── Venture Capital ────────────────────────────────────
+
+- name: "Balderton Capital"
+  category: "vc"
+  lat: 51.5125
+  lng: -0.1510
+  area: "Mayfair"
+  url: "https://balderton.com"
+  tagline: "Series A-B, European focus"
+
+- name: "Index Ventures"
+  category: "vc"
+  lat: 51.5127
+  lng: -0.1478
+  area: "Mayfair"
+  url: "https://indexventures.com"
+  tagline: "Multi-stage, global tech"
+
+- name: "Accel"
+  category: "vc"
+  lat: 51.5137
+  lng: -0.1440
+  area: "Mayfair"
+  url: "https://accel.com"
+  tagline: "Early & growth stage"
+
+- name: "Atomico"
+  category: "vc"
+  lat: 51.5112
+  lng: -0.1494
+  area: "Mayfair"
+  url: "https://atomico.com"
+  tagline: "Series A+, Skype founder's fund"
+
+- name: "Lightspeed Venture Partners"
+  category: "vc"
+  lat: 51.5119
+  lng: -0.1460
+  area: "Mayfair"
+  url: "https://lsvp.com"
+  tagline: "Multi-stage, enterprise & consumer"
+
+- name: "Northzone"
+  category: "vc"
+  lat: 51.5101
+  lng: -0.1421
+  area: "St James's"
+  url: "https://northzone.com"
+  tagline: "Early stage, Spotify backers"
+
+- name: "Seedcamp"
+  category: "vc"
+  lat: 51.5268
+  lng: -0.0843
+  area: "Shoreditch"
+  url: "https://seedcamp.com"
+  tagline: "Pre-seed & seed, Europe"
+
+- name: "LocalGlobe"
+  category: "vc"
+  lat: 51.5349
+  lng: -0.1054
+  area: "Angel"
+  url: "https://localglobe.vc"
+  tagline: "Seed stage, London-based"
+
+- name: "Notion Capital"
+  category: "vc"
+  lat: 51.5172
+  lng: -0.0872
+  area: "Finsbury Square"
+  url: "https://notion.vc"
+  tagline: "Series A B2B SaaS"
+
+- name: "Passion Capital"
+  category: "vc"
+  lat: 51.5249
+  lng: -0.0879
+  area: "Old Street"
+  url: "https://passioncapital.com"
+  tagline: "Seed stage, product-first"
+
+# ── Startups ───────────────────────────────────────────
+
+- name: "Monzo"
+  category: "startup"
+  lat: 51.5174
+  lng: -0.0870
+  area: "Finsbury Square"
+  url: "https://monzo.com/careers"
+  tagline: "Digital bank, 2000+ eng"
+
+- name: "Revolut"
+  category: "startup"
+  lat: 51.5155
+  lng: -0.0916
+  area: "Moorgate"
+  url: "https://revolut.com/careers"
+  tagline: "Fintech super-app, 8000+ employees"
+
+- name: "Deliveroo"
+  category: "startup"
+  lat: 51.5198
+  lng: -0.0815
+  area: "Shoreditch"
+  url: "https://careers.deliveroo.co.uk"
+  tagline: "Food delivery, IPO'd 2021"
+
+- name: "Wise"
+  category: "startup"
+  lat: 51.5258
+  lng: -0.0875
+  area: "Shoreditch"
+  url: "https://wise.com/careers"
+  tagline: "International money transfer"
+
+- name: "GoCardless"
+  category: "startup"
+  lat: 51.5324
+  lng: -0.1050
+  area: "Angel"
+  url: "https://gocardless.com/about/careers"
+  tagline: "Bank-to-bank payments"
+
+- name: "Checkout.com"
+  category: "startup"
+  lat: 51.5178
+  lng: -0.0882
+  area: "Finsbury Square"
+  url: "https://checkout.com/careers"
+  tagline: "Payments infrastructure"
+
+- name: "Darktrace"
+  category: "startup"
+  lat: 51.5130
+  lng: -0.0888
+  area: "Moorgate"
+  url: "https://darktrace.com/careers"
+  tagline: "AI cybersecurity"
+
+- name: "Improbable"
+  category: "startup"
+  lat: 51.5289
+  lng: -0.0752
+  area: "Spitalfields"
+  url: "https://improbable.io/careers"
+  tagline: "Metaverse infrastructure"
+
+- name: "Wayve"
+  category: "startup"
+  lat: 51.5336
+  lng: -0.1257
+  area: "King's Cross"
+  url: "https://wayve.ai/careers"
+  tagline: "AI for autonomous driving"
+
+- name: "Synthesia"
+  category: "startup"
+  lat: 51.5322
+  lng: -0.1046
+  area: "Angel"
+  url: "https://synthesia.io/careers"
+  tagline: "AI video generation"
+
+# ── Big Tech ───────────────────────────────────────────
+
+- name: "Google / DeepMind"
+  category: "bigtech"
+  lat: 51.5326
+  lng: -0.1264
+  area: "King's Cross"
+  url: "https://careers.google.com/locations/london"
+  tagline: "DeepMind HQ & Cloud, King's Cross campus"
+
+- name: "Meta"
+  category: "bigtech"
+  lat: 51.5337
+  lng: -0.1260
+  area: "King's Cross"
+  url: "https://metacareers.com"
+  tagline: "AI Research & WhatsApp engineering"
+
+- name: "Amazon"
+  category: "bigtech"
+  lat: 51.5251
+  lng: -0.0875
+  area: "Shoreditch"
+  url: "https://amazon.jobs/en-gb/locations/london"
+  tagline: "Principal Place, Shoreditch"
+
+- name: "Apple"
+  category: "bigtech"
+  lat: 51.5064
+  lng: -0.1472
+  area: "Battersea"
+  url: "https://apple.com/careers/uk"
+  tagline: "Battersea Power Station campus"
+
+- name: "Microsoft"
+  category: "bigtech"
+  lat: 51.5118
+  lng: -0.1564
+  area: "Paddington"
+  url: "https://careers.microsoft.com"
+  tagline: "2 Kingdom Street, Paddington"
+
+- name: "Spotify"
+  category: "bigtech"
+  lat: 51.5140
+  lng: -0.1362
+  area: "Soho"
+  url: "https://lifeatspotify.com"
+  tagline: "Adelphi Building, The Strand"
+
+- name: "Stripe"
+  category: "bigtech"
+  lat: 51.5098
+  lng: -0.1342
+  area: "Covent Garden"
+  url: "https://stripe.com/jobs"
+  tagline: "Payments infrastructure"
+
+- name: "Palantir"
+  category: "bigtech"
+  lat: 51.5130
+  lng: -0.1502
+  area: "Mayfair"
+  url: "https://palantir.com/careers"
+  tagline: "Data analytics & defence"

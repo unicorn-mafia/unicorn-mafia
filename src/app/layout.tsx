@@ -134,7 +134,7 @@ export default function RootLayout({
           </header>
 
           {/* Main content box - gap created by mt-2 md:mt-3 lg:mt-4 */}
-          <main className="relative z-10 mx-8 md:mx-20 lg:mx-32 mt-2 md:mt-3 lg:mt-4 mb-4 md:mb-6 lg:mb-8 bg-white min-h-[calc(100vh-10rem)] border border-black">
+          <main className="relative z-10 mx-8 md:mx-20 lg:mx-32 mt-2 md:mt-3 lg:mt-4 mb-4 md:mb-6 lg:mb-8 bg-white min-h-[calc(100vh-10rem)] border border-black overflow-hidden">
             {children}
           </main>
         </PreloaderWrapper>

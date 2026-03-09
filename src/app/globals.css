@@ -3,6 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Always reserve scrollbar space so pages don't shift width */
+html {
+  overflow-y: scroll;
+}
+
 @theme {
   --text-10xl: 9rem;
   --tracking-tightest: -0.08em;
