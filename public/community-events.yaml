@@ -197,3 +197,17 @@
   cover: "https://images.lumacdn.com/event-covers/js/761a02d4-9def-4fae-9c18-2dcc896635f7.png"
   location: "London, England"
   url: "https://luma.com/london-mar-27"
+
+- name: "Central London | Claude Code for Everyone CCCL #4"
+  start: "2026-03-16T18:00:00.000Z"
+  end: "2026-03-16T20:30:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/m8/5c931a66-e115-4c71-a5b7-5b46d7c1cc9f.png"
+  location: "London, England"
+  url: "https://luma.com/claude.code.central.london.4"
+
+- name: "ClawCon London"
+  start: "2026-04-08T17:00:00.000Z"
+  end: "2026-04-08T20:00:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/pz/833994ef-7973-4220-898a-87abeda8b3c5.png"
+  location: "London, England"
+  url: "https://luma.com/clawconlondon"
