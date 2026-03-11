@@ -2,7 +2,7 @@ categories:
   - name: "Member Companies"
     description: "Companies founded, co-founded, or where mafia members hold key positions"
     companies:
-     - name: "Bridge"
+      - name: "Bridge"
         website_url: "https://www.bridgeii.com"
         logo_url: "https://raw.githubusercontent.com/Shiv716/Bridge-MPS-Research/vercel-deploy/bridge-logo-nav.png"
       - name: "HireGlide"
