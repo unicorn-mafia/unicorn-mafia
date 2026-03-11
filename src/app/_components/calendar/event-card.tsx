@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import posthog from "posthog-js";
 import type { CalendarEvent } from "../../_types/calendar";
@@ -71,16 +72,18 @@ export function EventCard({ event, index }: EventCardProps) {
       {/* Image area — square to match Luma poster covers */}
       <div className="aspect-square relative overflow-hidden bg-neutral-100">
         {event.imageUrl ? (
-          <img
+          <Image
             src={event.imageUrl}
             alt={stripLeadingEmojis(event.summary)}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
           />
         ) : (
-          <img
+          <Image
             src={FALLBACK_IMAGES[index % FALLBACK_IMAGES.length]}
             alt={stripLeadingEmojis(event.summary)}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
           />
         )}
       </div>

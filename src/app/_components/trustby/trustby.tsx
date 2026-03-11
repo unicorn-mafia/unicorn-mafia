@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const companies = [
   {
@@ -82,16 +83,18 @@ export default function TrustBy() {
               className="flex-shrink-0 w-36 h-14 mx-8 relative grayscale hover:grayscale-0 transition-[filter] duration-300 group"
             >
               {/* Pixelated version */}
-              <img
+              <Image
                 src={company.logo}
                 alt={company.name}
-                className="absolute inset-0 w-full h-full object-contain [image-rendering:pixelated] opacity-100 group-hover:opacity-0 transition-opacity duration-300"
+                fill
+                className="object-contain [image-rendering:pixelated] opacity-100 group-hover:opacity-0 transition-opacity duration-300"
               />
               {/* HD version - visible on hover */}
-              <img
+              <Image
                 src={company.logoHd}
                 alt={company.name}
-                className="absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                fill
+                className="object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               />
             </div>
           ))}
@@ -101,15 +104,17 @@ export default function TrustBy() {
               key={`${company.name}-dup`}
               className="flex-shrink-0 w-36 h-14 mx-8 relative grayscale hover:grayscale-0 transition-[filter] duration-300 group"
             >
-              <img
+              <Image
                 src={company.logo}
                 alt={company.name}
-                className="absolute inset-0 w-full h-full object-contain [image-rendering:pixelated] opacity-100 group-hover:opacity-0 transition-opacity duration-300"
+                fill
+                className="object-contain [image-rendering:pixelated] opacity-100 group-hover:opacity-0 transition-opacity duration-300"
               />
-              <img
+              <Image
                 src={company.logoHd}
                 alt={company.name}
-                className="absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                fill
+                className="object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               />
             </div>
           ))}
