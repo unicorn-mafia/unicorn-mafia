@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { BRAND_PALETTE } from "../_lib/consts";
 import ContactForm from "@/components/contact-form";
 
@@ -63,9 +64,11 @@ export default function BrandPage() {
           </h2>
 
           <div className="border border-black mb-6">
-            <img
+            <Image
               src="/brand/logo-guidelines.png"
               alt="Logo construction guidelines"
+              width={896}
+              height={500}
               className="w-full"
             />
           </div>
@@ -91,10 +94,12 @@ export default function BrandPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             {/* Black on white */}
             <div className="border border-black p-8 flex items-center justify-center bg-white">
-              <img
+              <Image
                 src="/brand/um-black.svg"
                 alt="Unicorn Mafia logo black"
-                className="h-28"
+                width={112}
+                height={112}
+                className="h-28 w-auto"
               />
             </div>
 
@@ -103,10 +108,12 @@ export default function BrandPage() {
               className="border border-black p-8 flex items-center justify-center"
               style={{ backgroundColor: "#14120B" }}
             >
-              <img
+              <Image
                 src="/brand/um-white.svg"
                 alt="Unicorn Mafia logo white"
-                className="h-28"
+                width={112}
+                height={112}
+                className="h-28 w-auto"
               />
             </div>
           </div>
@@ -129,10 +136,12 @@ export default function BrandPage() {
           <div className="grid grid-cols-1 gap-6 mb-6">
             {/* Black on white */}
             <div className="border border-black p-8 flex items-center justify-center bg-white">
-              <img
+              <Image
                 src="/brand/wm-black.svg"
                 alt="Unicorn Mafia wordmark black"
-                className="h-12 max-w-full"
+                width={400}
+                height={48}
+                className="h-12 max-w-full w-auto"
               />
             </div>
 
@@ -141,10 +150,12 @@ export default function BrandPage() {
               className="border border-black p-8 flex items-center justify-center"
               style={{ backgroundColor: "#14120B" }}
             >
-              <img
+              <Image
                 src="/brand/wm-white.svg"
                 alt="Unicorn Mafia wordmark white"
-                className="h-12 max-w-full"
+                width={400}
+                height={48}
+                className="h-12 max-w-full w-auto"
               />
             </div>
           </div>

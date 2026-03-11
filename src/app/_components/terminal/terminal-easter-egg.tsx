@@ -110,7 +110,7 @@ function LinkedInOutput({ onComplete }: { onComplete: () => void }) {
 
     window.addEventListener("keydown", handler, true);
     return () => window.removeEventListener("keydown", handler, true);
-  }, [phase, year, currentYear]);
+  }, [phase, year, currentYear, onComplete]);
 
   // Launch LinkedIn after selection
   useEffect(() => {
@@ -377,7 +377,7 @@ export default function TerminalEasterEgg() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [buffer, isOpen]);
+  }, [buffer, isOpen, router]);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {

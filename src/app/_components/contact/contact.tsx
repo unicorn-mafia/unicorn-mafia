@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import posthog from "posthog-js";
 import styles from "./contact.module.css";
 import ContactForm from "@/components/contact-form";
@@ -94,9 +95,11 @@ export default function Contact() {
             X
           </a>
         </div>
-        <img
+        <Image
           src="/footer-um.svg"
           alt="Unicorn Mafia"
+          width={672}
+          height={100}
           className="w-full max-w-2xl opacity-40"
         />
         <div className="flex flex-row text-white font-title font-medium text-md gap-4 mt-4">

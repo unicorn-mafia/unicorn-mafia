@@ -1,3 +1,4 @@
+import Image from "next/image";
 import ContactForm from "@/components/contact-form";
 
 export default function Demos() {
@@ -44,11 +45,12 @@ export default function Demos() {
                 href={event.link}
                 className="group inline-block"
               >
-                <img
+                <Image
                   src={event.stamp}
                   alt={event.name}
+                  width={120}
+                  height={120}
                   className="w-[120px] transition-opacity group-hover:opacity-80"
-                  loading="lazy"
                 />
                 <div className="mt-2 leading-tight">
                   <p className="text-sm text-neutral-600 transition-colors group-hover:text-black">
