@@ -76,6 +76,8 @@ export function EventCard({ event, index }: EventCardProps) {
             src={event.imageUrl}
             alt={stripLeadingEmojis(event.summary)}
             fill
+            unoptimized
+            sizes="(min-width: 1280px) 20rem, (min-width: 640px) 50vw, 100vw"
             className="object-cover"
           />
         ) : (
@@ -83,6 +85,7 @@ export function EventCard({ event, index }: EventCardProps) {
             src={FALLBACK_IMAGES[index % FALLBACK_IMAGES.length]}
             alt={stripLeadingEmojis(event.summary)}
             fill
+            sizes="(min-width: 1280px) 20rem, (min-width: 640px) 50vw, 100vw"
             className="object-cover"
           />
         )}

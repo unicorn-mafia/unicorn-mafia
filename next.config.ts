@@ -23,6 +23,14 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "images.lumacdn.com",
+      },
+      {
+        protocol: "https",
+        hostname: "og.luma.com",
+      },
+      {
+        protocol: "https",
         hostname: "www.recurse.ml",
       },
       {
