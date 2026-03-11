@@ -4,6 +4,14 @@ import React from "react";
 import posthog from "posthog-js";
 import styles from "./contact.module.css";
 import ContactForm from "@/components/contact-form";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 export default function Contact() {
   return (
@@ -98,6 +106,35 @@ export default function Contact() {
           <ContactForm>
             <button className="hover:underline cursor-pointer">Invest</button>
           </ContactForm>
+          <Dialog>
+            <DialogTrigger asChild>
+              <button className="hover:underline cursor-pointer">
+                Collaborate
+              </button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-sm">
+              <DialogHeader>
+                <DialogTitle className="font-title">Collaborate</DialogTitle>
+                <DialogDescription>
+                  How would you like to work with us?
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex flex-col gap-3 mt-2">
+                <a
+                  href="/partner_"
+                  className="block border border-black/10 px-4 py-3 hover:bg-black/5 transition-colors rounded font-body text-sm"
+                >
+                  Partnership
+                </a>
+                <a
+                  href="/event_"
+                  className="block border border-black/10 px-4 py-3 hover:bg-black/5 transition-colors rounded font-body text-sm"
+                >
+                  Events / Hackathons
+                </a>
+              </div>
+            </DialogContent>
+          </Dialog>
           <a href="/brand" className="hover:underline">
             Brand
           </a>
