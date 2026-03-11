@@ -4,7 +4,7 @@ categories:
     companies:
       - name: "Bridge"
         website_url: "https://www.bridgeii.com"
-        logo_url: "https://raw.githubusercontent.com/Shiv716/Bridge-MPS-Research/vercel-deploy/bridge-logo-nav.png"
+        logo_url: "/companies/bridge-logo.png"
       - name: "HireGlide"
         website_url: "https://hireglide.ai/"
         logo_url: "https://bookface-images.s3.amazonaws.com/small_logos/f43313bb066e1501a71f08b9bb9435ada83f0e9c.png"
