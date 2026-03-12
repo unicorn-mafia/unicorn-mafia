@@ -1,3 +1,86 @@
+type FeatureCardData = {
+  title: string;
+  description: string;
+  iconPath: string;
+};
+
+const FEATURE_CARDS: FeatureCardData[] = [
+  {
+    title: "Support",
+    description: "24/7 resolution",
+    iconPath:
+      "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
+  },
+  {
+    title: "Sales",
+    description: "Recommend & sell",
+    iconPath: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z",
+  },
+  {
+    title: "Leads",
+    description: "Qualify & convert",
+    iconPath: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+  },
+];
+
+const CHECK_ITEMS = [
+  "Remembers full conversation history",
+  "No flow builders — live in minutes",
+  "98% open rate on WhatsApp · 24/7",
+];
+
+function FeatureCard({ title, description, iconPath }: FeatureCardData) {
+  return (
+    <a
+      href="https://wassist.app/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex flex-col items-center p-4 rounded-lg border border-gray-200 bg-gray-50/50 hover:border-gray-300 hover:bg-gray-100/50 transition-colors text-center"
+    >
+      <span
+        className="flex items-center justify-center w-10 h-10 rounded-full bg-green-100 text-green-700 mb-2 group-hover:bg-green-200 transition-colors"
+        aria-hidden
+      >
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d={iconPath}
+          />
+        </svg>
+      </span>
+      <span className="text-sm font-medium text-gray-800">{title}</span>
+      <span className="text-xs text-gray-500 mt-0.5">{description}</span>
+    </a>
+  );
+}
+
+function CheckItem({ text }: { text: string }) {
+  return (
+    <li className="flex items-center gap-2">
+      <span
+        className="flex-shrink-0 w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-green-600"
+        aria-hidden
+      >
+        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fillRule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </span>
+      {text}
+    </li>
+  );
+}
+
 export default function BigTony() {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-6 my-4">
@@ -53,158 +136,19 @@ export default function BigTony() {
 
             <div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                <a
-                  href="https://wassist.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col items-center p-4 rounded-lg border border-gray-200 bg-gray-50/50 hover:border-gray-300 hover:bg-gray-100/50 transition-colors text-center"
-                >
-                  <span
-                    className="flex items-center justify-center w-10 h-10 rounded-full bg-green-100 text-green-700 mb-2 group-hover:bg-green-200 transition-colors"
-                    aria-hidden
-                  >
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                      />
-                    </svg>
-                  </span>
-                  <span className="text-sm font-medium text-gray-800">
-                    Support
-                  </span>
-                  <span className="text-xs text-gray-500 mt-0.5">
-                    24/7 resolution
-                  </span>
-                </a>
-                <a
-                  href="https://wassist.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col items-center p-4 rounded-lg border border-gray-200 bg-gray-50/50 hover:border-gray-300 hover:bg-gray-100/50 transition-colors text-center"
-                >
-                  <span
-                    className="flex items-center justify-center w-10 h-10 rounded-full bg-green-100 text-green-700 mb-2 group-hover:bg-green-200 transition-colors"
-                    aria-hidden
-                  >
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                      />
-                    </svg>
-                  </span>
-                  <span className="text-sm font-medium text-gray-800">
-                    Sales
-                  </span>
-                  <span className="text-xs text-gray-500 mt-0.5">
-                    Recommend & sell
-                  </span>
-                </a>
-                <a
-                  href="https://wassist.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col items-center p-4 rounded-lg border border-gray-200 bg-gray-50/50 hover:border-gray-300 hover:bg-gray-100/50 transition-colors text-center"
-                >
-                  <span
-                    className="flex items-center justify-center w-10 h-10 rounded-full bg-green-100 text-green-700 mb-2 group-hover:bg-green-200 transition-colors"
-                    aria-hidden
-                  >
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </span>
-                  <span className="text-sm font-medium text-gray-800">
-                    Leads
-                  </span>
-                  <span className="text-xs text-gray-500 mt-0.5">
-                    Qualify & convert
-                  </span>
-                </a>
+                {FEATURE_CARDS.map((card) => (
+                  <FeatureCard
+                    key={card.title}
+                    title={card.title}
+                    description={card.description}
+                    iconPath={card.iconPath}
+                  />
+                ))}
               </div>
               <ul className="text-left text-sm font-body text-gray-600 space-y-2">
-                <li className="flex items-center gap-2">
-                  <span
-                    className="flex-shrink-0 w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-green-600"
-                    aria-hidden
-                  >
-                    <svg
-                      className="w-3 h-3"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  Remembers full conversation history
-                </li>
-                <li className="flex items-center gap-2">
-                  <span
-                    className="flex-shrink-0 w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-green-600"
-                    aria-hidden
-                  >
-                    <svg
-                      className="w-3 h-3"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  No flow builders — live in minutes
-                </li>
-                <li className="flex items-center gap-2">
-                  <span
-                    className="flex-shrink-0 w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-green-600"
-                    aria-hidden
-                  >
-                    <svg
-                      className="w-3 h-3"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  98% open rate on WhatsApp · 24/7
-                </li>
+                {CHECK_ITEMS.map((item) => (
+                  <CheckItem key={item} text={item} />
+                ))}
               </ul>
             </div>
           </div>
