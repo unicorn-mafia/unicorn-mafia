@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type FeatureCardData = {
   title: string;
   description: string;
@@ -115,10 +117,12 @@ export default function BigTony() {
                 rel="noopener noreferrer"
                 className="hover:opacity-80 transition-opacity"
               >
-                <img
+                <Image
                   src="https://wassist.app/logo-full.svg"
                   alt="Wassist"
-                  className="h-12 md:h-16"
+                  width={320}
+                  height={96}
+                  className="h-12 w-auto md:h-16"
                 />
               </a>
               <p className="text-xs font-body text-gray-500">
