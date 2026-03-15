@@ -2,38 +2,45 @@ import { ReactNode } from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Hackathons | Unicorn Mafia",
+  title: "Hackathon Wins | Unicorn Mafia",
   description:
-    "Learn about the hackathons that Unicorn Mafia members have won.",
+    "Awarded projects and wins by Unicorn Mafia members across hackathons. Discover the innovative projects built by London's elite developer community.",
+  keywords: [
+    "hackathon wins",
+    "tech hackathons",
+    "developer hackathons London",
+    "startup hackathons",
+    "AI hackathons",
+    "Unicorn Mafia hackathons",
+  ],
   openGraph: {
-    title: "Hackathons | Unicorn Mafia",
-    description: "Learn about the hackathons Unicorn Mafia members have won.",
+    title: "Hackathon Wins | Unicorn Mafia",
+    description:
+      "Awarded projects and wins by Unicorn Mafia members across hackathons.",
     url: "https://unicrnmafia.com/h",
-    locale: "en_US",
+    siteName: "Unicorn Mafia",
+    locale: "en_GB",
     type: "website",
     images: [
       {
-        url: "https://unicrnmafia.com/social-preview.png",
-        width: 841,
-        height: 686,
-        alt: "Unicorn Mafia Open Graph",
+        url: "/social-preview.png",
+        width: 1200,
+        height: 630,
+        alt: "Unicorn Mafia Hackathon Wins",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hackathons | Unicorn Mafia",
-    description: "Learn about the hackathons Unicorn Mafia members have won.",
-    images: [
-      {
-        url: "https://unicrnmafia.com/social-preview.png",
-        width: 841,
-        height: 686,
-        alt: "Unicorn Mafia",
-      },
-    ],
+    title: "Hackathon Wins | Unicorn Mafia",
+    description:
+      "Awarded projects and wins by Unicorn Mafia members across hackathons.",
+    creator: "@unicornmafia",
+    images: ["/social-preview.png"],
   },
-  applicationName: "Unicorn Mafia",
+  alternates: {
+    canonical: "https://unicrnmafia.com/h",
+  },
 };
 
 export default function Layout({ children }: { children: ReactNode }) {
