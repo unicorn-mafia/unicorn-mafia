@@ -102,7 +102,7 @@ export default function Contact() {
           height={100}
           className="w-full max-w-2xl opacity-40"
         />
-        <div className="flex flex-row text-white font-title font-medium text-md gap-4 mt-4">
+        <div className="flex flex-row text-white font-title font-medium text-md gap-4 mt-4 flex-wrap justify-center">
           <ContactForm>
             <button className="hover:underline cursor-pointer">Sponsor</button>
           </ContactForm>
@@ -138,6 +138,14 @@ export default function Contact() {
               </div>
             </DialogContent>
           </Dialog>
+          <ContactForm>
+            <button
+              className="hover:underline cursor-pointer"
+              onClick={() => posthog.capture("message_janek_clicked")}
+            >
+              Message Janek
+            </button>
+          </ContactForm>
           <a href="/brand" className="hover:underline">
             Brand
           </a>
