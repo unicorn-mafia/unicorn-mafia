@@ -6,19 +6,19 @@ This document provides a comprehensive comparison of partner/spousal visa requir
 
 ## Quick Comparison Table
 
-| **Criteria** | **United States** | **United Kingdom** | **Canada** | **Australia** |
-|-------------|------------------|-------------------|-----------|--------------|
-| **Sponsor Eligibility** | U.S. citizen or permanent resident | British/Irish citizen, ILR holder, or eligible EU/Swiss citizen | Canadian citizen, permanent resident, or registered Indian | Australian citizen, permanent resident, or eligible NZ citizen |
-| **Minimum Age** | 18+ (both parties) | 18+ (both parties) | 18+ (both parties) | 18+ (sponsor only) |
-| **Relationship Types Accepted** | • Married (CR-1/IR-1)<br>• Engaged (K-1) | • Married/civil partnership<br>• De facto (2+ years)<br>• Fiancé(e) | • Married<br>• Common-law (12+ months cohabitation)<br>• Conjugal | • Married<br>• De facto |
-| **Financial Requirements** | Sponsor must earn 125% of Federal Poverty Guidelines | £29,000 gross income (pending 2026 review) | No minimum income (unless dependent children); must not receive social assistance | No strict minimum; must demonstrate financial capacity |
-| **Language Requirements** | None for visa application | English language test required (A1 CEFR) | None for visa application | None for visa application |
-| **Support Period** | Until naturalization or 40 work quarters | N/A | 3 years after PR granted | N/A |
-| **Processing Time** | CR-1: 12-18 months<br>K-1: 6-10 months + 8-15 months adjustment | Initial application: several months | Varies by pathway | Temporary: 16-24 months<br>Permanent: 7-21 months |
-| **Initial Visa Duration** | CR-1: Immediate permanent residence<br>K-1: 90 days to marry | 2.5 years | Permanent residence granted | Temporary visa, then permanent |
-| **Path to Citizenship/ILR** | Eligible after 3 years as permanent resident | ILR after 5 years continuous residence | Eligible for citizenship after 3+ years as PR | Citizenship eligible after meeting requirements |
-| **Application Cost** | $1,960+ (CR-1)<br>$2,025+ (K-1) | £1,846 (initial application) | CAD $1,080 (sponsorship) + $490 (PR application) | AUD $9,365 (main applicant) |
-| **Where to Apply** | Offshore (consular processing) | Inside or outside UK | Inside or outside Canada | Onshore (820/801) or offshore (309/100) |
+| **Criteria**                    | **United States**                                               | **United Kingdom**                                                  | **Canada**                                                                        | **Australia**                                                  |
+| ------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Sponsor Eligibility**         | U.S. citizen or permanent resident                              | British/Irish citizen, ILR holder, or eligible EU/Swiss citizen     | Canadian citizen, permanent resident, or registered Indian                        | Australian citizen, permanent resident, or eligible NZ citizen |
+| **Minimum Age**                 | 18+ (both parties)                                              | 18+ (both parties)                                                  | 18+ (both parties)                                                                | 18+ (sponsor only)                                             |
+| **Relationship Types Accepted** | • Married (CR-1/IR-1)<br>• Engaged (K-1)                        | • Married/civil partnership<br>• De facto (2+ years)<br>• Fiancé(e) | • Married<br>• Common-law (12+ months cohabitation)<br>• Conjugal                 | • Married<br>• De facto                                        |
+| **Financial Requirements**      | Sponsor must earn 125% of Federal Poverty Guidelines            | £29,000 gross income (pending 2026 review)                          | No minimum income (unless dependent children); must not receive social assistance | No strict minimum; must demonstrate financial capacity         |
+| **Language Requirements**       | None for visa application                                       | English language test required (A1 CEFR)                            | None for visa application                                                         | None for visa application                                      |
+| **Support Period**              | Until naturalization or 40 work quarters                        | N/A                                                                 | 3 years after PR granted                                                          | N/A                                                            |
+| **Processing Time**             | CR-1: 12-18 months<br>K-1: 6-10 months + 8-15 months adjustment | Initial application: several months                                 | Varies by pathway                                                                 | Temporary: 16-24 months<br>Permanent: 7-21 months              |
+| **Initial Visa Duration**       | CR-1: Immediate permanent residence<br>K-1: 90 days to marry    | 2.5 years                                                           | Permanent residence granted                                                       | Temporary visa, then permanent                                 |
+| **Path to Citizenship/ILR**     | Eligible after 3 years as permanent resident                    | ILR after 5 years continuous residence                              | Eligible for citizenship after 3+ years as PR                                     | Citizenship eligible after meeting requirements                |
+| **Application Cost**            | $1,960+ (CR-1)<br>$2,025+ (K-1)                                 | £1,846 (initial application)                                        | CAD $1,080 (sponsorship) + $490 (PR application)                                  | AUD $9,365 (main applicant)                                    |
+| **Where to Apply**              | Offshore (consular processing)                                  | Inside or outside UK                                                | Inside or outside Canada                                                          | Onshore (820/801) or offshore (309/100)                        |
 
 ---
 
@@ -29,6 +29,7 @@ This document provides a comprehensive comparison of partner/spousal visa requir
 #### Visa Pathways
 
 **CR-1/IR-1 Visa (Already Married)**
+
 - **CR-1**: For couples married less than 2 years
 - **IR-1**: For couples married 2+ years
 - Processing time: 12-18 months
@@ -37,6 +38,7 @@ This document provides a comprehensive comparison of partner/spousal visa requir
 - Process: Form I-130 → National Visa Center → Consular interview
 
 **K-1 Fiancé Visa (Not Yet Married)**
+
 - Must marry within 90 days of entry to the U.S.
 - Initial processing: 6-10 months
 - After marriage: 8-15 months for adjustment of status
@@ -44,6 +46,7 @@ This document provides a comprehensive comparison of partner/spousal visa requir
 - Total timeline longer than CR-1
 
 #### Requirements
+
 - **Financial**: Sponsor must earn 125% of Federal Poverty Guidelines
 - **Relationship proof**: Marriage certificate or evidence of genuine relationship
 - **Background checks**: Medical exam, criminal background check
@@ -56,35 +59,42 @@ This document provides a comprehensive comparison of partner/spousal visa requir
 #### Eligibility
 
 **Sponsor Requirements**
+
 - British or Irish citizen, indefinite leave to remain holder, or EU/Swiss/Norwegian/Icelandic citizen with pre-settled status (from before Jan 1, 2021)
 - Must be 18 or over
 - Must intend to live together permanently in the UK
 
 **Applicant Requirements**
+
 - Must be 18 or over
 - Meet relationship criteria
 - Pass English language test (A1 CEFR level)
 - Meet financial threshold
 
 #### Relationship Categories
+
 1. **Married or civil partnership**
 2. **De facto relationship** (living together for 2+ years)
 3. **Fiancé(e) or proposed civil partner** (must marry within 6 months of arrival)
 
 #### Financial Requirements
+
 - **Income threshold**: £29,000 gross annual income (subject to government review in 2026)
 - Evidence from employer, banks, or business accounts
 - Alternative: savings of £88,500+ held for 6 months
 
 #### Language Requirements
+
 - Must pass approved English language test
 - Exemptions for nationals of majority English-speaking countries
 
 #### Additional Evidence
+
 - Documents from government agencies, banks, landlords, utility providers, or medical professionals
 - Accommodation requirements must be met
 
 #### Visa Timeline
+
 - **Initial grant**: 2.5 years
 - **Extension**: Additional 2.5 years
 - **Indefinite Leave to Remain (ILR)**: After 5 years continuous residence
@@ -95,6 +105,7 @@ This document provides a comprehensive comparison of partner/spousal visa requir
 ### 🇨🇦 Canada
 
 #### Sponsor Requirements
+
 - Must be at least 18 years old
 - Must be a Canadian citizen, permanent resident, or registered Indian under the Canadian Indian Act
 - Cannot be receiving social assistance (except for disability)
@@ -103,6 +114,7 @@ This document provides a comprehensive comparison of partner/spousal visa requir
 - Agree to financially support partner for 3 years after PR granted
 
 #### Sponsored Partner Requirements
+
 - Must be at least 18 years old
 - Must not be inadmissible to Canada
 - Must be in a genuine relationship (not primarily for immigration)
@@ -111,17 +123,20 @@ This document provides a comprehensive comparison of partner/spousal visa requir
 #### Relationship Categories
 
 **1. Spouse**
+
 - Legally married
 - Marriage must be legally valid in country where performed and in Canada
 - Any gender
 
 **2. Common-law Partner**
+
 - Lived together continuously for at least 12 consecutive months
 - Must be in a conjugal relationship
 - Only short, temporary absences allowed
 - Proof of cohabitation required
 
 **3. Conjugal Partner**
+
 - Been in exclusive, mutually interdependent relationship for at least 1 year
 - Unable to marry or live together due to:
   - Legal barriers
@@ -131,16 +146,19 @@ This document provides a comprehensive comparison of partner/spousal visa requir
 - Must demonstrate commitment comparable to marriage
 
 #### Financial Requirements
+
 - **No minimum income requirement** for spousal sponsorship (exception: if sponsored person has dependent children)
 - Sponsor must not be receiving social assistance
 - Must commit to 3 years of financial support
 
 #### Processing
+
 - Applications must be submitted online (as of Sept 23, 2022)
 - Can apply from inside or outside Canada
 - Processing times vary by pathway
 
 #### Key Advantages
+
 - Most flexible financial requirements
 - Accepts common-law and conjugal partnerships
 - No language requirement for visa application
@@ -153,12 +171,14 @@ This document provides a comprehensive comparison of partner/spousal visa requir
 #### Eligibility
 
 **Sponsor Requirements**
+
 - Australian citizen, permanent resident, or eligible New Zealand citizen
 - Must be at least 18 years old
 - Meet character requirements
 - Must not have sponsored two previous partners (or one if less than 5 years ago)
 
 **Applicant Requirements**
+
 - Married or in de facto relationship with eligible sponsor
 - Meet health and character requirements
 - Demonstrate genuine and continuing relationship
@@ -192,22 +212,26 @@ Applications are assessed across **four key areas**:
 #### Visa Pathways
 
 **Onshore (Subclass 820 → 801)**
+
 - Apply while in Australia
 - Subclass 820: Temporary partner visa
 - Subclass 801: Permanent partner visa (granted after initial period)
 
 **Offshore (Subclass 309 → 100)**
+
 - Apply from outside Australia
 - Subclass 309: Temporary partner visa
 - Subclass 100: Permanent partner visa (granted after initial period)
 
 #### Processing & Costs
+
 - **Application fee**: AUD $9,365 for main applicant (non-refundable, 2026)
 - **Processing time (temporary)**: 16-24 months
 - **Processing time (permanent)**: 7-21 months after temporary visa granted
 - Two-stage process: temporary visa first, then permanent
 
 #### Evidence Required
+
 - Relationship history statement
 - Photos spanning the relationship
 - Joint financial documents
@@ -222,22 +246,26 @@ Applications are assessed across **four key areas**:
 ### Choosing the Right Country
 
 **Consider United States if:**
+
 - Partner is already married to a U.S. citizen/PR
 - Can meet 125% poverty guideline income
 - Want immediate work authorization (CR-1)
 
 **Consider United Kingdom if:**
+
 - Can meet £29,000 income threshold
 - Can pass English language test
 - Have strong relationship evidence over 2+ years
 
 **Consider Canada if:**
+
 - Cannot meet strict income requirements
 - Have common-law or conjugal partnership
 - Want most flexible financial criteria
 - Prefer online application process
 
 **Consider Australia if:**
+
 - Have comprehensive relationship evidence across all four areas
 - Can afford higher application fees
 - Prepared for longer processing times
@@ -276,4 +304,4 @@ Applications are assessed across **four key areas**:
 
 ---
 
-*This summary is for informational purposes only and does not constitute legal advice. Consult with qualified immigration professionals for your specific situation.*
+_This summary is for informational purposes only and does not constitute legal advice. Consult with qualified immigration professionals for your specific situation._
