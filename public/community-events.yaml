@@ -267,3 +267,17 @@
   cover: "https://images.lumacdn.com/event-covers/rl/a4abd173-9d59-4123-a726-9339ab377626.png"
   location: "London, England"
   url: "https://luma.com/57i3enr1"
+
+- name: "1# London Software Guild"
+  start: "2026-03-26T18:00:00.000Z"
+  end: "2026-03-26T20:00:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/q3/0c1cde49-e3f5-44f4-ab61-080230ec6f87.jpg"
+  location: "London, England"
+  url: "https://luma.com/eojsw8zo"
+
+- name: "PyAI @ AIE London Meetup"
+  start: "2026-04-08T16:30:00.000Z"
+  end: "2026-04-08T19:00:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/j6/b02a00ce-76ec-4566-a7e3-c459c3c547b5.png"
+  location: "London, England"
+  url: "https://luma.com/fkkiar5m"
