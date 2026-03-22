@@ -121,13 +121,6 @@
   location: "London, England"
   url: "https://luma.com/ua1wxepb"
 
-- name: "2026 London Defence Tech Hackathon"
-  start: "2026-05-02T07:00:00.000Z"
-  end: "2026-05-03T14:00:00.000Z"
-  cover: "https://images.lumacdn.com/event-covers/m4/c51a4fd2-9436-4bfa-b5ce-96a2162c1c46.jpg"
-  location: "Camberley, England"
-  url: "https://luma.com/nn4aluwm"
-
 - name: "Coding Agents and ACP with JetBrains"
   start: "2026-03-11T18:00:00.000Z"
   end: "2026-03-11T20:30:00.000Z"
@@ -309,3 +302,10 @@
   cover: "https://images.lumacdn.com/event-covers/bs/7b2be46a-4419-4604-b286-a34cb9e4fc94.png"
   location: "London, England"
   url: "https://luma.com/67iketc5"
+
+- name: "London | Claude Code for Voice"
+  start: "2026-03-27T18:00:00.000Z"
+  end: "2026-03-27T22:00:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/zm/05bc5c1b-4707-468c-b82e-df5f15b888e2.png"
+  location: "London, England"
+  url: "https://luma.com/k24hdger"
