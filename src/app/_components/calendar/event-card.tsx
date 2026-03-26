@@ -55,17 +55,7 @@ export function EventCard({ event, index }: EventCardProps) {
       href={linkUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`block bg-white overflow-hidden ${past ? "opacity-40" : ""} ${
-        featured ? styles.featuredBorder : "border border-neutral-300"
-      }`}
-      style={
-        featured
-          ? ({
-              "--border-c1": event.borderColors![0],
-              "--border-c2": event.borderColors![1],
-            } as React.CSSProperties)
-          : undefined
-      }
+      className={`block border border-neutral-300 bg-white overflow-hidden ${past ? "opacity-40" : ""}`}
       onClick={() =>
         posthog.capture("event_card_clicked", {
           event_name: event.summary,
@@ -106,7 +96,12 @@ export function EventCard({ event, index }: EventCardProps) {
       {/* Accent bar */}
       <motion.div
         className="w-full"
-        style={{ backgroundColor: accentColor, height: 3 }}
+        style={{
+          background: featured
+            ? `linear-gradient(90deg, ${event.borderColors![0]}, ${event.borderColors![1]}, ${event.borderColors![0]})`
+            : accentColor,
+          height: 3,
+        }}
         whileHover={{ height: 5 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       />
