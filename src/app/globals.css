@@ -8,6 +8,16 @@ html {
   overflow-y: scroll;
 }
 
+@keyframes balloonFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
 @theme {
   --text-10xl: 9rem;
   --tracking-tightest: -0.08em;

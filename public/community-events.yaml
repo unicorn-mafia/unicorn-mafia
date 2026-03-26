@@ -368,7 +368,7 @@
 
 - name: "Project Barcelona — 24h Hackathon"
   start: "2026-04-15T08:00:00.000Z"
-  end: "2026-04-16T18:00:00.000Z"
+  end: "2026-04-17T00:00:00.000Z"
   cover: "/project-barcelona.jpg"
   location: "Barcelona, Spain"
   url: "https://projectbarcelona.co"
