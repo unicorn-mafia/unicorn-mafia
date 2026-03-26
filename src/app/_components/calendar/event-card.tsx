@@ -55,7 +55,17 @@ export function EventCard({ event, index }: EventCardProps) {
       href={linkUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`block border border-neutral-300 bg-white overflow-hidden ${past ? "opacity-40" : ""}`}
+      className={`block bg-white overflow-hidden ${past ? "opacity-40" : ""} ${
+        featured ? "" : "border border-neutral-300"
+      }`}
+      style={
+        featured
+          ? {
+              border: "3px solid",
+              borderImage: `repeating-linear-gradient(180deg, ${event.borderColors![0]} 0px, ${event.borderColors![0]} 3px, ${event.borderColors![1]} 3px, ${event.borderColors![1]} 6px) 3`,
+            }
+          : undefined
+      }
       onClick={() =>
         posthog.capture("event_card_clicked", {
           event_name: event.summary,
