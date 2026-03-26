@@ -13,14 +13,14 @@ html {
     transform: translateY(0);
     opacity: 0;
   }
-  10% {
+  8% {
     opacity: 1;
   }
-  80% {
-    opacity: 0.6;
+  70% {
+    opacity: 0.7;
   }
   100% {
-    transform: translateY(-48px);
+    transform: translateY(-70px);
     opacity: 0;
   }
 }

@@ -325,22 +325,24 @@ export default function Navbar() {
 
         {/* Birthday balloons — expires after March 30 2026 */}
         {new Date() < new Date("2026-03-31T00:00:00Z") && (
-          <span className="hidden md:inline-block relative w-10 h-12 ml-1 overflow-hidden">
+          <span className="hidden md:inline-block relative w-16 h-16 ml-2">
             {[
-              { src: "/balloon-cyan.png", x: 0, delay: 0, dur: 2.8 },
-              { src: "/balloon-red.png", x: 12, delay: 0.4, dur: 3.2 },
-              { src: "/balloon-rainbow.png", x: 24, delay: 0.9, dur: 2.5 },
-              { src: "/balloon-red.png", x: 6, delay: 1.5, dur: 3.0 },
-              { src: "/balloon-cyan.png", x: 18, delay: 2.0, dur: 2.6 },
-              { src: "/balloon-rainbow.png", x: 2, delay: 2.4, dur: 3.4 },
-              { src: "/balloon-cyan.png", x: 20, delay: 1.2, dur: 2.9 },
-              { src: "/balloon-red.png", x: 10, delay: 0.7, dur: 3.1 },
+              { src: "/balloon-cyan.png", x: 2, delay: 0, dur: 3.5 },
+              { src: "/balloon-red.png", x: 14, delay: 0.6, dur: 4.0 },
+              { src: "/balloon-purple.png", x: 28, delay: 1.2, dur: 3.2 },
+              { src: "/balloon-blue.png", x: 40, delay: 0.3, dur: 3.8 },
+              { src: "/balloon-rainbow.png", x: 8, delay: 2.0, dur: 3.6 },
+              { src: "/balloon-red.png", x: 34, delay: 1.8, dur: 4.2 },
+              { src: "/balloon-cyan.png", x: 22, delay: 2.5, dur: 3.3 },
+              { src: "/balloon-purple.png", x: 46, delay: 0.9, dur: 3.9 },
+              { src: "/balloon-blue.png", x: 4, delay: 1.5, dur: 4.1 },
+              { src: "/balloon-rainbow.png", x: 38, delay: 2.8, dur: 3.4 },
             ].map((b, i) => (
               <img
                 key={i}
                 src={b.src}
                 alt=""
-                className="absolute w-3 h-auto"
+                className="absolute w-5 h-auto"
                 style={{
                   left: `${b.x}px`,
                   bottom: 0,
