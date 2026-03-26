@@ -325,19 +325,30 @@ export default function Navbar() {
 
         {/* Birthday balloons — expires after March 30 2026 */}
         {new Date() < new Date("2026-03-31T00:00:00Z") && (
-          <span className="hidden md:inline-flex items-end gap-1 ml-2">
-            <img
-              src="/balloon-cyan.png"
-              alt=""
-              className="w-8 h-auto"
-              style={{ animation: "balloonFloat 3s ease-in-out infinite" }}
-            />
-            <img
-              src="/balloon-rainbow.png"
-              alt=""
-              className="w-8 h-auto"
-              style={{ animation: "balloonFloat 3s ease-in-out infinite 1.5s" }}
-            />
+          <span className="hidden md:inline-block relative w-10 h-12 ml-1 overflow-hidden">
+            {[
+              { src: "/balloon-cyan.png", x: 0, delay: 0, dur: 2.8 },
+              { src: "/balloon-red.png", x: 12, delay: 0.4, dur: 3.2 },
+              { src: "/balloon-rainbow.png", x: 24, delay: 0.9, dur: 2.5 },
+              { src: "/balloon-red.png", x: 6, delay: 1.5, dur: 3.0 },
+              { src: "/balloon-cyan.png", x: 18, delay: 2.0, dur: 2.6 },
+              { src: "/balloon-rainbow.png", x: 2, delay: 2.4, dur: 3.4 },
+              { src: "/balloon-cyan.png", x: 20, delay: 1.2, dur: 2.9 },
+              { src: "/balloon-red.png", x: 10, delay: 0.7, dur: 3.1 },
+            ].map((b, i) => (
+              <img
+                key={i}
+                src={b.src}
+                alt=""
+                className="absolute w-3 h-auto"
+                style={{
+                  left: `${b.x}px`,
+                  bottom: 0,
+                  animation: `balloonRise ${b.dur}s ease-out infinite ${b.delay}s`,
+                  opacity: 0,
+                }}
+              />
+            ))}
           </span>
         )}
 

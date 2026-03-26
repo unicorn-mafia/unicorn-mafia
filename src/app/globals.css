@@ -8,13 +8,20 @@ html {
   overflow-y: scroll;
 }
 
-@keyframes balloonFloat {
-  0%,
-  100% {
+@keyframes balloonRise {
+  0% {
     transform: translateY(0);
+    opacity: 0;
   }
-  50% {
-    transform: translateY(-6px);
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-48px);
+    opacity: 0;
   }
 }
 
