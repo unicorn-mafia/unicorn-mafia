@@ -57,6 +57,56 @@
   animation: livePulseRing 2s infinite;
 }
 
+/* Featured event animated gradient border */
+.featuredBorder {
+  position: relative;
+  isolation: isolate;
+}
+
+.featuredBorder::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  background: conic-gradient(
+    var(--border-c1) 0deg,
+    var(--border-c2) 90deg,
+    var(--border-c1) 180deg,
+    var(--border-c2) 270deg,
+    var(--border-c1) 360deg
+  );
+  animation: featuredSpin 3s linear infinite;
+}
+
+.featuredBorder::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  background: conic-gradient(
+    var(--border-c1) 0deg,
+    var(--border-c2) 90deg,
+    var(--border-c1) 180deg,
+    var(--border-c2) 270deg,
+    var(--border-c1) 360deg
+  );
+  animation: featuredSpin 3s linear infinite;
+  filter: blur(12px);
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.featuredBorder:hover::after {
+  opacity: 0.8;
+  filter: blur(18px);
+}
+
+@keyframes featuredSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes livePulseRing {
   0% {
     transform: scale(1);

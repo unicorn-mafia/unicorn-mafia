@@ -17,6 +17,8 @@ export interface CalendarEvent {
   externalUrl?: string;
   imageUrl?: string;
   hostedByUM: boolean;
+  featured?: boolean;
+  borderColors?: string[];
 }
 
 export interface RawGoogleEvent {

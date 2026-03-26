@@ -48,12 +48,24 @@ export function EventCard({ event, index }: EventCardProps) {
   const linkUrl = event.externalUrl || event.htmlLink;
   const dateRange = formatDateRange(event);
 
+  const featured = event.featured && event.borderColors?.length === 2;
+
   return (
     <motion.a
       href={linkUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`block border border-neutral-300 bg-white overflow-hidden ${past ? "opacity-40" : ""}`}
+      className={`block bg-white overflow-hidden ${past ? "opacity-40" : ""} ${
+        featured ? styles.featuredBorder : "border border-neutral-300"
+      }`}
+      style={
+        featured
+          ? ({
+              "--border-c1": event.borderColors![0],
+              "--border-c2": event.borderColors![1],
+            } as React.CSSProperties)
+          : undefined
+      }
       onClick={() =>
         posthog.capture("event_card_clicked", {
           event_name: event.summary,

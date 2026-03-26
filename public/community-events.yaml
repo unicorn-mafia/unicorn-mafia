@@ -365,3 +365,12 @@
   cover: "https://images.lumacdn.com/event-covers/7x/ce0117d1-31cd-45a8-bd0f-f2fbeb6bd6d5.png"
   location: "London, England"
   url: "https://luma.com/kj3cv1w2"
+
+- name: "Project Barcelona — 24h Hackathon"
+  start: "2026-04-15T08:00:00.000Z"
+  end: "2026-04-16T08:00:00.000Z"
+  cover: "/project-barcelona.png"
+  location: "Barcelona, Spain"
+  url: "https://projectbarcelona.co"
+  featured: true
+  borderColors: ["#CD1125", "#FCDD09"]

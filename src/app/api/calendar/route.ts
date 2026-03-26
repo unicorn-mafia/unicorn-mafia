@@ -154,6 +154,8 @@ interface CommunityEventYaml {
   cover: string;
   location: string;
   url: string;
+  featured?: boolean;
+  borderColors?: string[];
 }
 
 function loadCommunityEventsFromYaml(): CalendarEvent[] {
@@ -173,6 +175,8 @@ function loadCommunityEventsFromYaml(): CalendarEvent[] {
       externalUrl: e.url,
       imageUrl: e.cover || undefined,
       hostedByUM: false,
+      featured: e.featured || false,
+      borderColors: e.borderColors || undefined,
     }));
   } catch (err) {
     console.error("Failed to load community-events.yaml:", err);
