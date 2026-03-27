@@ -176,9 +176,29 @@ export default function EventsPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-2xl font-medium font-body text-neutral-900 tracking-wide">
-                EVENTS
-              </h1>
+              <div className="flex items-center gap-3">
+                <h1 className="text-2xl font-medium font-body text-neutral-900 tracking-wide">
+                  EVENTS
+                </h1>
+                {/* ElevenLabs sponsorship — expires 2026-09-27 */}
+                {new Date() < new Date("2026-09-27T00:00:00Z") && (
+                  <a
+                    href="https://elevenlabs.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-2 py-1 bg-black rounded-sm hover:opacity-80 transition-opacity"
+                  >
+                    <span className="text-[9px] font-body text-neutral-400 tracking-wider">
+                      POWERED BY
+                    </span>
+                    <img
+                      src="/elevenlabs-logo.svg"
+                      alt="ElevenLabs"
+                      className="h-3"
+                    />
+                  </a>
+                )}
+              </div>
               <p className="text-xs font-body text-neutral-500 tracking-wide mt-1">
                 {filteredEvents.length}{" "}
                 {filteredEvents.length === 1 ? "EVENT" : "EVENTS"}
