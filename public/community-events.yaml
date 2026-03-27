@@ -372,8 +372,6 @@
   cover: "/ai-engineer-europe.png"
   location: "London, England"
   url: "https://www.ai.engineer/europe"
-  featured: true
-  borderColors: ["#ffffff", "#000000"]
 
 - name: "{Tech: Europe} London AI Hackathon"
   start: "2026-04-11T09:00:00.000Z"
@@ -381,6 +379,13 @@
   cover: "https://images.lumacdn.com/event-covers/jt/9c6a4c9c-45f0-456f-9bf5-d205dba9a7a7.png"
   location: "London, England"
   url: "https://luma.com/london-hackathon"
+
+- name: "Inside Sierra: Driving Innovation in Enterprise AI"
+  start: "2026-03-31T17:00:00.000Z"
+  end: "2026-03-31T19:30:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/ve/a49cde6b-7e4a-4001-9215-27582cfbbe8b.png"
+  location: "London, England"
+  url: "https://luma.com/xh6h198t"
 
 - name: "Project Barcelona — 24h Hackathon"
   start: "2026-04-15T08:00:00.000Z"
@@ -390,3 +395,17 @@
   url: "https://projectbarcelona.co"
   featured: true
   borderColors: ["#CD1125", "#FCDD09"]
+
+- name: "Evals with OpenAI"
+  start: "2026-04-22T07:30:00.000Z"
+  end: "2026-04-22T09:00:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/ku/d3117b26-3580-4407-8db0-c9cf14442d5e.png"
+  location: "London, England"
+  url: "https://luma.com/buun0oz2"
+
+- name: "Mathematical Superintelligence with Harmonic"
+  start: "2026-04-23T07:30:00.000Z"
+  end: "2026-04-23T09:00:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/p5/4756fcec-9014-41a8-a722-13549c014982.png"
+  location: "London, England"
+  url: "https://luma.com/pqb9ec1b"
