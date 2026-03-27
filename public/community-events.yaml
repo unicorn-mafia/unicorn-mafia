@@ -366,6 +366,13 @@
   location: "London, England"
   url: "https://luma.com/kj3cv1w2"
 
+- name: "{Tech: Europe} London AI Hackathon"
+  start: "2026-04-11T09:00:00.000Z"
+  end: "2026-04-11T19:00:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/jt/9c6a4c9c-45f0-456f-9bf5-d205dba9a7a7.png"
+  location: "London, England"
+  url: "https://luma.com/london-hackathon"
+
 - name: "Project Barcelona — 24h Hackathon"
   start: "2026-04-15T08:00:00.000Z"
   end: "2026-04-17T00:00:00.000Z"
