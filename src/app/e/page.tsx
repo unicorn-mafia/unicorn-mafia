@@ -186,7 +186,7 @@ export default function EventsPage() {
                     href="https://elevenlabs.io"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-2 py-1 bg-black rounded-sm hover:opacity-80 transition-opacity"
+                    className="inline-flex items-center gap-1.5 border border-neutral-300 px-2.5 py-1 hover:border-neutral-500 transition-colors"
                   >
                     <span className="text-[9px] font-body text-neutral-400 tracking-wider">
                       POWERED BY
@@ -194,7 +194,7 @@ export default function EventsPage() {
                     <img
                       src="/elevenlabs-logo.svg"
                       alt="ElevenLabs"
-                      className="h-3"
+                      className="h-2.5"
                     />
                   </a>
                 )}
