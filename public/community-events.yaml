@@ -366,6 +366,15 @@
   location: "London, England"
   url: "https://luma.com/kj3cv1w2"
 
+- name: "AI Engineer Europe"
+  start: "2026-04-08T09:00:00.000Z"
+  end: "2026-04-11T00:00:00.000Z"
+  cover: "/ai-engineer-europe.png"
+  location: "London, England"
+  url: "https://www.ai.engineer/europe"
+  featured: true
+  borderColors: ["#ffffff", "#000000"]
+
 - name: "{Tech: Europe} London AI Hackathon"
   start: "2026-04-11T09:00:00.000Z"
   end: "2026-04-11T19:00:00.000Z"
