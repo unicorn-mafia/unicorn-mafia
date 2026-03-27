@@ -181,23 +181,24 @@ export default function EventsPage() {
                   EVENTS
                 </h1>
                 {/* ElevenLabs sponsorship — expires 2026-09-27 */}
-                {new Date() < new Date("2026-09-27T00:00:00Z") && (
-                  <a
-                    href="https://elevenlabs.io"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 border border-neutral-300 px-2.5 py-1 hover:border-neutral-500 transition-colors"
-                  >
-                    <span className="text-[9px] font-body text-neutral-400 tracking-wider">
-                      POWERED BY
-                    </span>
-                    <img
-                      src="/elevenlabs-logo.svg"
-                      alt="ElevenLabs"
-                      className="h-2.5"
-                    />
-                  </a>
-                )}
+                {new Date() >= new Date("2026-03-31T00:00:00Z") &&
+                  new Date() < new Date("2026-09-30T00:00:00Z") && (
+                    <a
+                      href="https://elevenlabs.io"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 border border-neutral-300 px-2.5 py-1 hover:border-neutral-500 transition-colors"
+                    >
+                      <span className="text-[9px] font-body text-neutral-400 tracking-wider">
+                        POWERED BY
+                      </span>
+                      <img
+                        src="/elevenlabs-logo.svg"
+                        alt="ElevenLabs"
+                        className="h-2.5"
+                      />
+                    </a>
+                  )}
               </div>
               <p className="text-xs font-body text-neutral-500 tracking-wide mt-1">
                 {filteredEvents.length}{" "}
