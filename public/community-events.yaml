@@ -366,6 +366,27 @@
   location: "London, England"
   url: "https://luma.com/kj3cv1w2"
 
+- name: "Fuckup Nights London #6"
+  start: "2026-04-01T17:00:00.000Z"
+  end: "2026-04-01T21:00:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/cd/10444ded-7b4d-4d67-af66-b5a452b7177a.png"
+  location: "London, England"
+  url: "https://luma.com/vtcnmxus"
+
+- name: "AI for Science: From Pre-Seed to Breakthrough"
+  start: "2026-04-02T17:00:00.000Z"
+  end: "2026-04-02T20:00:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/eu/52b4b44c-0bc5-498e-9f62-1d692c24007a.png"
+  location: "London, England"
+  url: "https://luma.com/5uecz4zh"
+
+- name: "Ethereum Community Coworking Day @ Encode Hub"
+  start: "2026-04-03T08:00:00.000Z"
+  end: "2026-04-03T17:00:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/ei/78bc9ea2-a962-403a-b796-59fd3d2e4eb5.png"
+  location: "London, England"
+  url: "https://luma.com/nl91pggh"
+
 - name: "AI Engineer Europe"
   start: "2026-04-08T09:00:00.000Z"
   end: "2026-04-11T00:00:00.000Z"
