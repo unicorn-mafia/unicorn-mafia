@@ -431,6 +431,13 @@
   location: "London, England"
   url: "https://luma.com/pqb9ec1b"
 
+- name: "Attio x Headline AI Founder Night"
+  start: "2026-04-20T17:30:00.000Z"
+  end: "2026-04-20T20:30:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/sv/85b168b2-4101-44af-a7f5-acfe890ccdcb.png"
+  location: "London, England"
+  url: "https://luma.com/attioxheadline"
+
 - name: "Open Code #4"
   start: "2026-04-01T17:30:00.000Z"
   end: "2026-04-01T19:30:00.000Z"
