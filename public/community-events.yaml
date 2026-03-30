@@ -433,6 +433,13 @@
   location: "London, England"
   url: "https://luma.com/buun0oz2"
 
+- name: "Voice AI Hack"
+  start: "2026-04-18T09:00:00.000Z"
+  end: "2026-04-18T20:00:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/xn/3e725448-3e4d-4476-8921-fe6d88546e96.png"
+  location: "London, England"
+  url: "https://luma.com/voiceaihack"
+
 - name: "Mathematical Superintelligence with Harmonic"
   start: "2026-04-23T07:30:00.000Z"
   end: "2026-04-23T09:00:00.000Z"
