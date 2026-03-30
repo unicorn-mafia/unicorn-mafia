@@ -323,13 +323,6 @@ export default function Navbar() {
           </svg>
         </Link>
 
-        {/* Birthday balloons — expires after March 30 2026 */}
-        {new Date() < new Date("2026-03-31T00:00:00Z") && (
-          <span className="hidden md:inline-flex items-center ml-1 text-sm">
-            🎈
-          </span>
-        )}
-
         {/* Center - Navigation Links (desktop) */}
         <div
           className={`

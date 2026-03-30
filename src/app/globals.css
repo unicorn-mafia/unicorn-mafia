@@ -8,23 +8,6 @@ html {
   overflow-y: scroll;
 }
 
-@keyframes balloonRise {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  8% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 0.7;
-  }
-  100% {
-    transform: translateY(-70px);
-    opacity: 0;
-  }
-}
-
 @theme {
   --text-10xl: 9rem;
   --tracking-tightest: -0.08em;
