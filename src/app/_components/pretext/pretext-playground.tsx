@@ -7,9 +7,32 @@ import { useDraggable } from "./use-draggable";
 import { TextRenderer } from "./text-renderer";
 import { MANIFESTO_TEXT } from "./manifesto-text";
 
-const UNICORN_SIZE = 120;
+const UNICORN_SIZE = 260;
 const LINE_HEIGHT = 26;
 const FONT_SPEC = '400 16px "PPNeueMontrealMono", monospace';
+
+// Static ASCII unicorn art
+const ASCII_UNICORN = `        . ....       ::.:
+  :-:..       ::........ -.:--:
+   .:--:..   -.:....::.::-:--.
+  ::-:......  . ..-:=.-:-=:.
+    -:--:.............-::-::
+      -::.......:.....::.
+       :--.... ........:...
+      ---.:.:................
+     -:-:.:-.:.................
+   =:-:-::....................
+  %:-::-......=%%%..........:.
+  ::::::.......%%%%......:::
+  ::-::......... ..........::
+  ::--:...............:......-:.
+  :-::................-........:.
+  ---:..-.:.....:::::........
+   -..::.........::..........
+   --::::::.  . ..:-.....   ...
+     -::.::.....:-:......
+        ::::::..:  -:.....
+                     :.... .   `;
 
 export default function PretextPlayground() {
   const [measureRef, bounds] = useMeasure();
@@ -21,8 +44,8 @@ export default function PretextPlayground() {
   const { position, isDragging, lastDirection, handlers } = useDraggable({
     containerRef,
     initialPosition: {
-      x: bounds.width ? bounds.width / 2 - UNICORN_SIZE / 2 : 300,
-      y: 200,
+      x: bounds.width ? bounds.width / 2 - UNICORN_SIZE / 2 : 200,
+      y: 160,
     },
     size: UNICORN_SIZE,
   });
@@ -87,30 +110,28 @@ export default function PretextPlayground() {
               </p>
             )}
 
-            {/* Draggable unicorn */}
+            {/* Draggable ASCII unicorn */}
             {ready && (
-              <img
-                src="/uniiii.gif"
-                alt="Drag me"
-                draggable={false}
-                className="absolute z-10"
+              <pre
+                className="absolute z-10 leading-none select-none font-body text-neutral-900"
                 style={{
                   left: `${position.x}px`,
                   top: `${position.y}px`,
                   width: `${UNICORN_SIZE}px`,
-                  height: `${UNICORN_SIZE}px`,
+                  fontSize: "9px",
+                  letterSpacing: "0.5px",
                   cursor: isDragging ? "grabbing" : "grab",
                   touchAction: "none",
                   transform:
                     lastDirection === "left" ? "scaleX(-1)" : "scaleX(1)",
-                  userSelect: "none",
-                  opacity: 0.9,
                 }}
                 onPointerDown={(e) => {
                   if (!hasInteracted) setHasInteracted(true);
                   handlers.onPointerDown(e);
                 }}
-              />
+              >
+                {ASCII_UNICORN}
+              </pre>
             )}
 
             {/* Drag hint */}
@@ -119,12 +140,12 @@ export default function PretextPlayground() {
                 className="absolute z-20 pointer-events-none"
                 style={{
                   left: `${position.x + UNICORN_SIZE / 2}px`,
-                  top: `${position.y - 28}px`,
+                  top: `${position.y - 24}px`,
                   transform: "translateX(-50%)",
                 }}
               >
                 <span className="text-[10px] font-body text-neutral-400 tracking-widest animate-pulse">
-                  DRAG ME
+                  ← DRAG ME →
                 </span>
               </div>
             )}
