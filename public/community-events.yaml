@@ -373,7 +373,7 @@
   location: "London, England"
   url: "https://london.aitinkerers.org/p/ai-tinkerers-london-7th-april-featuring-fireside-chat-with-julien-bek-partner-at-sequoia"
   featured: true
-  borderColors: ["#1B1464", "#FFFFFF"]
+  borderColors: ["#007552", "#00A876"]
 
 - name: "Fuckup Nights London #6"
   start: "2026-04-01T17:00:00.000Z"
