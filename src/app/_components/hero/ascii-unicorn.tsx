@@ -2,7 +2,7 @@
 
 import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { AsciiRenderer, useGLTF } from "@react-three/drei";
+import { AsciiRenderer, useGLTF, Environment } from "@react-three/drei";
 import * as THREE from "three";
 
 interface ModelProps {
@@ -63,6 +63,7 @@ export default function AsciiUnicorn() {
 
       <Suspense fallback={null}>
         <UnicornModel scale={10} position={[0, -1.6, 0]} />
+        <Environment preset="studio" />
       </Suspense>
 
       <DeferredAsciiRenderer
