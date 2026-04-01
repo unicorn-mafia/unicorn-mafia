@@ -18,7 +18,23 @@ export function middleware(request: NextRequest) {
 
   // Proxy /assets/* for Vite's absolute asset paths loaded by the Lovable app
   if (pathname.startsWith("/assets/")) {
-    return NextResponse.rewrite(new URL(pathname, LOVABLE_ORIGIN));
+    const referer = request.headers.get("referer");
+
+    if (referer) {
+      try {
+        const refererUrl = new URL(referer);
+        const isLovableReferer =
+          refererUrl.origin === request.nextUrl.origin &&
+          (refererUrl.pathname === "/london-to-sf" ||
+            refererUrl.pathname.startsWith("/london-to-sf/"));
+
+        if (isLovableReferer) {
+          return NextResponse.rewrite(new URL(pathname, LOVABLE_ORIGIN));
+        }
+      } catch {
+        // Ignore invalid Referer values and continue without rewriting.
+      }
+    }
   }
 
   return NextResponse.next();
