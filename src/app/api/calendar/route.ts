@@ -212,28 +212,32 @@ export async function GET() {
         : Promise.resolve([]),
     ]);
 
-    // Enrich events, tagging by source calendar
-    const enrichUM = umRawEvents.map(async (event) => {
-      const externalUrl = extractUrl(event);
-      const imageUrl = externalUrl ? await fetchOgImage(externalUrl) : null;
-      return {
-        ...event,
-        externalUrl: externalUrl || undefined,
-        imageUrl: imageUrl || undefined,
-        hostedByUM: true,
-      };
-    });
+    // Enrich events, tagging by source calendar (skip events without a summary)
+    const enrichUM = umRawEvents
+      .filter((e) => e.summary)
+      .map(async (event) => {
+        const externalUrl = extractUrl(event);
+        const imageUrl = externalUrl ? await fetchOgImage(externalUrl) : null;
+        return {
+          ...event,
+          externalUrl: externalUrl || undefined,
+          imageUrl: imageUrl || undefined,
+          hostedByUM: true,
+        };
+      });
 
-    const enrichCommunity = communityRawEvents.map(async (event) => {
-      const externalUrl = extractUrl(event);
-      const imageUrl = externalUrl ? await fetchOgImage(externalUrl) : null;
-      return {
-        ...event,
-        externalUrl: externalUrl || undefined,
-        imageUrl: imageUrl || undefined,
-        hostedByUM: false,
-      };
-    });
+    const enrichCommunity = communityRawEvents
+      .filter((e) => e.summary)
+      .map(async (event) => {
+        const externalUrl = extractUrl(event);
+        const imageUrl = externalUrl ? await fetchOgImage(externalUrl) : null;
+        return {
+          ...event,
+          externalUrl: externalUrl || undefined,
+          imageUrl: imageUrl || undefined,
+          hostedByUM: false,
+        };
+      });
 
     const enrichedEvents = await Promise.all([...enrichUM, ...enrichCommunity]);
 
