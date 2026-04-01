@@ -489,6 +489,13 @@
   location: "London, England"
   url: "https://luma.com/2hb4eyne"
 
+- name: "Forward Deployed Evening"
+  start: "2026-04-28T17:30:00.000Z"
+  end: "2026-04-28T20:30:00.000Z"
+  cover: "https://images.lumacdn.com/event-covers/hf/8fe6fdad-df17-4b16-a996-35d8f39dfc4f.png"
+  location: "London, England"
+  url: "https://luma.com/fdeevening"
+
 - name: "Going Global — Building Expansion & GTM Engines"
   start: "2026-04-29T17:30:00.000Z"
   end: "2026-04-29T20:30:00.000Z"
