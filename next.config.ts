@@ -11,6 +11,14 @@ const nextConfig: NextConfig = {
         source: "/ingest/:path*",
         destination: "https://eu.i.posthog.com/:path*",
       },
+      {
+        source: "/london-to-sf",
+        destination: "https://london-to-sf.lovable.app/",
+      },
+      {
+        source: "/london-to-sf/:path*",
+        destination: "https://london-to-sf.lovable.app/:path*",
+      },
     ];
   },
   // Required to support PostHog trailing slash API requests
