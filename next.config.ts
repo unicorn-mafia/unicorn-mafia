@@ -27,6 +27,13 @@ const nextConfig: NextConfig = {
         {
           source: "/assets/:path*",
           destination: "https://london-to-sf.lovable.app/assets/:path*",
+          has: [
+            {
+              type: "header",
+              key: "referer",
+              value: ".*/(?:london-to-sf|assets/).*",
+            },
+          ],
         },
       ],
     };
