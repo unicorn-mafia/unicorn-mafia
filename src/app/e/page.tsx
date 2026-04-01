@@ -63,7 +63,7 @@ function groupEventsByDate(events: CalendarEvent[]) {
 export default function EventsPage() {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [showUpcomingOnly, setShowUpcomingOnly] = useState(true);
   const [sourceFilter, setSourceFilter] = useState<SourceFilter>("all");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -72,13 +72,13 @@ export default function EventsPage() {
   useEffect(() => {
     const load = async () => {
       setLoading(true);
-      setError(false);
+      setError(null);
       try {
         const data = await loadEvents();
         setEvents(data.events);
       } catch (err) {
         console.error("Failed to load events:", err);
-        setError(true);
+        setError(err instanceof Error ? err.message : "Failed to load events");
       } finally {
         setLoading(false);
       }
@@ -160,10 +160,11 @@ export default function EventsPage() {
   if (error) {
     return (
       <div className="flex-1 flex items-center justify-center mt-12">
-        <div className="border border-neutral-600 bg-neutral-50 p-6">
+        <div className="border border-neutral-600 bg-neutral-50 p-6 max-w-md">
           <div className="text-sm font-body tracking-wide text-neutral-900">
             FAILED TO LOAD EVENTS
           </div>
+          <p className="text-xs font-body text-neutral-500 mt-2">{error}</p>
         </div>
       </div>
     );

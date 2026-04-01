@@ -23,7 +23,8 @@ interface EventCardProps {
   index: number;
 }
 
-function stripLeadingEmojis(text: string): string {
+function stripLeadingEmojis(text: string | undefined): string {
+  if (!text) return "";
   return text
     .replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\s]+/u, "")
     .trim();
