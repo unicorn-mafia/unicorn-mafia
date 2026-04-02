@@ -4,7 +4,7 @@ import Image from "next/image";
 const ASPECT = 1200 / 896;
 
 interface BouncerSpriteProps {
-  height?: number;
+  height: number;
 }
 
 export function BouncerSprite({ height = 57 }: BouncerSpriteProps) {

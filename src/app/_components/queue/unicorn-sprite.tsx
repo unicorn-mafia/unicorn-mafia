@@ -6,7 +6,7 @@ const ASPECT = 578 / 432;
 
 interface UnicornSpriteProps {
   index: number;
-  height?: number;
+  height: number;
 }
 
 export function UnicornSprite({ index, height = 39 }: UnicornSpriteProps) {
