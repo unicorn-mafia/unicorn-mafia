@@ -1,4 +1,4 @@
-export const WAITLIST_COUNT_FALLBACK = 247;
+export const WAITLIST_COUNT_FALLBACK = 200;
 export const QUEUE_CAP = 200;
 
 export function mapCountToVisual(count: number): number {

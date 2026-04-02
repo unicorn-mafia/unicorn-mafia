@@ -5,6 +5,7 @@ import {
   WAITLIST_COUNT_FALLBACK,
   mapCountToVisual,
 } from "@/app/_lib/queue-config";
+import Image from "next/image";
 import { BouncerSprite } from "./bouncer-sprite";
 import { UnicornSprite } from "./unicorn-sprite";
 import styles from "./queue.module.css";
@@ -36,10 +37,10 @@ export function NightclubQueue({ compact = false }: NightclubQueueProps) {
   const visibleCount = mapCountToVisual(count);
 
   return (
-    <div className="overflow-hidden" style={{ backgroundColor: "#14120B" }}>
+    <div style={{ backgroundColor: "#14120B", position: "relative" }}>
       {/* Scene strip: queue on left, door+bouncer anchored right */}
       <div
-        className="flex flex-row items-end overflow-hidden"
+        className="flex flex-row items-end"
         style={{ height: containerHeight }}
       >
         {/* Unicorn queue — row-reverse so index 0 is rightmost (closest to door) */}
@@ -58,7 +59,23 @@ export function NightclubQueue({ compact = false }: NightclubQueueProps) {
         </div>
 
         {/* Door + bouncer anchored to right */}
-        <BouncerSprite height={bouncerHeight} />
+        <div style={{ position: "relative", flexShrink: 0 }}>
+          <BouncerSprite height={bouncerHeight} />
+          <a
+            href="https://x.com/amoneill_"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ position: "absolute", bottom: 0, right: 0, zIndex: 10 }}
+          >
+            <Image
+              src="/plant-easter-egg.png"
+              alt=""
+              width={18}
+              height={18}
+              style={{ imageRendering: "pixelated", display: "block" }}
+            />
+          </a>
+        </div>
       </div>
 
       {/* Queue info */}
@@ -75,16 +92,6 @@ export function NightclubQueue({ compact = false }: NightclubQueueProps) {
           }}
         >
           {count.toLocaleString()} applicants in line
-        </span>
-        <span
-          className="font-body"
-          style={{
-            fontSize: compact ? 9 : 10,
-            color: "#555",
-            letterSpacing: "0.04em",
-          }}
-        >
-          We review every application
         </span>
       </div>
     </div>
