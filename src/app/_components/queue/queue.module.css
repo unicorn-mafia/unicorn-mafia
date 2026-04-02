@@ -1,0 +1,30 @@
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.unicorn {
+  animation: bob 2s ease-in-out infinite;
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.queueRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  min-width: 0;
+  overflow: hidden;
+  flex: 1;
+}
+
+.fadeLeft {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 45%);
+  mask-image: linear-gradient(to right, transparent 0%, black 45%);
+}
