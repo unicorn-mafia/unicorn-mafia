@@ -17,7 +17,7 @@ export function UnicornSprite({ index, height = 39 }: UnicornSpriteProps) {
     <div className={styles.unicorn} style={{ animationDelay: `${delay}s` }}>
       <Image
         src="/unicorn-pixel.png"
-        alt=""
+        alt="Pixel Unicorn"
         width={width}
         height={height}
         style={{
