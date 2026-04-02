@@ -5,7 +5,10 @@ export const revalidate = 300; // cache for 5 minutes
 export async function GET() {
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
-    return NextResponse.json({ error: "GitHub connection not configured" }, { status: 500 });
+    return NextResponse.json(
+      { error: "GitHub connection not configured" },
+      { status: 500 },
+    );
   }
 
   const res = await fetch(
