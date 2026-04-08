@@ -9,12 +9,10 @@ export interface MenuItem {
 }
 
 export const menuItems: MenuItem[] = [
+  { label: "Team", href: "/t", shortcut: "T" },
   { label: "Hackathons", href: "/h", shortcut: "H" },
-  { label: "Companies", href: "/c", shortcut: "C" },
   { label: "Demos", href: "/d", shortcut: "D" },
   { label: "Events", href: "/e", shortcut: "E" },
-  { label: "London", href: "/l", shortcut: "L" },
-  { label: "Sponsors", href: "/s", shortcut: "S" },
 ];
 
 export function useKeyboardNav() {

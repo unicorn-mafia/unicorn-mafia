@@ -256,6 +256,7 @@ type HistoryItem = {
 
 const routes: Record<string, { path: string; description: string }> = {
   hackathons: { path: "/h", description: "hackathon wins by mafia members" },
+  team: { path: "/t", description: "team page" },
   companies: { path: "/c", description: "companies built by the community" },
   demos: { path: "/d", description: "demo nights & demo days" },
   contact: { path: "/#contact", description: "get in touch" },
@@ -309,6 +310,7 @@ export default function TerminalEasterEgg() {
   const getCurrentDir = () => {
     if (pathname === "/") return "~";
     if (pathname === "/h") return "~/hackathons";
+    if (pathname === "/t") return "~/team";
     if (pathname === "/c") return "~/companies";
     if (pathname.startsWith("/d")) return "~/demos";
     return "~" + pathname;

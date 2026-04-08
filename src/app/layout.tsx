@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Press_Start_2P } from "next/font/google";
 import "./globals.css";
 import Navbar from "./_components/navbar/navbar";
 import GallopingHorseFrame from "./_components/horse/galloping-horse-frame";
@@ -11,6 +12,13 @@ const ppNeueBit = localFont({
   src: "../../public/fonts/PPNeueBit-Bold.otf",
   display: "swap",
   variable: "--font-title",
+});
+
+const pressStart2P = Press_Start_2P({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-deck-pixel",
 });
 
 const ppNeueMontrealMono = localFont({
@@ -120,7 +128,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${ppNeueBit.variable} ${ppNeueMontrealMono.variable}`}
+      className={`${ppNeueBit.variable} ${ppNeueMontrealMono.variable} ${pressStart2P.variable}`}
     >
       <body className="antialiased bg-gray-300 min-h-screen">
         <TerminalEasterEgg />
