@@ -21,8 +21,8 @@ export default function About() {
             &quot;growth compounds in teams, not in isolation.&quot;
           </p>
           <p className="font-mono text-sm md:text-base text-neutral-600 leading-relaxed">
-            this community exists to create a space where builders help
-            builders accelerate.
+            this community exists to create a space where builders help builders
+            accelerate.
           </p>
         </div>
       </div>

@@ -43,6 +43,7 @@ export default function YugiohCard({
   linkedinUrl,
 }: YugiohCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
   const [scanDone, setScanDone] = useState(false);
   const [tilt, setTilt] = useState({
     rotateX: 0,
@@ -79,30 +80,14 @@ export default function YugiohCard({
     setTilt({ rotateX: 0, rotateY: 0, glareX: 50, glareY: 50 });
     setIsHovered(false);
   }, []);
-  const openLinkedin = useCallback(() => {
-    if (!linkedinUrl) return;
-    window.open(linkedinUrl, "_blank", "noopener,noreferrer");
-  }, [linkedinUrl]);
-
   const accentColor = isFounder ? "#FFD700" : fc.hex;
 
   return (
     <motion.div
       ref={cardRef}
-      className={`relative w-[290px] h-[450px] mx-auto select-none ${linkedinUrl ? "cursor-pointer" : ""}`}
+      className="relative w-full max-w-[290px] aspect-[29/45] mx-auto select-none"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onClick={openLinkedin}
-      onKeyDown={(e) => {
-        if (!linkedinUrl) return;
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          openLinkedin();
-        }
-      }}
-      role={linkedinUrl ? "link" : undefined}
-      tabIndex={linkedinUrl ? 0 : undefined}
-      aria-label={linkedinUrl ? `Open ${name} LinkedIn profile` : undefined}
       animate={{
         rotateX: tilt.rotateX,
         rotateY: tilt.rotateY,
@@ -263,6 +248,10 @@ export default function YugiohCard({
 
                 <div className="px-3 pb-3 relative z-10 flex-1 min-h-0">
                   <div
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={showDescription || isHovered}
+                    aria-label={`${showDescription || isHovered ? "Hide" : "Show"} ${name} bio`}
                     className="relative w-full h-full min-h-[200px] overflow-hidden cursor-pointer"
                     style={{
                       border: `1px solid ${accentColor}20`,
@@ -270,6 +259,13 @@ export default function YugiohCard({
                     }}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
+                    onClick={() => setShowDescription((v) => !v)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setShowDescription((v) => !v);
+                      }
+                    }}
                   >
                     <div className="relative w-full h-full">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -309,7 +305,8 @@ export default function YugiohCard({
                           className="absolute inset-0 z-[25] pointer-events-none"
                           style={{
                             background: `linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.05) 46%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.05) 54%, transparent 100%)`,
-                            animation: "team-deck-scan-once 2.5s ease-out forwards",
+                            animation:
+                              "team-deck-scan-once 2.5s ease-out forwards",
                           }}
                         />
                       ) : null}
@@ -362,7 +359,7 @@ export default function YugiohCard({
                     </div>
 
                     <AnimatePresence>
-                      {isHovered ? (
+                      {isHovered || showDescription ? (
                         <motion.div
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
@@ -405,6 +402,21 @@ export default function YugiohCard({
                     >
                       {title}
                     </p>
+                    {linkedinUrl ? (
+                      <a
+                        href={linkedinUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-deck-pixel text-[6px] tracking-[0.15em] uppercase mt-1 inline-block hover:underline"
+                        style={{
+                          color: accentColor,
+                          textShadow: `0 0 6px ${accentColor}40`,
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        LinkedIn →
+                      </a>
+                    ) : null}
                   </div>
                 </div>
               </div>

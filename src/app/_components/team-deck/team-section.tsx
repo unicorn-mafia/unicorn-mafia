@@ -76,15 +76,18 @@ export default function TeamDeckSection() {
       <section className="py-8 px-6 md:px-12 lg:px-20">
         <div className="relative flex flex-col items-center justify-center min-h-[480px]">
           {!isRevealed ? (
-            <motion.div
-              className="relative w-[290px] h-[450px] cursor-pointer"
+            <motion.button
+              type="button"
+              className="relative w-full max-w-[290px] aspect-[29/45] cursor-pointer"
               initial={false}
               onClick={() => setIsRevealed(true)}
+              aria-expanded={isRevealed}
+              aria-label="Reveal team cards"
             >
               {[...Array(4)].map((_, i) => (
                 <div
                   key={i}
-                  className="absolute top-0 left-0 w-[290px] h-[450px] rounded-lg"
+                  className="absolute inset-0 rounded-lg"
                   style={{
                     background:
                       "linear-gradient(160deg, #B307EB10 0%, #0a0a0f 30%, #0a0a0f 70%, #B307EB08 100%)",
@@ -95,10 +98,10 @@ export default function TeamDeckSection() {
                   }}
                 />
               ))}
-              <div className="absolute top-0 left-0 z-10">
+              <div className="absolute inset-0 z-10">
                 <CoverCard />
               </div>
-            </motion.div>
+            </motion.button>
           ) : (
             <div className="flex flex-wrap gap-8 justify-center w-full">
               {teamMembers.map((member, i) => (

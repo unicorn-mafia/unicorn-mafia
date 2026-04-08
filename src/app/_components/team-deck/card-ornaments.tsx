@@ -16,8 +16,16 @@ export const CornerOrnament = ({
       filter: `drop-shadow(0 0 4px ${color}60)`,
     }}
   >
-    <path d="M2 2 L2 14 L4 14 L4 4 L14 4 L14 2 Z" fill={color} fillOpacity={0.7} />
-    <path d="M6 6 L6 10 L7 10 L7 7 L10 7 L10 6 Z" fill={color} fillOpacity={0.5} />
+    <path
+      d="M2 2 L2 14 L4 14 L4 4 L14 4 L14 2 Z"
+      fill={color}
+      fillOpacity={0.7}
+    />
+    <path
+      d="M6 6 L6 10 L7 10 L7 7 L10 7 L10 6 Z"
+      fill={color}
+      fillOpacity={0.5}
+    />
     <rect
       x="3"
       y="3"

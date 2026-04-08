@@ -226,13 +226,10 @@ html {
   }
 }
 
-/* Team deck (/t) — card typography + animations (unicorn-whisperer-studio) */
-.team-deck-root .font-deck-pixel {
-  font-family: var(--font-deck-pixel), monospace;
-}
-
-/* Home page — whisperer-studio style pixel headings */
-.home-page-root .font-deck-pixel {
+/* Pixel font scoping — card typography + headings (unicorn-whisperer-studio) */
+.team-deck-root .font-deck-pixel,
+.home-page-root .font-deck-pixel,
+.hackathons-events-root .font-deck-pixel {
   font-family: var(--font-deck-pixel), monospace;
 }
 
@@ -302,11 +299,6 @@ html {
   100% {
     transform: translateY(200%);
   }
-}
-
-/* Hackathons page (/h) — unicorn-whisperer-studio EventsSection */
-.hackathons-events-root .font-deck-pixel {
-  font-family: var(--font-deck-pixel), monospace;
 }
 
 @keyframes hackathons-events-holographic {

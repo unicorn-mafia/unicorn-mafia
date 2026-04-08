@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: "Team | Unicorn Mafia",
     description: "Unicorn Mafia team.",
     url: "https://unicrnmafia.com/t",
-    locale: "en_US",
+    locale: "en_GB",
     type: "website",
     images: [
       {
