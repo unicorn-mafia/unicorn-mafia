@@ -2,48 +2,30 @@ import React from "react";
 
 export default function About() {
   return (
-    <div
+    <section
       id="about"
-      className="flex flex-col items-center justify-between w-full px-6 md:px-12 lg:px-20 pt-20 pb-24 gap-20"
+      className="w-full px-6 md:px-12 lg:px-20 py-20 md:py-28 border-b border-gray-200"
     >
-      <div className="w-full font-title font-medium text-3xl tracking-tighter">
-        about.
-      </div>
-      <div className="flex flex-col font-title font-medium text-5xl tracking-tight w-full gap-8">
-        <div className="flex flex-col gap-6 text-2xl text-gray-700">
-          <div>
-            Unicorn Mafia is an invite-only community of London&apos;s sharpest
-            developers.
-          </div>
-          <div className="italic">
-            &quot;The highest signal community of builders in London.&quot;
-          </div>
-        </div>
-        <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 md:gap-16 mt-8">
-          <div className="flex flex-col items-center">
-            <div className="font-mono text-5xl sm:text-6xl font-bold text-black">
-              500+
-            </div>
-            <div className="text-lg sm:text-xl text-gray-600">
-              Hackathon wins
-            </div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="font-mono text-5xl sm:text-6xl font-bold text-black">
-              30+
-            </div>
-            <div className="text-lg sm:text-xl text-gray-600">
-              Companies being built
-            </div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="font-mono text-5xl sm:text-6xl font-bold text-black">
-              850+
-            </div>
-            <div className="text-lg sm:text-xl text-gray-600">Developers</div>
-          </div>
+      <div className="max-w-2xl mx-auto flex flex-col gap-6 text-center">
+        <h2 className="font-deck-pixel text-lg sm:text-xl tracking-tight text-neutral-900">
+          about
+        </h2>
+
+        <div className="flex flex-col gap-4">
+          <p className="font-mono text-sm md:text-base text-neutral-600 leading-relaxed">
+            Unicorn Mafia is an{" "}
+            <span className="text-neutral-900">invite-only</span> community of
+            europe&apos;s sharpest developers.
+          </p>
+          <p className="font-mono text-sm md:text-base text-neutral-600 leading-relaxed">
+            &quot;growth compounds in teams, not in isolation.&quot;
+          </p>
+          <p className="font-mono text-sm md:text-base text-neutral-600 leading-relaxed">
+            this community exists to create a space where builders help builders
+            accelerate.
+          </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

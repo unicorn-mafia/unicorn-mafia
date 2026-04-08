@@ -93,7 +93,7 @@ export default function LinkedInBadgePage() {
             linkedin badge
           </h1>
           <p className="text-neutral-500 text-sm font-body">
-            add unicorn mafia to your profile
+            add <span className="uppercase">unicorn mafia</span> to your profile
           </p>
         </div>
 

@@ -659,7 +659,7 @@ export default function Navbar() {
                 <Link
                   key={item.shortcut}
                   href={item.href}
-                  className="hover:opacity-70 transition-opacity"
+                  className="nav-link transition-colors"
                   onClick={() => {
                     posthog.capture("nav_link_clicked", {
                       label: item.label,
@@ -670,6 +670,9 @@ export default function Navbar() {
                   }}
                 >
                   {item.label}
+                  <span className="keyboard-badge text-[0.65rem] px-2 py-1">
+                    {item.shortcut}
+                  </span>
                 </Link>
               ))}
             </div>

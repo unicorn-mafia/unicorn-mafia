@@ -5,14 +5,6 @@ import Image from "next/image";
 import posthog from "posthog-js";
 import styles from "./contact.module.css";
 import ContactForm from "@/components/contact-form";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
 
 export default function Contact() {
   return (
@@ -96,48 +88,14 @@ export default function Contact() {
           </a>
         </div>
         <Image
-          src="/footer-um.svg"
+          src="/footer-logo.png"
           alt="Unicorn Mafia"
-          width={672}
-          height={100}
-          className="w-full max-w-2xl opacity-40"
+          width={255}
+          height={255}
+          unoptimized
+          className="w-auto max-w-[min(4.5rem,15vw)] h-auto object-contain object-right object-top opacity-30 [image-rendering:pixelated]"
         />
-        <div className="flex flex-row text-white font-title font-medium text-md gap-4 mt-4">
-          <ContactForm>
-            <button className="hover:underline cursor-pointer">Sponsor</button>
-          </ContactForm>
-          <ContactForm>
-            <button className="hover:underline cursor-pointer">Invest</button>
-          </ContactForm>
-          <Dialog>
-            <DialogTrigger asChild>
-              <button className="hover:underline cursor-pointer">
-                Collaborate
-              </button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-sm">
-              <DialogHeader>
-                <DialogTitle className="font-title">Collaborate</DialogTitle>
-                <DialogDescription>
-                  How would you like to work with us?
-                </DialogDescription>
-              </DialogHeader>
-              <div className="flex flex-col gap-3 mt-2">
-                <a
-                  href="/partner_"
-                  className="block border border-black/10 px-4 py-3 hover:bg-black/5 transition-colors rounded font-body text-sm"
-                >
-                  Partnership
-                </a>
-                <a
-                  href="/event_"
-                  className="block border border-black/10 px-4 py-3 hover:bg-black/5 transition-colors rounded font-body text-sm"
-                >
-                  Events / Hackathons
-                </a>
-              </div>
-            </DialogContent>
-          </Dialog>
+        <div className="flex flex-row flex-wrap justify-center text-white font-title font-medium text-md gap-4 mt-4">
           <a href="/brand" className="hover:underline">
             Brand
           </a>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import Image from "next/image";
 import { loadEvents } from "../_lib/calendar-data";
 import type { CalendarEvent } from "../_types/calendar";
 import { EventListItem } from "../_components/calendar/event-list-item";
@@ -84,6 +85,12 @@ export default function EventsPage() {
       }
     };
     load();
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const f = params.get("filter") ?? params.get("source");
+    if (f === "um") setSourceFilter("um");
   }, []);
 
   const filteredEvents = useMemo(() => {
@@ -192,10 +199,12 @@ export default function EventsPage() {
                       <span className="text-[9px] font-body text-neutral-400 tracking-wider">
                         POWERED BY
                       </span>
-                      <img
+                      <Image
                         src="/elevenlabs-logo.svg"
                         alt="ElevenLabs"
-                        className="h-2.5"
+                        width={100}
+                        height={10}
+                        className="h-2.5 w-auto"
                       />
                     </a>
                   )}
