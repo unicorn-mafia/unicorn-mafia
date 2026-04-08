@@ -13,7 +13,7 @@ export default function About() {
 
         <div className="flex flex-col gap-4">
           <p className="font-mono text-sm md:text-base text-neutral-600 leading-relaxed">
-            <span className="uppercase">unicorn mafia</span> is an{" "}
+            Unicorn Mafia is an{" "}
             <span className="text-neutral-900">invite-only</span> community of
             europe&apos;s sharpest developers.
           </p>
@@ -21,8 +21,8 @@ export default function About() {
             &quot;growth compounds in teams, not in isolation.&quot;
           </p>
           <p className="font-mono text-sm md:text-base text-neutral-600 leading-relaxed">
-            this community exists to create a space where builders help
-            builders accelerate.
+            this community exists to create a space where builders help builders
+            accelerate.
           </p>
         </div>
       </div>

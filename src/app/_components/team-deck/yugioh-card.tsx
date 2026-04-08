@@ -261,9 +261,9 @@ export default function YugiohCard({
                   </div>
                 </div>
 
-                <div className="px-3 pb-3 relative z-10 flex-1 min-h-0">
+                <div className="px-3 pb-3 relative z-10 flex flex-1 min-h-0 flex-col gap-1.5">
                   <div
-                    className="relative w-full h-full min-h-[200px] overflow-hidden cursor-pointer"
+                    className="relative min-h-[168px] w-full flex-1 cursor-pointer overflow-hidden"
                     style={{
                       border: `1px solid ${accentColor}20`,
                       background: "rgba(0,0,0,0.9)",
@@ -309,7 +309,8 @@ export default function YugiohCard({
                           className="absolute inset-0 z-[25] pointer-events-none"
                           style={{
                             background: `linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.05) 46%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.05) 54%, transparent 100%)`,
-                            animation: "team-deck-scan-once 2.5s ease-out forwards",
+                            animation:
+                              "team-deck-scan-once 2.5s ease-out forwards",
                           }}
                         />
                       ) : null}
@@ -380,6 +381,12 @@ export default function YugiohCard({
                       ) : null}
                     </AnimatePresence>
                   </div>
+                  <p
+                    className="shrink-0 px-0.5 font-mono text-[6px] leading-snug text-white/55 line-clamp-3"
+                    title={description}
+                  >
+                    {description}
+                  </p>
                 </div>
 
                 <div className="px-3 pb-2 relative z-10 shrink-0">

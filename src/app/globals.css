@@ -61,11 +61,16 @@ html {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: opacity 0.2s ease;
+  transition:
+    color 0.2s ease,
+    font-weight 0.15s ease;
 }
 
-.nav-link:hover {
-  opacity: 0.7;
+.nav-link:hover,
+.nav-link:focus-visible,
+.nav-link:active {
+  color: rgb(0 0 0 / 0.88);
+  font-weight: 700;
 }
 
 /* Infinite scroll carousel animation */
@@ -86,7 +91,7 @@ html {
   animation-play-state: paused;
 }
 
-/* Keyboard shortcut badge */
+/* Keyboard shortcut badge — always black/neutral; bold on hover / press / focus */
 .keyboard-badge {
   display: inline-flex;
   align-items: center;
@@ -97,13 +102,22 @@ html {
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.025em;
-  border: 1px solid black;
+  border: 2px solid rgb(0 0 0 / 0.22);
   border-radius: 0.25rem;
-  opacity: 0.6;
-  transition: opacity 0.2s ease;
+  color: rgb(0 0 0 / 0.45);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    font-weight 0.15s ease,
+    opacity 0.2s ease;
 }
 
-.nav-link:hover .keyboard-badge {
+.nav-link:hover .keyboard-badge,
+.nav-link:focus-visible .keyboard-badge,
+.nav-link:active .keyboard-badge {
+  color: #000000;
+  border-color: #000000;
+  font-weight: 700;
   opacity: 1;
 }
 

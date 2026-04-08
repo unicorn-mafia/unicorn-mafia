@@ -11,16 +11,10 @@ export default function Hackathons() {
                 hackathons
               </h1>
             </div>
-            <div className="space-y-3 text-sm text-neutral-700 font-body max-w-2xl leading-relaxed">
-              <p>
-                we host our own hackathons, deploy the best builders to compete
-                globally, and co-run events with partners:
-              </p>
-              <p className="text-neutral-600 italic">
-                we care about putting the best builders in the right rooms, and
-                giving them the tools to build.
-              </p>
-            </div>
+            <p className="text-sm text-neutral-700 font-body max-w-2xl leading-relaxed">
+              we host our own hackathons, deploy the best builders to compete
+              globally, and co-run events with partners:
+            </p>
           </div>
         </div>
       </section>

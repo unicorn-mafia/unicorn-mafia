@@ -12,8 +12,7 @@ export default function TeamPage() {
               </h1>
             </div>
             <p className="text-sm text-neutral-700 font-body max-w-2xl leading-relaxed">
-              the{" "}
-              <span className="uppercase">unicorn mafia</span> core team in
+              the <span className="uppercase">unicorn mafia</span> core team in
               trading-card form.
             </p>
           </div>

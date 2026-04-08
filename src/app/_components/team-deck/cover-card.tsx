@@ -61,7 +61,9 @@ export default function CoverCard() {
         style={{
           background: `linear-gradient(145deg, ${goldLight}40, ${goldDark}60, ${gold}30, ${goldDark}50, ${goldLight}35)`,
           backgroundSize: "400% 400%",
-          animation: isHovered ? "team-deck-holographic 6s ease infinite" : "none",
+          animation: isHovered
+            ? "team-deck-holographic 6s ease infinite"
+            : "none",
           padding: "4px",
           boxShadow: `0 0 0 1px ${gold}30, inset 0 0 0 1px ${gold}15, 0 0 ${isHovered ? "40px" : "15px"} ${gold}15, 0 12px 40px rgba(0,0,0,0.9)`,
           transition: "box-shadow 0.4s ease",
@@ -80,7 +82,9 @@ export default function CoverCard() {
             style={{
               background: `linear-gradient(135deg, ${gold}50, ${goldDark}40, ${goldLight}30, ${gold}45)`,
               backgroundSize: "300% 300%",
-              animation: isHovered ? "team-deck-holographic 5s ease infinite" : "none",
+              animation: isHovered
+                ? "team-deck-holographic 5s ease infinite"
+                : "none",
               padding: "2px",
             }}
           >
@@ -132,7 +136,9 @@ export default function CoverCard() {
                     background:
                       "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.03) 55%, transparent 60%)",
                     backgroundSize: "200% 100%",
-                    animation: isHovered ? "team-deck-holographic 3s ease infinite" : "none",
+                    animation: isHovered
+                      ? "team-deck-holographic 3s ease infinite"
+                      : "none",
                     opacity: isHovered ? 1 : 0,
                   }}
                 />
@@ -170,7 +176,11 @@ export default function CoverCard() {
                       transition: "color 0.4s ease, text-shadow 0.4s ease",
                     }}
                     animate={{ opacity: [0.5, 1, 0.5] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                   >
                     the team →
                   </motion.p>
