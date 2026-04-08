@@ -15,7 +15,7 @@ const teamMembers: YugiohCardProps[] = [
     title: "Founder / Director",
     avatar: "/team-deck/avatar-charlie.png",
     description:
-      "Strategic leader and ex-EY Parthenon consultant who helped define the UK’s national AI strategy. Founder of the 'Unicorn Mafia' developer community. Charlie bridges the gap between complex enterprise data and rapid, outcome-led value creation, helping FTSE100 companies deploy at startup speed.",
+      "Strategic leader and ex-EY Parthenon consultant who helped define the UK’s national AI strategy. Founder of the 'UNICORN MAFIA' developer community. Charlie bridges the gap between complex enterprise data and rapid, outcome-led value creation, helping FTSE100 companies deploy at startup speed.",
     faction: "purple",
     isFounder: true,
     personalIcon: "/team-deck/icon-charlie.png",
@@ -38,7 +38,7 @@ const teamMembers: YugiohCardProps[] = [
     avatar: "/team-deck/avatar-fatema.png",
     avatarPosition: "center 22%",
     description:
-      "Early-stage ecosystem builder who started in Finland at Aaltoes, running events for Slush—Europes largest tech conference. Built and led a region-wide scout network connecting startups with Middle Eastern VCs. Now architects Unicorn Mafia around a simple thesis—the vibe flywheel: more connections, more luck, more unicorns.",
+      "Early-stage ecosystem builder who started in Finland at Aaltoes, running events for Slush—Europes largest tech conference. Built and led a region-wide scout network connecting startups with Middle Eastern VCs. Now architects UNICORN MAFIA around a simple thesis—the vibe flywheel: more connections, more luck, more unicorns.",
     faction: "blue",
     isFounder: false,
     personalIcon: "/team-deck/icon-fatema.png",

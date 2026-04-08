@@ -50,7 +50,7 @@ const events: EventData[] = [
     location: "London",
     cardLabel: "Co-op",
     image: MOZART_IMG,
-    tagline: "OpenAI × ElevenLabs × Unicorn Mafia",
+    tagline: "OpenAI × ElevenLabs × UNICORN MAFIA",
     metrics: [
       { label: "SIGNUPS", value: "300+" },
       { label: "PARTNERS", value: "OpenAI · ElevenLabs" },
@@ -165,7 +165,7 @@ const MilestoneBar = ({
       transition={{ delay, duration: 0.4 }}
       className="flex items-center gap-5 max-w-2xl"
     >
-      <span className="font-deck-pixel text-[8px] md:text-[9px] tracking-[0.2em] uppercase w-28 md:w-32 text-left text-neutral-900/50 shrink-0">
+      <span className="font-body text-[10px] md:text-[11px] tracking-normal normal-case w-28 md:w-32 text-left text-neutral-900/50 shrink-0">
         {label}
       </span>
       <div className="flex gap-[3px] h-5 md:h-6 items-center flex-1">
@@ -187,7 +187,7 @@ const MilestoneBar = ({
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: delay + filled * 0.08 + 0.15, duration: 0.3, ease: "backOut" }}
-          className="font-deck-pixel text-xs md:text-sm text-neutral-900 ml-2 whitespace-nowrap"
+          className="font-body text-xs md:text-sm text-neutral-900 ml-2 whitespace-nowrap normal-case"
         >
           {displayValue}
         </motion.span>
@@ -461,7 +461,7 @@ const EventCard = ({
                       }}
                     >
                       <h3
-                        className="font-deck-pixel text-[11px] tracking-wider leading-tight flex-1 text-white"
+                        className="font-deck-pixel text-[11px] tracking-wider leading-tight flex-1 text-white uppercase"
                         style={{ textShadow: "0 0 10px rgba(255,255,255,0.3)" }}
                       >
                         {event.title}
@@ -671,7 +671,9 @@ const EventCard = ({
 
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-1.5 h-1.5 rounded-full animate-pulse bg-white/40" />
-                  <span className="font-deck-pixel text-[7px] tracking-[0.25em] uppercase text-white/60">INTEL LOG</span>
+                  <span className="font-deck-pixel text-[7px] tracking-[0.25em] uppercase text-white/60">
+                    INTEL LOG
+                  </span>
                 </div>
                 <div className="space-y-2.5">
                   {event.metrics.map((m, i) => (
@@ -708,9 +710,9 @@ const EventCard = ({
 const allLabels: CardLabel[] = ["Hosted", "Forward Deployed", "Co-op"];
 
 const labelDescriptions: Record<CardLabel, string> = {
-  "Hosted": "Hosted in the Stable",
-  "Forward Deployed": "Builders sent to win globally",
-  "Co-op": "Run alongside partners",
+  "Hosted": "hosted in the stable",
+  "Forward Deployed": "builders sent to win globally",
+  "Co-op": "run alongside partners",
 };
 
 const EventsSection = () => {
@@ -721,45 +723,26 @@ const EventsSection = () => {
 
   return (
     <div className="hackathons-events-root">
-    <section id="events" className="w-full px-6 md:px-12 py-16 border-b border-neutral-300">
-      {/* Header */}
-      <div className="mb-8">
-        <h2
-          className="font-deck-pixel text-lg md:text-xl text-neutral-900 mb-3"
-          style={{ textShadow: "0 0 12px rgba(0,0,0,0.08)" }}
-        >
-          Hackathons
-        </h2>
-        <p className="font-mono text-xs text-neutral-500 mb-1">
-          We are the arena where the best builders compete.
-        </p>
-        <p className="font-mono text-xs text-neutral-500 mb-2">
-          We host our own hackathons, deploy the best builders to compete globally, and co-run events with partners:
-        </p>
-        <p className="font-mono text-[11px] text-neutral-500/80 italic">
-          We care about putting the best builders in the right rooms, and they do the winning!
-        </p>
-      </div>
-
+    <section id="events" className="w-full px-6 md:px-12 lg:px-20 py-12 border-b border-neutral-300">
       {/* Stacked milestone bars — themed */}
       <div className="mb-10 space-y-5 max-w-2xl">
         <div className="flex items-center gap-2 mb-3">
           <div className="w-1.5 h-1.5 rounded-full bg-neutral-900/30 animate-pulse" />
-          <span className="font-deck-pixel text-[8px] tracking-[0.3em] uppercase text-neutral-900/40">MILESTONES</span>
+          <span className="font-body text-xs text-neutral-900/50 normal-case">milestones</span>
         </div>
-        <MilestoneBar label="HACKATHONS HOSTED" filled={6} total={12} displayValue="6" color="#B307EB" delay={0.2} />
-        <MilestoneBar label="HACKATHON WINS" filled={10} total={20} displayValue="500+" color="#3198F1" delay={1.0} />
-        <MilestoneBar label="X VIEWS" filled={7} total={20} displayValue="361K+" color="#4EF9BD" delay={2.0} />
-        <MilestoneBar label="CITIES" filled={5} total={10} displayValue="5" color="#EE1701" delay={2.9} />
+        <MilestoneBar label="hackathons hosted" filled={6} total={12} displayValue="6" color="#B307EB" delay={0.2} />
+        <MilestoneBar label="hackathon wins" filled={10} total={20} displayValue="500+" color="#3198F1" delay={1.0} />
+        <MilestoneBar label="x views" filled={7} total={20} displayValue="361k+" color="#4EF9BD" delay={2.0} />
+        <MilestoneBar label="cities" filled={5} total={10} displayValue="5" color="#EE1701" delay={2.9} />
       </div>
 
       {/* Filter buttons */}
       <div className="mb-8 flex flex-wrap items-center gap-2">
-        <span className="font-deck-pixel text-[8px] tracking-[0.2em] uppercase text-neutral-900/40 mr-1">Filter:</span>
+        <span className="font-body text-xs text-neutral-900/50 mr-1 normal-case">filter:</span>
         <button
           type="button"
           onClick={() => setActiveFilter(null)}
-          className={`relative cursor-pointer font-deck-pixel text-[8px] tracking-[0.15em] uppercase px-3 py-1.5 rounded-sm border overflow-hidden transition-colors duration-200 ${
+          className={`relative cursor-pointer font-body text-[10px] tracking-normal normal-case px-3 py-1.5 rounded-sm border overflow-hidden transition-colors duration-200 ${
             activeFilter === null
               ? "text-[#EE1701] border-[#EE170180] shadow-[0_0_12px_#EE170120]"
               : "text-white/70 border-white/10 hover:text-[#EE1701]"
@@ -776,7 +759,7 @@ const EventsSection = () => {
               backgroundSize: "3px 3px",
             }}
           />
-          <span className="relative z-10">All</span>
+          <span className="relative z-10">all</span>
         </button>
         {allLabels.map((label) => {
           const c = labelColors[label];
@@ -786,7 +769,7 @@ const EventsSection = () => {
               <button
                 type="button"
                 onClick={() => setActiveFilter(activeFilter === label ? null : label)}
-                className="group relative cursor-pointer font-deck-pixel text-[8px] tracking-[0.15em] uppercase px-3 py-1.5 rounded-sm border overflow-hidden transition-colors duration-200"
+                className="group relative cursor-pointer font-body text-[10px] tracking-normal normal-case px-3 py-1.5 rounded-sm border overflow-hidden transition-colors duration-200"
                 style={{
                   ...( { "--accent": c } as React.CSSProperties ),
                   background: "rgba(10, 10, 16, 0.95)",
@@ -810,7 +793,7 @@ const EventsSection = () => {
                   }`}
                   style={isActive ? { color: c } : undefined}
                 >
-                  {label}
+                  {label.toLowerCase()}
                 </span>
               </button>
               {/* Hover tooltip */}

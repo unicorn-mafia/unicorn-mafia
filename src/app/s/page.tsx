@@ -63,7 +63,8 @@ export default function Sponsors() {
               </h1>
             </div>
             <p className="text-sm text-neutral-700 font-body max-w-2xl mb-4 leading-relaxed">
-              Companies and partners that support the Unicorn Mafia community.
+              Companies and partners that support the{" "}
+              <span className="uppercase">unicorn mafia</span> community.
             </p>
             <div className="text-xs font-body text-neutral-600 tracking-wide">
               <span className="border border-neutral-400 px-2 py-1 bg-white">

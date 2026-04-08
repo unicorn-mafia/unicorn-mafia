@@ -7,12 +7,14 @@ export default function TeamPage() {
         <div className="max-w-6xl mx-auto">
           <div className="border border-neutral-600 bg-neutral-50 p-6">
             <div className="mb-4">
-              <h1 className="text-2xl font-medium font-body text-neutral-900 tracking-wide">
-                TEAM
+              <h1 className="text-2xl font-medium font-body text-neutral-900 tracking-wide uppercase">
+                team
               </h1>
             </div>
             <p className="text-sm text-neutral-700 font-body max-w-2xl leading-relaxed">
-              The unicorn mafia core team in trading-card form.
+              the{" "}
+              <span className="uppercase">unicorn mafia</span> core team in
+              trading-card form.
             </p>
           </div>
         </div>
