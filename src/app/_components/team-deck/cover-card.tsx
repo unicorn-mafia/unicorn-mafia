@@ -44,7 +44,7 @@ export default function CoverCard() {
   return (
     <motion.div
       ref={cardRef}
-      className="w-[290px] h-[450px] select-none"
+      className="w-full max-w-[290px] aspect-[29/45] select-none"
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

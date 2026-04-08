@@ -78,7 +78,7 @@ export default function TeamDeckSection() {
           {!isRevealed ? (
             <motion.button
               type="button"
-              className="relative w-[290px] h-[450px] cursor-pointer"
+              className="relative w-full max-w-[290px] aspect-[29/45] cursor-pointer"
               initial={false}
               onClick={() => setIsRevealed(true)}
               aria-expanded={isRevealed}
@@ -87,7 +87,7 @@ export default function TeamDeckSection() {
               {[...Array(4)].map((_, i) => (
                 <div
                   key={i}
-                  className="absolute top-0 left-0 w-[290px] h-[450px] rounded-lg"
+                  className="absolute top-0 left-0 w-full h-full rounded-lg"
                   style={{
                     background:
                       "linear-gradient(160deg, #B307EB10 0%, #0a0a0f 30%, #0a0a0f 70%, #B307EB08 100%)",
@@ -98,7 +98,7 @@ export default function TeamDeckSection() {
                   }}
                 />
               ))}
-              <div className="absolute top-0 left-0 z-10">
+              <div className="absolute top-0 left-0 w-full h-full z-10">
                 <CoverCard />
               </div>
             </motion.button>

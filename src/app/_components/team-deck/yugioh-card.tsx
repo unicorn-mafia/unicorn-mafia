@@ -89,7 +89,7 @@ export default function YugiohCard({
   return (
     <motion.div
       ref={cardRef}
-      className={`relative w-[290px] h-[450px] mx-auto select-none ${linkedinUrl ? "cursor-pointer" : ""}`}
+      className={`relative w-full max-w-[290px] aspect-[29/45] mx-auto select-none ${linkedinUrl ? "cursor-pointer" : ""}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={openLinkedin}
