@@ -800,7 +800,7 @@ const labelDescriptions: Record<CardLabel, string> = {
 };
 
 const EventsSection = () => {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [expandedEventKey, setExpandedEventKey] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<CardLabel | null>(null);
 
   const filteredEvents = activeFilter
@@ -862,7 +862,10 @@ const EventsSection = () => {
           </span>
           <button
             type="button"
-            onClick={() => setActiveFilter(null)}
+            onClick={() => {
+              setActiveFilter(null);
+              setExpandedEventKey(null);
+            }}
             className={`relative cursor-pointer font-body text-[10px] tracking-normal normal-case px-3 py-1.5 rounded-sm border overflow-hidden transition-colors duration-200 ${
               activeFilter === null
                 ? "text-[#EE1701] border-[#EE170180] shadow-[0_0_12px_#EE170120]"
@@ -890,9 +893,10 @@ const EventsSection = () => {
               <div key={label} className="relative group">
                 <button
                   type="button"
-                  onClick={() =>
-                    setActiveFilter(activeFilter === label ? null : label)
-                  }
+                  onClick={() => {
+                    setActiveFilter(activeFilter === label ? null : label);
+                    setExpandedEventKey(null);
+                  }}
                   className="group relative cursor-pointer font-body text-[10px] tracking-normal normal-case px-3 py-1.5 rounded-sm border overflow-hidden transition-colors duration-200"
                   style={{
                     ...({ "--accent": c } as React.CSSProperties),
@@ -942,12 +946,16 @@ const EventsSection = () => {
 
         {/* Cards grid — equal column widths; cards align to top so row height matches tallest cell */}
         <div className="grid grid-cols-1 items-start gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredEvents.map((event, i) => (
+          {filteredEvents.map((event) => (
             <EventCard
               key={event.title}
               event={event}
-              isExpanded={expandedIndex === i}
-              onToggle={() => setExpandedIndex(expandedIndex === i ? null : i)}
+              isExpanded={expandedEventKey === event.title}
+              onToggle={() =>
+                setExpandedEventKey(
+                  expandedEventKey === event.title ? null : event.title,
+                )
+              }
             />
           ))}
         </div>

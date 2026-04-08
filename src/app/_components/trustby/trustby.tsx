@@ -33,20 +33,24 @@ export default function TrustBy() {
           className="flex items-center animate-scroll-left"
           style={{ width: "max-content" }}
         >
-          {[...companies, ...companies].map((company, i) => (
-            <div
-              key={`${company.name}-${i}`}
-              className="flex-shrink-0 w-36 h-14 mx-8 relative grayscale hover:grayscale-0 transition-[filter] duration-300"
-            >
-              <Image
-                src={company.logo}
-                alt={company.name}
-                fill
-                className="object-contain"
-                sizes="144px"
-              />
-            </div>
-          ))}
+          {[...companies, ...companies].map((company, i) => {
+            const isDuplicate = i >= companies.length;
+            return (
+              <div
+                key={`${company.name}-${i}`}
+                className="flex-shrink-0 w-36 h-14 mx-8 relative grayscale hover:grayscale-0 transition-[filter] duration-300"
+                aria-hidden={isDuplicate || undefined}
+              >
+                <Image
+                  src={company.logo}
+                  alt={isDuplicate ? "" : company.name}
+                  fill
+                  className="object-contain"
+                  sizes="144px"
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -88,7 +88,6 @@ export default function EventsPage() {
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
     const f = params.get("filter") ?? params.get("source");
     if (f === "um") setSourceFilter("um");

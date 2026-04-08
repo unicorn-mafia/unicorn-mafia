@@ -15,6 +15,11 @@ export const menuItems: MenuItem[] = [
   { label: "Events", href: "/e", shortcut: "E" },
 ];
 
+/** Routes reachable via keyboard shortcut but not rendered in the navbar. */
+const keyboardOnlyShortcuts: Record<string, string> = {
+  L: "/l",
+};
+
 export function useKeyboardNav() {
   const router = useRouter();
 
@@ -59,6 +64,13 @@ export function useKeyboardNav() {
         } else {
           router.push(item.href);
         }
+        return;
+      }
+
+      const shortcutHref = keyboardOnlyShortcuts[key];
+      if (shortcutHref) {
+        e.preventDefault();
+        router.push(shortcutHref);
       }
     };
 
