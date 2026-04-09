@@ -15,7 +15,7 @@ export interface YugiohCardProps {
   avatar: string;
   avatarPosition?: string;
   description: string;
-  faction: "purple" | "blue" | "green" | "red";
+  faction: "purple" | "blue" | "green" | "red" | "black";
   isFounder?: boolean;
   personalIcon?: string;
   linkedinUrl?: string;
@@ -29,6 +29,11 @@ const factionColors: Record<
   blue: { hex: "#3198F1", glow: "rgba(49,152,241,0.4)", secondary: "#60A5FA" },
   green: { hex: "#4EF9BD", glow: "rgba(78,249,189,0.4)", secondary: "#34D399" },
   red: { hex: "#EE1701", glow: "rgba(238,23,1,0.4)", secondary: "#F97316" },
+  black: {
+    hex: "#D4D0C8",
+    glow: "rgba(180,175,165,0.2)",
+    secondary: "#2A2A2A",
+  },
 };
 
 export default function YugiohCard({

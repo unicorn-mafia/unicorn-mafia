@@ -61,7 +61,7 @@ const teamMembers: YugiohCardProps[] = [
     avatar: "/team-deck/avatar-david.png",
     description:
       "Working at No.10, building tech across prisons, courts, and probation with the Ministry of Justice. I care deeply about the UK—this is my way of contributing. Ex–fastest-exited founder, 7× hackathon winner, former quant dev for top sports bettors.",
-    faction: "purple",
+    faction: "black",
     isFounder: false,
     personalIcon: "/team-deck/icon-david.png",
     linkedinUrl: "https://www.linkedin.com/in/davidgelberg/",
