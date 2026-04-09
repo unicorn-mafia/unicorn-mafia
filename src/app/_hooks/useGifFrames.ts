@@ -16,13 +16,11 @@ interface UseGifFramesResult {
   height: number;
 }
 
-// Cache for decoded GIF frames (shared across components)
-// Clear on module reload during development
+// Cache for decoded GIF frames (shared across components).
 const frameCache = new Map<
   string,
   { frames: GifFrame[]; width: number; height: number }
 >();
-frameCache.clear();
 
 export function useGifFrames(gifUrl: string): UseGifFramesResult {
   const [frames, setFrames] = useState<GifFrame[]>([]);

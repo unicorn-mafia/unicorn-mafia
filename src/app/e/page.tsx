@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { loadEvents } from "../_lib/calendar-data";
+import { isSameDay } from "../_lib/date-utils";
 import type { CalendarEvent } from "../_types/calendar";
 import { EventListItem } from "../_components/calendar/event-list-item";
 import { EventCard } from "../_components/calendar/event-card";
@@ -10,14 +11,6 @@ import { MiniCalendar } from "../_components/calendar/mini-calendar";
 
 type SourceFilter = "all" | "um" | "community";
 type ViewMode = "list" | "grid";
-
-function isSameDay(a: Date, b: Date): boolean {
-  return (
-    a.getFullYear() === b.getFullYear() &&
-    a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate()
-  );
-}
 
 function groupEventsByDate(events: CalendarEvent[]) {
   const groups: { label: string; events: CalendarEvent[] }[] = [];

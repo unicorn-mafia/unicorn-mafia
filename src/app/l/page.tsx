@@ -60,6 +60,7 @@ export default function LondonPage() {
   const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
   const [eventLocations, setEventLocations] = useState<LondonLocation[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [activeCategories, setActiveCategories] = useState<
     Set<LocationCategory>
   >(new Set(MAP_CATEGORIES));
@@ -74,17 +75,39 @@ export default function LondonPage() {
 
   useEffect(() => {
     async function load() {
+      setLoadError(null);
       try {
-        const [locData, eventsData] = await Promise.all([
+        const [locResult, eventsResult] = await Promise.allSettled([
           loadLocations(),
-          loadEvents().catch(() => ({ events: [] })),
+          loadEvents(),
         ]);
-        const evLocs = calendarEventsToLocations(eventsData.events);
-        setLocations(locData);
-        setCalendarEvents(eventsData.events);
-        setEventLocations(evLocs);
+
+        if (locResult.status === "rejected") {
+          console.error("Failed to load locations:", locResult.reason);
+          setLoadError("FAILED TO LOAD LOCATIONS");
+          setLocations([]);
+          setCalendarEvents([]);
+          setEventLocations([]);
+          return;
+        }
+
+        setLocations(locResult.value);
+
+        if (eventsResult.status === "rejected") {
+          console.error("Failed to load events:", eventsResult.reason);
+          setCalendarEvents([]);
+          setEventLocations([]);
+          return;
+        }
+
+        setCalendarEvents(eventsResult.value.events);
+        setEventLocations(calendarEventsToLocations(eventsResult.value.events));
       } catch (err) {
         console.error("Failed to load locations:", err);
+        setLoadError("FAILED TO LOAD LOCATIONS");
+        setLocations([]);
+        setCalendarEvents([]);
+        setEventLocations([]);
       } finally {
         setLoading(false);
       }
@@ -171,11 +194,21 @@ export default function LondonPage() {
 
   if (loading) {
     return (
+      <div className="h-[calc(100vh-10rem)] bg-white overflow-hidden p-4">
+        <div className="h-full animate-pulse border border-neutral-200">
+          <div className="h-10 border-b border-neutral-200 bg-neutral-100" />
+          <div className="h-[calc(100%-2.5rem)] bg-neutral-50" />
+        </div>
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
       <div className="h-[calc(100vh-10rem)] flex items-center justify-center bg-white overflow-hidden">
-        <div className="text-center">
-          <div className="w-8 h-8 border-2 border-neutral-300 border-t-neutral-900 rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-[10px] font-mono text-neutral-400 tracking-widest">
-            LOADING MAP
+        <div className="border border-neutral-600 bg-neutral-50 p-6">
+          <p className="text-xs font-body tracking-wide text-neutral-900">
+            {loadError}
           </p>
         </div>
       </div>

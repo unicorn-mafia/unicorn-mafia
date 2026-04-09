@@ -56,17 +56,19 @@ export async function POST(req: NextRequest) {
 
   // --- PostHog server-side tracking ---
   const posthog = getPostHogClient();
-  posthog.capture({
-    distinctId: email,
-    event: "contact_form_submission_received",
-    properties: {
-      name,
-      email,
-      has_company: !!company,
-      has_whatsapp: !!whatsapp,
-    },
-  });
-  await posthog.shutdown();
+  if (posthog) {
+    posthog.capture({
+      distinctId: email,
+      event: "contact_form_submission_received",
+      properties: {
+        name,
+        email,
+        has_company: !!company,
+        has_whatsapp: !!whatsapp,
+      },
+    });
+    await posthog.shutdown();
+  }
 
   return NextResponse.json({ success: true });
 }

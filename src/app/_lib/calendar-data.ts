@@ -1,49 +1,24 @@
 import type { CalendarEvent } from "../_types/calendar";
 
-export interface WeekData {
-  weekOffset: number;
-  mondayISO: string;
-  sundayISO: string;
-  events: CalendarEvent[];
-}
-
-export interface CalendarData {
-  weeks: WeekData[];
-  startOffset: number;
-}
-
 export interface EventsData {
   events: CalendarEvent[];
 }
 
-export async function loadCalendarEvents(
-  weekOffset: number = 0,
-): Promise<CalendarData> {
+async function fetchJsonOrThrow<T>(url: string, context: string): Promise<T> {
   try {
-    const response = await fetch(`/api/calendar?weekOffset=${weekOffset}`);
+    const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(
-        `Failed to fetch calendar events: ${response.statusText}`,
-      );
+      throw new Error(`Failed to fetch ${context}: ${response.statusText}`);
     }
-    return await response.json();
+    return (await response.json()) as T;
   } catch (error) {
-    console.error("Error loading calendar events:", error);
+    console.error(`Error loading ${context}:`, error);
     throw error;
   }
 }
 
 export async function loadEvents(): Promise<EventsData> {
-  try {
-    const response = await fetch("/api/calendar");
-    if (!response.ok) {
-      throw new Error(`Failed to fetch events: ${response.statusText}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Error loading events:", error);
-    throw error;
-  }
+  return fetchJsonOrThrow<EventsData>("/api/calendar", "events");
 }
 
 export function formatDateRange(event: CalendarEvent): string {

@@ -799,7 +799,7 @@ const labelDescriptions: Record<CardLabel, string> = {
   "Co-op": "run alongside partners",
 };
 
-const EventsSection = () => {
+export function EventsSection() {
   const [expandedEventKey, setExpandedEventKey] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<CardLabel | null>(null);
 
@@ -962,6 +962,4 @@ const EventsSection = () => {
       </section>
     </div>
   );
-};
-
-export default EventsSection;
+}

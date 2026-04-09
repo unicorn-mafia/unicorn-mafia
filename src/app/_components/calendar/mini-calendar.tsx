@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import type { CalendarEvent } from "../../_types/calendar";
+import { isSameDay } from "../../_lib/date-utils";
 
 interface MiniCalendarProps {
   events: CalendarEvent[];
@@ -20,14 +21,6 @@ function getMonthDays(year: number, month: number) {
     days.push(new Date(year, month, d));
   }
   return days;
-}
-
-function isSameDay(a: Date, b: Date): boolean {
-  return (
-    a.getFullYear() === b.getFullYear() &&
-    a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate()
-  );
 }
 
 export function MiniCalendar({

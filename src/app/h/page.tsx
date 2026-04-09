@@ -1,4 +1,4 @@
-import EventsSection from "../_components/hackathons/events-section";
+import { EventsSection } from "../_components/hackathons/events-section";
 
 export default function Hackathons() {
   return (

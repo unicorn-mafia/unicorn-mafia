@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { readFileSync } from "fs";
 import { join } from "path";
 import yaml from "js-yaml";
@@ -18,12 +18,13 @@ async function fetchCalendarEvents(
   );
   if (!res.ok) {
     const errText = await res.text();
+    const message = `Google Calendar API error for ${calendarId}: ${res.status} ${errText}`;
     console.error(
       `Google Calendar API error for ${calendarId}:`,
       res.status,
       errText,
     );
-    return [];
+    throw new Error(message);
   }
   const data = await res.json();
   return data.items || [];
@@ -184,31 +185,48 @@ function loadCommunityEventsFromYaml(): CalendarEvent[] {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   const umCalendarId = process.env.GOOGLE_CALENDAR_ID;
   const communityCalendarId = process.env.GOOGLE_CALENDAR_ID_COMMUNITY;
   const apiKey = process.env.GOOGLE_CALENDAR_API_KEY;
+  const weekOffsetParam = request.nextUrl.searchParams.get("weekOffset");
+  const weekOffset = Number.parseInt(weekOffsetParam ?? "0", 10);
+  const normalizedWeekOffset = Number.isFinite(weekOffset) ? weekOffset : 0;
 
   if (!umCalendarId || !apiKey) {
     console.warn(
       "Missing GOOGLE_CALENDAR_ID or GOOGLE_CALENDAR_API_KEY env vars",
     );
-    return NextResponse.json({ events: [] });
+    return NextResponse.json(
+      { error: "Calendar API is not configured" },
+      { status: 500 },
+    );
   }
 
   try {
-    // Fetch a broad range of events: 6 months past to 6 months future
+    // Week-scoped fetch so the request contract is explicit.
     const now = new Date();
-    const timeMin = new Date(now);
-    timeMin.setMonth(timeMin.getMonth() - 6);
-    const timeMax = new Date(now);
-    timeMax.setMonth(timeMax.getMonth() + 6);
+    const dayOfWeek = now.getDay();
+    const daysUntilMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+    const mondayDate = new Date(now);
+    mondayDate.setDate(
+      now.getDate() + daysUntilMonday + normalizedWeekOffset * 7,
+    );
+    mondayDate.setHours(0, 0, 0, 0);
+    const sundayDate = new Date(mondayDate);
+    sundayDate.setDate(mondayDate.getDate() + 6);
+    sundayDate.setHours(23, 59, 59, 999);
 
     // Fetch both calendars in parallel
     const [umRawEvents, communityRawEvents] = await Promise.all([
-      fetchCalendarEvents(umCalendarId, apiKey, timeMin, timeMax),
+      fetchCalendarEvents(umCalendarId, apiKey, mondayDate, sundayDate),
       communityCalendarId
-        ? fetchCalendarEvents(communityCalendarId, apiKey, timeMin, timeMax)
+        ? fetchCalendarEvents(
+            communityCalendarId,
+            apiKey,
+            mondayDate,
+            sundayDate,
+          )
         : Promise.resolve([]),
     ]);
 
@@ -255,15 +273,20 @@ export async function GET() {
       }));
     enrichedEvents.push(...newYamlEvents);
 
-    // Sort: newest first (by start date descending)
+    // Sort: nearest first (ascending by start date) to match list views.
     enrichedEvents.sort((a, b) => {
       const aDate = new Date(a.start.dateTime || a.start.date || "");
       const bDate = new Date(b.start.dateTime || b.start.date || "");
-      return bDate.getTime() - aDate.getTime();
+      return aDate.getTime() - bDate.getTime();
     });
 
     return NextResponse.json(
-      { events: enrichedEvents },
+      {
+        events: enrichedEvents,
+        weekOffset: normalizedWeekOffset,
+        mondayISO: mondayDate.toISOString(),
+        sundayISO: sundayDate.toISOString(),
+      },
       {
         headers: {
           "Cache-Control": "public, s-maxage=300, stale-while-revalidate=60",

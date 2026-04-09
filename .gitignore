@@ -42,3 +42,4 @@ yarn-error.log*
 next-env.d.ts
 .playwright-mcp/
 .env.local
+.desloppify/
