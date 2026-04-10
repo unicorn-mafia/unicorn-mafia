@@ -41,6 +41,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "www.t1v.co",
       },
+      {
+        protocol: "https",
+        hostname: "wassist.app",
+      },
     ],
   },
 };
