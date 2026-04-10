@@ -551,3 +551,17 @@
   cover: "https://images.lumacdn.com/gallery-images/x1/11a76033-3f05-479f-97e3-7a140bf272ff"
   location: "London, England"
   url: "https://luma.com/1jh9qho0"
+
+- name: "Sweat Equity"
+  start: "2026-04-23T08:00:00+01:00"
+  end: "2026-04-23T09:00:00+01:00"
+  cover: "https://images.lumacdn.com/event-covers/u8/cceb2e95-358e-47da-9024-13fa404688e6.png"
+  location: "North London Sauna Village, London"
+  url: "https://luma.com/3g6erkou"
+
+- name: "JetBrains Cafe London"
+  start: "2026-04-16T10:00:00+01:00"
+  end: "2026-04-16T16:00:00+01:00"
+  cover: "https://images.lumacdn.com/gallery-images/qa/f19a6542-6e24-4d23-95fe-2ca5d630113c.png"
+  location: "London, England"
+  url: "https://luma.com/1nm683rt"
