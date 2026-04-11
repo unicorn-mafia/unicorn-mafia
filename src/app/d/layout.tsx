@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Demo Nights & Demo Days | Unicorn Mafia",
     description:
-      "Curated demo events for developers from our community in London and SF. Cool shit, real builders, no fluff.",
+      "Curated demo events for developers from our community in London and SF. Cutting-edge demos, real builders, no fluff.",
     url: "https://unicrnmafia.com/d",
     siteName: "Unicorn Mafia",
     locale: "en_GB",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Demo Nights & Demo Days | Unicorn Mafia",
     description:
-      "Curated demo events for developers in London and SF. Cool shit, real builders, no fluff.",
+      "Curated demo events for developers in London and SF. Cutting-edge demos, real builders, no fluff.",
     creator: "@unicornmafia",
     images: ["/social-preview.png"],
   },
