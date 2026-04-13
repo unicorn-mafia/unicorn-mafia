@@ -565,3 +565,10 @@
   cover: "https://images.lumacdn.com/gallery-images/qa/f19a6542-6e24-4d23-95fe-2ca5d630113c.png"
   location: "London, England"
   url: "https://luma.com/1nm683rt"
+
+- name: "AI for the Real World Hack"
+  start: "2026-05-09T10:00:00+01:00"
+  end: "2026-05-09T17:00:00+01:00"
+  cover: "https://images.lumacdn.com/event-covers/iq/87384267-346a-45a4-81d6-020cab91d348.png"
+  location: "Soho, London"
+  url: "https://luma.com/ai-real-world-hack"
