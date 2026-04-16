@@ -47,7 +47,7 @@ async function compositeAsset(imageUrl: string): Promise<string> {
   drawHashtag(ctx, canvas.width);
 
   return new Promise((resolve) =>
-    canvas.toBlob((blob) => resolve(URL.createObjectURL(blob!)), "image/png")
+    canvas.toBlob((blob) => resolve(URL.createObjectURL(blob!)), "image/png"),
   );
 }
 
@@ -57,21 +57,29 @@ function drawGrid(ctx: CanvasRenderingContext2D, W: number, H: number) {
   ctx.strokeStyle = "rgba(255,255,255,0.12)";
   ctx.lineWidth = 1;
   for (let x = 0; x <= W; x += gridSize) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, H);
+    ctx.stroke();
   }
   for (let y = 0; y <= H; y += gridSize) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(W, y);
+    ctx.stroke();
   }
   ctx.restore();
 }
 
 function drawBadge(ctx: CanvasRenderingContext2D, W: number) {
   const SCALE = 3;
-  const bW = 100, bH = 28;
+  const bW = 100,
+    bH = 28;
   const margin = Math.round(W * 0.03);
 
   const off = document.createElement("canvas");
-  off.width = bW; off.height = bH;
+  off.width = bW;
+  off.height = bH;
   const oc = off.getContext("2d")!;
   oc.imageSmoothingEnabled = false;
 
@@ -80,8 +88,18 @@ function drawBadge(ctx: CanvasRenderingContext2D, W: number) {
 
   oc.strokeStyle = "rgba(255,255,255,0.07)";
   oc.lineWidth = 1;
-  for (let x = 0; x <= bW; x += 4) { oc.beginPath(); oc.moveTo(x, 0); oc.lineTo(x, bH); oc.stroke(); }
-  for (let y = 0; y <= bH; y += 4) { oc.beginPath(); oc.moveTo(0, y); oc.lineTo(bW, y); oc.stroke(); }
+  for (let x = 0; x <= bW; x += 4) {
+    oc.beginPath();
+    oc.moveTo(x, 0);
+    oc.lineTo(x, bH);
+    oc.stroke();
+  }
+  for (let y = 0; y <= bH; y += 4) {
+    oc.beginPath();
+    oc.moveTo(0, y);
+    oc.lineTo(bW, y);
+    oc.stroke();
+  }
 
   oc.strokeStyle = BRAND.white;
   oc.lineWidth = 1;
@@ -112,10 +130,12 @@ function drawHashtag(ctx: CanvasRenderingContext2D, W: number) {
   const text = "#TotheAmericas";
   const margin = Math.round(W * 0.03);
   const fontSize = 7;
-  const padX = 5, padY = 4;
+  const padX = 5,
+    padY = 4;
 
   const tmp = document.createElement("canvas");
-  tmp.width = 300; tmp.height = 20;
+  tmp.width = 300;
+  tmp.height = 20;
   const tc = tmp.getContext("2d")!;
   tc.font = `${fontSize}px "PP Neue Bit", monospace`;
   const textW = Math.ceil(tc.measureText(text).width);
@@ -123,7 +143,8 @@ function drawHashtag(ctx: CanvasRenderingContext2D, W: number) {
   const bW = textW + padX * 2;
   const bH = fontSize + padY * 2;
   const off = document.createElement("canvas");
-  off.width = bW; off.height = bH;
+  off.width = bW;
+  off.height = bH;
   const oc = off.getContext("2d")!;
   oc.imageSmoothingEnabled = false;
   oc.font = `${fontSize}px "PP Neue Bit", monospace`;
@@ -160,7 +181,8 @@ export default function SpriteGenPage() {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    if (file && ["image/png", "image/jpeg", "image/webp"].includes(file.type)) handleFile(file);
+    if (file && ["image/png", "image/jpeg", "image/webp"].includes(file.type))
+      handleFile(file);
   };
 
   const handleGenerate = async () => {
@@ -174,7 +196,10 @@ export default function SpriteGenPage() {
       const formData = new FormData();
       formData.append("image", uploadedFile);
 
-      const res = await fetch("/api/generate-sprite", { method: "POST", body: formData });
+      const res = await fetch("/api/generate-sprite", {
+        method: "POST",
+        body: formData,
+      });
       const data = await res.json();
 
       if (!data.success) throw new Error(data.error ?? "Generation failed");
@@ -185,7 +210,9 @@ export default function SpriteGenPage() {
       setDownloadUrl(finalUrl);
       setStatus("");
     } catch (err) {
-      setStatus(`Error: ${err instanceof Error ? err.message : "Unknown error"}`);
+      setStatus(
+        `Error: ${err instanceof Error ? err.message : "Unknown error"}`,
+      );
     } finally {
       setLoading(false);
     }
@@ -200,11 +227,12 @@ export default function SpriteGenPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: BRAND.darkBg }}>
       <div className="max-w-xl mx-auto px-6 py-12">
-
         {/* Header */}
         <div className="mb-10">
           <h1 className="font-title text-3xl md:text-4xl text-white tracking-tight mb-2">
-            HACKER SPRITE<br />GENERATOR
+            HACKER SPRITE
+            <br />
+            GENERATOR
           </h1>
           <p className="font-body text-sm" style={{ color: "#888880" }}>
             Generate your cyberpunk sprite in 3 quick steps.
@@ -218,9 +246,16 @@ export default function SpriteGenPage() {
         </div>
 
         {/* Step 1 */}
-        <div className="mb-4 border border-[#2a2820] p-5" style={{ borderLeft: `3px solid ${BRAND.purple}` }}>
-          <p className="font-body text-xs mb-1" style={{ color: "#888880" }}>01</p>
-          <h2 className="font-title text-sm text-white uppercase tracking-wider mb-4">Upload your photo</h2>
+        <div
+          className="mb-4 border border-[#2a2820] p-5"
+          style={{ borderLeft: `3px solid ${BRAND.purple}` }}
+        >
+          <p className="font-body text-xs mb-1" style={{ color: "#888880" }}>
+            01
+          </p>
+          <h2 className="font-title text-sm text-white uppercase tracking-wider mb-4">
+            Upload your photo
+          </h2>
 
           {!previewSrc ? (
             <label
@@ -228,22 +263,41 @@ export default function SpriteGenPage() {
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDrop}
             >
-              <span className="text-2xl" style={{ color: BRAND.purple }}>⬆</span>
-              <span className="font-body text-sm text-white">Click to choose a file</span>
-              <span className="font-body text-xs" style={{ color: "#888880" }}>PNG, JPG, or WEBP</span>
+              <span className="text-2xl" style={{ color: BRAND.purple }}>
+                ⬆
+              </span>
+              <span className="font-body text-sm text-white">
+                Click to choose a file
+              </span>
+              <span className="font-body text-xs" style={{ color: "#888880" }}>
+                PNG, JPG, or WEBP
+              </span>
               <input
                 ref={fileInputRef}
                 type="file"
                 accept="image/png,image/jpeg,image/webp"
                 className="hidden"
-                onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); }}
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) handleFile(f);
+                }}
               />
             </label>
           ) : (
             <div className="flex items-center gap-4">
-              <Image src={previewSrc} alt="Preview" width={80} height={80} className="object-cover border border-[#2a2820]" style={{ imageRendering: "pixelated" }} />
+              <Image
+                src={previewSrc}
+                alt="Preview"
+                width={80}
+                height={80}
+                className="object-cover border border-[#2a2820]"
+                style={{ imageRendering: "pixelated" }}
+              />
               <button
-                onClick={() => { setPreviewSrc(null); setUploadedFile(null); }}
+                onClick={() => {
+                  setPreviewSrc(null);
+                  setUploadedFile(null);
+                }}
                 className="font-body text-xs border border-[#2a2820] px-3 py-1 transition-colors hover:border-[#EE1701]"
                 style={{ color: "#888880" }}
               >
@@ -254,9 +308,16 @@ export default function SpriteGenPage() {
         </div>
 
         {/* Step 2 */}
-        <div className="mb-4 border border-[#2a2820] p-5" style={{ borderLeft: `3px solid ${BRAND.blue}` }}>
-          <p className="font-body text-xs mb-1" style={{ color: "#888880" }}>02</p>
-          <h2 className="font-title text-sm text-white uppercase tracking-wider mb-4">Generate sprite</h2>
+        <div
+          className="mb-4 border border-[#2a2820] p-5"
+          style={{ borderLeft: `3px solid ${BRAND.blue}` }}
+        >
+          <p className="font-body text-xs mb-1" style={{ color: "#888880" }}>
+            02
+          </p>
+          <h2 className="font-title text-sm text-white uppercase tracking-wider mb-4">
+            Generate sprite
+          </h2>
 
           <button
             onClick={handleGenerate}
@@ -268,7 +329,9 @@ export default function SpriteGenPage() {
           </button>
 
           {status && (
-            <p className="font-body text-xs mt-3" style={{ color: "#888880" }}>{status}</p>
+            <p className="font-body text-xs mt-3" style={{ color: "#888880" }}>
+              {status}
+            </p>
           )}
 
           {resultUrl && (
@@ -295,9 +358,16 @@ export default function SpriteGenPage() {
         </div>
 
         {/* Step 3 */}
-        <div className="border border-[#2a2820] p-5" style={{ borderLeft: `3px solid ${BRAND.green}` }}>
-          <p className="font-body text-xs mb-1" style={{ color: "#888880" }}>03</p>
-          <h2 className="font-title text-sm text-white uppercase tracking-wider mb-4">Copy your post text</h2>
+        <div
+          className="border border-[#2a2820] p-5"
+          style={{ borderLeft: `3px solid ${BRAND.green}` }}
+        >
+          <p className="font-body text-xs mb-1" style={{ color: "#888880" }}>
+            03
+          </p>
+          <h2 className="font-title text-sm text-white uppercase tracking-wider mb-4">
+            Copy your post text
+          </h2>
 
           <textarea
             readOnly
@@ -310,7 +380,11 @@ export default function SpriteGenPage() {
           <button
             onClick={handleCopy}
             className="font-title text-sm uppercase tracking-wider px-5 py-2 border transition-colors"
-            style={{ borderColor: BRAND.green, color: copied ? "#000" : BRAND.green, background: copied ? BRAND.green : "transparent" }}
+            style={{
+              borderColor: BRAND.green,
+              color: copied ? "#000" : BRAND.green,
+              background: copied ? BRAND.green : "transparent",
+            }}
           >
             {copied ? "Copied!" : "Copy text"}
           </button>

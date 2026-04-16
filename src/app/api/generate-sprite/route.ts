@@ -18,7 +18,10 @@ const ALLOWED_TYPES = new Set(["image/png", "image/jpeg", "image/webp"]);
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 
-interface Bucket { count: number; windowStart: number }
+interface Bucket {
+  count: number;
+  windowStart: number;
+}
 const buckets = new Map<string, Bucket>();
 
 function isRateLimited(ip: string): boolean {
@@ -65,7 +68,10 @@ Expedite`;
 
 export async function POST(req: NextRequest) {
   if (!process.env.GEMINI_API_KEY) {
-    return NextResponse.json({ error: "GEMINI_API_KEY not set" }, { status: 500 });
+    return NextResponse.json(
+      { error: "GEMINI_API_KEY not set" },
+      { status: 500 },
+    );
   }
 
   // 1. Rate limit — checked before touching the body
@@ -77,7 +83,7 @@ export async function POST(req: NextRequest) {
   if (isRateLimited(ip)) {
     return NextResponse.json(
       { error: "Too many requests — please wait a minute and try again." },
-      { status: 429 }
+      { status: 429 },
     );
   }
 
@@ -85,8 +91,10 @@ export async function POST(req: NextRequest) {
   const contentLength = Number(req.headers.get("content-length") ?? 0);
   if (contentLength > MAX_BYTES) {
     return NextResponse.json(
-      { error: `File too large. Maximum upload size is ${MAX_BYTES / 1024 / 1024} MB.` },
-      { status: 413 }
+      {
+        error: `File too large. Maximum upload size is ${MAX_BYTES / 1024 / 1024} MB.`,
+      },
+      { status: 413 },
     );
   }
 
@@ -95,19 +103,27 @@ export async function POST(req: NextRequest) {
     const file = formData.get("image") as File | null;
 
     if (!file) {
-      return NextResponse.json({ error: "No image uploaded." }, { status: 400 });
+      return NextResponse.json(
+        { error: "No image uploaded." },
+        { status: 400 },
+      );
     }
 
     // 3. MIME type allowlist
     if (!ALLOWED_TYPES.has(file.type)) {
-      return NextResponse.json({ error: "Unsupported file type. Please upload a PNG, JPEG, or WEBP." }, { status: 400 });
+      return NextResponse.json(
+        { error: "Unsupported file type. Please upload a PNG, JPEG, or WEBP." },
+        { status: 400 },
+      );
     }
 
     // 4. Actual byte cap — guards against Content-Length spoofing
     if (file.size > MAX_BYTES) {
       return NextResponse.json(
-        { error: `File too large. Maximum upload size is ${MAX_BYTES / 1024 / 1024} MB.` },
-        { status: 413 }
+        {
+          error: `File too large. Maximum upload size is ${MAX_BYTES / 1024 / 1024} MB.`,
+        },
+        { status: 413 },
       );
     }
 
@@ -133,19 +149,24 @@ export async function POST(req: NextRequest) {
     ]);
 
     const parts = result.response?.candidates?.[0]?.content?.parts ?? [];
-    const imgPart = parts.find((p: { inlineData?: unknown }) => p.inlineData) ?? null;
+    const imgPart =
+      parts.find((p: { inlineData?: unknown }) => p.inlineData) ?? null;
 
     if (!imgPart) {
-      const reason = result.response?.candidates?.[0]?.finishReason ?? "unknown";
+      const reason =
+        result.response?.candidates?.[0]?.finishReason ?? "unknown";
       return NextResponse.json(
-        { error: `Gemini returned no image (reason: ${reason}). Try a different photo.` },
-        { status: 500 }
+        {
+          error: `Gemini returned no image (reason: ${reason}). Try a different photo.`,
+        },
+        { status: 500 },
       );
     }
 
     const rawBuffer = Buffer.from(
-      (imgPart as { inlineData: { data: string; mimeType: string } }).inlineData.data,
-      "base64"
+      (imgPart as { inlineData: { data: string; mimeType: string } }).inlineData
+        .data,
+      "base64",
     );
 
     // 6. Shrink sprite and center on black canvas
@@ -157,10 +178,15 @@ export async function POST(req: NextRequest) {
 
     const meta = await sharp(resized).metadata();
     const left = Math.round((CANVAS - (meta.width ?? 0)) / 2);
-    const top  = Math.round((CANVAS - (meta.height ?? 0)) / 2);
+    const top = Math.round((CANVAS - (meta.height ?? 0)) / 2);
 
     const finalBuffer = await sharp({
-      create: { width: CANVAS, height: CANVAS, channels: 3, background: { r: 0, g: 0, b: 0 } },
+      create: {
+        width: CANVAS,
+        height: CANVAS,
+        channels: 3,
+        background: { r: 0, g: 0, b: 0 },
+      },
     })
       .composite([{ input: resized, left, top }])
       .png()
@@ -168,13 +194,17 @@ export async function POST(req: NextRequest) {
 
     // 7. Save to public/sprites/
     const spritesDir = path.join(process.cwd(), "public", "sprites");
-    if (!fs.existsSync(spritesDir)) fs.mkdirSync(spritesDir, { recursive: true });
+    if (!fs.existsSync(spritesDir))
+      fs.mkdirSync(spritesDir, { recursive: true });
 
     const filename = `sprite-${crypto.randomBytes(8).toString("hex")}.png`;
     fs.writeFileSync(path.join(spritesDir, filename), finalBuffer);
 
-    return NextResponse.json({ success: true, imageUrl: `/sprites/${filename}`, postText: POST_TEXT });
-
+    return NextResponse.json({
+      success: true,
+      imageUrl: `/sprites/${filename}`,
+      postText: POST_TEXT,
+    });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
     return NextResponse.json({ error: message }, { status: 500 });
