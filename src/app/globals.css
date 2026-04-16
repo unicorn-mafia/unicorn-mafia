@@ -225,3 +225,29 @@ html {
     @apply bg-background text-foreground;
   }
 }
+
+/* Team deck (/t) — card typography + animations (unicorn-whisperer-studio) */
+.team-deck-root .font-deck-pixel {
+  font-family: "Press Start 2P", monospace;
+}
+
+@keyframes team-deck-holographic {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes team-deck-scan-once {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
