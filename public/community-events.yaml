@@ -573,6 +573,13 @@
   location: "Soho, London"
   url: "https://luma.com/ai-real-world-hack"
 
+- name: "Londonmaxxing Meetup 001: Why London Feels Alive Again"
+  start: "2026-04-23T18:00:00+01:00"
+  end: "2026-04-23T21:00:00+01:00"
+  cover: "https://images.lumacdn.com/event-covers/l7/b6fa9f1b-f8d0-4e35-9824-bd8330863a86.png"
+  location: "Ramen Space, Dalston Square, London"
+  url: "https://luma.com/ne16ot2y"
+
 - name: "A Better Way to Build Agents: Workflows"
   start: "2026-04-23T16:30:00.000Z"
   end: "2026-04-23T19:00:00.000Z"
