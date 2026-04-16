@@ -9,13 +9,16 @@ export interface MenuItem {
 }
 
 export const menuItems: MenuItem[] = [
+  { label: "Team", href: "/t", shortcut: "T" },
   { label: "Hackathons", href: "/h", shortcut: "H" },
-  { label: "Companies", href: "/c", shortcut: "C" },
   { label: "Demos", href: "/d", shortcut: "D" },
   { label: "Events", href: "/e", shortcut: "E" },
-  { label: "London", href: "/l", shortcut: "L" },
-  { label: "Sponsors", href: "/s", shortcut: "S" },
 ];
+
+/** Routes reachable via keyboard shortcut but not rendered in the navbar. */
+const keyboardOnlyShortcuts: Record<string, string> = {
+  L: "/l",
+};
 
 export function useKeyboardNav() {
   const router = useRouter();
@@ -61,6 +64,13 @@ export function useKeyboardNav() {
         } else {
           router.push(item.href);
         }
+        return;
+      }
+
+      const shortcutHref = keyboardOnlyShortcuts[key];
+      if (shortcutHref) {
+        e.preventDefault();
+        router.push(shortcutHref);
       }
     };
 

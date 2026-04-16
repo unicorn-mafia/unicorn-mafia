@@ -25,9 +25,11 @@ export default function Hero() {
     <section className={styles.heroSection}>
       <div className={styles.heroContent}>
         <div className={styles.titleWrapper}>
-          <h1 className={styles.title}>
-            <div>UNICORN</div>
-            <div>MAFIA</div>
+          <h1
+            className={`${styles.title} font-deck-pixel tracking-tighter text-neutral-900 uppercase`}
+          >
+            <span className="block">unicorn</span>
+            <span className="block">mafia</span>
           </h1>
         </div>
         <div className={styles.artWrapper}>

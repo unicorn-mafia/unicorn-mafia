@@ -154,6 +154,8 @@ interface CommunityEventYaml {
   cover: string;
   location: string;
   url: string;
+  featured?: boolean;
+  borderColors?: string[];
 }
 
 function loadCommunityEventsFromYaml(): CalendarEvent[] {
@@ -173,6 +175,8 @@ function loadCommunityEventsFromYaml(): CalendarEvent[] {
       externalUrl: e.url,
       imageUrl: e.cover || undefined,
       hostedByUM: false,
+      featured: e.featured || false,
+      borderColors: e.borderColors || undefined,
     }));
   } catch (err) {
     console.error("Failed to load community-events.yaml:", err);
@@ -208,28 +212,32 @@ export async function GET() {
         : Promise.resolve([]),
     ]);
 
-    // Enrich events, tagging by source calendar
-    const enrichUM = umRawEvents.map(async (event) => {
-      const externalUrl = extractUrl(event);
-      const imageUrl = externalUrl ? await fetchOgImage(externalUrl) : null;
-      return {
-        ...event,
-        externalUrl: externalUrl || undefined,
-        imageUrl: imageUrl || undefined,
-        hostedByUM: true,
-      };
-    });
+    // Enrich events, tagging by source calendar (skip events without a summary)
+    const enrichUM = umRawEvents
+      .filter((e) => e.summary)
+      .map(async (event) => {
+        const externalUrl = extractUrl(event);
+        const imageUrl = externalUrl ? await fetchOgImage(externalUrl) : null;
+        return {
+          ...event,
+          externalUrl: externalUrl || undefined,
+          imageUrl: imageUrl || undefined,
+          hostedByUM: true,
+        };
+      });
 
-    const enrichCommunity = communityRawEvents.map(async (event) => {
-      const externalUrl = extractUrl(event);
-      const imageUrl = externalUrl ? await fetchOgImage(externalUrl) : null;
-      return {
-        ...event,
-        externalUrl: externalUrl || undefined,
-        imageUrl: imageUrl || undefined,
-        hostedByUM: false,
-      };
-    });
+    const enrichCommunity = communityRawEvents
+      .filter((e) => e.summary)
+      .map(async (event) => {
+        const externalUrl = extractUrl(event);
+        const imageUrl = externalUrl ? await fetchOgImage(externalUrl) : null;
+        return {
+          ...event,
+          externalUrl: externalUrl || undefined,
+          imageUrl: imageUrl || undefined,
+          hostedByUM: false,
+        };
+      });
 
     const enrichedEvents = await Promise.all([...enrichUM, ...enrichCommunity]);
 

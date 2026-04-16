@@ -23,7 +23,8 @@ interface EventCardProps {
   index: number;
 }
 
-function stripLeadingEmojis(text: string): string {
+function stripLeadingEmojis(text: string | undefined): string {
+  if (!text) return "";
   return text
     .replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\s]+/u, "")
     .trim();
@@ -48,12 +49,24 @@ export function EventCard({ event, index }: EventCardProps) {
   const linkUrl = event.externalUrl || event.htmlLink;
   const dateRange = formatDateRange(event);
 
+  const featured = event.featured && event.borderColors?.length === 2;
+
   return (
     <motion.a
       href={linkUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`block border border-neutral-300 bg-white overflow-hidden ${past ? "opacity-40" : ""}`}
+      className={`block bg-white overflow-hidden ${past ? "opacity-40" : ""} ${
+        featured ? "" : "border border-neutral-300"
+      }`}
+      style={
+        featured
+          ? {
+              border: "3px solid",
+              borderImage: `repeating-linear-gradient(180deg, ${event.borderColors![0]} 0px, ${event.borderColors![0]} 3px, ${event.borderColors![1]} 3px, ${event.borderColors![1]} 6px) 3`,
+            }
+          : undefined
+      }
       onClick={() =>
         posthog.capture("event_card_clicked", {
           event_name: event.summary,
@@ -94,7 +107,12 @@ export function EventCard({ event, index }: EventCardProps) {
       {/* Accent bar */}
       <motion.div
         className="w-full"
-        style={{ backgroundColor: accentColor, height: 3 }}
+        style={{
+          background: featured
+            ? `linear-gradient(90deg, ${event.borderColors![0]}, ${event.borderColors![1]}, ${event.borderColors![0]})`
+            : accentColor,
+          height: 3,
+        }}
         whileHover={{ height: 5 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       />

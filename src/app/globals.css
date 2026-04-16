@@ -61,11 +61,16 @@ html {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: opacity 0.2s ease;
+  transition:
+    color 0.2s ease,
+    font-weight 0.15s ease;
 }
 
-.nav-link:hover {
-  opacity: 0.7;
+.nav-link:hover,
+.nav-link:focus-visible,
+.nav-link:active {
+  color: rgb(0 0 0 / 0.88);
+  font-weight: 700;
 }
 
 /* Infinite scroll carousel animation */
@@ -86,7 +91,7 @@ html {
   animation-play-state: paused;
 }
 
-/* Keyboard shortcut badge */
+/* Keyboard shortcut badge — always black/neutral; bold on hover / press / focus */
 .keyboard-badge {
   display: inline-flex;
   align-items: center;
@@ -97,13 +102,22 @@ html {
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.025em;
-  border: 1px solid black;
+  border: 2px solid rgb(0 0 0 / 0.22);
   border-radius: 0.25rem;
-  opacity: 0.6;
-  transition: opacity 0.2s ease;
+  color: rgb(0 0 0 / 0.45);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    font-weight 0.15s ease,
+    opacity 0.2s ease;
 }
 
-.nav-link:hover .keyboard-badge {
+.nav-link:hover .keyboard-badge,
+.nav-link:focus-visible .keyboard-badge,
+.nav-link:active .keyboard-badge {
+  color: #000000;
+  border-color: #000000;
+  font-weight: 700;
   opacity: 1;
 }
 
@@ -228,7 +242,59 @@ html {
 
 /* Team deck (/t) — card typography + animations (unicorn-whisperer-studio) */
 .team-deck-root .font-deck-pixel {
-  font-family: "Press Start 2P", monospace;
+  font-family: var(--font-deck-pixel), monospace;
+}
+
+/* Home page — whisperer-studio style pixel headings */
+.home-page-root .font-deck-pixel {
+  font-family: var(--font-deck-pixel), monospace;
+}
+
+/* Retro CTA — “pressed” on hover (shadows must live in CSS so :hover can override inline styles) */
+.home-page-root .home-cta-link {
+  --cta: 280 80% 52%;
+  background-color: hsl(var(--cta));
+  color: #fff;
+  image-rendering: pixelated;
+  box-shadow:
+    4px 0 0 0 hsl(var(--cta) / 0.4),
+    -4px 0 0 0 hsl(var(--cta) / 0.4),
+    0 4px 0 0 hsl(var(--cta) / 0.3),
+    0 -4px 0 0 hsl(var(--cta) / 0.6),
+    0 8px 0 0 hsl(0 0% 0% / 0.3),
+    4px 4px 0 0 hsl(0 0% 0% / 0.15),
+    -4px 4px 0 0 hsl(0 0% 0% / 0.15),
+    inset 0 -3px 0 hsl(0 0% 0% / 0.2),
+    inset 0 2px 0 hsl(0 0% 100% / 0.25);
+  transition:
+    transform 0.14s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.14s ease;
+}
+
+.home-page-root .home-cta-link:hover {
+  transform: translateY(3px);
+  box-shadow:
+    2px 0 0 0 hsl(var(--cta) / 0.38),
+    -2px 0 0 0 hsl(var(--cta) / 0.38),
+    0 2px 0 0 hsl(var(--cta) / 0.28),
+    0 -2px 0 0 hsl(var(--cta) / 0.55),
+    0 4px 0 0 hsl(0 0% 0% / 0.28),
+    2px 2px 0 0 hsl(0 0% 0% / 0.12),
+    -2px 2px 0 0 hsl(0 0% 0% / 0.12),
+    inset 0 -2px 0 hsl(0 0% 0% / 0.22),
+    inset 0 1px 0 hsl(0 0% 100% / 0.2);
+}
+
+.home-page-root .home-cta-link:active {
+  transform: translateY(5px);
+  box-shadow:
+    1px 0 0 0 hsl(var(--cta) / 0.35),
+    -1px 0 0 0 hsl(var(--cta) / 0.35),
+    0 1px 0 0 hsl(var(--cta) / 0.25),
+    0 -1px 0 0 hsl(var(--cta) / 0.5),
+    0 2px 0 0 hsl(0 0% 0% / 0.22),
+    inset 0 2px 4px hsl(0 0% 0% / 0.3),
+    inset 0 1px 0 hsl(0 0% 100% / 0.12);
 }
 
 @keyframes team-deck-holographic {
@@ -250,4 +316,38 @@ html {
   100% {
     transform: translateY(200%);
   }
+}
+
+/* Hackathons page (/h) — unicorn-whisperer-studio EventsSection */
+.hackathons-events-root .font-deck-pixel {
+  font-family: var(--font-deck-pixel), monospace;
+}
+
+@keyframes hackathons-events-holographic {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes hackathons-events-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.hackathons-events-root .hackathons-events-marquee {
+  animation: hackathons-events-marquee 25s linear infinite;
+}
+
+.hackathons-events-root .hackathons-events-marquee:hover {
+  animation-play-state: paused;
 }

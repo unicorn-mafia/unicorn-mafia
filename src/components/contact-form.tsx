@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
+import dynamic from "next/dynamic";
 import posthog from "posthog-js";
 import {
   Dialog,
@@ -10,6 +11,14 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+
+const NightclubQueue = dynamic(
+  () =>
+    import("@/app/_components/queue/nightclub-queue").then(
+      (m) => m.NightclubQueue,
+    ),
+  { ssr: false },
+);
 
 interface FormData {
   name: string;
@@ -238,6 +247,10 @@ export default function ContactForm({
             {submitting ? "SENDING…" : "SEND MESSAGE"}
           </button>
         </form>
+
+        <div className="mt-3 -mx-6 -mb-6 overflow-hidden rounded-none border-t border-neutral-800">
+          <NightclubQueue compact />
+        </div>
       </DialogContent>
     </Dialog>
   );
