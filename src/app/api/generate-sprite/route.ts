@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import sharp from "sharp";
-import crypto from "crypto";
-import fs from "fs";
-import path from "path";
 
 // ── Constants ────────────────────────────────────────────────────────────────
 
@@ -53,16 +50,6 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? "");
 const SPRITE_PROMPT = `Convert this reference image into a 2D pixel art cyberpunk fighting game character sprite. Make them a little tiny playable fighter character — bold outlines, vibrant limited color palette, and sharp pixel details. Keep the backdrop black.
 Pose: Keep the same ready fighting stance with fists up. Add subtle cyberpunk fighting game flair: faint neon glow on the red visor, very light electric sparks or holographic glitch effects around the fists and coat edges, and a dark cyberpunk atmosphere.
 Maintain the outfit from the reference, and stylize it as a high-quality pixel art fighting game idle sprite. Clean lines, retro video game feel, ready for a cyberpunk fighting game roster.`;
-
-const POST_TEXT = `I've got an early invite to the 'To The Americas' Hackathon by the Unicorn Mafia.
-excited to team up with some of Europe's top builders.
-lets get cooking!!
-
-sponsors:
-Pydantic - https://lnkd.in/eV58E4PH  Render - https://lnkd.in/eJBbc7sw
-cognition.ai
-mubit.ai The Residency
-Expedite`;
 
 // ── Route ────────────────────────────────────────────────────────────────────
 
@@ -192,18 +179,14 @@ export async function POST(req: NextRequest) {
       .png()
       .toBuffer();
 
-    // 7. Save to public/sprites/
-    const spritesDir = path.join(process.cwd(), "public", "sprites");
-    if (!fs.existsSync(spritesDir))
-      fs.mkdirSync(spritesDir, { recursive: true });
-
-    const filename = `sprite-${crypto.randomBytes(8).toString("hex")}.png`;
-    fs.writeFileSync(path.join(spritesDir, filename), finalBuffer);
-
-    return NextResponse.json({
-      success: true,
-      imageUrl: `/sprites/${filename}`,
-      postText: POST_TEXT,
+    // 7. Stream the PNG directly — no filesystem writes needed (Vercel is read-only)
+    return new NextResponse(finalBuffer, {
+      status: 200,
+      headers: {
+        "Content-Type": "image/png",
+        "Content-Length": String(finalBuffer.length),
+        "Cache-Control": "no-store",
+      },
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";

@@ -212,12 +212,19 @@ export default function SpriteGenPage() {
         method: "POST",
         body: formData,
       });
-      const data = await res.json();
 
-      if (!data.success) throw new Error(data.error ?? "Generation failed");
+      if (!res.ok) {
+        const { error } = await res
+          .json()
+          .catch(() => ({ error: res.statusText }));
+        throw new Error(error ?? "Generation failed");
+      }
 
       setStatus("Compositing…");
-      const finalUrl = await compositeAsset(data.imageUrl);
+      const blob = await res.blob();
+      const imageUrl = URL.createObjectURL(blob);
+      const finalUrl = await compositeAsset(imageUrl);
+      URL.revokeObjectURL(imageUrl); // free the intermediate blob
       setResultUrl(finalUrl);
       setDownloadUrl(finalUrl);
       setStatus("");
