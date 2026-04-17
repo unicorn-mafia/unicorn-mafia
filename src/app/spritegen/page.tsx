@@ -95,23 +95,9 @@ function drawBadge(ctx: CanvasRenderingContext2D, W: number) {
   const oc = off.getContext("2d")!;
   oc.imageSmoothingEnabled = false;
 
+  // Solid opaque fill — covers the main canvas grid beneath the badge
   oc.fillStyle = BRAND.darkBg;
   oc.fillRect(0, 0, bW, bH);
-
-  oc.strokeStyle = "rgba(255,255,255,0.07)";
-  oc.lineWidth = 1;
-  for (let x = 0; x <= bW; x += 4) {
-    oc.beginPath();
-    oc.moveTo(x, 0);
-    oc.lineTo(x, bH);
-    oc.stroke();
-  }
-  for (let y = 0; y <= bH; y += 4) {
-    oc.beginPath();
-    oc.moveTo(0, y);
-    oc.lineTo(bW, y);
-    oc.stroke();
-  }
 
   oc.strokeStyle = BRAND.white;
   oc.lineWidth = 1;
@@ -159,6 +145,9 @@ function drawHashtag(ctx: CanvasRenderingContext2D, W: number) {
   off.height = bH;
   const oc = off.getContext("2d")!;
   oc.imageSmoothingEnabled = false;
+  // Solid background so the main canvas grid doesn't bleed through
+  oc.fillStyle = BRAND.darkBg;
+  oc.fillRect(0, 0, bW, bH);
   oc.font = `${fontSize}px "PP Neue Bit", monospace`;
   oc.fillStyle = BRAND.white;
   oc.textBaseline = "top";
