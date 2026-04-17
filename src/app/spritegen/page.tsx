@@ -57,10 +57,35 @@ async function compositeAsset(imageUrl: string): Promise<string> {
   drawGrid(ctx, canvas.width, canvas.height);
   drawBadge(ctx, canvas.width);
   drawHashtag(ctx, canvas.width);
+  await drawLogo(ctx, canvas.width, canvas.height);
 
   return new Promise((resolve) =>
     canvas.toBlob((blob) => resolve(URL.createObjectURL(blob!)), "image/png"),
   );
+}
+
+async function drawLogo(
+  ctx: CanvasRenderingContext2D,
+  W: number,
+  H: number,
+): Promise<void> {
+  // Fetch SVG, swap black fills → white so logo is visible on dark canvas
+  const svgText = await fetch("/um-logo.svg")
+    .then((r) => r.text())
+    .then((t) => t.replace(/fill="black"/g, 'fill="white"'));
+
+  const blob = new Blob([svgText], { type: "image/svg+xml" });
+  const url = URL.createObjectURL(blob);
+
+  try {
+    const img = await loadImage(url);
+    const size = Math.round(W * 0.1); // 10% of canvas width
+    const margin = Math.round(W * 0.03);
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(img, margin, H - size - margin, size, size);
+  } finally {
+    URL.revokeObjectURL(url);
+  }
 }
 
 function drawGrid(ctx: CanvasRenderingContext2D, W: number, H: number) {
