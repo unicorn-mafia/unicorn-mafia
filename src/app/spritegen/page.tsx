@@ -2,27 +2,6 @@
 
 import { useRef, useState, useCallback } from "react";
 import Image from "next/image";
-import { BRAND_PALETTE } from "@/app/_lib/consts";
-
-// Map the shared palette into a convenient named lookup
-const hex = Object.fromEntries(BRAND_PALETTE.map((c) => [c.name, c.hex])) as {
-  Purple: string;
-  Blue: string;
-  Green: string;
-  Red: string;
-  Black: string;
-  White: string;
-  "Dark BG": string;
-};
-
-const BRAND = {
-  purple: hex.Purple,
-  blue: hex.Blue,
-  green: hex.Green,
-  red: hex.Red,
-  white: hex.White,
-  darkBg: hex["Dark BG"],
-};
 
 const POST_TEXT = `I've got an early invite to the 'To The Americas' Hackathon by the Unicorn Mafia.
 excited to team up with some of Europe's top builders.
@@ -104,80 +83,6 @@ function drawGrid(ctx: CanvasRenderingContext2D, W: number, H: number) {
     ctx.stroke();
   }
   ctx.restore();
-}
-
-function drawBadge(ctx: CanvasRenderingContext2D, W: number) {
-  const SCALE = 3;
-  const bW = 100,
-    bH = 28;
-  const margin = Math.round(W * 0.03);
-
-  const off = document.createElement("canvas");
-  off.width = bW;
-  off.height = bH;
-  const oc = off.getContext("2d")!;
-  oc.imageSmoothingEnabled = false;
-
-  // Solid opaque fill — covers the main canvas grid beneath the badge
-  oc.fillStyle = BRAND.darkBg;
-  oc.fillRect(0, 0, bW, bH);
-
-  oc.strokeStyle = BRAND.white;
-  oc.lineWidth = 1;
-  oc.strokeRect(0.5, 0.5, bW - 1, bH - 1);
-
-  const colors = [BRAND.purple, BRAND.blue, BRAND.green, BRAND.red];
-  const blockW = Math.floor(bW / 4);
-  colors.forEach((c, i) => {
-    oc.fillStyle = c;
-    oc.fillRect(blockW * i, 0, i === 3 ? bW - blockW * 3 : blockW, 2);
-  });
-
-  oc.font = `6px "PP Neue Bit", monospace`;
-  oc.fillStyle = BRAND.white;
-  oc.textBaseline = "top";
-  oc.fillText("UNICORN MAFIA", 4, 6);
-
-  oc.font = `5px "PP Neue Bit", monospace`;
-  oc.fillStyle = BRAND.green;
-  oc.fillText("INVITED HACKER", 4, 17);
-
-  ctx.imageSmoothingEnabled = false;
-  ctx.drawImage(off, margin, margin, bW * SCALE, bH * SCALE);
-}
-
-function drawHashtag(ctx: CanvasRenderingContext2D, W: number) {
-  const SCALE = 3;
-  const text = "#TotheAmericas";
-  const margin = Math.round(W * 0.03);
-  const fontSize = 7;
-  const padX = 5,
-    padY = 4;
-
-  const tmp = document.createElement("canvas");
-  tmp.width = 300;
-  tmp.height = 20;
-  const tc = tmp.getContext("2d")!;
-  tc.font = `${fontSize}px "PP Neue Bit", monospace`;
-  const textW = Math.ceil(tc.measureText(text).width);
-
-  const bW = textW + padX * 2;
-  const bH = fontSize + padY * 2;
-  const off = document.createElement("canvas");
-  off.width = bW;
-  off.height = bH;
-  const oc = off.getContext("2d")!;
-  oc.imageSmoothingEnabled = false;
-  // Solid background so the main canvas grid doesn't bleed through
-  oc.fillStyle = BRAND.darkBg;
-  oc.fillRect(0, 0, bW, bH);
-  oc.font = `${fontSize}px "PP Neue Bit", monospace`;
-  oc.fillStyle = BRAND.white;
-  oc.textBaseline = "top";
-  oc.fillText(text, padX, padY);
-
-  ctx.imageSmoothingEnabled = false;
-  ctx.drawImage(off, W - bW * SCALE - margin, margin, bW * SCALE, bH * SCALE);
 }
 
 // ── Component ───────────────────────────────────────────────────────────────
