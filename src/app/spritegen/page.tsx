@@ -55,8 +55,6 @@ async function compositeAsset(imageUrl: string): Promise<string> {
 
   ctx.drawImage(sprite, 0, 0);
   drawGrid(ctx, canvas.width, canvas.height);
-  drawBadge(ctx, canvas.width);
-  drawHashtag(ctx, canvas.width);
   await drawLogo(ctx, canvas.width, canvas.height);
 
   return new Promise((resolve) =>
