@@ -180,7 +180,7 @@ export async function POST(req: NextRequest) {
       .toBuffer();
 
     // 7. Stream the PNG directly — no filesystem writes needed (Vercel is read-only)
-    return new NextResponse(finalBuffer, {
+    return new NextResponse(new Uint8Array(finalBuffer), {
       status: 200,
       headers: {
         "Content-Type": "image/png",
