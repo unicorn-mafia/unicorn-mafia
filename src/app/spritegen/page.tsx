@@ -2,14 +2,26 @@
 
 import { useRef, useState, useCallback } from "react";
 import Image from "next/image";
+import { BRAND_PALETTE } from "@/app/_lib/consts";
+
+// Map the shared palette into a convenient named lookup
+const hex = Object.fromEntries(BRAND_PALETTE.map((c) => [c.name, c.hex])) as {
+  Purple: string;
+  Blue: string;
+  Green: string;
+  Red: string;
+  Black: string;
+  White: string;
+  "Dark BG": string;
+};
 
 const BRAND = {
-  purple: "#B307EB",
-  blue: "#3198F1",
-  green: "#4EF9BD",
-  red: "#EE1701",
-  white: "#FFFFFF",
-  darkBg: "#14120B",
+  purple: hex.Purple,
+  blue: hex.Blue,
+  green: hex.Green,
+  red: hex.Red,
+  white: hex.White,
+  darkBg: hex["Dark BG"],
 };
 
 const POST_TEXT = `I've got an early invite to the 'To The Americas' Hackathon by the Unicorn Mafia.
@@ -225,7 +237,7 @@ export default function SpriteGenPage() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: BRAND.darkBg }}>
+    <div className="min-h-screen bg-[#14120B]">
       <div className="max-w-xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="mb-10">
@@ -234,25 +246,21 @@ export default function SpriteGenPage() {
             <br />
             GENERATOR
           </h1>
-          <p className="font-body text-sm" style={{ color: "#888880" }}>
+          <p className="font-body text-sm text-[#888880]">
             Generate your cyberpunk sprite in 3 quick steps.
           </p>
           {/* Horn bar */}
           <div className="mt-4 h-[3px] w-full flex">
-            {[BRAND.purple, BRAND.blue, BRAND.green, BRAND.red].map((c) => (
-              <div key={c} className="flex-1" style={{ backgroundColor: c }} />
-            ))}
+            <div className="flex-1 bg-[#B307EB]" />
+            <div className="flex-1 bg-[#3198F1]" />
+            <div className="flex-1 bg-[#4EF9BD]" />
+            <div className="flex-1 bg-[#EE1701]" />
           </div>
         </div>
 
         {/* Step 1 */}
-        <div
-          className="mb-4 border border-[#2a2820] p-5"
-          style={{ borderLeft: `3px solid ${BRAND.purple}` }}
-        >
-          <p className="font-body text-xs mb-1" style={{ color: "#888880" }}>
-            01
-          </p>
+        <div className="mb-4 border border-[#2a2820] border-l-[3px] border-l-[#B307EB] p-5">
+          <p className="font-body text-xs text-[#888880] mb-1">01</p>
           <h2 className="font-title text-sm text-white uppercase tracking-wider mb-4">
             Upload your photo
           </h2>
@@ -263,13 +271,11 @@ export default function SpriteGenPage() {
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDrop}
             >
-              <span className="text-2xl" style={{ color: BRAND.purple }}>
-                ⬆
-              </span>
+              <span className="text-2xl text-[#B307EB]">⬆</span>
               <span className="font-body text-sm text-white">
                 Click to choose a file
               </span>
-              <span className="font-body text-xs" style={{ color: "#888880" }}>
+              <span className="font-body text-xs text-[#888880]">
                 PNG, JPG, or WEBP
               </span>
               <input
@@ -290,16 +296,14 @@ export default function SpriteGenPage() {
                 alt="Preview"
                 width={80}
                 height={80}
-                className="object-cover border border-[#2a2820]"
-                style={{ imageRendering: "pixelated" }}
+                className="object-cover border border-[#2a2820] [image-rendering:pixelated]"
               />
               <button
                 onClick={() => {
                   setPreviewSrc(null);
                   setUploadedFile(null);
                 }}
-                className="font-body text-xs border border-[#2a2820] px-3 py-1 transition-colors hover:border-[#EE1701]"
-                style={{ color: "#888880" }}
+                className="font-body text-xs text-[#888880] border border-[#2a2820] px-3 py-1 transition-colors hover:border-[#EE1701]"
               >
                 ✕ Remove
               </button>
@@ -308,13 +312,8 @@ export default function SpriteGenPage() {
         </div>
 
         {/* Step 2 */}
-        <div
-          className="mb-4 border border-[#2a2820] p-5"
-          style={{ borderLeft: `3px solid ${BRAND.blue}` }}
-        >
-          <p className="font-body text-xs mb-1" style={{ color: "#888880" }}>
-            02
-          </p>
+        <div className="mb-4 border border-[#2a2820] border-l-[3px] border-l-[#3198F1] p-5">
+          <p className="font-body text-xs text-[#888880] mb-1">02</p>
           <h2 className="font-title text-sm text-white uppercase tracking-wider mb-4">
             Generate sprite
           </h2>
@@ -322,16 +321,13 @@ export default function SpriteGenPage() {
           <button
             onClick={handleGenerate}
             disabled={!uploadedFile || loading}
-            className="font-title text-sm uppercase tracking-wider px-6 py-3 transition-colors disabled:opacity-30"
-            style={{ background: BRAND.blue, color: "#000" }}
+            className="font-title text-sm uppercase tracking-wider px-6 py-3 bg-[#3198F1] text-black transition-colors disabled:opacity-30"
           >
             {loading ? "Generating…" : "Generate Asset"}
           </button>
 
           {status && (
-            <p className="font-body text-xs mt-3" style={{ color: "#888880" }}>
-              {status}
-            </p>
+            <p className="font-body text-xs text-[#888880] mt-3">{status}</p>
           )}
 
           {resultUrl && (
@@ -341,15 +337,13 @@ export default function SpriteGenPage() {
                 alt="Generated sprite"
                 width={400}
                 height={400}
-                className="w-full max-w-sm border border-[#2a2820]"
-                style={{ imageRendering: "pixelated" }}
+                className="w-full max-w-sm border border-[#2a2820] [image-rendering:pixelated]"
                 unoptimized
               />
               <a
                 href={downloadUrl ?? ""}
                 download="unicorn-mafia-sprite.png"
-                className="inline-block mt-3 font-title text-sm uppercase tracking-wider px-5 py-2 border transition-colors"
-                style={{ borderColor: BRAND.green, color: BRAND.green }}
+                className="inline-block mt-3 font-title text-sm uppercase tracking-wider px-5 py-2 border border-[#4EF9BD] text-[#4EF9BD] transition-colors"
               >
                 ↓ Download sprite
               </a>
@@ -358,13 +352,8 @@ export default function SpriteGenPage() {
         </div>
 
         {/* Step 3 */}
-        <div
-          className="border border-[#2a2820] p-5"
-          style={{ borderLeft: `3px solid ${BRAND.green}` }}
-        >
-          <p className="font-body text-xs mb-1" style={{ color: "#888880" }}>
-            03
-          </p>
+        <div className="border border-[#2a2820] border-l-[3px] border-l-[#4EF9BD] p-5">
+          <p className="font-body text-xs text-[#888880] mb-1">03</p>
           <h2 className="font-title text-sm text-white uppercase tracking-wider mb-4">
             Copy your post text
           </h2>
@@ -373,18 +362,16 @@ export default function SpriteGenPage() {
             readOnly
             rows={10}
             value={POST_TEXT}
-            className="w-full font-body text-sm p-3 border border-[#2a2820] resize-none focus:outline-none focus:border-[#4EF9BD] mb-3"
-            style={{ background: "#000", color: "#e0e0e0" }}
+            className="w-full font-body text-sm text-[#e0e0e0] bg-black p-3 border border-[#2a2820] resize-none focus:outline-none focus:border-[#4EF9BD] mb-3"
           />
 
           <button
             onClick={handleCopy}
-            className="font-title text-sm uppercase tracking-wider px-5 py-2 border transition-colors"
-            style={{
-              borderColor: BRAND.green,
-              color: copied ? "#000" : BRAND.green,
-              background: copied ? BRAND.green : "transparent",
-            }}
+            className={`font-title text-sm uppercase tracking-wider px-5 py-2 border border-[#4EF9BD] transition-colors ${
+              copied
+                ? "bg-[#4EF9BD] text-black"
+                : "bg-transparent text-[#4EF9BD]"
+            }`}
           >
             {copied ? "Copied!" : "Copy text"}
           </button>
