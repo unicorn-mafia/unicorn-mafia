@@ -30,22 +30,37 @@ export default function HeroSection() {
     <>
       <div className="w-full border-b border-gray-200 bg-neutral-100/80">
         <div className="flex items-center justify-center gap-6 sm:gap-10 px-4 py-2.5">
-          {stats.map((s) => (
-            <div
-              key={s.label}
-              onClick={s.label === "wins" ? handleWinsClick : undefined}
-              className={`group flex items-center gap-2 rounded-md px-2 py-1 font-deck-pixel text-[10px] sm:text-xs transition-all duration-200 ease-out hover:scale-[1.06] hover:bg-neutral-200/90 hover:shadow-sm active:scale-[0.98] ${
-                s.label === "wins" ? "cursor-pointer" : "cursor-default"
-              }`}
-            >
-              <span className="text-neutral-900 transition-colors group-hover:text-neutral-950">
-                {s.value}
-              </span>
-              <span className="text-neutral-500 transition-colors group-hover:text-neutral-700">
-                {s.label}
-              </span>
-            </div>
-          ))}
+          {stats.map((s) => {
+            const isWins = s.label === "wins";
+            const className = `group flex items-center gap-2 rounded-md px-2 py-1 font-deck-pixel text-[10px] sm:text-xs transition-all duration-200 ease-out hover:scale-[1.06] hover:bg-neutral-200/90 hover:shadow-sm active:scale-[0.98] ${
+              isWins ? "cursor-pointer" : "cursor-default"
+            }`;
+            const children = (
+              <>
+                <span className="text-neutral-900 transition-colors group-hover:text-neutral-950">
+                  {s.value}
+                </span>
+                <span className="text-neutral-500 transition-colors group-hover:text-neutral-700">
+                  {s.label}
+                </span>
+              </>
+            );
+            return isWins ? (
+              <button
+                key={s.label}
+                type="button"
+                onClick={handleWinsClick}
+                aria-pressed={easterEggActive}
+                className={className}
+              >
+                {children}
+              </button>
+            ) : (
+              <div key={s.label} className={className}>
+                {children}
+              </div>
+            );
+          })}
         </div>
       </div>
 

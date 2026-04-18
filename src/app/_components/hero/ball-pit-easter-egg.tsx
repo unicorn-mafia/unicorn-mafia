@@ -9,6 +9,7 @@ const RENDER_WIDTH = Math.round(RENDER_HEIGHT * SPRITE_ASPECT);
 const BODY_HEIGHT = 38;
 const BODY_WIDTH = 48;
 const SPAWN_INTERVAL_MS = 120;
+const MAX_BODIES = 120;
 const WALL = 8;
 
 interface Props {
@@ -33,13 +34,14 @@ export default function BallPitEasterEgg({ height }: Props) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const img = new Image();
-    img.src = "/unicorn-pixel.png";
-
     let rafId: number;
     let spawnInterval: ReturnType<typeof setInterval>;
 
     async function setup() {
+      const img = new Image();
+      img.src = "/unicorn-pixel.png";
+      await img.decode();
+
       const Matter = await import("matter-js");
       const { Engine, Runner, World, Bodies, Composite, Body } = Matter;
 
@@ -60,6 +62,10 @@ export default function BallPitEasterEgg({ height }: Props) {
       Runner.run(runner, engine);
 
       spawnInterval = setInterval(() => {
+        const dynamicBodies = Composite.allBodies(engine.world).filter(
+          (b) => !b.isStatic,
+        );
+        if (dynamicBodies.length >= MAX_BODIES) return;
         const x = Math.random() * (w - BODY_WIDTH) + BODY_WIDTH / 2;
         const body = Bodies.rectangle(
           x,
@@ -111,13 +117,15 @@ export default function BallPitEasterEgg({ height }: Props) {
     let teardown: (() => void) | undefined;
     let cancelled = false;
 
-    setup().then((fn) => {
-      if (cancelled) {
-        fn?.();
-      } else {
-        teardown = fn;
-      }
-    });
+    setup()
+      .then((fn) => {
+        if (cancelled) {
+          fn?.();
+        } else {
+          teardown = fn;
+        }
+      })
+      .catch(console.error);
 
     return () => {
       cancelled = true;
@@ -128,13 +136,8 @@ export default function BallPitEasterEgg({ height }: Props) {
   return (
     <div
       ref={containerRef}
-      style={{
-        height: height || "auto",
-        borderBottom: "1px solid #e5e7eb",
-        overflow: "hidden",
-        background: "#fafafa",
-        width: "100%",
-      }}
+      className="w-full overflow-hidden border-b border-gray-200 bg-gray-50"
+      style={{ height: height || "auto" }}
     >
       <canvas ref={canvasRef} style={{ display: "block" }} />
     </div>
