@@ -1,2 +1,2 @@
-pnpm exec lint-staged
-pnpm run build
+./node_modules/.bin/lint-staged
+./node_modules/.bin/next build

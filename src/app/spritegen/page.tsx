@@ -115,11 +115,11 @@ const SPONSORS: {
   invert?: boolean;
 }[] = [
   { file: "pydantic.png", mode: "none" }, // transparent, coloured icon
-  { file: "render.png", mode: "dark" }, // black bg, white icon
-  { file: "mubit.png", mode: "dark" }, // black bg, white icon
+  { file: "render_icon.png", mode: "dark" }, // black bg, white mark (icon-only crop)
+  { file: "mubit_icon.png", mode: "dark" }, // black bg, white triangle (trimmed)
   { file: "cognition.png", mode: "dark" }, // dark navy bg, white icon
   { file: "residency.png", mode: "none", invert: true }, // transparent, black icon → invert to white
-  { file: "expedite.png", mode: "dark" }, // black bg, white icon
+  { file: "expedite_icon.png", mode: "dark" }, // black bg, white pixel grid (icon-only crop)
 ];
 
 async function drawSponsors(
@@ -128,20 +128,24 @@ async function drawSponsors(
   H: number,
 ): Promise<void> {
   const margin = Math.round(W * 0.03);
-  const iconSize = Math.round(W * 0.07); // each icon: 7% of canvas
-  const gap = Math.round(W * 0.015);
+  const iconHeight = Math.round(W * 0.055); // fixed height for all icons
+  const gap = Math.round(W * 0.018);
 
   const loaded: {
     img: HTMLImageElement;
     mode: "dark" | "light" | "none";
     invert: boolean;
+    w: number; // proportional width at iconHeight
   }[] = [];
 
   await Promise.allSettled(
     SPONSORS.map(async ({ file, mode, invert }) => {
       try {
         const img = await loadImage(`/sponsors/${file}`);
-        loaded.push({ img, mode, invert: invert ?? false });
+        // Compute width that preserves natural aspect ratio at iconHeight
+        const aspect = img.naturalWidth / img.naturalHeight;
+        const w = Math.round(iconHeight * aspect);
+        loaded.push({ img, mode, invert: invert ?? false, w });
       } catch {
         // skip missing logos silently
       }
@@ -150,21 +154,25 @@ async function drawSponsors(
 
   if (loaded.length === 0) return;
 
-  const totalW = loaded.length * iconSize + (loaded.length - 1) * gap;
+  const totalW =
+    loaded.reduce((sum, { w }) => sum + w, 0) + (loaded.length - 1) * gap;
   let x = W - margin - totalW;
-  const y = H - margin - iconSize;
+  const y = H - margin - iconHeight;
 
-  for (const { img, mode, invert } of loaded) {
+  for (const { img, mode, invert, w } of loaded) {
     const off = document.createElement("canvas");
-    off.width = iconSize;
-    off.height = iconSize;
+    off.width = w;
+    off.height = iconHeight;
     const oc = off.getContext("2d")!;
     oc.imageSmoothingEnabled = true;
-    oc.drawImage(img, 0, 0, iconSize, iconSize);
-    removeBackground(oc, iconSize, iconSize, mode, invert);
+    oc.drawImage(img, 0, 0, w, iconHeight);
+    removeBackground(oc, w, iconHeight, mode, invert);
 
+    ctx.save();
+    ctx.globalAlpha = 0.7;
     ctx.drawImage(off, x, y);
-    x += iconSize + gap;
+    ctx.restore();
+    x += w + gap;
   }
 }
 
