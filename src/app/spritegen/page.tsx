@@ -3,14 +3,20 @@
 import { useRef, useState, useCallback } from "react";
 import Image from "next/image";
 
-const POST_TEXT = `I've got an early invite to the 'To The Americas' Hackathon by the Unicorn Mafia.
-excited to team up with some of Europe's top builders.
-lets get cooking!!
+const POST_TEXT = `I've been invited to the "To The Americas" Hackathon by the Unicorn Mafia!
+
+120 of Europe's best builders.
+$50k+ in prizes.
+1 winning team to SF.
+
+Time to cook. 🚀
 
 sponsors:
-Pydantic - https://lnkd.in/eV58E4PH  Render - https://lnkd.in/eJBbc7sw
-cognition.ai
-mubit.ai The Residency
+Pydantic - https://lnkd.in/eV58E4PH
+Render - https://lnkd.in/eJBbc7sw
+Cognition.ai
+Mubit.ai
+The Residency
 Expedite`;
 
 // ── Canvas compositing ──────────────────────────────────────────────────────
@@ -34,11 +40,112 @@ async function compositeAsset(imageUrl: string): Promise<string> {
 
   ctx.drawImage(sprite, 0, 0);
   drawGrid(ctx, canvas.width, canvas.height);
+  drawTitle(ctx, canvas.width);
+  await drawSponsors(ctx, canvas.width, canvas.height);
   await drawLogo(ctx, canvas.width, canvas.height);
 
   return new Promise((resolve) =>
     canvas.toBlob((blob) => resolve(URL.createObjectURL(blob!)), "image/png"),
   );
+}
+
+// Removes background pixels: dark=true strips black bg, dark=false strips white bg
+function removeBackground(
+  offCtx: CanvasRenderingContext2D,
+  w: number,
+  h: number,
+  dark = true,
+) {
+  const imageData = offCtx.getImageData(0, 0, w, h);
+  const d = imageData.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const lum = (d[i] + d[i + 1] + d[i + 2]) / 3;
+    if (dark ? lum < 40 : lum > 215) d[i + 3] = 0;
+  }
+  offCtx.putImageData(imageData, 0, 0);
+}
+
+// Draws "TO THE AMERICAS HACKATHON" at top-right with a dark backing
+function drawTitle(ctx: CanvasRenderingContext2D, W: number) {
+  const margin = Math.round(W * 0.03);
+  const fontSize = Math.round(W * 0.022);
+  const lineHeight = Math.round(fontSize * 1.5);
+  const padX = Math.round(fontSize * 0.6);
+  const padY = Math.round(fontSize * 0.5);
+
+  ctx.save();
+  ctx.font = `${fontSize}px "PP Neue Bit", monospace`;
+
+  const lines = ["TO THE AMERICAS", "HACKATHON"];
+  const textW = Math.max(...lines.map((l) => ctx.measureText(l).width));
+  const bgW = Math.round(textW + padX * 2);
+  const bgH = Math.round(lineHeight * lines.length + padY * 2);
+  const x = W - bgW - margin;
+  const y = margin;
+
+  // Dark panel
+  ctx.fillStyle = "rgba(14, 12, 8, 0.88)";
+  ctx.fillRect(x, y, bgW, bgH);
+
+  // White text
+  ctx.fillStyle = "#FFFFFF";
+  ctx.textBaseline = "top";
+  lines.forEach((line, i) => {
+    ctx.fillText(line, x + padX, y + padY + i * lineHeight);
+  });
+
+  ctx.restore();
+}
+
+// Sponsor configs: filename in /public/sponsors/, dark=true means black bg
+const SPONSORS = [
+  { file: "pydantic.png", dark: false }, // light/white bg → strip white
+  { file: "render.png", dark: true }, // black bg → strip black
+  { file: "mubit.png", dark: true }, // black bg → strip black
+  { file: "cognition.png", dark: true }, // black bg → strip black
+];
+
+async function drawSponsors(
+  ctx: CanvasRenderingContext2D,
+  W: number,
+  H: number,
+): Promise<void> {
+  const margin = Math.round(W * 0.03);
+  const iconSize = Math.round(W * 0.07); // each icon: 7% of canvas
+  const gap = Math.round(W * 0.015);
+
+  const loaded: { img: HTMLImageElement; dark: boolean }[] = [];
+
+  await Promise.allSettled(
+    SPONSORS.map(async ({ file, dark }) => {
+      try {
+        const img = await loadImage(`/sponsors/${file}`);
+        loaded.push({ img, dark });
+      } catch {
+        // skip missing logos silently
+      }
+    }),
+  );
+
+  if (loaded.length === 0) return;
+
+  const totalW = loaded.length * iconSize + (loaded.length - 1) * gap;
+  let x = W - margin - totalW;
+  const y = H - margin - iconSize;
+
+  for (const { img, dark } of loaded) {
+    // Draw onto offscreen canvas so we can manipulate pixels
+    const off = document.createElement("canvas");
+    off.width = iconSize;
+    off.height = iconSize;
+    const oc = off.getContext("2d")!;
+    oc.imageSmoothingEnabled = true;
+    oc.drawImage(img, 0, 0, iconSize, iconSize);
+    removeBackground(oc, iconSize, iconSize, dark);
+
+    ctx.drawImage(off, x, y);
+    x += iconSize + gap;
+  }
 }
 
 async function drawLogo(
