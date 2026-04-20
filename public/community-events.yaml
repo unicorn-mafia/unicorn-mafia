@@ -580,6 +580,20 @@
   location: "Ramen Space, Dalston Square, London"
   url: "https://luma.com/ne16ot2y"
 
+- name: "Voice AI in 2026: What's Real, What's Next"
+  start: "2026-04-28T18:00:00+01:00"
+  end: "2026-04-28T20:30:00+01:00"
+  cover: "https://images.lumacdn.com/event-covers/pr/cde50e0e-163c-4c1f-bf1e-ab7f45e39e90.png"
+  location: "Google London, Central Saint Giles"
+  url: "https://luma.com/yjiqbmsz"
+
+- name: "Unconference: Context Engineering in Production"
+  start: "2026-04-29T18:00:00+01:00"
+  end: "2026-04-29T21:00:00+01:00"
+  cover: "https://images.lumacdn.com/event-covers/36/d38fa0ce-1b41-4e08-b2ae-af321b9e3b29.jpg"
+  location: "Balderton Capital, London"
+  url: "https://luma.com/3iyatqzz"
+
 - name: "A Better Way to Build Agents: Workflows"
   start: "2026-04-23T16:30:00.000Z"
   end: "2026-04-23T19:00:00.000Z"
