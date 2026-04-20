@@ -49,18 +49,27 @@ async function compositeAsset(imageUrl: string): Promise<string> {
   );
 }
 
-// Removes background pixels: dark=true strips black bg, dark=false strips white bg
+// Removes background pixels and optionally inverts dark icons to white
+// mode: "dark" strips near-black bg, "light" strips near-white bg, "none" = already transparent
+// invert: flips pixel colours (for black icons on transparent bg that need to show on dark canvas)
 function removeBackground(
   offCtx: CanvasRenderingContext2D,
   w: number,
   h: number,
-  dark = true,
+  mode: "dark" | "light" | "none" = "dark",
+  invert = false,
 ) {
   const imageData = offCtx.getImageData(0, 0, w, h);
   const d = imageData.data;
   for (let i = 0; i < d.length; i += 4) {
     const lum = (d[i] + d[i + 1] + d[i + 2]) / 3;
-    if (dark ? lum < 40 : lum > 215) d[i + 3] = 0;
+    if (mode === "dark" && lum < 60) d[i + 3] = 0;
+    else if (mode === "light" && lum > 215) d[i + 3] = 0;
+    else if (invert) {
+      d[i] = 255 - d[i];
+      d[i + 1] = 255 - d[i + 1];
+      d[i + 2] = 255 - d[i + 2];
+    }
   }
   offCtx.putImageData(imageData, 0, 0);
 }
@@ -97,12 +106,20 @@ function drawTitle(ctx: CanvasRenderingContext2D, W: number) {
   ctx.restore();
 }
 
-// Sponsor configs: filename in /public/sponsors/, dark=true means black bg
-const SPONSORS = [
-  { file: "pydantic.png", dark: false }, // light/white bg → strip white
-  { file: "render.png", dark: true }, // black bg → strip black
-  { file: "mubit.png", dark: true }, // black bg → strip black
-  { file: "cognition.png", dark: true }, // black bg → strip black
+// Sponsor configs: filename in /public/sponsors/
+// mode: "dark"|"light"|"none" — background removal strategy
+// invert: true → flip colours (for black icons on transparent bg, to show on dark canvas)
+const SPONSORS: {
+  file: string;
+  mode: "dark" | "light" | "none";
+  invert?: boolean;
+}[] = [
+  { file: "pydantic.png", mode: "none" }, // transparent, coloured icon
+  { file: "render.png", mode: "dark" }, // black bg, white icon
+  { file: "mubit.png", mode: "dark" }, // black bg, white icon
+  { file: "cognition.png", mode: "dark" }, // dark navy bg, white icon
+  { file: "residency.png", mode: "none", invert: true }, // transparent, black icon → invert to white
+  { file: "expedite.png", mode: "dark" }, // black bg, white icon
 ];
 
 async function drawSponsors(
@@ -114,13 +131,17 @@ async function drawSponsors(
   const iconSize = Math.round(W * 0.07); // each icon: 7% of canvas
   const gap = Math.round(W * 0.015);
 
-  const loaded: { img: HTMLImageElement; dark: boolean }[] = [];
+  const loaded: {
+    img: HTMLImageElement;
+    mode: "dark" | "light" | "none";
+    invert: boolean;
+  }[] = [];
 
   await Promise.allSettled(
-    SPONSORS.map(async ({ file, dark }) => {
+    SPONSORS.map(async ({ file, mode, invert }) => {
       try {
         const img = await loadImage(`/sponsors/${file}`);
-        loaded.push({ img, dark });
+        loaded.push({ img, mode, invert: invert ?? false });
       } catch {
         // skip missing logos silently
       }
@@ -133,15 +154,14 @@ async function drawSponsors(
   let x = W - margin - totalW;
   const y = H - margin - iconSize;
 
-  for (const { img, dark } of loaded) {
-    // Draw onto offscreen canvas so we can manipulate pixels
+  for (const { img, mode, invert } of loaded) {
     const off = document.createElement("canvas");
     off.width = iconSize;
     off.height = iconSize;
     const oc = off.getContext("2d")!;
     oc.imageSmoothingEnabled = true;
     oc.drawImage(img, 0, 0, iconSize, iconSize);
-    removeBackground(oc, iconSize, iconSize, dark);
+    removeBackground(oc, iconSize, iconSize, mode, invert);
 
     ctx.drawImage(off, x, y);
     x += iconSize + gap;
