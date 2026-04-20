@@ -3,9 +3,13 @@
 import { useRef, useState, useCallback } from "react";
 import Image from "next/image";
 
-const POST_TEXT = `I've got an early invite to the 'To The Americas' Hackathon by the Unicorn Mafia.
-excited to team up with some of Europe's top builders.
-lets get cooking!!
+const POST_TEXT = `I've been invited to the "To The Americas" Hackathon by the Unicorn Mafia!
+
+120 of Europe's best builders.
+$50k+ in prizes.
+1 winning team to SF.
+
+Time to cook. 🚀
 
 sponsors:
 Pydantic - https://lnkd.in/eV58E4PH  Render - https://lnkd.in/eJBbc7sw
