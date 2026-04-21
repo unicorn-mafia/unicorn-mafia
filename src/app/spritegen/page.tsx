@@ -3,7 +3,7 @@
 import { useRef, useState, useCallback } from "react";
 import Image from "next/image";
 
-const POST_TEXT = `I've been invited to the "To The Americas" Hackathon by the Unicorn Mafia!
+const POST_TEXT = `I've been invited to the "To The Americas" Hackathon by the @Unicornmafia!
 
 120 of Europe's best builders.
 $50k+ in prizes.
@@ -12,12 +12,12 @@ $50k+ in prizes.
 Time to cook. 🚀
 
 sponsors:
-Pydantic - https://lnkd.in/eV58E4PH
-Render - https://lnkd.in/eJBbc7sw
-Cognition.ai
-Mubit.ai
-The Residency
-Expedite`;
+@Pydantic - https://lnkd.in/eV58E4PH
+@Render - https://lnkd.in/eJBbc7sw
+@Cognition
+@Mubit
+@TheResidency
+@Expedite`;
 
 // ── Canvas compositing ──────────────────────────────────────────────────────
 
