@@ -3,14 +3,20 @@
 import { useRef, useState, useCallback } from "react";
 import Image from "next/image";
 
-const POST_TEXT = `I've got an early invite to the 'To The Americas' Hackathon by the Unicorn Mafia.
-excited to team up with some of Europe's top builders.
-lets get cooking!!
+const POST_TEXT = `I've been invited to the "To The Americas" Hackathon by the Unicorn Mafia!
+
+120 of Europe's best builders.
+$50k+ in prizes.
+1 winning team to SF.
+
+Time to cook. 🚀
 
 sponsors:
-Pydantic - https://lnkd.in/eV58E4PH  Render - https://lnkd.in/eJBbc7sw
-cognition.ai
-mubit.ai The Residency
+Pydantic - https://lnkd.in/eV58E4PH
+Render - https://lnkd.in/eJBbc7sw
+Cognition.ai
+Mubit.ai
+The Residency
 Expedite`;
 
 // ── Canvas compositing ──────────────────────────────────────────────────────
@@ -34,11 +40,140 @@ async function compositeAsset(imageUrl: string): Promise<string> {
 
   ctx.drawImage(sprite, 0, 0);
   drawGrid(ctx, canvas.width, canvas.height);
+  drawTitle(ctx, canvas.width);
+  await drawSponsors(ctx, canvas.width, canvas.height);
   await drawLogo(ctx, canvas.width, canvas.height);
 
   return new Promise((resolve) =>
     canvas.toBlob((blob) => resolve(URL.createObjectURL(blob!)), "image/png"),
   );
+}
+
+// Removes background pixels and optionally inverts dark icons to white
+// mode: "dark" strips near-black bg, "light" strips near-white bg, "none" = already transparent
+// invert: flips pixel colours (for black icons on transparent bg that need to show on dark canvas)
+function removeBackground(
+  offCtx: CanvasRenderingContext2D,
+  w: number,
+  h: number,
+  mode: "dark" | "light" | "none" = "dark",
+  invert = false,
+) {
+  const imageData = offCtx.getImageData(0, 0, w, h);
+  const d = imageData.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const lum = (d[i] + d[i + 1] + d[i + 2]) / 3;
+    if (mode === "dark" && lum < 60) d[i + 3] = 0;
+    else if (mode === "light" && lum > 215) d[i + 3] = 0;
+    else if (invert) {
+      d[i] = 255 - d[i];
+      d[i + 1] = 255 - d[i + 1];
+      d[i + 2] = 255 - d[i + 2];
+    }
+  }
+  offCtx.putImageData(imageData, 0, 0);
+}
+
+// Draws "TO THE AMERICAS HACKATHON" at top-right with a dark backing
+function drawTitle(ctx: CanvasRenderingContext2D, W: number) {
+  const margin = Math.round(W * 0.03);
+  const fontSize = Math.round(W * 0.022);
+  const lineHeight = Math.round(fontSize * 1.5);
+  const padX = Math.round(fontSize * 0.6);
+  const padY = Math.round(fontSize * 0.5);
+
+  ctx.save();
+  ctx.font = `${fontSize}px "PP Neue Bit", monospace`;
+
+  const lines = ["TO THE AMERICAS", "HACKATHON"];
+  const textW = Math.max(...lines.map((l) => ctx.measureText(l).width));
+  const bgW = Math.round(textW + padX * 2);
+  const bgH = Math.round(lineHeight * lines.length + padY * 2);
+  const x = W - bgW - margin;
+  const y = margin;
+
+  // Dark panel
+  ctx.fillStyle = "rgba(14, 12, 8, 0.88)";
+  ctx.fillRect(x, y, bgW, bgH);
+
+  // White text
+  ctx.fillStyle = "#FFFFFF";
+  ctx.textBaseline = "top";
+  lines.forEach((line, i) => {
+    ctx.fillText(line, x + padX, y + padY + i * lineHeight);
+  });
+
+  ctx.restore();
+}
+
+// Sponsor configs: filename in /public/sponsors/
+// mode: "dark"|"light"|"none" — background removal strategy
+// invert: true → flip colours (for black icons on transparent bg, to show on dark canvas)
+const SPONSORS: {
+  file: string;
+  mode: "dark" | "light" | "none";
+  invert?: boolean;
+}[] = [
+  { file: "pydantic.png", mode: "none" }, // transparent, coloured icon
+  { file: "render_icon.png", mode: "dark" }, // black bg, white mark (icon-only crop)
+  { file: "mubit_icon.png", mode: "dark" }, // black bg, white triangle (trimmed)
+  { file: "cognition.png", mode: "dark" }, // dark navy bg, white icon
+  { file: "residency.png", mode: "none", invert: true }, // transparent, black icon → invert to white
+  { file: "expedite_icon.png", mode: "dark" }, // black bg, white pixel grid (icon-only crop)
+];
+
+async function drawSponsors(
+  ctx: CanvasRenderingContext2D,
+  W: number,
+  H: number,
+): Promise<void> {
+  const margin = Math.round(W * 0.03);
+  const iconHeight = Math.round(W * 0.055); // fixed height for all icons
+  const gap = Math.round(W * 0.018);
+
+  const loaded: {
+    img: HTMLImageElement;
+    mode: "dark" | "light" | "none";
+    invert: boolean;
+    w: number; // proportional width at iconHeight
+  }[] = [];
+
+  await Promise.allSettled(
+    SPONSORS.map(async ({ file, mode, invert }) => {
+      try {
+        const img = await loadImage(`/sponsors/${file}`);
+        // Compute width that preserves natural aspect ratio at iconHeight
+        const aspect = img.naturalWidth / img.naturalHeight;
+        const w = Math.round(iconHeight * aspect);
+        loaded.push({ img, mode, invert: invert ?? false, w });
+      } catch {
+        // skip missing logos silently
+      }
+    }),
+  );
+
+  if (loaded.length === 0) return;
+
+  const totalW =
+    loaded.reduce((sum, { w }) => sum + w, 0) + (loaded.length - 1) * gap;
+  let x = W - margin - totalW;
+  const y = H - margin - iconHeight;
+
+  for (const { img, mode, invert, w } of loaded) {
+    const off = document.createElement("canvas");
+    off.width = w;
+    off.height = iconHeight;
+    const oc = off.getContext("2d")!;
+    oc.imageSmoothingEnabled = true;
+    oc.drawImage(img, 0, 0, w, iconHeight);
+    removeBackground(oc, w, iconHeight, mode, invert);
+
+    ctx.save();
+    ctx.globalAlpha = 0.7;
+    ctx.drawImage(off, x, y);
+    ctx.restore();
+    x += w + gap;
+  }
 }
 
 async function drawLogo(
