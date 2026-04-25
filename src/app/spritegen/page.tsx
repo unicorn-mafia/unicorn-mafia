@@ -294,8 +294,8 @@ function drawGridBackground(
   const CELL = Math.round(W * 0.04); // ~40px grid cells at 1024px
 
   ctx.save();
-  ctx.strokeStyle = "rgba(180,180,180,0.18)";
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = "rgba(160,160,160,0.45)";
+  ctx.lineWidth = 1.5;
 
   for (let x = 0; x <= W; x += CELL) {
     ctx.beginPath();
