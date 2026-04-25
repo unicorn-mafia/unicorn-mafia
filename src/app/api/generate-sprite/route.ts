@@ -56,12 +56,13 @@ const POSES = [
   "a rising dragon punch — leaping upward with fist driving skyward, fully airborne and twisting",
 ];
 
-const OUTFITS = [
-  "neon-trimmed black leather jacket, ripped techwear cargo pants, chunky platform boots with neon piping, fingerless gloves — purple and cyan neon accents",
-  "sleeveless armoured vest with glowing circuit lines, high-waist tactical trousers, knee-high boots, arm wraps with neon strips — red and gold neon accents",
-  "hooded longcoat with neon trim, slim combat trousers, ankle boots, visor goggles pushed up on forehead — green and white neon accents",
-  "cropped tech jacket, techwear shorts over leggings, heavy boots, exposed glowing cybernetic arm detail — blue and magenta neon accents",
-  "trench coat with neon-lit panels, tactical belt, wide-leg combat trousers, steel-toe boots — orange and purple neon accents",
+// Neon accent colour sets — one is picked randomly to give each sprite variety
+const NEON_ACCENTS = [
+  "purple and cyan neon accents",
+  "red and gold neon accents",
+  "green and white neon accents",
+  "blue and magenta neon accents",
+  "orange and purple neon accents",
 ];
 
 // ── Evolution tiers — power level scales with hours into the hackathon ────────
@@ -116,7 +117,7 @@ function getPowerTier(hoursIn: number): PowerTier {
 
 function buildSpritePrompt(hoursIn: number, photoMode: "solo" | "team"): string {
   const poseDesc   = POSES[Math.floor(Math.random() * POSES.length)];
-  const outfitDesc = OUTFITS[Math.floor(Math.random() * OUTFITS.length)];
+  const accentDesc = NEON_ACCENTS[Math.floor(Math.random() * NEON_ACCENTS.length)];
   const tier       = getPowerTier(hoursIn);
 
   if (photoMode === "team") {
@@ -126,7 +127,7 @@ Render each person as their own distinct fighter standing side by side in a team
 
 Evolution stage: ${tier.label} (${hoursIn}h into a 26-hour hackathon). Each character is ${tier.powerDesc}.
 
-Outfits: Each fighter wears a variation of this style: ${outfitDesc}. Cyberpunk street fighter aesthetic — NOT karate gis or martial arts uniforms.
+Outfits: Preserve what each person is actually wearing in the photo, but reimagine it with cyberpunk street fighter flair — add ${accentDesc}, neon trim, tech panelling, armour plating, or glowing details while keeping the overall silhouette and style faithful to their real outfit. NOT karate gis or martial arts uniforms.
 
 Full team visible from head to toe. Exaggerated fighting game proportions on every fighter.
 
@@ -137,7 +138,7 @@ ${tier.styleExtra}`;
 
 Evolution stage: ${tier.label} (${hoursIn}h into a 26-hour hackathon). The character is ${tier.powerDesc}.
 
-Outfit: ${outfitDesc}. Cyberpunk street fighter aesthetic — NOT a karate gi or martial arts uniform.
+Outfit: Preserve what the person is actually wearing in the photo, but reimagine it with cyberpunk street fighter flair — add ${accentDesc}, neon trim, tech panelling, armour plating, or glowing details while keeping the overall silhouette and style faithful to their real outfit. NOT a karate gi or martial arts uniform.
 
 Pose: Mid-attack — ${poseDesc}. Full body visible from head to toe, attacking limb fully extended. Exaggerated fighting game proportions, motion energy on the attacking limb.
 
