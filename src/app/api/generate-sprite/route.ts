@@ -101,9 +101,9 @@ const POWER_TIERS: PowerTier[] = [
     // 23 h+ — Stage 4: God Mode
     label: "God Mode",
     powerDesc:
-      "transcendent god form — part human, part pure radiant force, body erupting with divine energy, ethereal light trails streaming behind every limb, face serene and all-knowing, so powerful the very pixels around them seem to crack and glow",
+      "an absolutely unhinged god-tier final form — the body has become mostly pure white-hot divine energy barely holding a human silhouette, limbs trailing massive cascading wings of fire and lightning, hair exploding upward into a towering inferno, eyes replaced by two blinding stars, the ground beneath them cracking and disintegrating, surrounded by a massive double aura of crackling electricity and holy light, so overwhelmingly powerful it looks like a final boss cutscene",
     styleExtra:
-      "Bold black outlines, vibrant neon pixel art at maximum intensity. Blinding white core with rainbow energy corona. Pixel art deity aesthetic — this character has ascended beyond human limits. Street Fighter II sprite style taken to godlike extremes.",
+      "Maximum intensity pixel art. Enormous explosive aura twice the size of the body. Giant lightning wings. Towering fire hair. Ground shatter effect beneath the feet. Blinding white and gold core radiating outward into deep violet and electric blue. This sprite should look completely unhinged — like a Street Fighter II final boss crossed with a Dragon Ball Ultra Instinct transformation. Push every visual element to the absolute extreme.",
   },
 ];
 
