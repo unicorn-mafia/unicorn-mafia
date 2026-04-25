@@ -47,9 +47,35 @@ function isRateLimited(ip: string): boolean {
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? "");
 
-const SPRITE_PROMPT = `Convert this reference image into a 2D pixel art cyberpunk fighting game character sprite. Make them a little tiny playable fighter character — bold outlines, vibrant limited color palette, and sharp pixel details. Keep the backdrop black.
-Pose: Keep the same ready fighting stance with fists up. Add subtle cyberpunk fighting game flair: faint neon glow on the red visor, very light electric sparks or holographic glitch effects around the fists and coat edges, and a dark cyberpunk atmosphere.
-Maintain the outfit from the reference, and stylize it as a high-quality pixel art fighting game idle sprite. Clean lines, retro video game feel, ready for a cyberpunk fighting game roster.`;
+const POSES = [
+  "a devastating uppercut — dominant fist driving upward with full body extension, chin raised, weight on back foot",
+  "a flying side kick — one leg fully extended outward, other leg tucked, body airborne and horizontal",
+  "a spinning roundhouse kick — kicking leg sweeping wide at head height, body rotating mid-air",
+  "a lunging straight punch — lead fist fully extended forward, body low and committed to the strike",
+  "a leaping double-fist slam — both fists thrust downward together, body dropping with full force",
+  "a rising dragon punch — leaping upward with fist driving skyward, fully airborne and twisting",
+];
+
+const OUTFITS = [
+  "neon-trimmed black leather jacket, ripped techwear cargo pants, chunky platform boots with neon piping, fingerless gloves — purple and cyan neon accents",
+  "sleeveless armoured vest with glowing circuit lines, high-waist tactical trousers, knee-high boots, arm wraps with neon strips — red and gold neon accents",
+  "hooded longcoat with neon trim, slim combat trousers, ankle boots, visor goggles pushed up on forehead — green and white neon accents",
+  "cropped tech jacket, techwear shorts over leggings, heavy boots, exposed glowing cybernetic arm detail — blue and magenta neon accents",
+  "trench coat with neon-lit panels, tactical belt, wide-leg combat trousers, steel-toe boots — orange and purple neon accents",
+];
+
+function buildSpritePrompt(): string {
+  const poseDesc = POSES[Math.floor(Math.random() * POSES.length)];
+  const outfitDesc = OUTFITS[Math.floor(Math.random() * OUTFITS.length)];
+
+  return `Using the person in this photo as the character reference, create a 2D pixel art cyberpunk fighting game sprite in the style of Street Fighter II. Pure black backdrop.
+
+Outfit: ${outfitDesc}. Cyberpunk street fighter aesthetic — NOT a karate gi or martial arts uniform.
+
+Pose: Mid-attack — ${poseDesc}. Full body visible from head to toe, attacking limb fully extended. Exaggerated fighting game proportions, motion energy on the attacking limb.
+
+Bold black outlines, vibrant neon pixel art, clean retro Street Fighter sprite style.`;
+}
 
 // ── Route ────────────────────────────────────────────────────────────────────
 
@@ -88,6 +114,7 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get("image") as File | null;
+    const SPRITE_PROMPT = buildSpritePrompt();
 
     if (!file) {
       return NextResponse.json(
@@ -156,9 +183,9 @@ export async function POST(req: NextRequest) {
       "base64",
     );
 
-    // 6. Shrink sprite and center on black canvas
+    // 6. Resize sprite and center on black canvas
     const CANVAS = 1024;
-    const spriteHeight = Math.round(CANVAS * 0.38);
+    const spriteHeight = Math.round(CANVAS * 0.58); // bigger fighter
     const resized = await sharp(rawBuffer)
       .resize({ height: spriteHeight, withoutEnlargement: false })
       .toBuffer();
