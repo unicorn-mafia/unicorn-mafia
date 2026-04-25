@@ -118,9 +118,8 @@ const SLEEP_FILL: Record<Sleep, number> = {
   Fumes: 0.12,
 };
 
-// Hackathon kicked off at 11:00 AM local time on the event day (April 25 2026)
-const HACKATHON_START = new Date();
-HACKATHON_START.setHours(11, 0, 0, 0);
+// Hackathon kicked off at 11:00 AM on April 25 2026
+const HACKATHON_START = new Date(2026, 3, 25, 11, 0, 0, 0); // month is 0-indexed
 
 function getElapsed(): { h: number; m: number } {
   const ms = Date.now() - HACKATHON_START.getTime();
@@ -199,8 +198,8 @@ async function compositeAsset(
   ctx.fillStyle = "#000000";
   ctx.fillRect(0, 0, W, H);
 
-  // 2. Pixel-art grid on pure black
-  drawGridBackground(ctx, W, H);
+  // 2. Radial speed lines — brand colour palette
+  drawRadialLines(ctx, W, H, palette);
 
   // 3. Sprite — strip black bg so lines show through behind the character
   const spriteOff = document.createElement("canvas");
@@ -285,31 +284,29 @@ function drawTitle(ctx: CanvasRenderingContext2D, W: number) {
 }
 
 // Crisp alternating radial speed lines — drawn on black bg before the sprite
-// Pixel-art grid background — pure black with subtle dark grid lines
-function drawGridBackground(
+// Radial speed-line background — brand palette wedges radiating from centre
+function drawRadialLines(
   ctx: CanvasRenderingContext2D,
   W: number,
   H: number,
+  palette: BgPalette,
 ) {
-  const CELL = Math.round(W * 0.04); // ~40px grid cells at 1024px
+  const cx = W * 0.44;
+  const cy = H * 0.46;
+  const numRays = 20;
+  const maxR = Math.hypot(W, H);
 
   ctx.save();
-  ctx.strokeStyle = "rgba(160,160,160,0.22)";
-  ctx.lineWidth = 1;
-
-  for (let x = 0; x <= W; x += CELL) {
+  for (let i = 0; i < numRays; i++) {
+    const startAngle = (i / numRays) * Math.PI * 2;
+    const endAngle = ((i + 0.5) / numRays) * Math.PI * 2;
     ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, H);
-    ctx.stroke();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, maxR, startAngle, endAngle);
+    ctx.closePath();
+    ctx.fillStyle = i % 2 === 0 ? palette.light : palette.dark;
+    ctx.fill();
   }
-  for (let y = 0; y <= H; y += CELL) {
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(W, y);
-    ctx.stroke();
-  }
-
   ctx.restore();
 }
 
