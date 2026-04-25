@@ -123,13 +123,13 @@ function buildSpritePrompt(hoursIn: number, photoMode: "solo" | "team"): string 
   if (photoMode === "team") {
     return `Using every person visible in this group photo as character references, create a 2D pixel art cyberpunk fighting game scene in the style of Street Fighter II. Pure black backdrop.
 
-Render each person as their own distinct fighter standing side by side in a team battle formation — all facing the same direction, each in a dynamic fighting stance. Keep each fighter's facial likeness and hair faithful to the person in the photo.
+Render each person as their own distinct fighter standing side by side in a team battle formation — all facing the same direction, each in a dynamic fighting stance. Distinguish each fighter clearly with different hair, build, and stance matching the people in the photo.
 
 Evolution stage: ${tier.label} (${hoursIn}h into a 26-hour hackathon). Each character is ${tier.powerDesc}.
 
 Outfits: Preserve what each person is actually wearing in the photo, but reimagine it with cyberpunk street fighter flair — add ${accentDesc}, neon trim, tech panelling, armour plating, or glowing details while keeping the overall silhouette and style faithful to their real outfit. NOT karate gis or martial arts uniforms.
 
-Full team visible from head to toe. Exaggerated fighting game proportions on every fighter.
+All fighters fully visible from head to toe in a single wide scene. Exaggerated fighting game proportions on every fighter.
 
 ${tier.styleExtra}`;
   }
@@ -255,9 +255,14 @@ export async function POST(req: NextRequest) {
 
     // 6. Resize sprite and center on black canvas
     const CANVAS = 1024;
-    const spriteHeight = Math.round(CANVAS * 0.58); // bigger fighter
+    // Solo: fill ~58% of canvas height. Team: fit inside 95% of canvas so
+    // all fighters are visible regardless of how wide the scene is.
     const resized = await sharp(rawBuffer)
-      .resize({ height: spriteHeight, withoutEnlargement: false })
+      .resize(
+        photoMode === "team"
+          ? { width: Math.round(CANVAS * 0.95), height: Math.round(CANVAS * 0.75), fit: "inside", withoutEnlargement: false }
+          : { height: Math.round(CANVAS * 0.58), withoutEnlargement: false },
+      )
       .toBuffer();
 
     const meta = await sharp(resized).metadata();
