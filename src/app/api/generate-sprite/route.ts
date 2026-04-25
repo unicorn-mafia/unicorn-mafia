@@ -114,10 +114,24 @@ function getPowerTier(hoursIn: number): PowerTier {
   return POWER_TIERS[0];
 }
 
-function buildSpritePrompt(hoursIn: number): string {
+function buildSpritePrompt(hoursIn: number, photoMode: "solo" | "team"): string {
   const poseDesc   = POSES[Math.floor(Math.random() * POSES.length)];
   const outfitDesc = OUTFITS[Math.floor(Math.random() * OUTFITS.length)];
   const tier       = getPowerTier(hoursIn);
+
+  if (photoMode === "team") {
+    return `Using every person visible in this group photo as character references, create a 2D pixel art cyberpunk fighting game scene in the style of Street Fighter II. Pure black backdrop.
+
+Render each person as their own distinct fighter standing side by side in a team battle formation — all facing the same direction, each in a dynamic fighting stance. Keep each fighter's facial likeness and hair faithful to the person in the photo.
+
+Evolution stage: ${tier.label} (${hoursIn}h into a 26-hour hackathon). Each character is ${tier.powerDesc}.
+
+Outfits: Each fighter wears a variation of this style: ${outfitDesc}. Cyberpunk street fighter aesthetic — NOT karate gis or martial arts uniforms.
+
+Full team visible from head to toe. Exaggerated fighting game proportions on every fighter.
+
+${tier.styleExtra}`;
+  }
 
   return `Using the person in this photo as the character reference, create a 2D pixel art cyberpunk fighting game sprite in the style of Street Fighter II. Pure black backdrop.
 
@@ -168,7 +182,8 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData();
     const file = formData.get("image") as File | null;
     const hoursIn = Math.max(0, Number(formData.get("hoursIn") ?? 0));
-    const SPRITE_PROMPT = buildSpritePrompt(hoursIn);
+    const photoMode = formData.get("photoMode") === "team" ? "team" : "solo";
+    const SPRITE_PROMPT = buildSpritePrompt(hoursIn, photoMode);
 
     if (!file) {
       return NextResponse.json(
