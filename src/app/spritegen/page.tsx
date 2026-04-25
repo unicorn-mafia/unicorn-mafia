@@ -313,8 +313,9 @@ function drawGridBackground(
   ctx.restore();
 }
 
-// Remove pure-black background from the sprite so the bg shows through.
-// Pixel art sprites have solid #000 bg; character darks always have some colour.
+// Remove the sprite background regardless of what colour Gemini chose.
+// Samples the four corners to detect the actual bg colour, then removes
+// any pixel within `THRESHOLD` colour-distance of that sampled colour.
 function removeSpriteBackground(
   offCtx: CanvasRenderingContext2D,
   w: number,
@@ -322,11 +323,33 @@ function removeSpriteBackground(
 ) {
   const imageData = offCtx.getImageData(0, 0, w, h);
   const d = imageData.data;
+
+  // Average the four corner pixels to get the background colour
+  const corners = [
+    [0, 0],
+    [w - 1, 0],
+    [0, h - 1],
+    [w - 1, h - 1],
+  ];
+  let bgR = 0, bgG = 0, bgB = 0;
+  for (const [cx, cy] of corners) {
+    const idx = (cy * w + cx) * 4;
+    bgR += d[idx]     / 4;
+    bgG += d[idx + 1] / 4;
+    bgB += d[idx + 2] / 4;
+  }
+
+  // Remove pixels whose colour is close to the sampled background
+  const THRESHOLD = 72; // colour-distance tolerance (0–441)
   for (let i = 0; i < d.length; i += 4) {
-    if (d[i] < 18 && d[i + 1] < 18 && d[i + 2] < 18) {
-      d[i + 3] = 0; // transparent
+    const dr = d[i]     - bgR;
+    const dg = d[i + 1] - bgG;
+    const db = d[i + 2] - bgB;
+    if (Math.sqrt(dr * dr + dg * dg + db * db) < THRESHOLD) {
+      d[i + 3] = 0;
     }
   }
+
   offCtx.putImageData(imageData, 0, 0);
 }
 
