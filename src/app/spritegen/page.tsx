@@ -328,10 +328,12 @@ function removeSpriteBackground(
     [0, h - 1],
     [w - 1, h - 1],
   ];
-  let bgR = 0, bgG = 0, bgB = 0;
+  let bgR = 0,
+    bgG = 0,
+    bgB = 0;
   for (const [cx, cy] of corners) {
     const idx = (cy * w + cx) * 4;
-    bgR += d[idx]     / 4;
+    bgR += d[idx] / 4;
     bgG += d[idx + 1] / 4;
     bgB += d[idx + 2] / 4;
   }
@@ -339,7 +341,7 @@ function removeSpriteBackground(
   // Remove pixels whose colour is close to the sampled background
   const THRESHOLD = 72; // colour-distance tolerance (0–441)
   for (let i = 0; i < d.length; i += 4) {
-    const dr = d[i]     - bgR;
+    const dr = d[i] - bgR;
     const dg = d[i + 1] - bgG;
     const db = d[i + 2] - bgB;
     if (Math.sqrt(dr * dr + dg * dg + db * db) < THRESHOLD) {

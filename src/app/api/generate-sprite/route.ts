@@ -111,14 +111,18 @@ const POWER_TIERS: PowerTier[] = [
 function getPowerTier(hoursIn: number): PowerTier {
   if (hoursIn >= 23) return POWER_TIERS[3];
   if (hoursIn >= 16) return POWER_TIERS[2];
-  if (hoursIn >= 8)  return POWER_TIERS[1];
+  if (hoursIn >= 8) return POWER_TIERS[1];
   return POWER_TIERS[0];
 }
 
-function buildSpritePrompt(hoursIn: number, photoMode: "solo" | "team"): string {
-  const poseDesc   = POSES[Math.floor(Math.random() * POSES.length)];
-  const accentDesc = NEON_ACCENTS[Math.floor(Math.random() * NEON_ACCENTS.length)];
-  const tier       = getPowerTier(hoursIn);
+function buildSpritePrompt(
+  hoursIn: number,
+  photoMode: "solo" | "team",
+): string {
+  const poseDesc = POSES[Math.floor(Math.random() * POSES.length)];
+  const accentDesc =
+    NEON_ACCENTS[Math.floor(Math.random() * NEON_ACCENTS.length)];
+  const tier = getPowerTier(hoursIn);
 
   if (photoMode === "team") {
     return `Using every person visible in this group photo as character references, create a 2D pixel art cyberpunk fighting game scene in the style of Street Fighter II. Pure black backdrop.
@@ -260,7 +264,12 @@ export async function POST(req: NextRequest) {
     const resized = await sharp(rawBuffer)
       .resize(
         photoMode === "team"
-          ? { width: Math.round(CANVAS * 0.95), height: Math.round(CANVAS * 0.75), fit: "inside", withoutEnlargement: false }
+          ? {
+              width: Math.round(CANVAS * 0.95),
+              height: Math.round(CANVAS * 0.75),
+              fit: "inside",
+              withoutEnlargement: false,
+            }
           : { height: Math.round(CANVAS * 0.58), withoutEnlargement: false },
       )
       .toBuffer();
