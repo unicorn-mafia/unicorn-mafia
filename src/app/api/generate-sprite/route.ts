@@ -64,17 +64,70 @@ const OUTFITS = [
   "trench coat with neon-lit panels, tactical belt, wide-leg combat trousers, steel-toe boots — orange and purple neon accents",
 ];
 
-function buildSpritePrompt(): string {
-  const poseDesc = POSES[Math.floor(Math.random() * POSES.length)];
+// ── Evolution tiers — power level scales with hours into the hackathon ────────
+
+interface PowerTier {
+  label: string;
+  powerDesc: string;
+  styleExtra: string;
+}
+
+const POWER_TIERS: PowerTier[] = [
+  {
+    // 0–7 h — Stage 1: Street Fighter
+    label: "Street Fighter",
+    powerDesc:
+      "sharp, confident, and fresh — a skilled street fighter at peak focus, clean and dangerous",
+    styleExtra:
+      "Bold black outlines, vibrant neon pixel art, clean retro Street Fighter II sprite style.",
+  },
+  {
+    // 8–15 h — Stage 2: Power Surge
+    label: "Power Surge",
+    powerDesc:
+      "mid-transformation — crackling electric energy bursting from their fists and eyes, glowing veins visible through skin, hair beginning to rise with static charge, power awakening inside them",
+    styleExtra:
+      "Bold black outlines, vibrant neon pixel art with electric sparks and glowing energy lines across the body. Street Fighter II sprite style.",
+  },
+  {
+    // 16–22 h — Stage 3: Super Form
+    label: "Super Form",
+    powerDesc:
+      "super-powered — a blazing aura of pure energy surrounds them, floating slightly off the ground, outfit partially disintegrating into streaks of neon light, eyes glowing solid white, overwhelming power barely contained",
+    styleExtra:
+      "Bold black outlines, vibrant neon pixel art. Large visible aura halo around the body, glowing energy trails. Exaggerated superhero proportions. Street Fighter II sprite style pushed to the limit.",
+  },
+  {
+    // 23 h+ — Stage 4: God Mode
+    label: "God Mode",
+    powerDesc:
+      "transcendent god form — part human, part pure radiant force, body erupting with divine energy, ethereal light trails streaming behind every limb, face serene and all-knowing, so powerful the very pixels around them seem to crack and glow",
+    styleExtra:
+      "Bold black outlines, vibrant neon pixel art at maximum intensity. Blinding white core with rainbow energy corona. Pixel art deity aesthetic — this character has ascended beyond human limits. Street Fighter II sprite style taken to godlike extremes.",
+  },
+];
+
+function getPowerTier(hoursIn: number): PowerTier {
+  if (hoursIn >= 23) return POWER_TIERS[3];
+  if (hoursIn >= 16) return POWER_TIERS[2];
+  if (hoursIn >= 8)  return POWER_TIERS[1];
+  return POWER_TIERS[0];
+}
+
+function buildSpritePrompt(hoursIn: number): string {
+  const poseDesc   = POSES[Math.floor(Math.random() * POSES.length)];
   const outfitDesc = OUTFITS[Math.floor(Math.random() * OUTFITS.length)];
+  const tier       = getPowerTier(hoursIn);
 
   return `Using the person in this photo as the character reference, create a 2D pixel art cyberpunk fighting game sprite in the style of Street Fighter II. Pure black backdrop.
+
+Evolution stage: ${tier.label} (${hoursIn}h into a 26-hour hackathon). The character is ${tier.powerDesc}.
 
 Outfit: ${outfitDesc}. Cyberpunk street fighter aesthetic — NOT a karate gi or martial arts uniform.
 
 Pose: Mid-attack — ${poseDesc}. Full body visible from head to toe, attacking limb fully extended. Exaggerated fighting game proportions, motion energy on the attacking limb.
 
-Bold black outlines, vibrant neon pixel art, clean retro Street Fighter sprite style.`;
+${tier.styleExtra}`;
 }
 
 // ── Route ────────────────────────────────────────────────────────────────────
@@ -114,7 +167,8 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get("image") as File | null;
-    const SPRITE_PROMPT = buildSpritePrompt();
+    const hoursIn = Math.max(0, Number(formData.get("hoursIn") ?? 0));
+    const SPRITE_PROMPT = buildSpritePrompt(hoursIn);
 
     if (!file) {
       return NextResponse.json(

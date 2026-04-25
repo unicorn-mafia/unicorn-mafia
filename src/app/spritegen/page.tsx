@@ -673,9 +673,11 @@ export default function SpriteGenPage() {
     setStatus("Generating your sprite… (~30s)");
 
     try {
+      const snap = getElapsed(); // snapshot at generation time
       const formData = new FormData();
       formData.append("image", uploadedFile);
       formData.append("tools", JSON.stringify(selectedTools));
+      formData.append("hoursIn", String(snap.h));
 
       const res = await fetch("/api/generate-sprite", {
         method: "POST",
@@ -695,7 +697,6 @@ export default function SpriteGenPage() {
       // Pick a random brand palette each generation
       const palette =
         BG_PALETTES[Math.floor(Math.random() * BG_PALETTES.length)];
-      const snap = getElapsed(); // snapshot at generation time
       const finalUrl = await compositeAsset(imageUrl, selectedTools, palette, {
         sector,
         teamSize,
