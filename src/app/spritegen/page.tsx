@@ -622,9 +622,6 @@ export default function SpriteGenPage() {
   const [loading, setLoading] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState(0);
 
-  // ── Photo mode ───────────────────────────────────────────────────────────
-  const [photoMode, setPhotoMode] = useState<"solo" | "team">("solo");
-
   // ── Hackathon stats ──────────────────────────────────────────────────────
   const [sector, setSector] = useState("");
   const [teamSize, setTeamSize] = useState(1);
@@ -678,7 +675,7 @@ export default function SpriteGenPage() {
       formData.append("image", uploadedFile);
       formData.append("tools", JSON.stringify(selectedTools));
       formData.append("hoursIn", String(snap.h));
-      formData.append("photoMode", photoMode);
+      formData.append("photoMode", "solo");
 
       const res = await fetch("/api/generate-sprite", {
         method: "POST",
@@ -756,28 +753,6 @@ export default function SpriteGenPage() {
           <h2 className="font-title text-sm text-white uppercase tracking-wider mb-4">
             Upload your photo
           </h2>
-
-          {/* Solo / Team toggle */}
-          <div className="flex gap-2 mb-4">
-            {(["solo", "team"] as const).map((mode) => (
-              <button
-                key={mode}
-                onClick={() => setPhotoMode(mode)}
-                className={`font-title text-xs uppercase tracking-wider px-4 py-2 border transition-all ${
-                  photoMode === mode
-                    ? "border-[#B307EB] bg-[#B307EB]/10 text-[#B307EB]"
-                    : "border-[#2a2820] text-[#888880] hover:border-[#B307EB]/50"
-                }`}
-              >
-                {mode === "solo" ? "⚡ Solo" : "👥 Team"}
-              </button>
-            ))}
-          </div>
-          <p className="font-body text-xs text-[#555550] mb-4">
-            {photoMode === "solo"
-              ? "Upload a photo of yourself — you'll be rendered as a solo fighter."
-              : "Upload a group photo — everyone gets rendered as their own fighter."}
-          </p>
 
           {!previewSrc ? (
             <label
