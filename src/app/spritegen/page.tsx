@@ -454,9 +454,7 @@ function drawStatsPanel(
   drawLabel("SECTOR", sectorDisplay);
 
   // ── Row 3: Team size ───────────────────────────────────────────────────
-  const teamLabel = ["SOLO", "DUO", "TRIO", "SQUAD"][
-    Math.min(stats.teamSize - 1, 3)
-  ];
+  const teamLabel = ["SOLO", "DUO", "TRIO"][Math.min(stats.teamSize - 1, 2)];
   drawLabel("TEAM", teamLabel);
 
   // ── Row 4: Stage progress bar ──────────────────────────────────────────
@@ -901,7 +899,7 @@ export default function SpriteGenPage() {
               Team size
             </label>
             <div className="flex gap-2">
-              {[1, 2, 3, 4].map((n) => (
+              {[1, 2, 3].map((n) => (
                 <button
                   key={n}
                   onClick={() => setTeamSize(n)}
@@ -911,13 +909,7 @@ export default function SpriteGenPage() {
                       : "border-[#2a2820] text-[#888880] hover:border-[#4EF9BD]/50"
                   }`}
                 >
-                  {n === 1
-                    ? "Solo"
-                    : n === 2
-                      ? "Duo"
-                      : n === 3
-                        ? "Trio"
-                        : "Squad"}
+                  {n === 1 ? "Solo" : n === 2 ? "Duo" : "Trio"}
                 </button>
               ))}
             </div>
