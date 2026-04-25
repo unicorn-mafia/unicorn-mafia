@@ -199,8 +199,8 @@ async function compositeAsset(
   ctx.fillStyle = "#000000";
   ctx.fillRect(0, 0, W, H);
 
-  // 2. Radial speed lines (brand colour palette)
-  drawRadialLines(ctx, W, H, palette);
+  // 2. Pixel-art grid on pure black
+  drawGridBackground(ctx, W, H);
 
   // 3. Sprite — strip black bg so lines show through behind the character
   const spriteOff = document.createElement("canvas");
@@ -285,29 +285,31 @@ function drawTitle(ctx: CanvasRenderingContext2D, W: number) {
 }
 
 // Crisp alternating radial speed lines — drawn on black bg before the sprite
-function drawRadialLines(
+// Pixel-art grid background — pure black with subtle dark grid lines
+function drawGridBackground(
   ctx: CanvasRenderingContext2D,
   W: number,
   H: number,
-  palette: BgPalette,
 ) {
-  const cx = W * 0.44;
-  const cy = H * 0.46;
-  const numRays = 20;
-  const maxR = Math.hypot(W, H);
+  const CELL = Math.round(W * 0.04); // ~40px grid cells at 1024px
 
   ctx.save();
-  for (let i = 0; i < numRays; i++) {
-    const startAngle = (i / numRays) * Math.PI * 2;
-    const endAngle = ((i + 0.5) / numRays) * Math.PI * 2;
+  ctx.strokeStyle = "rgba(180,180,180,0.18)";
+  ctx.lineWidth = 1;
 
+  for (let x = 0; x <= W; x += CELL) {
     ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, maxR, startAngle, endAngle);
-    ctx.closePath();
-    ctx.fillStyle = i % 2 === 0 ? palette.light : palette.dark;
-    ctx.fill();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, H);
+    ctx.stroke();
   }
+  for (let y = 0; y <= H; y += CELL) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(W, y);
+    ctx.stroke();
+  }
+
   ctx.restore();
 }
 
