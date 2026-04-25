@@ -101,9 +101,9 @@ const POWER_TIERS: PowerTier[] = [
     // 23 h+ — Stage 4: God Mode
     label: "God Mode",
     powerDesc:
-      "an absolutely unhinged god-tier final form — the body has become mostly pure white-hot divine energy barely holding a human silhouette, limbs trailing massive cascading wings of fire and lightning, hair exploding upward into a towering inferno, eyes replaced by two blinding stars, the ground beneath them cracking and disintegrating, surrounded by a massive double aura of crackling electricity and holy light, so overwhelmingly powerful it looks like a final boss cutscene",
+      "peak god-tier street fighter — still fully human in their cyberpunk outfit, but radiating an enormous blinding white and gold aura that dwarfs their body, hair wild and floating upward with raw energy, eyes glowing solid white, crackling electricity dancing across every surface of their clothing, one step beyond super form but still grounded as a street fighter",
     styleExtra:
-      "Maximum intensity pixel art. Enormous explosive aura twice the size of the body. Giant lightning wings. Towering fire hair. Ground shatter effect beneath the feet. Blinding white and gold core radiating outward into deep violet and electric blue. This sprite should look completely unhinged — like a Street Fighter II final boss crossed with a Dragon Ball Ultra Instinct transformation. Push every visual element to the absolute extreme.",
+      "Bold black outlines, vibrant neon pixel art. Same cyberpunk clothing as the other stages — intact, recognisable outfit. Massive bright aura surrounding the whole body. Electricity sparking off the clothes. Glowing white eyes. NO wings, NO body transformation, NO angelic forms. Pure Street Fighter II style at its absolute peak power.",
   },
 ];
 
