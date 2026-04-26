@@ -649,3 +649,10 @@
   cover: "https://images.lumacdn.com/event-covers/6l/d43decfc-01d6-4bb6-b687-4ae091a458e1.jpg"
   location: "Tessl, King's Cross, London"
   url: "https://luma.com/hack-night-tessl-may13-2026"
+
+- name: "The London AI Agents Showcase at Databricks"
+  start: "2026-05-14T17:45:00+01:00"
+  end: "2026-05-14T20:00:00+01:00"
+  cover: "https://images.lumacdn.com/event-covers/a1/06c90542-2464-461b-bb2a-e66533085183.png"
+  location: "Databricks, London"
+  url: "https://luma.com/rduuz4od"
