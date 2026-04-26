@@ -20,14 +20,16 @@ interface ToolOption {
 function getPostVariants(
   toolIds: string[],
   toolOptions: ToolOption[],
+  platform: "x" | "linkedin",
 ): string[] {
   const names = toolIds
     .map((id) => toolOptions.find((t) => t.id === id)?.label ?? id)
     .join(", ");
+  const tag = platform === "x" ? "@unicorn_mafia" : "unicorn-mafia";
   return [
     `We're cooking. 🔥
 
-@UnicornMafia — To The Americas Hackathon
+${tag} — To The Americas Hackathon
 120 builders. £50k+ prizes. London → SF.
 
 Stack: ${names}`,
@@ -36,14 +38,14 @@ Stack: ${names}`,
 
 I'm coming for it.
 
-@UnicornMafia — To The Americas | £50k+
+${tag} — To The Americas | £50k+
 
 Stack: ${names}`,
 
     `The build has started. ⚔️
 
-@UnicornMafia | To The Americas
-London. $50k. SF finale.
+${tag} | To The Americas
+London. £50k. SF finale.
 
 Running on: ${names}`,
   ];
@@ -621,6 +623,7 @@ export default function SpriteGenPage() {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState(0);
+  const [platform, setPlatform] = useState<"x" | "linkedin">("x");
 
   // ── Hackathon stats ──────────────────────────────────────────────────────
   const [sector, setSector] = useState("");
@@ -716,7 +719,13 @@ export default function SpriteGenPage() {
     }
   };
 
-  const postVariants = getPostVariants(selectedTools, TOOL_OPTIONS);
+  const xVariants = getPostVariants(selectedTools, TOOL_OPTIONS, "x");
+  const linkedInVariants = getPostVariants(
+    selectedTools,
+    TOOL_OPTIONS,
+    "linkedin",
+  );
+  const postVariants = platform === "x" ? xVariants : linkedInVariants;
   const activePost = postVariants[selectedVariant] ?? postVariants[0];
 
   const handleCopy = async () => {
@@ -1048,8 +1057,44 @@ export default function SpriteGenPage() {
             Copy your post text
           </h2>
           <p className="font-body text-xs text-[#888880] mb-4">
-            Pick a vibe, then copy.
+            Pick a platform and vibe, then share.
           </p>
+
+          {/* Platform selector */}
+          <div className="flex gap-2 mb-4">
+            {(["x", "linkedin"] as const).map((p) => (
+              <button
+                key={p}
+                onClick={() => setPlatform(p)}
+                className={`font-title text-xs uppercase tracking-wider px-4 py-2 border transition-all flex items-center gap-2 ${
+                  platform === p
+                    ? "border-[#B307EB] bg-[#B307EB]/10 text-[#B307EB]"
+                    : "border-[#2a2820] text-[#888880] hover:border-[#B307EB]/50"
+                }`}
+              >
+                {p === "x" ? (
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                ) : (
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                )}
+                {p === "x" ? "X" : "LinkedIn"}
+              </button>
+            ))}
+          </div>
 
           {/* Variant selector */}
           <div className="flex gap-2 mb-4">
@@ -1087,47 +1132,49 @@ export default function SpriteGenPage() {
               {copied ? "Copied!" : "Copy text"}
             </button>
 
-            {/* Share to X */}
-            <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(activePost)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-title text-sm uppercase tracking-wider px-5 py-2 border border-[#888880] text-[#888880] hover:border-white hover:text-white transition-colors flex items-center gap-2"
-            >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="currentColor"
+            {platform === "x" ? (
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(activePost)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-title text-sm uppercase tracking-wider px-5 py-2 border border-[#888880] text-[#888880] hover:border-white hover:text-white transition-colors flex items-center gap-2"
               >
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-              Share on X
-            </a>
-
-            {/* Share to LinkedIn */}
-            <a
-              href="https://www.linkedin.com/feed/"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => navigator.clipboard.writeText(activePost)}
-              className="font-title text-sm uppercase tracking-wider px-5 py-2 border border-[#888880] text-[#888880] hover:border-[#0A66C2] hover:text-[#0A66C2] transition-colors flex items-center gap-2"
-            >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="currentColor"
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+                Share on X
+              </a>
+            ) : (
+              <a
+                href="https://www.linkedin.com/feed/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => navigator.clipboard.writeText(activePost)}
+                className="font-title text-sm uppercase tracking-wider px-5 py-2 border border-[#888880] text-[#888880] hover:border-[#0A66C2] hover:text-[#0A66C2] transition-colors flex items-center gap-2"
               >
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-              </svg>
-              Share on LinkedIn
-            </a>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
+                Share on LinkedIn
+              </a>
+            )}
           </div>
-          <p className="font-body text-[10px] text-[#444440] mt-2">
-            LinkedIn: text copied to clipboard — paste it into your post.
-            Download your sprite to attach it.
-          </p>
+          {platform === "linkedin" && (
+            <p className="font-body text-[10px] text-[#444440] mt-2">
+              Text copied to clipboard — paste into your post and attach your
+              downloaded sprite.
+            </p>
+          )}
         </div>
       </div>
     </div>
