@@ -56,25 +56,97 @@ const POSES = [
   "a rising dragon punch — leaping upward with fist driving skyward, fully airborne and twisting",
 ];
 
-const OUTFITS = [
-  "neon-trimmed black leather jacket, ripped techwear cargo pants, chunky platform boots with neon piping, fingerless gloves — purple and cyan neon accents",
-  "sleeveless armoured vest with glowing circuit lines, high-waist tactical trousers, knee-high boots, arm wraps with neon strips — red and gold neon accents",
-  "hooded longcoat with neon trim, slim combat trousers, ankle boots, visor goggles pushed up on forehead — green and white neon accents",
-  "cropped tech jacket, techwear shorts over leggings, heavy boots, exposed glowing cybernetic arm detail — blue and magenta neon accents",
-  "trench coat with neon-lit panels, tactical belt, wide-leg combat trousers, steel-toe boots — orange and purple neon accents",
+// Neon accent colour sets — one is picked randomly to give each sprite variety
+const NEON_ACCENTS = [
+  "purple and cyan neon accents",
+  "red and gold neon accents",
+  "green and white neon accents",
+  "blue and magenta neon accents",
+  "orange and purple neon accents",
 ];
 
-function buildSpritePrompt(): string {
+// ── Evolution tiers — power level scales with hours into the hackathon ────────
+
+interface PowerTier {
+  label: string;
+  powerDesc: string;
+  styleExtra: string;
+}
+
+const POWER_TIERS: PowerTier[] = [
+  {
+    // 0–7 h — Stage 1: Street Fighter
+    label: "Street Fighter",
+    powerDesc:
+      "sharp, confident, and fresh — a skilled street fighter at peak focus, clean and dangerous",
+    styleExtra:
+      "Bold black outlines, vibrant neon pixel art, clean retro Street Fighter II sprite style.",
+  },
+  {
+    // 8–15 h — Stage 2: Power Surge
+    label: "Power Surge",
+    powerDesc:
+      "mid-transformation — crackling electric energy bursting from their fists and eyes, glowing veins visible through skin, hair beginning to rise with static charge, power awakening inside them",
+    styleExtra:
+      "Bold black outlines, vibrant neon pixel art with electric sparks and glowing energy lines across the body. Street Fighter II sprite style.",
+  },
+  {
+    // 16–22 h — Stage 3: Super Form
+    label: "Super Form",
+    powerDesc:
+      "super-powered — a blazing aura of pure energy surrounds them, floating slightly off the ground, outfit partially disintegrating into streaks of neon light, eyes glowing solid white, overwhelming power barely contained",
+    styleExtra:
+      "Bold black outlines, vibrant neon pixel art. Large visible aura halo around the body, glowing energy trails. Exaggerated superhero proportions. Street Fighter II sprite style pushed to the limit.",
+  },
+  {
+    // 23 h+ — Stage 4: God Mode
+    label: "God Mode",
+    powerDesc:
+      "peak god-tier street fighter — still fully human in their cyberpunk outfit, but radiating an enormous blinding white and gold aura that dwarfs their body, hair wild and floating upward with raw energy, eyes glowing solid white, crackling electricity dancing across every surface of their clothing, one step beyond super form but still grounded as a street fighter",
+    styleExtra:
+      "Bold black outlines, vibrant neon pixel art. Same cyberpunk clothing as the other stages — intact, recognisable outfit. Massive bright aura surrounding the whole body. Electricity sparking off the clothes. Glowing white eyes. NO wings, NO body transformation, NO angelic forms. Pure Street Fighter II style at its absolute peak power.",
+  },
+];
+
+function getPowerTier(hoursIn: number): PowerTier {
+  if (hoursIn >= 23) return POWER_TIERS[3];
+  if (hoursIn >= 16) return POWER_TIERS[2];
+  if (hoursIn >= 8) return POWER_TIERS[1];
+  return POWER_TIERS[0];
+}
+
+function buildSpritePrompt(
+  hoursIn: number,
+  photoMode: "solo" | "team",
+): string {
   const poseDesc = POSES[Math.floor(Math.random() * POSES.length)];
-  const outfitDesc = OUTFITS[Math.floor(Math.random() * OUTFITS.length)];
+  const accentDesc =
+    NEON_ACCENTS[Math.floor(Math.random() * NEON_ACCENTS.length)];
+  const tier = getPowerTier(hoursIn);
+
+  if (photoMode === "team") {
+    return `Using every person visible in this group photo as character references, create a 2D pixel art cyberpunk fighting game scene in the style of Street Fighter II. Pure black backdrop.
+
+Render each person as their own distinct fighter standing side by side in a team battle formation — all facing the same direction, each in a dynamic fighting stance. Keep each fighter's facial likeness and hair faithful to the person in the photo.
+
+Evolution stage: ${tier.label} (${hoursIn}h into a 26-hour hackathon). Each character is ${tier.powerDesc}.
+
+Outfits: Preserve what each person is actually wearing in the photo, but reimagine it with cyberpunk street fighter flair — add ${accentDesc}, neon trim, tech panelling, armour plating, or glowing details while keeping the overall silhouette and style faithful to their real outfit. NOT karate gis or martial arts uniforms.
+
+Full team visible from head to toe. Exaggerated fighting game proportions on every fighter.
+
+${tier.styleExtra}`;
+  }
 
   return `Using the person in this photo as the character reference, create a 2D pixel art cyberpunk fighting game sprite in the style of Street Fighter II. Pure black backdrop.
 
-Outfit: ${outfitDesc}. Cyberpunk street fighter aesthetic — NOT a karate gi or martial arts uniform.
+Evolution stage: ${tier.label} (${hoursIn}h into a 26-hour hackathon). The character is ${tier.powerDesc}.
+
+Outfit: Preserve what the person is actually wearing in the photo, but reimagine it with cyberpunk street fighter flair — add ${accentDesc}, neon trim, tech panelling, armour plating, or glowing details while keeping the overall silhouette and style faithful to their real outfit. NOT a karate gi or martial arts uniform.
 
 Pose: Mid-attack — ${poseDesc}. Full body visible from head to toe, attacking limb fully extended. Exaggerated fighting game proportions, motion energy on the attacking limb.
 
-Bold black outlines, vibrant neon pixel art, clean retro Street Fighter sprite style.`;
+${tier.styleExtra}`;
 }
 
 // ── Route ────────────────────────────────────────────────────────────────────
@@ -114,7 +186,9 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get("image") as File | null;
-    const SPRITE_PROMPT = buildSpritePrompt();
+    const hoursIn = Math.max(0, Number(formData.get("hoursIn") ?? 0));
+    const photoMode = formData.get("photoMode") === "team" ? "team" : "solo";
+    const SPRITE_PROMPT = buildSpritePrompt(hoursIn, photoMode);
 
     if (!file) {
       return NextResponse.json(
@@ -185,9 +259,19 @@ export async function POST(req: NextRequest) {
 
     // 6. Resize sprite and center on black canvas
     const CANVAS = 1024;
-    const spriteHeight = Math.round(CANVAS * 0.58); // bigger fighter
+    // Solo: fill ~58% of canvas height. Team: fit inside 95% of canvas so
+    // all fighters are visible regardless of how wide the scene is.
     const resized = await sharp(rawBuffer)
-      .resize({ height: spriteHeight, withoutEnlargement: false })
+      .resize(
+        photoMode === "team"
+          ? {
+              width: Math.round(CANVAS * 0.95),
+              height: Math.round(CANVAS * 0.75),
+              fit: "inside",
+              withoutEnlargement: false,
+            }
+          : { height: Math.round(CANVAS * 0.58), withoutEnlargement: false },
+      )
       .toBuffer();
 
     const meta = await sharp(resized).metadata();

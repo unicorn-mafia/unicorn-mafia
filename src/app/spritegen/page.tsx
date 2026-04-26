@@ -20,14 +20,16 @@ interface ToolOption {
 function getPostVariants(
   toolIds: string[],
   toolOptions: ToolOption[],
+  platform: "x" | "linkedin",
 ): string[] {
   const names = toolIds
     .map((id) => toolOptions.find((t) => t.id === id)?.label ?? id)
     .join(", ");
+  const tag = platform === "x" ? "@unicorn_mafia" : "unicorn-mafia";
   return [
     `We're cooking. 🔥
 
-@UnicornMafia — To The Americas Hackathon
+${tag} — To The Americas Hackathon
 120 builders. £50k+ prizes. London → SF.
 
 Stack: ${names}`,
@@ -36,14 +38,14 @@ Stack: ${names}`,
 
 I'm coming for it.
 
-@UnicornMafia — To The Americas | £50k+
+${tag} — To The Americas | £50k+
 
 Stack: ${names}`,
 
     `The build has started. ⚔️
 
-@UnicornMafia | To The Americas
-London. $50k. SF finale.
+${tag} | To The Americas
+London. £50k. SF finale.
 
 Running on: ${names}`,
   ];
@@ -118,9 +120,8 @@ const SLEEP_FILL: Record<Sleep, number> = {
   Fumes: 0.12,
 };
 
-// Hackathon kicked off at 11:00 AM local time on the event day (April 25 2026)
-const HACKATHON_START = new Date();
-HACKATHON_START.setHours(11, 0, 0, 0);
+// Hackathon kicked off at 11:00 AM on April 25 2026
+const HACKATHON_START = new Date(2026, 3, 25, 11, 0, 0, 0); // month is 0-indexed
 
 function getElapsed(): { h: number; m: number } {
   const ms = Date.now() - HACKATHON_START.getTime();
@@ -199,7 +200,7 @@ async function compositeAsset(
   ctx.fillStyle = "#000000";
   ctx.fillRect(0, 0, W, H);
 
-  // 2. Radial speed lines (brand colour palette)
+  // 2. Radial speed lines — brand colour palette
   drawRadialLines(ctx, W, H, palette);
 
   // 3. Sprite — strip black bg so lines show through behind the character
@@ -285,6 +286,7 @@ function drawTitle(ctx: CanvasRenderingContext2D, W: number) {
 }
 
 // Crisp alternating radial speed lines — drawn on black bg before the sprite
+// Radial speed-line background — brand palette wedges radiating from centre
 function drawRadialLines(
   ctx: CanvasRenderingContext2D,
   W: number,
@@ -300,7 +302,6 @@ function drawRadialLines(
   for (let i = 0; i < numRays; i++) {
     const startAngle = (i / numRays) * Math.PI * 2;
     const endAngle = ((i + 0.5) / numRays) * Math.PI * 2;
-
     ctx.beginPath();
     ctx.moveTo(cx, cy);
     ctx.arc(cx, cy, maxR, startAngle, endAngle);
@@ -311,8 +312,9 @@ function drawRadialLines(
   ctx.restore();
 }
 
-// Remove pure-black background from the sprite so the bg shows through.
-// Pixel art sprites have solid #000 bg; character darks always have some colour.
+// Remove the sprite background regardless of what colour Gemini chose.
+// Samples the four corners to detect the actual bg colour, then removes
+// any pixel within `THRESHOLD` colour-distance of that sampled colour.
 function removeSpriteBackground(
   offCtx: CanvasRenderingContext2D,
   w: number,
@@ -320,11 +322,35 @@ function removeSpriteBackground(
 ) {
   const imageData = offCtx.getImageData(0, 0, w, h);
   const d = imageData.data;
+
+  // Average the four corner pixels to get the background colour
+  const corners = [
+    [0, 0],
+    [w - 1, 0],
+    [0, h - 1],
+    [w - 1, h - 1],
+  ];
+  let bgR = 0,
+    bgG = 0,
+    bgB = 0;
+  for (const [cx, cy] of corners) {
+    const idx = (cy * w + cx) * 4;
+    bgR += d[idx] / 4;
+    bgG += d[idx + 1] / 4;
+    bgB += d[idx + 2] / 4;
+  }
+
+  // Remove pixels whose colour is close to the sampled background
+  const THRESHOLD = 72; // colour-distance tolerance (0–441)
   for (let i = 0; i < d.length; i += 4) {
-    if (d[i] < 18 && d[i + 1] < 18 && d[i + 2] < 18) {
-      d[i + 3] = 0; // transparent
+    const dr = d[i] - bgR;
+    const dg = d[i + 1] - bgG;
+    const db = d[i + 2] - bgB;
+    if (Math.sqrt(dr * dr + dg * dg + db * db) < THRESHOLD) {
+      d[i + 3] = 0;
     }
   }
+
   offCtx.putImageData(imageData, 0, 0);
 }
 
@@ -432,9 +458,7 @@ function drawStatsPanel(
   drawLabel("SECTOR", sectorDisplay);
 
   // ── Row 3: Team size ───────────────────────────────────────────────────
-  const teamLabel = ["SOLO", "DUO", "TRIO", "SQUAD"][
-    Math.min(stats.teamSize - 1, 3)
-  ];
+  const teamLabel = ["SOLO", "DUO", "TRIO"][Math.min(stats.teamSize - 1, 2)];
   drawLabel("TEAM", teamLabel);
 
   // ── Row 4: Stage progress bar ──────────────────────────────────────────
@@ -599,6 +623,7 @@ export default function SpriteGenPage() {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState(0);
+  const [platform, setPlatform] = useState<"x" | "linkedin">("x");
 
   // ── Hackathon stats ──────────────────────────────────────────────────────
   const [sector, setSector] = useState("");
@@ -648,9 +673,12 @@ export default function SpriteGenPage() {
     setStatus("Generating your sprite… (~30s)");
 
     try {
+      const snap = getElapsed(); // snapshot at generation time
       const formData = new FormData();
       formData.append("image", uploadedFile);
       formData.append("tools", JSON.stringify(selectedTools));
+      formData.append("hoursIn", String(snap.h));
+      formData.append("photoMode", "solo");
 
       const res = await fetch("/api/generate-sprite", {
         method: "POST",
@@ -670,7 +698,6 @@ export default function SpriteGenPage() {
       // Pick a random brand palette each generation
       const palette =
         BG_PALETTES[Math.floor(Math.random() * BG_PALETTES.length)];
-      const snap = getElapsed(); // snapshot at generation time
       const finalUrl = await compositeAsset(imageUrl, selectedTools, palette, {
         sector,
         teamSize,
@@ -692,7 +719,13 @@ export default function SpriteGenPage() {
     }
   };
 
-  const postVariants = getPostVariants(selectedTools, TOOL_OPTIONS);
+  const xVariants = getPostVariants(selectedTools, TOOL_OPTIONS, "x");
+  const linkedInVariants = getPostVariants(
+    selectedTools,
+    TOOL_OPTIONS,
+    "linkedin",
+  );
+  const postVariants = platform === "x" ? xVariants : linkedInVariants;
   const activePost = postVariants[selectedVariant] ?? postVariants[0];
 
   const handleCopy = async () => {
@@ -877,7 +910,7 @@ export default function SpriteGenPage() {
               Team size
             </label>
             <div className="flex gap-2">
-              {[1, 2, 3, 4].map((n) => (
+              {[1, 2, 3].map((n) => (
                 <button
                   key={n}
                   onClick={() => setTeamSize(n)}
@@ -887,13 +920,7 @@ export default function SpriteGenPage() {
                       : "border-[#2a2820] text-[#888880] hover:border-[#4EF9BD]/50"
                   }`}
                 >
-                  {n === 1
-                    ? "Solo"
-                    : n === 2
-                      ? "Duo"
-                      : n === 3
-                        ? "Trio"
-                        : "Squad"}
+                  {n === 1 ? "Solo" : n === 2 ? "Duo" : "Trio"}
                 </button>
               ))}
             </div>
@@ -1030,8 +1057,44 @@ export default function SpriteGenPage() {
             Copy your post text
           </h2>
           <p className="font-body text-xs text-[#888880] mb-4">
-            Pick a vibe, then copy.
+            Pick a platform and vibe, then share.
           </p>
+
+          {/* Platform selector */}
+          <div className="flex gap-2 mb-4">
+            {(["x", "linkedin"] as const).map((p) => (
+              <button
+                key={p}
+                onClick={() => setPlatform(p)}
+                className={`font-title text-xs uppercase tracking-wider px-4 py-2 border transition-all flex items-center gap-2 ${
+                  platform === p
+                    ? "border-[#B307EB] bg-[#B307EB]/10 text-[#B307EB]"
+                    : "border-[#2a2820] text-[#888880] hover:border-[#B307EB]/50"
+                }`}
+              >
+                {p === "x" ? (
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                ) : (
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                )}
+                {p === "x" ? "X" : "LinkedIn"}
+              </button>
+            ))}
+          </div>
 
           {/* Variant selector */}
           <div className="flex gap-2 mb-4">
@@ -1057,16 +1120,61 @@ export default function SpriteGenPage() {
             className="w-full font-body text-sm text-[#e0e0e0] bg-black p-3 border border-[#2a2820] resize-none focus:outline-none focus:border-[#4EF9BD] mb-3"
           />
 
-          <button
-            onClick={handleCopy}
-            className={`font-title text-sm uppercase tracking-wider px-5 py-2 border border-[#4EF9BD] transition-colors ${
-              copied
-                ? "bg-[#4EF9BD] text-black"
-                : "bg-transparent text-[#4EF9BD]"
-            }`}
-          >
-            {copied ? "Copied!" : "Copy text"}
-          </button>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={handleCopy}
+              className={`font-title text-sm uppercase tracking-wider px-5 py-2 border border-[#4EF9BD] transition-colors ${
+                copied
+                  ? "bg-[#4EF9BD] text-black"
+                  : "bg-transparent text-[#4EF9BD]"
+              }`}
+            >
+              {copied ? "Copied!" : "Copy text"}
+            </button>
+
+            {platform === "x" ? (
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(activePost)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-title text-sm uppercase tracking-wider px-5 py-2 border border-[#888880] text-[#888880] hover:border-white hover:text-white transition-colors flex items-center gap-2"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+                Share on X
+              </a>
+            ) : (
+              <a
+                href="https://www.linkedin.com/feed/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => navigator.clipboard.writeText(activePost)}
+                className="font-title text-sm uppercase tracking-wider px-5 py-2 border border-[#888880] text-[#888880] hover:border-[#0A66C2] hover:text-[#0A66C2] transition-colors flex items-center gap-2"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
+                Share on LinkedIn
+              </a>
+            )}
+          </div>
+          {platform === "linkedin" && (
+            <p className="font-body text-[10px] text-[#444440] mt-2">
+              Text copied to clipboard — paste into your post and attach your
+              downloaded sprite.
+            </p>
+          )}
         </div>
       </div>
     </div>
