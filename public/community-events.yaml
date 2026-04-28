@@ -824,3 +824,17 @@
   cover: "https://images.lumacdn.com/event-covers/w5/1898edc9-6624-4cdf-9caf-5a1c1c11c487.png"
   location: "London, England"
   url: "https://luma.com/aidevcon-ldn26"
+
+- name: "Taxation of Stablecoins: Virtual Roundtable"
+  start: "2026-04-29T15:00:00+01:00"
+  end: "2026-04-29T16:00:00+01:00"
+  cover: "https://images.lumacdn.com/event-covers/yh/8cf83ba8-884b-4a1e-bb47-91233d178d64.png"
+  location: "Online"
+  url: "https://luma.com/stablecointax"
+
+- name: "House of Sol Nights - April"
+  start: "2026-04-30T17:00:00+01:00"
+  end: "2026-04-30T21:30:00+01:00"
+  cover: "https://images.lumacdn.com/event-covers/fo/10068ef7-2fb5-48fe-9335-b2fdfd9c2592.png"
+  location: "London, England"
+  url: "https://luma.com/HouseOfSol-Nights-April"
