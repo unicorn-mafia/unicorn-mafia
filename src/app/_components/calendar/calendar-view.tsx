@@ -1,7 +1,62 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import type { CalendarEvent } from "../../_types/calendar";
+
+// Click-and-drag horizontal scroll. Only kicks in if the user actually drags
+// (movement > 4px), so single clicks on event chips still register as clicks.
+function useDragScroll() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const state = useRef({
+    isDown: false,
+    didDrag: false,
+    startX: 0,
+    startScrollLeft: 0,
+  });
+
+  const onMouseDown = useCallback((e: React.MouseEvent) => {
+    if (!ref.current) return;
+    // Don't start drag if user clicked on a link/button (let the click happen)
+    const target = e.target as HTMLElement;
+    if (target.closest("a, button")) return;
+    state.current.isDown = true;
+    state.current.didDrag = false;
+    state.current.startX = e.pageX;
+    state.current.startScrollLeft = ref.current.scrollLeft;
+  }, []);
+
+  const onMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!state.current.isDown || !ref.current) return;
+    const dx = e.pageX - state.current.startX;
+    if (Math.abs(dx) > 4) state.current.didDrag = true;
+    ref.current.scrollLeft = state.current.startScrollLeft - dx;
+  }, []);
+
+  const stop = useCallback(() => {
+    state.current.isDown = false;
+  }, []);
+
+  // Suppress the click that fires after a drag, so dragging across event chips
+  // doesn't accidentally open them.
+  const onClickCapture = useCallback((e: React.MouseEvent) => {
+    if (state.current.didDrag) {
+      e.preventDefault();
+      e.stopPropagation();
+      state.current.didDrag = false;
+    }
+  }, []);
+
+  return {
+    ref,
+    handlers: {
+      onMouseDown,
+      onMouseMove,
+      onMouseLeave: stop,
+      onMouseUp: stop,
+      onClickCapture,
+    },
+  };
+}
 
 export type CalendarMode = "week" | "month";
 
@@ -194,10 +249,15 @@ function WeekGrid({
   });
 
   const eventsByDay = groupEventsByDay(events);
+  const { ref, handlers } = useDragScroll();
 
   return (
-    <div className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0 snap-x snap-mandatory md:snap-none">
-      <div className="grid grid-cols-7 border-l border-t border-neutral-300 min-w-[980px] md:min-w-0">
+    <div
+      ref={ref}
+      {...handlers}
+      className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0 snap-x snap-mandatory md:snap-none cursor-grab active:cursor-grabbing select-none"
+    >
+      <div className="grid grid-cols-7 border-l border-t border-neutral-300 min-w-[980px] lg:min-w-[1100px]">
         {days.map((day) => {
           const isToday = isSameDay(day, today);
           const dayEvents = eventsByDay.get(dayKey(day)) ?? [];
@@ -272,10 +332,16 @@ function MonthGrid({
   const selectedEvents =
     selectedDay !== null ? (eventsByDay.get(dayKey(selectedDay)) ?? []) : [];
 
+  const { ref, handlers } = useDragScroll();
+
   return (
     <>
-      <div className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0">
-        <div className="grid grid-cols-7 border-l border-t border-neutral-300 min-w-[980px] md:min-w-0">
+      <div
+        ref={ref}
+        {...handlers}
+        className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0 cursor-grab active:cursor-grabbing select-none"
+      >
+        <div className="grid grid-cols-7 border-l border-t border-neutral-300 min-w-[980px] lg:min-w-[1100px]">
           {weekdayHeaders.map((h) => (
             <div
               key={h}
