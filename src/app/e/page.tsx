@@ -7,9 +7,13 @@ import type { CalendarEvent } from "../_types/calendar";
 import { EventListItem } from "../_components/calendar/event-list-item";
 import { EventCard } from "../_components/calendar/event-card";
 import { MiniCalendar } from "../_components/calendar/mini-calendar";
+import {
+  CalendarView,
+  type CalendarMode,
+} from "../_components/calendar/calendar-view";
 
 type SourceFilter = "all" | "um" | "community";
-type ViewMode = "list" | "grid";
+type ViewMode = "list" | "grid" | "calendar";
 
 function isSameDay(a: Date, b: Date): boolean {
   return (
@@ -69,6 +73,9 @@ export default function EventsPage() {
   const [sourceFilter, setSourceFilter] = useState<SourceFilter>("all");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("list");
+  const [calendarMode, setCalendarMode] = useState<CalendarMode>("week");
+  const [weekOffset, setWeekOffset] = useState(0);
+  const [monthOffset, setMonthOffset] = useState(0);
 
   useEffect(() => {
     const load = async () => {
@@ -91,7 +98,51 @@ export default function EventsPage() {
     const params = new URLSearchParams(window.location.search);
     const f = params.get("filter") ?? params.get("source");
     if (f === "um") setSourceFilter("um");
+    const v = params.get("view");
+    if (v === "grid" || v === "list" || v === "calendar") setViewMode(v);
+    const cm = params.get("cal");
+    if (cm === "week" || cm === "month") setCalendarMode(cm);
+    const w = params.get("w");
+    if (w !== null) {
+      const n = parseInt(w, 10);
+      if (!isNaN(n)) setWeekOffset(n);
+    }
+    const m = params.get("m");
+    if (m !== null) {
+      const n = parseInt(m, 10);
+      if (!isNaN(n)) setMonthOffset(n);
+    }
   }, []);
+
+  // Persist view state to URL so refresh keeps state
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (viewMode === "list") params.delete("view");
+    else params.set("view", viewMode);
+
+    if (viewMode === "calendar") {
+      if (calendarMode === "week") params.delete("cal");
+      else params.set("cal", calendarMode);
+      if (calendarMode === "week" && weekOffset !== 0) {
+        params.set("w", String(weekOffset));
+      } else {
+        params.delete("w");
+      }
+      if (calendarMode === "month" && monthOffset !== 0) {
+        params.set("m", String(monthOffset));
+      } else {
+        params.delete("m");
+      }
+    } else {
+      params.delete("cal");
+      params.delete("w");
+      params.delete("m");
+    }
+
+    const qs = params.toString();
+    const newUrl = `${window.location.pathname}${qs ? `?${qs}` : ""}`;
+    window.history.replaceState(null, "", newUrl);
+  }, [viewMode, calendarMode, weekOffset, monthOffset]);
 
   const filteredEvents = useMemo(() => {
     const now = new Date();
@@ -260,6 +311,23 @@ export default function EventsPage() {
                     <path d="M1 1h6v6H1V1zm8 0h6v6H9V1zM1 9h6v6H1V9zm8 0h6v6H9V9z" />
                   </svg>
                 </button>
+                <button
+                  onClick={() => setViewMode("calendar")}
+                  className={`px-2 py-1.5 transition-colors ${
+                    viewMode === "calendar"
+                      ? "bg-neutral-900 text-white"
+                      : "text-neutral-500 hover:bg-neutral-100"
+                  }`}
+                  aria-label="Calendar view"
+                >
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    className="w-3.5 h-3.5"
+                  >
+                    <path d="M4 1v1.5H2v12h12v-12h-2V1h-1.5v1.5h-5V1H4zm-.5 5h9v7h-9V6z" />
+                  </svg>
+                </button>
               </div>
 
               {/* Source filter */}
@@ -310,10 +378,38 @@ export default function EventsPage() {
 
       {/* Main content */}
       <section className="py-6 px-6 md:px-12 lg:px-20">
-        <div className="max-w-6xl mx-auto flex gap-8">
+        <div
+          className={`mx-auto flex gap-8 ${viewMode === "calendar" ? "max-w-7xl" : "max-w-6xl"}`}
+        >
           {/* Event list */}
           <div className="flex-1 min-w-0">
-            {filteredEvents.length === 0 ? (
+            {viewMode === "calendar" ? (
+              <CalendarView
+                events={events.filter((e) =>
+                  sourceFilter === "um"
+                    ? e.hostedByUM
+                    : sourceFilter === "community"
+                      ? !e.hostedByUM
+                      : true,
+                )}
+                mode={calendarMode}
+                onModeChange={setCalendarMode}
+                weekOffset={weekOffset}
+                monthOffset={monthOffset}
+                onPrev={() => {
+                  if (calendarMode === "week") setWeekOffset((w) => w - 1);
+                  else setMonthOffset((m) => m - 1);
+                }}
+                onNext={() => {
+                  if (calendarMode === "week") setWeekOffset((w) => w + 1);
+                  else setMonthOffset((m) => m + 1);
+                }}
+                onToday={() => {
+                  if (calendarMode === "week") setWeekOffset(0);
+                  else setMonthOffset(0);
+                }}
+              />
+            ) : filteredEvents.length === 0 ? (
               <div className="border border-dashed border-neutral-300 py-12 text-center">
                 <p className="text-xs font-body text-neutral-400 tracking-wide">
                   NO EVENTS FOUND
@@ -343,8 +439,10 @@ export default function EventsPage() {
             )}
           </div>
 
-          {/* Sidebar */}
-          <aside className="hidden lg:block w-72 flex-shrink-0">
+          {/* Sidebar — hidden in calendar view (calendar already shows dates) */}
+          <aside
+            className={`${viewMode === "calendar" ? "hidden" : "hidden lg:block"} w-72 flex-shrink-0`}
+          >
             <div className="sticky top-24 space-y-6">
               <MiniCalendar
                 events={events}
