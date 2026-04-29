@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Press_Start_2P } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "./_components/navbar/navbar";
 import GallopingHorseFrame from "./_components/horse/galloping-horse-frame";
 import PreloaderWrapper from "./_components/preloader/preloader-wrapper";
 import TerminalEasterEgg from "./_components/terminal/terminal-easter-egg";
 import { Analytics } from "@vercel/analytics/next";
+
+const GOOGLE_TAG_ID = "G-0J9G1VQ6NS";
 
 const ppNeueBit = localFont({
   src: "../../public/fonts/PPNeueBit-Bold.otf",
@@ -131,6 +134,18 @@ export default function RootLayout({
       className={`${ppNeueBit.variable} ${ppNeueMontrealMono.variable} ${pressStart2P.variable}`}
     >
       <body className="antialiased bg-gray-300 min-h-screen">
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GOOGLE_TAG_ID}');
+          `}
+        </Script>
         <TerminalEasterEgg />
         <PreloaderWrapper>
           {/* Animated horse background */}
