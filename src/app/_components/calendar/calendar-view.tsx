@@ -3,59 +3,37 @@
 import React, { useState, useRef, useCallback } from "react";
 import type { CalendarEvent } from "../../_types/calendar";
 
-// Click-and-drag horizontal scroll. Only kicks in if the user actually drags
-// (movement > 4px), so single clicks on event chips still register as clicks.
-function useDragScroll() {
+// Translate vertical mouse-wheel scroll into horizontal panning of the
+// calendar, so a regular scroll wheel (or trackpad swipe) moves the grid
+// left/right instead of the page up/down. Trackpad horizontal scroll still
+// works natively via overflow-x-auto.
+function useWheelScroll() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const state = useRef({
-    isDown: false,
-    didDrag: false,
-    startX: 0,
-    startScrollLeft: 0,
-  });
 
-  const onMouseDown = useCallback((e: React.MouseEvent) => {
+  const onWheel = useCallback((e: React.WheelEvent) => {
     if (!ref.current) return;
-    // Don't start drag if user clicked on a link/button (let the click happen)
-    const target = e.target as HTMLElement;
-    if (target.closest("a, button")) return;
-    state.current.isDown = true;
-    state.current.didDrag = false;
-    state.current.startX = e.pageX;
-    state.current.startScrollLeft = ref.current.scrollLeft;
-  }, []);
-
-  const onMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!state.current.isDown || !ref.current) return;
-    const dx = e.pageX - state.current.startX;
-    if (Math.abs(dx) > 4) state.current.didDrag = true;
-    ref.current.scrollLeft = state.current.startScrollLeft - dx;
-  }, []);
-
-  const stop = useCallback(() => {
-    state.current.isDown = false;
-  }, []);
-
-  // Suppress the click that fires after a drag, so dragging across event chips
-  // doesn't accidentally open them.
-  const onClickCapture = useCallback((e: React.MouseEvent) => {
-    if (state.current.didDrag) {
-      e.preventDefault();
-      e.stopPropagation();
-      state.current.didDrag = false;
+    // Use whichever axis has more movement. If the user is intentionally
+    // scrolling horizontally (trackpad two-finger), keep that. Otherwise
+    // convert vertical wheel into horizontal scroll.
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (delta === 0) return;
+    const el = ref.current;
+    const max = el.scrollWidth - el.clientWidth;
+    // Only intercept the wheel when there's actually room to scroll
+    // horizontally — otherwise let the page scroll vertically as normal.
+    if (max <= 0) return;
+    const next = el.scrollLeft + delta;
+    if (
+      (delta < 0 && el.scrollLeft <= 0) ||
+      (delta > 0 && el.scrollLeft >= max)
+    ) {
+      return; // at edge, let page scroll naturally
     }
+    e.preventDefault();
+    el.scrollLeft = Math.max(0, Math.min(max, next));
   }, []);
 
-  return {
-    ref,
-    handlers: {
-      onMouseDown,
-      onMouseMove,
-      onMouseLeave: stop,
-      onMouseUp: stop,
-      onClickCapture,
-    },
-  };
+  return { ref, handlers: { onWheel } };
 }
 
 export type CalendarMode = "week" | "month";
@@ -249,15 +227,15 @@ function WeekGrid({
   });
 
   const eventsByDay = groupEventsByDay(events);
-  const { ref, handlers } = useDragScroll();
+  const { ref, handlers } = useWheelScroll();
 
   return (
     <div
       ref={ref}
       {...handlers}
-      className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0 snap-x snap-mandatory md:snap-none cursor-grab active:cursor-grabbing select-none"
+      className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0 snap-x snap-mandatory md:snap-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
-      <div className="grid grid-cols-7 border-l border-t border-neutral-300 min-w-[980px] lg:min-w-[1100px]">
+      <div className="grid grid-cols-7 border-l border-t border-neutral-300 min-w-[980px] lg:min-w-[1400px] xl:min-w-[1600px]">
         {days.map((day) => {
           const isToday = isSameDay(day, today);
           const dayEvents = eventsByDay.get(dayKey(day)) ?? [];
@@ -332,16 +310,16 @@ function MonthGrid({
   const selectedEvents =
     selectedDay !== null ? (eventsByDay.get(dayKey(selectedDay)) ?? []) : [];
 
-  const { ref, handlers } = useDragScroll();
+  const { ref, handlers } = useWheelScroll();
 
   return (
     <>
       <div
         ref={ref}
         {...handlers}
-        className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0 cursor-grab active:cursor-grabbing select-none"
+        className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        <div className="grid grid-cols-7 border-l border-t border-neutral-300 min-w-[980px] lg:min-w-[1100px]">
+        <div className="grid grid-cols-7 border-l border-t border-neutral-300 min-w-[980px] lg:min-w-[1400px] xl:min-w-[1600px]">
           {weekdayHeaders.map((h) => (
             <div
               key={h}
