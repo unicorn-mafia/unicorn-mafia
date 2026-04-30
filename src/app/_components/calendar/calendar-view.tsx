@@ -1,39 +1,18 @@
 "use client";
 
-import React, { useState, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import type { CalendarEvent } from "../../_types/calendar";
 
-// Translate vertical mouse-wheel scroll into horizontal panning of the
-// calendar, so a regular scroll wheel (or trackpad swipe) moves the grid
-// left/right instead of the page up/down. Trackpad horizontal scroll still
-// works natively via overflow-x-auto.
-function useWheelScroll() {
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  const onWheel = useCallback((e: React.WheelEvent) => {
-    if (!ref.current) return;
-    // Use whichever axis has more movement. If the user is intentionally
-    // scrolling horizontally (trackpad two-finger), keep that. Otherwise
-    // convert vertical wheel into horizontal scroll.
-    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    if (delta === 0) return;
-    const el = ref.current;
-    const max = el.scrollWidth - el.clientWidth;
-    // Only intercept the wheel when there's actually room to scroll
-    // horizontally — otherwise let the page scroll vertically as normal.
-    if (max <= 0) return;
-    const next = el.scrollLeft + delta;
-    if (
-      (delta < 0 && el.scrollLeft <= 0) ||
-      (delta > 0 && el.scrollLeft >= max)
-    ) {
-      return; // at edge, let page scroll naturally
-    }
-    e.preventDefault();
-    el.scrollLeft = Math.max(0, Math.min(max, next));
-  }, []);
-
-  return { ref, handlers: { onWheel } };
+export interface WeekGridHandle {
+  scrollDays: (n: number) => void;
+  scrollToToday: () => void;
 }
 
 export type CalendarMode = "week" | "month";
@@ -70,15 +49,6 @@ function formatTime(date: Date): string {
     minute: "2-digit",
     hour12: false,
   });
-}
-
-function getWeekStart(weekOffset: number): Date {
-  const now = new Date();
-  const dayOfWeek = now.getDay();
-  const daysUntilMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
-  const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  monday.setDate(monday.getDate() + daysUntilMonday + weekOffset * 7);
-  return monday;
 }
 
 function getMonthGridStart(monthOffset: number): {
@@ -211,76 +181,154 @@ function DayEventList({ day, events }: { day: Date; events: CalendarEvent[] }) {
   );
 }
 
-function WeekGrid({
-  events,
-  weekOffset,
-}: {
-  events: CalendarEvent[];
-  weekOffset: number;
-}) {
-  const weekStart = getWeekStart(weekOffset);
-  const today = new Date();
-  const days = Array.from({ length: 7 }, (_, i) => {
-    const d = new Date(weekStart);
-    d.setDate(weekStart.getDate() + i);
-    return d;
-  });
+// Continuous infinite-feel scroll: render a wide range of days as a single
+// horizontal strip. User scrolls smoothly through individual days; prev/next
+// buttons scroll by 7 days at a time.
+const DAYS_BACK = 7 * 8; // 8 weeks of history
+const DAYS_FORWARD = 7 * 16; // 16 weeks ahead
+const TOTAL_DAYS = DAYS_BACK + DAYS_FORWARD;
 
-  const eventsByDay = groupEventsByDay(events);
-  const { ref, handlers } = useWheelScroll();
+const WeekGrid = forwardRef<WeekGridHandle, { events: CalendarEvent[] }>(
+  function WeekGrid({ events }, ref) {
+    const today = new Date();
+    const todayMidnight = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+    );
+    const start = new Date(todayMidnight);
+    start.setDate(todayMidnight.getDate() - DAYS_BACK);
 
-  return (
-    <div
-      ref={ref}
-      {...handlers}
-      className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0 snap-x snap-mandatory md:snap-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-    >
-      <div className="grid grid-cols-7 border-l border-t border-neutral-300 min-w-[980px] lg:min-w-[1400px] xl:min-w-[1600px]">
-        {days.map((day) => {
-          const isToday = isSameDay(day, today);
-          const dayEvents = eventsByDay.get(dayKey(day)) ?? [];
-          const dayLabel = day
-            .toLocaleDateString("en-GB", { weekday: "short" })
-            .toUpperCase();
-          const dayNum = day.getDate();
+    const days = Array.from({ length: TOTAL_DAYS }, (_, i) => {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      return d;
+    });
 
-          return (
-            <div
-              key={day.toISOString()}
-              className="border-r border-b border-neutral-300 min-h-[300px] flex flex-col snap-start"
-            >
+    const eventsByDay = groupEventsByDay(events);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // Scroll to today on mount (instant, no animation)
+    useEffect(() => {
+      const el = containerRef.current;
+      if (!el) return;
+      const colWidth = el.scrollWidth / TOTAL_DAYS;
+      el.scrollLeft = DAYS_BACK * colWidth;
+    }, []);
+
+    // Convert vertical mouse wheel into horizontal scroll, but only when the
+    // user's gesture is dominantly vertical (regular mouse) and we have room
+    // to scroll horizontally. Lets shift-less mouse users navigate the strip.
+    const onWheel = useCallback((e: React.WheelEvent) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // already horizontal — let native handle
+      const el = containerRef.current;
+      if (!el) return;
+      const max = el.scrollWidth - el.clientWidth;
+      if (max <= 0) return;
+      const next = el.scrollLeft + e.deltaY;
+      if (
+        (e.deltaY < 0 && el.scrollLeft <= 0) ||
+        (e.deltaY > 0 && el.scrollLeft >= max)
+      ) {
+        return; // at edge — let page scroll vertically
+      }
+      e.preventDefault();
+      el.scrollLeft = Math.max(0, Math.min(max, next));
+    }, []);
+
+    useImperativeHandle(ref, () => ({
+      scrollDays: (n: number) => {
+        const el = containerRef.current;
+        if (!el) return;
+        const colWidth = el.scrollWidth / TOTAL_DAYS;
+        el.scrollBy({ left: n * colWidth, behavior: "smooth" });
+      },
+      scrollToToday: () => {
+        const el = containerRef.current;
+        if (!el) return;
+        const colWidth = el.scrollWidth / TOTAL_DAYS;
+        el.scrollTo({ left: DAYS_BACK * colWidth, behavior: "smooth" });
+      },
+    }));
+
+    return (
+      <div
+        ref={containerRef}
+        onWheel={onWheel}
+        className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory"
+      >
+        <div className="flex border-l border-t border-neutral-300">
+          {days.map((day) => {
+            const isToday = isSameDay(day, today);
+            const dayEvents = eventsByDay.get(dayKey(day)) ?? [];
+            const dayLabel = day
+              .toLocaleDateString("en-GB", { weekday: "short" })
+              .toUpperCase();
+            const dayNum = day.getDate();
+            const monthLabel = day
+              .toLocaleDateString("en-GB", { month: "short" })
+              .toUpperCase();
+            const isFirstOfMonth = day.getDate() === 1;
+
+            return (
               <div
-                className={`px-2 py-2 border-b border-neutral-200 ${
-                  isToday ? "bg-neutral-900 text-white" : "bg-neutral-50"
-                }`}
+                key={day.toISOString()}
+                className="relative flex-shrink-0 w-[140px] md:w-[180px] lg:w-[220px] border-r border-b border-neutral-300 min-h-[320px] flex flex-col snap-start"
               >
                 <div
-                  className={`text-[9px] font-body tracking-widest ${
-                    isToday ? "text-white/70" : "text-neutral-400"
+                  className={`px-2.5 py-2.5 border-b ${
+                    isToday
+                      ? "bg-neutral-900 border-neutral-900"
+                      : "bg-neutral-50 border-neutral-200"
                   }`}
                 >
-                  {dayLabel}
+                  <div className="flex items-center justify-between">
+                    <div
+                      className={`text-[9px] font-body tracking-widest ${
+                        isToday ? "text-white/70" : "text-neutral-400"
+                      }`}
+                    >
+                      {dayLabel}
+                    </div>
+                    {isToday && (
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B307EB] opacity-75" />
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#B307EB]" />
+                      </span>
+                    )}
+                  </div>
+                  <div className="mt-0.5 flex items-baseline gap-1.5">
+                    <span
+                      className={`text-sm font-body font-medium ${
+                        isToday ? "text-white" : "text-neutral-900"
+                      }`}
+                    >
+                      {dayNum}
+                    </span>
+                    {isFirstOfMonth && (
+                      <span
+                        className={`text-[9px] tracking-widest ${
+                          isToday ? "text-white/70" : "text-neutral-400"
+                        }`}
+                      >
+                        {monthLabel}
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <div
-                  className={`text-sm font-body font-medium ${
-                    isToday ? "text-white" : "text-neutral-900"
-                  }`}
-                >
-                  {dayNum}
+                <div className="flex-1 p-1.5 space-y-1.5 overflow-hidden">
+                  {dayEvents.map((event) => (
+                    <EventChip key={event.id} event={event} />
+                  ))}
                 </div>
               </div>
-              <div className="flex-1 p-1.5 space-y-1.5 overflow-hidden">
-                {dayEvents.map((event) => (
-                  <EventChip key={event.id} event={event} />
-                ))}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  },
+);
 
 function MonthGrid({
   events,
@@ -310,16 +358,10 @@ function MonthGrid({
   const selectedEvents =
     selectedDay !== null ? (eventsByDay.get(dayKey(selectedDay)) ?? []) : [];
 
-  const { ref, handlers } = useWheelScroll();
-
   return (
     <>
-      <div
-        ref={ref}
-        {...handlers}
-        className="overflow-x-auto -mx-6 sm:mx-0 px-6 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        <div className="grid grid-cols-7 border-l border-t border-neutral-300 min-w-[980px] lg:min-w-[1400px] xl:min-w-[1600px]">
+      <div>
+        <div className="grid grid-cols-7 border-l border-t border-neutral-300">
           {weekdayHeaders.map((h) => (
             <div
               key={h}
@@ -386,25 +428,24 @@ export function CalendarView({
   events,
   mode,
   onModeChange,
-  weekOffset,
   monthOffset,
   onPrev,
   onNext,
   onToday,
 }: CalendarViewProps) {
-  const offset = mode === "week" ? weekOffset : monthOffset;
+  const weekGridRef = useRef<WeekGridHandle>(null);
+
+  // In week mode the grid has its own continuous scroll, so prev/next/today
+  // drive the grid directly instead of incrementing weekOffset.
+  const handlePrev =
+    mode === "week" ? () => weekGridRef.current?.scrollDays(-7) : onPrev;
+  const handleNext =
+    mode === "week" ? () => weekGridRef.current?.scrollDays(7) : onNext;
+  const handleToday =
+    mode === "week" ? () => weekGridRef.current?.scrollToToday() : onToday;
 
   let rangeLabel = "";
-  if (mode === "week") {
-    const weekStart = getWeekStart(weekOffset);
-    const weekEnd = new Date(weekStart);
-    weekEnd.setDate(weekStart.getDate() + 6);
-    rangeLabel = `${weekStart
-      .toLocaleDateString("en-GB", { day: "numeric", month: "short" })
-      .toUpperCase()} — ${weekEnd
-      .toLocaleDateString("en-GB", { day: "numeric", month: "short" })
-      .toUpperCase()} ${weekEnd.getFullYear()}`;
-  } else {
+  if (mode === "month") {
     const now = new Date();
     const viewDate = new Date(
       now.getFullYear(),
@@ -414,7 +455,22 @@ export function CalendarView({
     rangeLabel = viewDate
       .toLocaleDateString("en-GB", { month: "long", year: "numeric" })
       .toUpperCase();
+  } else {
+    // Week mode: show the current calendar week's Mon–Sun span
+    const now = new Date();
+    const dow = now.getDay();
+    const back = dow === 0 ? 6 : dow - 1;
+    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    monday.setDate(monday.getDate() - back);
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+    rangeLabel = `${monday
+      .toLocaleDateString("en-GB", { day: "numeric", month: "short" })
+      .toUpperCase()} — ${sunday
+      .toLocaleDateString("en-GB", { day: "numeric", month: "short" })
+      .toUpperCase()} ${sunday.getFullYear()}`;
   }
+  const showTodayHighlight = mode === "month" && monthOffset === 0;
 
   return (
     <div>
@@ -422,7 +478,7 @@ export function CalendarView({
       <div className="flex items-center justify-between mb-4 px-1 flex-wrap gap-2">
         <div className="flex items-center gap-2 flex-wrap">
           <button
-            onClick={onPrev}
+            onClick={handlePrev}
             className="px-2 py-1.5 border border-neutral-300 hover:bg-neutral-100 transition-colors"
             aria-label={mode === "week" ? "Previous week" : "Previous month"}
           >
@@ -435,9 +491,9 @@ export function CalendarView({
             </svg>
           </button>
           <button
-            onClick={onToday}
+            onClick={handleToday}
             className={`px-3 py-1.5 text-[10px] font-body tracking-wide border border-neutral-300 transition-colors ${
-              offset === 0
+              showTodayHighlight
                 ? "bg-neutral-900 text-white border-neutral-900"
                 : "text-neutral-600 hover:bg-neutral-100"
             }`}
@@ -445,7 +501,7 @@ export function CalendarView({
             TODAY
           </button>
           <button
-            onClick={onNext}
+            onClick={handleNext}
             className="px-2 py-1.5 border border-neutral-300 hover:bg-neutral-100 transition-colors"
             aria-label={mode === "week" ? "Next week" : "Next month"}
           >
@@ -457,9 +513,11 @@ export function CalendarView({
               <path d="M5.5 3.5L10.5 8l-5 4.5V3.5z" />
             </svg>
           </button>
-          <span className="text-xs font-body text-neutral-700 tracking-wide ml-1 sm:ml-2">
-            {rangeLabel}
-          </span>
+          {rangeLabel && (
+            <span className="text-xs font-body text-neutral-700 tracking-wide ml-1 sm:ml-2">
+              {rangeLabel}
+            </span>
+          )}
         </div>
 
         {/* Week / Month toggle */}
@@ -486,7 +544,7 @@ export function CalendarView({
       </div>
 
       {mode === "week" ? (
-        <WeekGrid events={events} weekOffset={weekOffset} />
+        <WeekGrid ref={weekGridRef} events={events} />
       ) : (
         <MonthGrid events={events} monthOffset={monthOffset} />
       )}
