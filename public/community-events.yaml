@@ -845,3 +845,10 @@
   cover: "https://images.lumacdn.com/event-covers/aq/9c87be0e-014b-4ba3-b376-c0b80d08d827.png"
   location: "London, England"
   url: "https://luma.com/fc5irb30"
+
+- name: "The Project Europe Spritz Sprint"
+  start: "2026-05-06T17:00:00+01:00"
+  end: "2026-05-06T18:30:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/aw/58a1c6c3-2a21-4c5b-a986-3f50b4ad0509.png"
+  location: "London, England"
+  url: "https://luma.com/vu1a2ku1"
