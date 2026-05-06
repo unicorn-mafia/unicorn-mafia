@@ -894,3 +894,10 @@
   cover: "https://images.lumacdn.com/uploads/m9/9b5da93b-ea48-4c5b-92b6-1a20a76c2f87.png"
   location: "London, England"
   url: "https://luma.com/1uv1oeuu"
+
+- name: "The Floor @ Phoenix Court"
+  start: "2026-05-08T09:30:00+01:00"
+  end: "2026-05-08T12:30:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/2a/f4e3977b-f163-4b26-86ac-0b54a0bdd94f.png"
+  location: "Phoenix Court (LocalGlobe / Latitude / Solar), London"
+  url: "https://luma.com/m3l2ejrj"
