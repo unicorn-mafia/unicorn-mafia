@@ -1006,3 +1006,10 @@
   cover: "https://images.lumacdn.com/event-covers/z2/912ea695-4900-470d-8617-a881b26a7ad6.png"
   location: "London, England"
   url: "https://luma.com/92b07v0h"
+
+- name: "feeling of computing | london, may"
+  start: "2026-05-21T18:00:00+01:00"
+  end: "2026-05-21T21:00:00+01:00"
+  cover: "https://images.lumacdn.com/event-covers/rl/a4abd173-9d59-4123-a726-9339ab377626.png"
+  location: "London, England"
+  url: "https://luma.com/iwd2uv4n"
