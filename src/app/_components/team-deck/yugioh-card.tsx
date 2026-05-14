@@ -17,6 +17,8 @@ export interface YugiohCardProps {
   description: string;
   faction: "purple" | "blue" | "green" | "red" | "black";
   isFounder?: boolean;
+  hideBadge?: boolean;
+  pixelArt?: boolean;
   personalIcon?: string;
   linkedinUrl?: string;
 }
@@ -44,6 +46,8 @@ export default function YugiohCard({
   description,
   faction,
   isFounder = false,
+  hideBadge = false,
+  pixelArt = false,
   personalIcon,
   linkedinUrl,
 }: YugiohCardProps) {
@@ -231,7 +235,7 @@ export default function YugiohCard({
                     }}
                   >
                     <h3
-                      className="font-deck-pixel text-[13px] tracking-wider leading-tight flex-1"
+                      className="font-deck-pixel text-[14px] tracking-wider leading-tight flex-1"
                       style={{
                         color: accentColor,
                         textShadow: `0 0 14px ${accentColor}60, 0 0 28px ${accentColor}25`,
@@ -241,25 +245,20 @@ export default function YugiohCard({
                       {name}
                     </h3>
                     {personalIcon ? (
-                      <div
-                        className="flex-shrink-0 flex items-center justify-center w-11 h-11 rounded"
-                        style={{
-                          background: `linear-gradient(135deg, rgba(6,6,12,0.95), ${accentColor}12)`,
-                          border: `1px solid ${accentColor}45`,
-                          boxShadow: `0 0 10px ${accentColor}15, inset 0 0 6px ${accentColor}06`,
-                        }}
-                      >
+                      <div className="flex-shrink-0 flex items-center justify-center w-11 h-11">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={teamDeckUrl(personalIcon)}
                           alt=""
-                          className="w-8 h-8 object-contain"
+                          className="w-9 h-9 object-contain"
                           style={{
-                            filter: `drop-shadow(0 0 8px ${accentColor}70)`,
+                            filter: pixelArt
+                              ? `drop-shadow(0 0 10px ${accentColor}90) brightness(1.05) contrast(1.2) saturate(1.4)`
+                              : `drop-shadow(0 0 8px ${accentColor}70)`,
                             imageRendering: "pixelated",
                           }}
-                          width={32}
-                          height={32}
+                          width={36}
+                          height={36}
                         />
                       </div>
                     ) : null}
@@ -271,7 +270,9 @@ export default function YugiohCard({
                     className="relative min-h-[168px] w-full flex-1 cursor-pointer overflow-hidden"
                     style={{
                       border: `1px solid ${accentColor}20`,
-                      background: "rgba(0,0,0,0.9)",
+                      background: pixelArt
+                        ? `linear-gradient(160deg, #080810, ${fc.hex}20, #04040A)`
+                        : "rgba(0,0,0,0.9)",
                     }}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
@@ -284,9 +285,14 @@ export default function YugiohCard({
                         className="w-full h-full object-cover transition-all duration-500"
                         style={{
                           objectPosition: avatarPosition ?? "center",
+                          mixBlendMode: pixelArt ? "multiply" : undefined,
                           filter: isHovered
-                            ? `brightness(1.15) contrast(1.2) saturate(1.3) drop-shadow(0 0 20px ${accentColor}40)`
-                            : "brightness(0.9) contrast(1.05)",
+                            ? pixelArt
+                              ? `brightness(1.3) contrast(1.4) saturate(1.8) drop-shadow(0 0 20px ${accentColor}60)`
+                              : `brightness(1.15) contrast(1.2) saturate(1.3) drop-shadow(0 0 20px ${accentColor}40)`
+                            : pixelArt
+                              ? "brightness(0.95) contrast(1.3) saturate(1.5)"
+                              : "brightness(0.9) contrast(1.05)",
                         }}
                         loading="lazy"
                         width={512}
@@ -329,69 +335,63 @@ export default function YugiohCard({
                       ) : null}
                     </div>
 
-                    <div
-                      className="absolute top-2 left-2 z-20"
-                      style={{
-                        background: `linear-gradient(135deg, rgba(0,0,0,0.9) 0%, ${accentColor}08 100%)`,
-                        border: `1px solid ${accentColor}40`,
-                        borderLeft: `2px solid ${accentColor}`,
-                        padding: "4px 8px",
-                        boxShadow: `0 0 12px ${accentColor}15, 0 2px 8px rgba(0,0,0,0.6)`,
-                      }}
-                    >
-                      <div className="flex items-center gap-2">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={isFounder ? GOLD_UNICORN : UM_LOGO_ICON}
-                          alt="Rank"
-                          className={`w-5 h-5 ${!isFounder ? "invert opacity-60" : ""}`}
-                          style={{ imageRendering: "pixelated" }}
-                          width={20}
-                          height={20}
-                        />
-                        <span
-                          className="font-deck-pixel text-[5px] uppercase tracking-[0.3em]"
-                          style={{
-                            color: accentColor,
-                            textShadow: `0 0 8px ${accentColor}50`,
-                          }}
-                        >
-                          {isFounder ? "Genesis" : "Core"}
-                        </span>
-                      </div>
+                    {!hideBadge && (
                       <div
-                        className="mt-1 h-[1px]"
+                        className="absolute top-2 left-2 z-20"
                         style={{
-                          background: `linear-gradient(90deg, ${accentColor}60, transparent)`,
+                          background: `linear-gradient(135deg, rgba(0,0,0,0.9) 0%, ${accentColor}08 100%)`,
+                          border: `1px solid ${accentColor}40`,
+                          borderLeft: `2px solid ${accentColor}`,
+                          padding: "4px 8px",
+                          boxShadow: `0 0 12px ${accentColor}15, 0 2px 8px rgba(0,0,0,0.6)`,
                         }}
-                      />
-                    </div>
+                      >
+                        <div className="flex items-center gap-2">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={isFounder ? GOLD_UNICORN : UM_LOGO_ICON}
+                            alt="Rank"
+                            className={`w-5 h-5 ${!isFounder ? "invert opacity-60" : ""}`}
+                            style={{ imageRendering: "pixelated" }}
+                            width={20}
+                            height={20}
+                          />
+                          <span
+                            className="font-deck-pixel text-[5px] uppercase tracking-[0.3em]"
+                            style={{
+                              color: accentColor,
+                              textShadow: `0 0 8px ${accentColor}50`,
+                            }}
+                          >
+                            {isFounder ? "Genesis" : "Core"}
+                          </span>
+                        </div>
+                        <div
+                          className="mt-1 h-[1px]"
+                          style={{
+                            background: `linear-gradient(90deg, ${accentColor}60, transparent)`,
+                          }}
+                        />
+                      </div>
+                    )}
 
                     <AnimatePresence>
-                      {isHovered ? (
+                      {isHovered && description ? (
                         <motion.div
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
-                          transition={{ duration: 0.4 }}
+                          transition={{ duration: 0.3 }}
                           className="absolute inset-0 flex items-center justify-center p-4 z-20 overflow-y-auto"
-                          style={{
-                            background: `rgba(0,0,0,0.88)`,
-                          }}
+                          style={{ background: "rgba(0,0,0,0.88)" }}
                         >
-                          <p className="font-mono text-[10px] sm:text-[11px] leading-relaxed text-left text-white/95">
+                          <p className="font-mono text-[11px] sm:text-[12px] leading-relaxed text-left text-white/95">
                             {description}
                           </p>
                         </motion.div>
                       ) : null}
                     </AnimatePresence>
                   </div>
-                  <p
-                    className="shrink-0 px-0.5 font-mono text-[6px] leading-snug text-white/55 line-clamp-3"
-                    title={description}
-                  >
-                    {description}
-                  </p>
                 </div>
 
                 <div className="px-3 pb-2 relative z-10 shrink-0">

@@ -25,7 +25,7 @@ export default function Home() {
           {stats.map((s) => (
             <div
               key={s.label}
-              className="group flex cursor-default items-center gap-2 rounded-md px-2 py-1 font-deck-pixel text-[10px] sm:text-xs transition-all duration-200 ease-out hover:scale-[1.06] hover:bg-neutral-200/90 hover:shadow-sm active:scale-[0.98]"
+              className="group flex cursor-default items-center gap-2 rounded-md px-3 py-1.5 font-deck-pixel text-xs sm:text-sm transition-all duration-200 ease-out hover:scale-[1.06] hover:bg-neutral-200/90 hover:shadow-sm active:scale-[0.98]"
             >
               <span className="text-neutral-900 transition-colors group-hover:text-neutral-950">
                 {s.value}
@@ -45,7 +45,7 @@ export default function Home() {
           <Link
             key={cta.label}
             href={cta.href}
-            className="home-cta-link font-deck-pixel relative px-5 py-2.5 text-[8px] sm:text-[10px]"
+            className="home-cta-link font-title relative px-6 py-2.5 text-base sm:text-lg"
             style={{ "--cta": cta.color } as CSSProperties}
           >
             {cta.label}
