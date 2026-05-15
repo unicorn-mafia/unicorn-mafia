@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import newsFeedRaw from "@/data/news-feed.json";
+import { CATEGORY_COLOURS } from "@/lib/brand";
 
 interface NewsItem {
   id: string;
@@ -24,12 +25,6 @@ const CATEGORIES = [
 
 type FilterKey = "all" | "launches" | "product" | "hackathon_wins";
 
-const CATEGORY_COLOURS: Record<string, string> = {
-  launches: "#3198F1",
-  product: "#B307EB",
-  hackathon_wins: "#0aab6e",
-};
-
 const XIcon = () => (
   <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -43,7 +38,7 @@ const LinkedInIcon = () => (
 );
 
 function formatDate(dateStr: string) {
-  const d = new Date(dateStr);
+  const d = new Date(dateStr + "T12:00:00Z");
   return d.toLocaleDateString("en-GB", {
     day: "numeric",
     month: "short",

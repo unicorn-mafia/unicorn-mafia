@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getGeminiClient, GEMINI_IMAGE_MODEL } from "@/lib/gemini";
+import { isRateLimited, getIp } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
+  // Rate limit before touching the body
+  if (isRateLimited(getIp(req))) {
     return NextResponse.json(
-      { error: "Gemini API key not configured" },
-      { status: 500 },
+      { error: "Too many requests — please wait a minute and try again." },
+      { status: 429 },
     );
   }
 
@@ -21,30 +23,34 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing parts array" }, { status: 400 });
   }
 
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts }],
-        generationConfig: { responseModalities: ["IMAGE", "TEXT"] },
-      }),
-    },
-  );
+  try {
+    const ai = getGeminiClient();
+    const model = ai.getGenerativeModel({
+      model: GEMINI_IMAGE_MODEL,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      generationConfig: { responseModalities: ["IMAGE", "TEXT"] } as any,
+    });
 
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    return NextResponse.json(
-      {
-        error:
-          (err as { error?: { message?: string } })?.error?.message ??
-          `Gemini error ${res.status}`,
-      },
-      { status: res.status },
+    const result = await model.generateContent(parts as never[]);
+    const candidates = result.response?.candidates ?? [];
+    const imgPart = candidates[0]?.content?.parts?.find(
+      (p: { inlineData?: unknown }) => p.inlineData,
     );
-  }
 
-  const data = await res.json();
-  return NextResponse.json(data);
+    if (!imgPart) {
+      const reason = candidates[0]?.finishReason ?? "unknown";
+      return NextResponse.json(
+        {
+          error: `No image returned (reason: ${reason}). Try a different photo.`,
+        },
+        { status: 500 },
+      );
+    }
+
+    // Mirror the Gemini response shape the client already expects
+    return NextResponse.json(result.response);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
