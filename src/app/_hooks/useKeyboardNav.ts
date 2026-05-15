@@ -9,10 +9,12 @@ export interface MenuItem {
 }
 
 export const menuItems: MenuItem[] = [
-  { label: "Team", href: "/t", shortcut: "T" },
   { label: "Hackathons", href: "/h", shortcut: "H" },
-  { label: "Demos", href: "/d", shortcut: "D" },
+  { label: "Sponsors", href: "/s", shortcut: "S" },
   { label: "Events", href: "/e", shortcut: "E" },
+  { label: "News", href: "/n", shortcut: "N" },
+  { label: "Demos", href: "/d", shortcut: "D" },
+  { label: "Team", href: "/t", shortcut: "T" },
 ];
 
 /** Routes reachable via keyboard shortcut but not rendered in the navbar. */

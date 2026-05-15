@@ -14,6 +14,7 @@ const ppNeueBit = localFont({
   variable: "--font-title",
 });
 
+// Press Start 2P — used for deck cards, stats bar, and any retro pixel UI
 const pressStart2P = Press_Start_2P({
   weight: "400",
   subsets: ["latin"],

@@ -17,6 +17,7 @@ html {
   :root {
     --font-sans: var(--font-mono);
     --font-title: var(--font-title);
+    /* --font-deck-pixel comes from Press Start 2P via layout.tsx — do not override */
   }
 
   html {
@@ -250,51 +251,84 @@ html {
   font-family: var(--font-deck-pixel), monospace;
 }
 
-/* Retro CTA — “pressed” on hover (shadows must live in CSS so :hover can override inline styles) */
+/* Pixel-art retro game buttons — rounded bevel style */
 .home-page-root .home-cta-link {
   --cta: 280 80% 52%;
+  --cta-light: hsl(var(--cta) / 0.55);
+  --cta-dark: hsl(var(--cta));
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background-color: hsl(var(--cta));
   color: #fff;
+  font-weight: 700;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
   image-rendering: pixelated;
+  /* Pixel-rounded corners */
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  outline: none;
+  /* Outer dark border */
+  border: 3px solid #000;
+  /* Inner bevel: top/left bright highlight, bottom/right dark shadow */
   box-shadow:
-    4px 0 0 0 hsl(var(--cta) / 0.4),
-    -4px 0 0 0 hsl(var(--cta) / 0.4),
-    0 4px 0 0 hsl(var(--cta) / 0.3),
-    0 -4px 0 0 hsl(var(--cta) / 0.6),
-    0 8px 0 0 hsl(0 0% 0% / 0.3),
-    4px 4px 0 0 hsl(0 0% 0% / 0.15),
-    -4px 4px 0 0 hsl(0 0% 0% / 0.15),
-    inset 0 -3px 0 hsl(0 0% 0% / 0.2),
-    inset 0 2px 0 hsl(0 0% 100% / 0.25);
+    inset 3px 3px 0 0 hsl(var(--cta) / 1),
+    inset -3px -3px 0 0 hsl(var(--cta) / 0.35),
+    inset 0 0 0 1px hsl(0 0% 100% / 0.35),
+    4px 4px 0 0 #000;
   transition:
-    transform 0.14s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.14s ease;
+    box-shadow 0.05s steps(1),
+    transform 0.05s steps(1);
+}
+
+/* Bright top-left highlight stripe */
+.home-page-root .home-cta-link::before {
+  content: “”;
+  position: absolute;
+  inset: 2px;
+  border-radius: 3px;
+  background: linear-gradient(
+    135deg,
+    hsl(0 0% 100% / 0.28) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.home-page-root .home-cta-link > * {
+  position: relative;
+  z-index: 2;
 }
 
 .home-page-root .home-cta-link:hover {
-  transform: translateY(3px);
+  transform: translate(1px, 1px);
   box-shadow:
-    2px 0 0 0 hsl(var(--cta) / 0.38),
-    -2px 0 0 0 hsl(var(--cta) / 0.38),
-    0 2px 0 0 hsl(var(--cta) / 0.28),
-    0 -2px 0 0 hsl(var(--cta) / 0.55),
-    0 4px 0 0 hsl(0 0% 0% / 0.28),
-    2px 2px 0 0 hsl(0 0% 0% / 0.12),
-    -2px 2px 0 0 hsl(0 0% 0% / 0.12),
-    inset 0 -2px 0 hsl(0 0% 0% / 0.22),
-    inset 0 1px 0 hsl(0 0% 100% / 0.2);
+    inset 3px 3px 0 0 hsl(var(--cta) / 1),
+    inset -3px -3px 0 0 hsl(var(--cta) / 0.35),
+    inset 0 0 0 1px hsl(0 0% 100% / 0.35),
+    3px 3px 0 0 #000;
 }
 
 .home-page-root .home-cta-link:active {
-  transform: translateY(5px);
+  transform: translate(3px, 3px);
   box-shadow:
-    1px 0 0 0 hsl(var(--cta) / 0.35),
-    -1px 0 0 0 hsl(var(--cta) / 0.35),
-    0 1px 0 0 hsl(var(--cta) / 0.25),
-    0 -1px 0 0 hsl(var(--cta) / 0.5),
-    0 2px 0 0 hsl(0 0% 0% / 0.22),
-    inset 0 2px 4px hsl(0 0% 0% / 0.3),
-    inset 0 1px 0 hsl(0 0% 100% / 0.12);
+    inset 3px 3px 0 0 hsl(var(--cta) / 0.5),
+    inset -3px -3px 0 0 hsl(var(--cta) / 0.6),
+    1px 1px 0 0 #000;
+}
+
+@keyframes retro-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes team-deck-holographic {
