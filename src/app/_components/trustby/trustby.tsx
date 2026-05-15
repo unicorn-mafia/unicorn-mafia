@@ -23,7 +23,7 @@ export default function TrustBy() {
   return (
     <section className="w-full py-16 md:py-24 border-b border-gray-200">
       <div className="px-6 md:px-12 lg:px-20 mb-12">
-        <h2 className="font-deck-pixel normal-case text-lg sm:text-xl tracking-tight text-neutral-900 text-center">
+        <h2 className="font-title normal-case text-xl sm:text-2xl tracking-tight text-neutral-900 text-center">
           the best hackers from
         </h2>
       </div>

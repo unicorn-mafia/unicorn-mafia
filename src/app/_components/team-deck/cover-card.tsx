@@ -8,7 +8,15 @@ import { teamDeckUrl } from "./deck-assets";
 const UNICORN_PATTERN = teamDeckUrl("/team-deck/unicorn-pattern.jpeg");
 const UM_LOGO_ICON = teamDeckUrl("/team-deck/um-logo-icon.png");
 
-export default function CoverCard() {
+interface CoverCardProps {
+  title?: string;
+  accentHex?: string;
+}
+
+export default function CoverCard({
+  title = "the team",
+  accentHex,
+}: CoverCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [tilt, setTilt] = useState({
     rotateX: 0,
@@ -40,6 +48,9 @@ export default function CoverCard() {
   const gold = isHovered ? "#FFD700" : "#999999";
   const goldDark = isHovered ? "#B8860B" : "#555555";
   const goldLight = isHovered ? "#FFEC8B" : "#BBBBBB";
+  const effectiveGold = accentHex ?? gold;
+  const effectiveGoldDark = accentHex ? accentHex + "aa" : goldDark;
+  const effectiveGoldLight = accentHex ? accentHex + "66" : goldLight;
 
   return (
     <motion.div
@@ -59,13 +70,13 @@ export default function CoverCard() {
       <div
         className="relative w-full h-full rounded-lg"
         style={{
-          background: `linear-gradient(145deg, ${goldLight}40, ${goldDark}60, ${gold}30, ${goldDark}50, ${goldLight}35)`,
+          background: `linear-gradient(145deg, ${effectiveGoldLight}40, ${effectiveGoldDark}60, ${effectiveGold}30, ${effectiveGoldDark}50, ${effectiveGoldLight}35)`,
           backgroundSize: "400% 400%",
           animation: isHovered
             ? "team-deck-holographic 6s ease infinite"
             : "none",
           padding: "4px",
-          boxShadow: `0 0 0 1px ${gold}30, inset 0 0 0 1px ${gold}15, 0 0 ${isHovered ? "40px" : "15px"} ${gold}15, 0 12px 40px rgba(0,0,0,0.9)`,
+          boxShadow: `0 0 0 1px ${effectiveGold}30, inset 0 0 0 1px ${effectiveGold}15, 0 0 ${isHovered ? "40px" : "15px"} ${effectiveGold}15, 0 12px 40px rgba(0,0,0,0.9)`,
           transition: "box-shadow 0.4s ease",
         }}
       >
@@ -74,13 +85,13 @@ export default function CoverCard() {
           style={{
             background: "#08080E",
             padding: "3px",
-            boxShadow: `inset 0 0 8px ${gold}10`,
+            boxShadow: `inset 0 0 8px ${effectiveGold}10`,
           }}
         >
           <div
             className="relative w-full h-full rounded"
             style={{
-              background: `linear-gradient(135deg, ${gold}50, ${goldDark}40, ${goldLight}30, ${gold}45)`,
+              background: `linear-gradient(135deg, ${effectiveGold}50, ${effectiveGoldDark}40, ${effectiveGoldLight}30, ${effectiveGold}45)`,
               backgroundSize: "300% 300%",
               animation: isHovered
                 ? "team-deck-holographic 5s ease infinite"
@@ -91,16 +102,16 @@ export default function CoverCard() {
             <div
               className="relative w-full h-full rounded-sm"
               style={{
-                background: `linear-gradient(160deg, #0c0c16, ${gold}06, #08080E)`,
+                background: `linear-gradient(160deg, #0c0c16, ${effectiveGold}06, #08080E)`,
                 padding: "6px",
               }}
             >
-              <OrnamentalFrame color={gold} />
+              <OrnamentalFrame color={effectiveGold} />
               <div
                 className="relative w-full h-full rounded-sm overflow-hidden flex flex-col items-center justify-center gap-6"
                 style={{
-                  background: `linear-gradient(160deg, #0a0a14 0%, ${gold}06 40%, #06060C 60%, ${gold}04 100%)`,
-                  border: `1px solid ${gold}15`,
+                  background: `linear-gradient(160deg, #0a0a14 0%, ${effectiveGold}06 40%, #06060C 60%, ${effectiveGold}04 100%)`,
+                  border: `1px solid ${effectiveGold}15`,
                 }}
               >
                 <div
@@ -145,8 +156,8 @@ export default function CoverCard() {
                 <div
                   className="absolute inset-[8px] pointer-events-none z-10 rounded-sm"
                   style={{
-                    border: `1px solid ${gold}12`,
-                    boxShadow: `inset 0 0 20px ${gold}06`,
+                    border: `1px solid ${effectiveGold}12`,
+                    boxShadow: `inset 0 0 20px ${effectiveGold}06`,
                   }}
                 />
                 <div
@@ -171,8 +182,10 @@ export default function CoverCard() {
                   <motion.p
                     className="font-deck-pixel text-[7px] tracking-[0.3em] uppercase"
                     style={{
-                      color: isHovered ? "#FFD700" : "#BBBBBB",
-                      textShadow: isHovered ? `0 0 12px #FFD70060` : "none",
+                      color: accentHex ?? (isHovered ? "#FFD700" : "#BBBBBB"),
+                      textShadow: isHovered
+                        ? `0 0 12px ${accentHex ?? "#FFD700"}60`
+                        : "none",
                       transition: "color 0.4s ease, text-shadow 0.4s ease",
                     }}
                     animate={{ opacity: [0.5, 1, 0.5] }}
@@ -182,7 +195,7 @@ export default function CoverCard() {
                       ease: "easeInOut",
                     }}
                   >
-                    the team →
+                    {title} →
                   </motion.p>
                 </div>
               </div>

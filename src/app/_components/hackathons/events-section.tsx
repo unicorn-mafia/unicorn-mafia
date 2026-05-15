@@ -303,7 +303,7 @@ function PartnerStickerChip({ sticker }: { sticker: EventSticker }) {
             />
           </div>
         ) : (
-          <span className="font-deck-pixel text-[6px] tracking-[0.14em] uppercase text-neutral-800 whitespace-nowrap px-0.5 drop-shadow-[0_0_8px_rgba(255,255,255,0.9)]">
+          <span className="font-title text-[6px] tracking-[0.14em] uppercase text-neutral-800 whitespace-nowrap px-0.5 drop-shadow-[0_0_8px_rgba(255,255,255,0.9)]">
             {sticker.label}
           </span>
         )}
@@ -516,7 +516,7 @@ const EventCard = ({
                       }}
                     >
                       <h3
-                        className="font-deck-pixel text-[11px] tracking-wider leading-tight flex-1 text-white uppercase line-clamp-2"
+                        className="font-title text-[11px] tracking-wider leading-tight flex-1 text-white uppercase line-clamp-2"
                         style={{ textShadow: "0 0 10px rgba(255,255,255,0.3)" }}
                       >
                         {event.title}
@@ -597,7 +597,7 @@ const EventCard = ({
                           }}
                         />
                         <span
-                          className="relative z-10 font-deck-pixel text-[7px] tracking-[0.15em] uppercase"
+                          className="relative z-10 font-title text-[7px] tracking-[0.15em] uppercase"
                           style={{
                             color: badgeColor,
                             textShadow: `0 0 8px ${badgeColor}60`,
@@ -650,7 +650,7 @@ const EventCard = ({
                             ))}
                           </div>
                           <span
-                            className="font-deck-pixel text-[7px]"
+                            className="font-title text-[7px]"
                             style={{ color: "#D946EF" }}
                           >
                             {event.trophies}
@@ -676,10 +676,10 @@ const EventCard = ({
                       }}
                     >
                       <div className="flex items-center justify-between">
-                        <p className="font-deck-pixel text-[6px] tracking-[0.15em] uppercase text-white/55">
+                        <p className="font-title text-[6px] tracking-[0.15em] uppercase text-white/55">
                           {event.location}
                         </p>
-                        <p className="font-deck-pixel text-[6px] tracking-[0.15em] text-white/75">
+                        <p className="font-title text-[6px] tracking-[0.15em] text-white/75">
                           {event.date}
                         </p>
                       </div>
@@ -751,7 +751,7 @@ const EventCard = ({
 
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-1.5 h-1.5 rounded-full animate-pulse bg-white/40" />
-                  <span className="font-deck-pixel text-[7px] tracking-[0.25em] uppercase text-white/60">
+                  <span className="font-title text-[7px] tracking-[0.25em] uppercase text-white/60">
                     INTEL LOG
                   </span>
                 </div>

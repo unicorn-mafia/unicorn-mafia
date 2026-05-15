@@ -26,7 +26,7 @@ export default function Hero() {
       <div className={styles.heroContent}>
         <div className={styles.titleWrapper}>
           <h1
-            className={`${styles.title} font-deck-pixel tracking-tighter text-neutral-900 uppercase`}
+            className={`${styles.title} font-title tracking-tighter text-neutral-900 uppercase`}
           >
             <span className="block">unicorn</span>
             <span className="block">mafia</span>

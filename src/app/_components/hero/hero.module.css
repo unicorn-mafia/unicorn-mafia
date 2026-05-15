@@ -59,8 +59,8 @@
 .title {
   display: flex;
   flex-direction: column;
-  gap: 0.42em;
-  font-size: clamp(32px, 8vw, 96px);
+  gap: 0.05em;
+  font-size: clamp(48px, 10vw, 140px);
   line-height: 0.95;
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -71,8 +71,8 @@
   .title {
     text-align: left;
     /* Fallback, then scale from the left column (half row) — slightly smaller to clear ASCII */
-    font-size: clamp(22px, 4.2vw, 72px);
-    font-size: clamp(22px, 16.5cqw, 72px);
+    font-size: clamp(48px, 7vw, 130px);
+    font-size: clamp(48px, 22cqw, 130px);
     max-width: 100%;
   }
 }
