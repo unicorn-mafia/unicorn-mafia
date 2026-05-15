@@ -1,543 +1,760 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>card-submit — Unicorn Mafia</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>card-submit — Unicorn Mafia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    :root {
-      --purple: #B307EB;
-      --blue: #3198F1;
-      --green: #0aab6e;
-      --gold: #FFD700;
-      --bg: #07070f;
-      --surface: #0d0d1a;
-      --border: rgba(179,7,235,0.2);
-      --text: #e0e0f0;
-      --muted: #666688;
-    }
+      :root {
+        --purple: #b307eb;
+        --blue: #3198f1;
+        --green: #0aab6e;
+        --gold: #ffd700;
+        --bg: #07070f;
+        --surface: #0d0d1a;
+        --border: rgba(179, 7, 235, 0.2);
+        --text: #e0e0f0;
+        --muted: #666688;
+      }
 
-    body {
-      font-family: 'Space Mono', monospace;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 40px 20px 80px;
-    }
+      body {
+        font-family: "Space Mono", monospace;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        padding: 40px 20px 80px;
+      }
 
-    .container { max-width: 680px; margin: 0 auto; }
+      .container {
+        max-width: 680px;
+        margin: 0 auto;
+      }
 
-    header { text-align: center; margin-bottom: 48px; }
-    header h1 {
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(10px, 2.5vw, 14px);
-      color: var(--purple);
-      text-shadow: 0 0 20px rgba(179,7,235,0.5);
-      letter-spacing: 0.15em;
-      margin-bottom: 12px;
-    }
-    header p { font-size: 11px; color: var(--muted); line-height: 1.8; }
+      header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+      header h1 {
+        font-family: "Press Start 2P", monospace;
+        font-size: clamp(10px, 2.5vw, 14px);
+        color: var(--purple);
+        text-shadow: 0 0 20px rgba(179, 7, 235, 0.5);
+        letter-spacing: 0.15em;
+        margin-bottom: 12px;
+      }
+      header p {
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
 
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--purple), transparent);
-      margin: 32px 0;
-    }
+      .divider {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--purple),
+          transparent
+        );
+        margin: 32px 0;
+      }
 
-    .section-label {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 7px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
+      .section-label {
+        font-family: "Press Start 2P", monospace;
+        font-size: 7px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
 
-    .field { margin-bottom: 24px; }
-    label {
-      display: block;
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    input[type="text"],
-    input[type="url"],
-    textarea,
-    select {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: 'Space Mono', monospace;
-      font-size: 13px;
-      padding: 12px 14px;
-      outline: none;
-      transition: border-color 0.15s;
-      appearance: none;
-    }
-    input:focus, textarea:focus, select:focus {
-      border-color: var(--purple);
-      box-shadow: 0 0 0 2px rgba(179,7,235,0.15);
-    }
-    textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+      .field {
+        margin-bottom: 24px;
+      }
+      label {
+        display: block;
+        font-size: 10px;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      input[type="text"],
+      input[type="url"],
+      textarea,
+      select {
+        width: 100%;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-family: "Space Mono", monospace;
+        font-size: 13px;
+        padding: 12px 14px;
+        outline: none;
+        transition: border-color 0.15s;
+        appearance: none;
+      }
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: var(--purple);
+        box-shadow: 0 0 0 2px rgba(179, 7, 235, 0.15);
+      }
+      textarea {
+        resize: vertical;
+        min-height: 90px;
+        line-height: 1.6;
+      }
 
-    /* Deck type selector */
-    .deck-options { display: flex; gap: 10px; flex-wrap: wrap; }
-    .deck-option {
-      flex: 1; min-width: 140px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      padding: 14px 16px;
-      cursor: pointer;
-      transition: all 0.15s;
-      text-align: center;
-      position: relative;
-    }
-    .deck-option input[type="checkbox"] {
-      position: absolute; opacity: 0; width: 0; height: 0;
-    }
-    .deck-option:has(input:checked) {
-      border-color: var(--purple);
-      background: rgba(179,7,235,0.1);
-      box-shadow: 0 0 16px rgba(179,7,235,0.12);
-    }
-    .deck-option-title {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 7px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text);
-      display: block;
-      margin-bottom: 6px;
-    }
-    .deck-option-desc {
-      font-size: 10px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
+      /* Deck type selector */
+      .deck-options {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .deck-option {
+        flex: 1;
+        min-width: 140px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        padding: 14px 16px;
+        cursor: pointer;
+        transition: all 0.15s;
+        text-align: center;
+        position: relative;
+      }
+      .deck-option input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .deck-option:has(input:checked) {
+        border-color: var(--purple);
+        background: rgba(179, 7, 235, 0.1);
+        box-shadow: 0 0 16px rgba(179, 7, 235, 0.12);
+      }
+      .deck-option-title {
+        font-family: "Press Start 2P", monospace;
+        font-size: 7px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--text);
+        display: block;
+        margin-bottom: 6px;
+      }
+      .deck-option-desc {
+        font-size: 10px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
 
-    /* Upload zones */
-    .upload-zone {
-      border: 1px dashed rgba(179,7,235,0.35);
-      background: var(--surface);
-      padding: 28px 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.15s;
-      position: relative;
-    }
-    .upload-zone:hover, .upload-zone.dragover {
-      border-color: var(--purple);
-      background: rgba(179,7,235,0.07);
-    }
-    .upload-zone input[type="file"] {
-      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-    }
-    .upload-zone-icon {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 20px;
-      margin-bottom: 10px;
-      display: block;
-    }
-    .upload-zone p { font-size: 11px; color: var(--muted); }
-    .upload-zone strong { color: var(--text); font-size: 12px; }
+      /* Upload zones */
+      .upload-zone {
+        border: 1px dashed rgba(179, 7, 235, 0.35);
+        background: var(--surface);
+        padding: 28px 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.15s;
+        position: relative;
+      }
+      .upload-zone:hover,
+      .upload-zone.dragover {
+        border-color: var(--purple);
+        background: rgba(179, 7, 235, 0.07);
+      }
+      .upload-zone input[type="file"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+      }
+      .upload-zone-icon {
+        font-family: "Press Start 2P", monospace;
+        font-size: 20px;
+        margin-bottom: 10px;
+        display: block;
+      }
+      .upload-zone p {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .upload-zone strong {
+        color: var(--text);
+        font-size: 12px;
+      }
 
-    .preview-img {
-      display: block;
-      max-width: 120px;
-      max-height: 120px;
-      margin: 12px auto 0;
-      image-rendering: pixelated;
-      border: 1px solid rgba(179,7,235,0.3);
-    }
+      .preview-img {
+        display: block;
+        max-width: 120px;
+        max-height: 120px;
+        margin: 12px auto 0;
+        image-rendering: pixelated;
+        border: 1px solid rgba(179, 7, 235, 0.3);
+      }
 
-    /* Generate button */
-    .btn-gen {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 12px;
-      background: transparent;
-      border: 1px solid var(--purple);
-      color: var(--purple);
-      font-family: 'Press Start 2P', monospace;
-      font-size: 7px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 10px 16px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .btn-gen:hover:not(:disabled) {
-      background: rgba(179,7,235,0.12);
-      box-shadow: 0 0 16px rgba(179,7,235,0.2);
-    }
-    .btn-gen:disabled { opacity: 0.4; cursor: not-allowed; }
-    .btn-gen.loading::after {
-      content: '';
-      width: 8px; height: 8px;
-      border: 2px solid var(--purple);
-      border-top-color: transparent;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
+      /* Generate button */
+      .btn-gen {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 12px;
+        background: transparent;
+        border: 1px solid var(--purple);
+        color: var(--purple);
+        font-family: "Press Start 2P", monospace;
+        font-size: 7px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 10px 16px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .btn-gen:hover:not(:disabled) {
+        background: rgba(179, 7, 235, 0.12);
+        box-shadow: 0 0 16px rgba(179, 7, 235, 0.2);
+      }
+      .btn-gen:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .btn-gen.loading::after {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border: 2px solid var(--purple);
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
 
-    /* Submit button */
-    .btn-submit {
-      width: 100%;
-      background: var(--purple);
-      border: none;
-      color: #fff;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 18px;
-      cursor: pointer;
-      margin-top: 40px;
-      transition: all 0.15s;
-      box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
-    }
-    .btn-submit:hover { background: #c50aff; box-shadow: 6px 6px 0 rgba(0,0,0,0.4); }
-    .btn-submit:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 rgba(0,0,0,0.4); }
-    .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+      /* Submit button */
+      .btn-submit {
+        width: 100%;
+        background: var(--purple);
+        border: none;
+        color: #fff;
+        font-family: "Press Start 2P", monospace;
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 18px;
+        cursor: pointer;
+        margin-top: 40px;
+        transition: all 0.15s;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+      }
+      .btn-submit:hover {
+        background: #c50aff;
+        box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+      }
+      .btn-submit:active {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+      }
+      .btn-submit:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
 
-    /* Status messages */
-    .status {
-      margin-top: 16px;
-      padding: 14px;
-      font-size: 11px;
-      line-height: 1.6;
-      display: none;
-    }
-    .status.error { border: 1px solid rgba(238,23,1,0.4); background: rgba(238,23,1,0.08); color: #ff6b6b; }
-    .status.success { border: 1px solid rgba(10,171,110,0.4); background: rgba(10,171,110,0.08); color: #4EF9BD; }
-    .status.show { display: block; }
+      /* Status messages */
+      .status {
+        margin-top: 16px;
+        padding: 14px;
+        font-size: 11px;
+        line-height: 1.6;
+        display: none;
+      }
+      .status.error {
+        border: 1px solid rgba(238, 23, 1, 0.4);
+        background: rgba(238, 23, 1, 0.08);
+        color: #ff6b6b;
+      }
+      .status.success {
+        border: 1px solid rgba(10, 171, 110, 0.4);
+        background: rgba(10, 171, 110, 0.08);
+        color: #4ef9bd;
+      }
+      .status.show {
+        display: block;
+      }
 
-    /* Faction selector */
-    .faction-options { display: flex; gap: 8px; flex-wrap: wrap; }
-    .faction-btn {
-      flex: 1; min-width: 70px;
-      border: 1px solid transparent;
-      background: var(--surface);
-      padding: 10px 8px;
-      cursor: pointer;
-      text-align: center;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 6px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: all 0.12s;
-      color: var(--muted);
-    }
-    .faction-btn.active { color: #fff; }
-    .faction-btn[data-f="purple"] { border-color: rgba(179,7,235,0.3); }
-    .faction-btn[data-f="purple"].active { background: rgba(179,7,235,0.25); border-color: #B307EB; color: #B307EB; }
-    .faction-btn[data-f="blue"] { border-color: rgba(49,152,241,0.3); }
-    .faction-btn[data-f="blue"].active { background: rgba(49,152,241,0.2); border-color: #3198F1; color: #3198F1; }
-    .faction-btn[data-f="green"] { border-color: rgba(78,249,189,0.3); }
-    .faction-btn[data-f="green"].active { background: rgba(10,171,110,0.2); border-color: #0aab6e; color: #0aab6e; }
-    .faction-btn[data-f="red"] { border-color: rgba(238,23,1,0.3); }
-    .faction-btn[data-f="red"].active { background: rgba(238,23,1,0.2); border-color: #EE1701; color: #EE1701; }
-    .faction-btn[data-f="black"] { border-color: rgba(200,195,185,0.3); }
-    .faction-btn[data-f="black"].active { background: rgba(200,195,185,0.1); border-color: #D4D0C8; color: #D4D0C8; }
+      /* Faction selector */
+      .faction-options {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .faction-btn {
+        flex: 1;
+        min-width: 70px;
+        border: 1px solid transparent;
+        background: var(--surface);
+        padding: 10px 8px;
+        cursor: pointer;
+        text-align: center;
+        font-family: "Press Start 2P", monospace;
+        font-size: 6px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        transition: all 0.12s;
+        color: var(--muted);
+      }
+      .faction-btn.active {
+        color: #fff;
+      }
+      .faction-btn[data-f="purple"] {
+        border-color: rgba(179, 7, 235, 0.3);
+      }
+      .faction-btn[data-f="purple"].active {
+        background: rgba(179, 7, 235, 0.25);
+        border-color: #b307eb;
+        color: #b307eb;
+      }
+      .faction-btn[data-f="blue"] {
+        border-color: rgba(49, 152, 241, 0.3);
+      }
+      .faction-btn[data-f="blue"].active {
+        background: rgba(49, 152, 241, 0.2);
+        border-color: #3198f1;
+        color: #3198f1;
+      }
+      .faction-btn[data-f="green"] {
+        border-color: rgba(78, 249, 189, 0.3);
+      }
+      .faction-btn[data-f="green"].active {
+        background: rgba(10, 171, 110, 0.2);
+        border-color: #0aab6e;
+        color: #0aab6e;
+      }
+      .faction-btn[data-f="red"] {
+        border-color: rgba(238, 23, 1, 0.3);
+      }
+      .faction-btn[data-f="red"].active {
+        background: rgba(238, 23, 1, 0.2);
+        border-color: #ee1701;
+        color: #ee1701;
+      }
+      .faction-btn[data-f="black"] {
+        border-color: rgba(200, 195, 185, 0.3);
+      }
+      .faction-btn[data-f="black"].active {
+        background: rgba(200, 195, 185, 0.1);
+        border-color: #d4d0c8;
+        color: #d4d0c8;
+      }
 
-    .hint { font-size: 10px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
+      .hint {
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 6px;
+        line-height: 1.6;
+      }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
-  </style>
-</head>
-<body>
-<div class="container">
-
-  <header>
-    <h1>🦄 submit your card</h1>
-    <p>Join the Unicorn Mafia deck.<br>Your card will be reviewed before going live.</p>
-  </header>
-
-  <!-- Basic info -->
-  <p class="section-label">01 — your info</p>
-
-  <div class="field">
-    <label>Full Name</label>
-    <input type="text" id="name" placeholder="Your name" />
-  </div>
-  <div class="field">
-    <label>Title / Role</label>
-    <input type="text" id="title" placeholder="e.g. AI Builder, Serial Founder" />
-  </div>
-  <div class="field">
-    <label>Bio <span style="font-size:9px;color:var(--muted)">(shown on hover — 1–2 sentences)</span></label>
-    <textarea id="bio" placeholder="What you build, what you've shipped, what makes you dangerous."></textarea>
-  </div>
-  <div class="field">
-    <label>LinkedIn URL <span style="font-size:9px;color:var(--muted)">(optional)</span></label>
-    <input type="url" id="linkedin" placeholder="https://linkedin.com/in/yourname" />
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Deck selection -->
-  <p class="section-label">02 — which deck</p>
-  <div class="deck-options field">
-    <label class="deck-option">
-      <input type="checkbox" name="deck" value="founding" />
-      <span class="deck-option-title">Founding Member</span>
-      <span class="deck-option-desc">Original builders who shaped the community</span>
-    </label>
-    <label class="deck-option">
-      <input type="checkbox" name="deck" value="council" />
-      <span class="deck-option-title">Unicorn Council</span>
-      <span class="deck-option-desc">Advisors and pillars of the ecosystem</span>
-    </label>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Faction -->
-  <p class="section-label">03 — choose your faction</p>
-  <div class="faction-options field" id="factionOptions">
-    <button class="faction-btn" data-f="purple" type="button">Purple</button>
-    <button class="faction-btn" data-f="blue" type="button">Blue</button>
-    <button class="faction-btn" data-f="green" type="button">Green</button>
-    <button class="faction-btn" data-f="red" type="button">Red</button>
-    <button class="faction-btn" data-f="black" type="button">Black</button>
-  </div>
-  <input type="hidden" id="faction" value="purple" />
-
-  <div class="divider"></div>
-
-  <!-- Avatar photo -->
-  <p class="section-label">04 — avatar photo</p>
-  <div class="field">
-    <div class="upload-zone" id="avatarZone">
-      <input type="file" id="avatarFile" accept="image/*" />
-      <span class="upload-zone-icon">📸</span>
-      <strong>Upload a photo of yourself</strong>
-      <p>We'll turn it into a cyberpunk pixel-art sprite</p>
-    </div>
-    <img id="avatarPreview" class="preview-img" style="display:none" alt="Avatar preview" />
-    <button class="btn-gen" id="genAvatar" disabled type="button">Generate Avatar Sprite</button>
-    <p class="hint">Uses Gemini to create an 8/16-bit pixel portrait with black background.</p>
-    <div class="status" id="avatarStatus"></div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Icon sprite -->
-  <p class="section-label">05 — icon sprite</p>
-  <div class="field">
-    <label>Describe your icon</label>
-    <textarea id="iconPrompt" placeholder="e.g. a glowing sword with purple neon light, cyberpunk style&#10;e.g. a retro robot head with circuit patterns&#10;e.g. a crystal unicorn horn with electric sparks" style="min-height:70px"></textarea>
-    <p class="hint">This becomes your personal icon on the card. Think: what object represents your superpower?</p>
-    <button class="btn-gen" id="genIcon" type="button">Generate Icon Sprite</button>
-    <img id="iconPreview" class="preview-img" style="display:none" alt="Icon preview" />
-    <div class="status" id="iconStatus"></div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Submit -->
-  <p class="section-label">06 — submit</p>
-  <p class="hint" style="margin-bottom:16px">
-    Downloads your card package as a <code>.json</code> file and opens an email to Fatema — just attach it and hit send.
-  </p>
-  <button class="btn-submit" id="submitBtn" type="button">Submit Card</button>
-  <div class="status" id="submitStatus"></div>
-
-</div>
-
-<script>
-  // ── State ──────────────────────────────────────────────────────────────────
-  let avatarBase64 = null;
-  let iconBase64 = null;
-  let selectedFaction = 'purple';
-
-  // ── Faction picker ─────────────────────────────────────────────────────────
-  document.querySelectorAll('.faction-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.faction-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedFaction = btn.dataset.f;
-      document.getElementById('faction').value = selectedFaction;
-    });
-  });
-  // Default active
-  document.querySelector('.faction-btn[data-f="purple"]').classList.add('active');
-
-  // ── Avatar upload ──────────────────────────────────────────────────────────
-  const avatarFile = document.getElementById('avatarFile');
-  const avatarPreview = document.getElementById('avatarPreview');
-  const genAvatarBtn = document.getElementById('genAvatar');
-
-  avatarFile.addEventListener('change', () => {
-    const file = avatarFile.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      avatarPreview.src = e.target.result;
-      avatarPreview.style.display = 'block';
-      avatarBase64 = e.target.result.split(',')[1];
-      genAvatarBtn.disabled = false;
-    };
-    reader.readAsDataURL(file);
-  });
-
-  // Drag-and-drop
-  ['dragover','dragleave','drop'].forEach(evt => {
-    document.getElementById('avatarZone').addEventListener(evt, e => {
-      e.preventDefault();
-      if (evt === 'dragover') e.currentTarget.classList.add('dragover');
-      else if (evt === 'dragleave') e.currentTarget.classList.remove('dragover');
-      else {
-        e.currentTarget.classList.remove('dragover');
-        const file = e.dataTransfer.files[0];
-        if (file && file.type.startsWith('image/')) {
-          const dt = new DataTransfer();
-          dt.items.add(file);
-          avatarFile.files = dt.files;
-          avatarFile.dispatchEvent(new Event('change'));
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
       }
-    });
-  });
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🦄 submit your card</h1>
+        <p>
+          Join the Unicorn Mafia deck.<br />Your card will be reviewed before
+          going live.
+        </p>
+      </header>
 
-  // ── Gemini call (proxied via /api/card-sprite — key stays server-side) ──────
-  async function callGemini(parts) {
-    const res = await fetch('/api/card-sprite', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ parts })
-    });
+      <!-- Basic info -->
+      <p class="section-label">01 — your info</p>
 
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err?.error || `Server error ${res.status}`);
-    }
+      <div class="field">
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="Your name" />
+      </div>
+      <div class="field">
+        <label>Title / Role</label>
+        <input
+          type="text"
+          id="title"
+          placeholder="e.g. AI Builder, Serial Founder"
+        />
+      </div>
+      <div class="field">
+        <label
+          >Bio
+          <span style="font-size: 9px; color: var(--muted)"
+            >(shown on hover — 1–2 sentences)</span
+          ></label
+        >
+        <textarea
+          id="bio"
+          placeholder="What you build, what you've shipped, what makes you dangerous."
+        ></textarea>
+      </div>
+      <div class="field">
+        <label
+          >LinkedIn URL
+          <span style="font-size: 9px; color: var(--muted)"
+            >(optional)</span
+          ></label
+        >
+        <input
+          type="url"
+          id="linkedin"
+          placeholder="https://linkedin.com/in/yourname"
+        />
+      </div>
 
-    const data = await res.json();
-    const imgPart = data?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
-    if (!imgPart) {
-      const reason = data?.candidates?.[0]?.finishReason || 'unknown';
-      throw new Error(`No image returned (reason: ${reason}). Try a different photo.`);
-    }
-    return imgPart.inlineData.data; // base64
-  }
+      <div class="divider"></div>
 
-  // ── Generate avatar ────────────────────────────────────────────────────────
-  genAvatarBtn.addEventListener('click', async () => {
-    if (!avatarBase64) return;
-    setLoading(genAvatarBtn, true);
-    showStatus('avatarStatus', '', '');
-    try {
-      const base64 = await callGemini([
-        { inlineData: { data: avatarBase64, mimeType: avatarFile.files[0].type } },
-        { text: `Use this photo as a reference only to create a new cyberpunk retro pixel-art character. Ensure the person is recognisable.\nUse a clear 8/16-bit pixel look with crisp blocks, clean outlines, and subtle neon accent colors.\nKeep the face recognizable in a stylish 3/4 pose, looking off-screen like a cool cyberpunk character.\nKeep the user's original clothing style and overall outfit silhouette from the reference photo.\nUse a pure solid black background only (#000000).` }
-      ]);
-      avatarBase64 = base64;
-      avatarPreview.src = `data:image/png;base64,${base64}`;
-      avatarPreview.style.display = 'block';
-      showStatus('avatarStatus', 'Avatar sprite generated ✓', 'success');
-    } catch (e) {
-      showStatus('avatarStatus', e.message, 'error');
-    }
-    setLoading(genAvatarBtn, false);
-  });
+      <!-- Deck selection -->
+      <p class="section-label">02 — which deck</p>
+      <div class="deck-options field">
+        <label class="deck-option">
+          <input type="checkbox" name="deck" value="founding" />
+          <span class="deck-option-title">Founding Member</span>
+          <span class="deck-option-desc"
+            >Original builders who shaped the community</span
+          >
+        </label>
+        <label class="deck-option">
+          <input type="checkbox" name="deck" value="council" />
+          <span class="deck-option-title">Unicorn Council</span>
+          <span class="deck-option-desc"
+            >Advisors and pillars of the ecosystem</span
+          >
+        </label>
+      </div>
 
-  // ── Generate icon ──────────────────────────────────────────────────────────
-  genIcon.addEventListener('click', async () => {
-    const prompt = document.getElementById('iconPrompt').value.trim();
-    if (!prompt) { showStatus('iconStatus', 'Write a prompt for your icon first.', 'error'); return; }
-    setLoading(genIcon, true);
-    showStatus('iconStatus', '', '');
-    try {
-      const base64 = await callGemini([
-        { text: `Create a single cyberpunk retro pixel-art icon/symbol: ${prompt}.\nStyle: 8/16-bit pixel art, crisp pixel blocks, clean outlines, neon accent colors, no background — pure black (#000000) background only.\nThe icon should fill most of the frame. No text. No person.` }
-      ]);
-      iconBase64 = base64;
-      document.getElementById('iconPreview').src = `data:image/png;base64,${base64}`;
-      document.getElementById('iconPreview').style.display = 'block';
-      showStatus('iconStatus', 'Icon sprite generated ✓', 'success');
-    } catch (e) {
-      showStatus('iconStatus', e.message, 'error');
-    }
-    setLoading(genIcon, false);
-  });
+      <div class="divider"></div>
 
-  // ── Submit ─────────────────────────────────────────────────────────────────
-  document.getElementById('submitBtn').addEventListener('click', () => {
-    const name = document.getElementById('name').value.trim();
-    const title = document.getElementById('title').value.trim();
-    const bio = document.getElementById('bio').value.trim();
-    const linkedin = document.getElementById('linkedin').value.trim();
-    const decks = [...document.querySelectorAll('input[name="deck"]:checked')].map(el => el.value);
+      <!-- Faction -->
+      <p class="section-label">03 — choose your faction</p>
+      <div class="faction-options field" id="factionOptions">
+        <button class="faction-btn" data-f="purple" type="button">
+          Purple
+        </button>
+        <button class="faction-btn" data-f="blue" type="button">Blue</button>
+        <button class="faction-btn" data-f="green" type="button">Green</button>
+        <button class="faction-btn" data-f="red" type="button">Red</button>
+        <button class="faction-btn" data-f="black" type="button">Black</button>
+      </div>
+      <input type="hidden" id="faction" value="purple" />
 
-    if (!name || !title || !bio) {
-      showStatus('submitStatus', 'Please fill in Name, Title, and Bio.', 'error');
-      return;
-    }
-    if (decks.length === 0) {
-      showStatus('submitStatus', 'Select at least one deck (Founding Member or Unicorn Council).', 'error');
-      return;
-    }
+      <div class="divider"></div>
 
-    const pkg = {
-      name: name.toUpperCase(),
-      title,
-      bio,
-      linkedinUrl: linkedin || null,
-      faction: selectedFaction,
-      decks,
-      submittedAt: new Date().toISOString(),
-      avatarBase64: avatarBase64 || null,
-      iconBase64: iconBase64 || null,
-    };
+      <!-- Avatar photo -->
+      <p class="section-label">04 — avatar photo</p>
+      <div class="field">
+        <div class="upload-zone" id="avatarZone">
+          <input type="file" id="avatarFile" accept="image/*" />
+          <span class="upload-zone-icon">📸</span>
+          <strong>Upload a photo of yourself</strong>
+          <p>We'll turn it into a cyberpunk pixel-art sprite</p>
+        </div>
+        <img
+          id="avatarPreview"
+          class="preview-img"
+          style="display: none"
+          alt="Avatar preview"
+        />
+        <button class="btn-gen" id="genAvatar" disabled type="button">
+          Generate Avatar Sprite
+        </button>
+        <p class="hint">
+          Uses Gemini to create an 8/16-bit pixel portrait with black
+          background.
+        </p>
+        <div class="status" id="avatarStatus"></div>
+      </div>
 
-    const filename = `um-card-${name.toLowerCase().replace(/\s+/g, '-')}.json`;
+      <div class="divider"></div>
 
-    // Download the JSON package
-    const blob = new Blob([JSON.stringify(pkg, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
+      <!-- Icon sprite -->
+      <p class="section-label">05 — icon sprite</p>
+      <div class="field">
+        <label>Describe your icon</label>
+        <textarea
+          id="iconPrompt"
+          placeholder="e.g. a glowing sword with purple neon light, cyberpunk style&#10;e.g. a retro robot head with circuit patterns&#10;e.g. a crystal unicorn horn with electric sparks"
+          style="min-height: 70px"
+        ></textarea>
+        <p class="hint">
+          This becomes your personal icon on the card. Think: what object
+          represents your superpower?
+        </p>
+        <button class="btn-gen" id="genIcon" type="button">
+          Generate Icon Sprite
+        </button>
+        <img
+          id="iconPreview"
+          class="preview-img"
+          style="display: none"
+          alt="Icon preview"
+        />
+        <div class="status" id="iconStatus"></div>
+      </div>
 
-    // Open mailto after a short delay so the download fires first
-    setTimeout(() => {
-      const subject = encodeURIComponent(`UM Card Submission — ${name}`);
-      const body = encodeURIComponent(
-        `Hi Fatema,\n\nPlease find my Unicorn Mafia card submission attached (${filename}).\n\nDecks: ${decks.join(', ')}\nName: ${name}\nTitle: ${title}\n\nBio: ${bio}\n\nLinkedIn: ${linkedin || 'n/a'}\n\nGenerated sprites are embedded in the JSON file.\n\nThanks!`
-      );
-      window.location.href = `mailto:fatema@60x.ai?subject=${subject}&body=${body}`;
-    }, 400);
+      <div class="divider"></div>
 
-    showStatus('submitStatus',
-      `Downloaded ${filename} ✓\n\nYour email client should open — attach the file and hit send. Fatema will review and add you to the site.`,
-      'success'
-    );
-  });
+      <!-- Submit -->
+      <p class="section-label">06 — submit</p>
+      <p class="hint" style="margin-bottom: 16px">
+        Downloads your card package as a <code>.json</code> file and opens an
+        email to Fatema — just attach it and hit send.
+      </p>
+      <button class="btn-submit" id="submitBtn" type="button">
+        Submit Card
+      </button>
+      <div class="status" id="submitStatus"></div>
+    </div>
 
-  // ── Helpers ────────────────────────────────────────────────────────────────
-  function setLoading(btn, on) {
-    btn.disabled = on;
-    if (on) btn.classList.add('loading');
-    else btn.classList.remove('loading');
-  }
+    <script>
+      // ── State ──────────────────────────────────────────────────────────────────
+      let avatarBase64 = null;
+      let iconBase64 = null;
+      let selectedFaction = "purple";
 
-  function showStatus(id, msg, type) {
-    const el = document.getElementById(id);
-    el.textContent = msg;
-    el.className = 'status';
-    if (msg) { el.classList.add(type, 'show'); }
-  }
-</script>
-</body>
+      // ── Faction picker ─────────────────────────────────────────────────────────
+      document.querySelectorAll(".faction-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".faction-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          selectedFaction = btn.dataset.f;
+          document.getElementById("faction").value = selectedFaction;
+        });
+      });
+      // Default active
+      document
+        .querySelector('.faction-btn[data-f="purple"]')
+        .classList.add("active");
+
+      // ── Avatar upload ──────────────────────────────────────────────────────────
+      const avatarFile = document.getElementById("avatarFile");
+      const avatarPreview = document.getElementById("avatarPreview");
+      const genAvatarBtn = document.getElementById("genAvatar");
+
+      avatarFile.addEventListener("change", () => {
+        const file = avatarFile.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          avatarPreview.src = e.target.result;
+          avatarPreview.style.display = "block";
+          avatarBase64 = e.target.result.split(",")[1];
+          genAvatarBtn.disabled = false;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      // Drag-and-drop
+      ["dragover", "dragleave", "drop"].forEach((evt) => {
+        document.getElementById("avatarZone").addEventListener(evt, (e) => {
+          e.preventDefault();
+          if (evt === "dragover") e.currentTarget.classList.add("dragover");
+          else if (evt === "dragleave")
+            e.currentTarget.classList.remove("dragover");
+          else {
+            e.currentTarget.classList.remove("dragover");
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith("image/")) {
+              const dt = new DataTransfer();
+              dt.items.add(file);
+              avatarFile.files = dt.files;
+              avatarFile.dispatchEvent(new Event("change"));
+            }
+          }
+        });
+      });
+
+      // ── Gemini call (proxied via /api/card-sprite — key stays server-side) ──────
+      async function callGemini(parts) {
+        const res = await fetch("/api/card-sprite", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ parts }),
+        });
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err?.error || `Server error ${res.status}`);
+        }
+
+        const data = await res.json();
+        const imgPart = data?.candidates?.[0]?.content?.parts?.find(
+          (p) => p.inlineData,
+        );
+        if (!imgPart) {
+          const reason = data?.candidates?.[0]?.finishReason || "unknown";
+          throw new Error(
+            `No image returned (reason: ${reason}). Try a different photo.`,
+          );
+        }
+        return imgPart.inlineData.data; // base64
+      }
+
+      // ── Generate avatar ────────────────────────────────────────────────────────
+      genAvatarBtn.addEventListener("click", async () => {
+        if (!avatarBase64) return;
+        setLoading(genAvatarBtn, true);
+        showStatus("avatarStatus", "", "");
+        try {
+          const base64 = await callGemini([
+            {
+              inlineData: {
+                data: avatarBase64,
+                mimeType: avatarFile.files[0].type,
+              },
+            },
+            {
+              text: `Use this photo as a reference only to create a new cyberpunk retro pixel-art character. Ensure the person is recognisable.\nUse a clear 8/16-bit pixel look with crisp blocks, clean outlines, and subtle neon accent colors.\nKeep the face recognizable in a stylish 3/4 pose, looking off-screen like a cool cyberpunk character.\nKeep the user's original clothing style and overall outfit silhouette from the reference photo.\nUse a pure solid black background only (#000000).`,
+            },
+          ]);
+          avatarBase64 = base64;
+          avatarPreview.src = `data:image/png;base64,${base64}`;
+          avatarPreview.style.display = "block";
+          showStatus("avatarStatus", "Avatar sprite generated ✓", "success");
+        } catch (e) {
+          showStatus("avatarStatus", e.message, "error");
+        }
+        setLoading(genAvatarBtn, false);
+      });
+
+      // ── Generate icon ──────────────────────────────────────────────────────────
+      genIcon.addEventListener("click", async () => {
+        const prompt = document.getElementById("iconPrompt").value.trim();
+        if (!prompt) {
+          showStatus(
+            "iconStatus",
+            "Write a prompt for your icon first.",
+            "error",
+          );
+          return;
+        }
+        setLoading(genIcon, true);
+        showStatus("iconStatus", "", "");
+        try {
+          const base64 = await callGemini([
+            {
+              text: `Create a single cyberpunk retro pixel-art icon/symbol: ${prompt}.\nStyle: 8/16-bit pixel art, crisp pixel blocks, clean outlines, neon accent colors, no background — pure black (#000000) background only.\nThe icon should fill most of the frame. No text. No person.`,
+            },
+          ]);
+          iconBase64 = base64;
+          document.getElementById("iconPreview").src =
+            `data:image/png;base64,${base64}`;
+          document.getElementById("iconPreview").style.display = "block";
+          showStatus("iconStatus", "Icon sprite generated ✓", "success");
+        } catch (e) {
+          showStatus("iconStatus", e.message, "error");
+        }
+        setLoading(genIcon, false);
+      });
+
+      // ── Submit ─────────────────────────────────────────────────────────────────
+      document.getElementById("submitBtn").addEventListener("click", () => {
+        const name = document.getElementById("name").value.trim();
+        const title = document.getElementById("title").value.trim();
+        const bio = document.getElementById("bio").value.trim();
+        const linkedin = document.getElementById("linkedin").value.trim();
+        const decks = [
+          ...document.querySelectorAll('input[name="deck"]:checked'),
+        ].map((el) => el.value);
+
+        if (!name || !title || !bio) {
+          showStatus(
+            "submitStatus",
+            "Please fill in Name, Title, and Bio.",
+            "error",
+          );
+          return;
+        }
+        if (decks.length === 0) {
+          showStatus(
+            "submitStatus",
+            "Select at least one deck (Founding Member or Unicorn Council).",
+            "error",
+          );
+          return;
+        }
+
+        const pkg = {
+          name: name.toUpperCase(),
+          title,
+          bio,
+          linkedinUrl: linkedin || null,
+          faction: selectedFaction,
+          decks,
+          submittedAt: new Date().toISOString(),
+          avatarBase64: avatarBase64 || null,
+          iconBase64: iconBase64 || null,
+        };
+
+        const filename = `um-card-${name.toLowerCase().replace(/\s+/g, "-")}.json`;
+
+        // Download the JSON package
+        const blob = new Blob([JSON.stringify(pkg, null, 2)], {
+          type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        // Open mailto after a short delay so the download fires first
+        setTimeout(() => {
+          const subject = encodeURIComponent(`UM Card Submission — ${name}`);
+          const body = encodeURIComponent(
+            `Hi Fatema,\n\nPlease find my Unicorn Mafia card submission attached (${filename}).\n\nDecks: ${decks.join(", ")}\nName: ${name}\nTitle: ${title}\n\nBio: ${bio}\n\nLinkedIn: ${linkedin || "n/a"}\n\nGenerated sprites are embedded in the JSON file.\n\nThanks!`,
+          );
+          window.location.href = `mailto:fatema@60x.ai?subject=${subject}&body=${body}`;
+        }, 400);
+
+        showStatus(
+          "submitStatus",
+          `Downloaded ${filename} ✓\n\nYour email client should open — attach the file and hit send. Fatema will review and add you to the site.`,
+          "success",
+        );
+      });
+
+      // ── Helpers ────────────────────────────────────────────────────────────────
+      function setLoading(btn, on) {
+        btn.disabled = on;
+        if (on) btn.classList.add("loading");
+        else btn.classList.remove("loading");
+      }
+
+      function showStatus(id, msg, type) {
+        const el = document.getElementById(id);
+        el.textContent = msg;
+        el.className = "status";
+        if (msg) {
+          el.classList.add(type, "show");
+        }
+      }
+    </script>
+  </body>
 </html>
