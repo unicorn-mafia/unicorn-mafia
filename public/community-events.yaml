@@ -1181,3 +1181,17 @@
   cover: "https://images.lumacdn.com/uploads/xk/2e6b38aa-9568-42da-bb9e-46811245e72f.png"
   location: "London, England"
   url: "https://luma.com/bvvrlgam"
+
+- name: "Crusoe AI Talks"
+  start: "2026-05-28T17:00:00+01:00"
+  end: "2026-05-28T21:00:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/ie/7f6ad7d0-9ac3-4a94-9069-2c2a205a1cb1.jpg"
+  location: "London, England"
+  url: "https://luma.com/rtcp29t3"
+
+- name: "fireside with sujude | head of growth @ Replit"
+  start: "2026-06-05T18:00:00+01:00"
+  end: "2026-06-05T20:30:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/s2/8dfb410e-3f7f-4f8f-a2f9-283a15030e2b.png"
+  location: "London, England"
+  url: "https://luma.com/oblcwvo8"
