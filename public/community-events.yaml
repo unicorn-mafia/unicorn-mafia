@@ -1321,3 +1321,10 @@
   cover: "https://images.lumacdn.com/uploads/jf/10a56bc8-d941-442d-8b50-c67b53442a2d.png"
   location: "London, England"
   url: "https://luma.com/ais9ugqd"
+
+- name: "{Tech: Europe} London AI Hackathon"
+  start: "2026-06-27T09:00:00+01:00"
+  end: "2026-06-27T19:00:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/qs/9637d68b-d487-48cc-96ee-d1979b0cd083.png"
+  location: "London, England"
+  url: "https://luma.com/mx4bmlbr"
