@@ -1442,3 +1442,10 @@
   cover: "https://images.lumacdn.com/uploads/x1/769f56b4-4e58-4287-a853-9fb63be65d51.png"
   location: "London, England"
   url: "https://luma.com/breaking-barriers-hackathon"
+
+- name: "SoTA Pub Night"
+  start: "2026-06-12T18:00:00+01:00"
+  end: "2026-06-12T22:00:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/gz/3d759383-4124-450a-bec0-6ed7624984f5.jpg"
+  location: "London, England"
+  url: "https://luma.com/sotadrinks"
