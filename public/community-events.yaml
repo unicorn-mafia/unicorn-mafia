@@ -884,7 +884,7 @@
 - name: "Day Zero with Vercel"
   start: "2026-06-16T19:00:00+01:00"
   end: "2026-06-16T22:00:00+01:00"
-  cover: "https://images.lumacdn.com/event-covers/z5/ccd917b3-b245-471a-830c-ebdd5ac5c616.png"
+  cover: "https://images.lumacdn.com/uploads/pz/6e6f8fa0-e24d-45f6-99fd-82715aa05ad3.jpg"
   location: "London, England"
   url: "https://luma.com/6sjofaqm"
 
@@ -1428,3 +1428,17 @@
   url: "https://london.aitinkerers.org/p/ai-tinkerers-london-8th-june-featuring-fireside-chat-with-winston-weinberg-ceo-of-harvey"
   featured: true
   borderColors: ["#A47148", "#1A1A1A"]
+
+- name: "London Tech Week After Hours: Enterprise AI Agents"
+  start: "2026-06-10T17:00:00+01:00"
+  end: "2026-06-10T20:00:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/n1/9735aaae-ef1f-44da-87b9-f0a3774e9f5f.png"
+  location: "London, England"
+  url: "https://luma.com/33scmcp3"
+
+- name: "Hackathon: Breaking Barriers to AI Safety"
+  start: "2026-06-13T09:30:00+01:00"
+  end: "2026-06-13T20:00:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/x1/769f56b4-4e58-4287-a853-9fb63be65d51.png"
+  location: "London, England"
+  url: "https://luma.com/breaking-barriers-hackathon"
