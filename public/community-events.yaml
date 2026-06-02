@@ -1419,3 +1419,12 @@
   cover: "https://images.lumacdn.com/event-covers/tm/86c02e45-1137-40aa-b1cb-a0993269ecb4.png"
   location: "London, England"
   url: "https://luma.com/3mimcd95"
+
+- name: "AI Tinkerers London — Fireside Chat with Winston Weinberg (Harvey)"
+  start: "2026-06-08T17:15:00.000Z"
+  end: "2026-06-08T20:30:00.000Z"
+  cover: "/ai-tinkerers-harvey.png"
+  location: "London, England"
+  url: "https://london.aitinkerers.org/p/ai-tinkerers-london-8th-june-featuring-fireside-chat-with-winston-weinberg-ceo-of-harvey"
+  featured: true
+  borderColors: ["#007552", "#00A876"]
