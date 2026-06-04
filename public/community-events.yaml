@@ -1498,3 +1498,10 @@
   cover: "https://images.lumacdn.com/event-covers/it/244b16f7-6975-4c40-86fc-2126e2dd94d4.jpg"
   location: "London, England"
   url: "https://luma.com/cursor-vks4"
+
+- name: "Building and Shipping in the AI Era"
+  start: "2026-06-16T18:30:00+01:00"
+  end: "2026-06-16T21:30:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/6d/6b3d56ab-800a-418c-9de3-88ce48cb7179.png"
+  location: "London, England"
+  url: "https://luma.com/build-and-ship"
