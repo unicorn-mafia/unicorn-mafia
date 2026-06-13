@@ -1727,3 +1727,9 @@
   cover: "https://images.lumacdn.com/event-covers/8i/61907386-74b5-42c9-bb0a-cdc3daa2c9d6.png"
   location: "London, England"
   url: "https://luma.com/fp5iknmy"
+
+- name: "Multiagents Hackathon"
+  start: "2026-06-26T08:30:00.000Z"
+  end: "2026-06-26T18:30:00.000Z"
+  location: "London, England"
+  url: "https://luma.com/ldnhack"
