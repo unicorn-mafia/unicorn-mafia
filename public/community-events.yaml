@@ -1764,3 +1764,10 @@
   location: "London, England"
   cover: "https://images.lumacdn.com/uploads/ot/16041aa0-dd54-42d9-8931-9d3e12283669.png"
   url: "https://luma.com/ldnhack"
+
+- name: "International Expansion - Building the GTM Engine"
+  start: "2026-06-29T18:30:00+01:00"
+  end: "2026-06-29T21:30:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/e3/00bf895a-d8fa-4952-b494-da96911f32ff.png"
+  location: "London, England"
+  url: "https://luma.com/international-expansion"
