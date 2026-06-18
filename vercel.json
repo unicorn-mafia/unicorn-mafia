@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/london-to-sf",
+      "destination": "https://london-to-sf.lovable.app/"
+    },
+    {
+      "source": "/london-to-sf/:path*",
+      "destination": "https://london-to-sf.lovable.app/:path*"
+    },
+    {
+      "source": "/assets/:path*",
+      "destination": "https://london-to-sf.lovable.app/assets/:path*"
+    }
+  ]
+}
