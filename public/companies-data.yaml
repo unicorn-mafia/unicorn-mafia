@@ -71,3 +71,6 @@ categories:
       - name: "Casero"
         website_url: "https://www.caserolaw.com"
         logo_url: "https://www.caserolaw.com/casero_logo.svg"
+      - name: "Fortick"
+        website_url: "https://fortick.io"
+        logo_url: "https://fortick.io/logo.png"
