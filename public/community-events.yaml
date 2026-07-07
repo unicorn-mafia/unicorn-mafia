@@ -2009,3 +2009,10 @@
   cover: "https://images.lumacdn.com/uploads/2n/1e103380-3e82-493a-bd4c-3de1738cc7b2.jpg"
   location: "London, England"
   url: "https://luma.com/campaign-nxdr"
+
+- name: "London Engineering Meetup - Legora x Conduct"
+  start: "2026-07-08T18:00:00+01:00"
+  end: "2026-07-08T22:00:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/az/4b8dd6b9-6424-4e90-953a-e875b7ce66cc.png"
+  location: "London, England"
+  url: "https://luma.com/legora-kojr"
