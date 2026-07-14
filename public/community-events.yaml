@@ -2016,3 +2016,10 @@
   cover: "https://images.lumacdn.com/uploads/az/4b8dd6b9-6424-4e90-953a-e875b7ce66cc.png"
   location: "London, England"
   url: "https://luma.com/legora-kojr"
+
+- name: "OpenAI Build Week Community Builders Lounge - London"
+  start: "2026-07-15T09:00:00+01:00"
+  end: "2026-07-15T15:00:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/dg/c53df91f-c953-47e2-8d8a-5fc39354b14f.png"
+  location: "London, England"
+  url: "https://luma.com/codex-builders-lounge"
