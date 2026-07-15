@@ -2051,3 +2051,10 @@
   cover: "https://images.lumacdn.com/uploads/bk/1dbbce1b-9cf3-413d-b5fc-f53d171c686d.png"
   location: "London, England"
   url: "https://luma.com/mkpzajny"
+
+- name: "A Mini Demo Night"
+  start: "2026-07-23T18:00:00+01:00"
+  end: "2026-07-23T20:30:00+01:00"
+  cover: "https://images.lumacdn.com/uploads/vk/0166aa93-5d66-4399-be76-770a8b673cb2.png"
+  location: "London, England"
+  url: "https://luma.com/8pi189ji"
