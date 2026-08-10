@@ -2271,7 +2271,7 @@
 
 - name: "Encode London Hackathon and Conference"
   start: "2026-10-23T10:00:00+01:00"
-  end: "2026-10-25T17:30:00+01:00"
+  end: "2026-10-25T17:30:00+00:00"
   cover: "https://images.lumacdn.com/event-covers/rp/e8523f04-ff5d-420f-8a15-84300a528b42.png"
   location: "London, England"
   url: "https://luma.com/encode-london-2026"
