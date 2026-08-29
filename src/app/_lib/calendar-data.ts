@@ -34,16 +34,14 @@ export async function loadCalendarEvents(
 }
 
 export async function loadEvents(): Promise<EventsData> {
-  try {
-    const response = await fetch("/api/calendar");
-    if (!response.ok) {
-      throw new Error(`Failed to fetch events: ${response.statusText}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Error loading events:", error);
-    throw error;
+  const response = await fetch("/api/calendar");
+  if (!response.ok) {
+    const body = await response.json().catch(() => null);
+    const message =
+      body?.error || `Failed to fetch events (${response.status})`;
+    throw new Error(message);
   }
+  return await response.json();
 }
 
 export function formatDateRange(event: CalendarEvent): string {
