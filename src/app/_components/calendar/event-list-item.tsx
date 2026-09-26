@@ -2,7 +2,7 @@
 
 import React from "react";
 import type { CalendarEvent } from "../../_types/calendar";
-import { formatEventTime } from "../../_lib/calendar-data";
+import { formatEventTime, getEventLink } from "../../_lib/calendar-data";
 import styles from "./calendar.module.css";
 
 interface EventListItemProps {
@@ -36,7 +36,7 @@ function isPast(event: CalendarEvent): boolean {
 export function EventListItem({ event }: EventListItemProps) {
   const live = isHappeningNow(event);
   const past = !live && isPast(event);
-  const linkUrl = event.externalUrl || event.htmlLink;
+  const linkUrl = getEventLink(event);
   const date = getEventDate(event);
   const time = formatEventTime(event);
 
