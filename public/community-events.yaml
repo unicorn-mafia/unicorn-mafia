@@ -2688,3 +2688,12 @@
   cover: "https://images.lumacdn.com/uploads/0t/2ee09519-db53-4123-853b-ebfc49894ef4.png"
   location: "London, England"
   url: "https://luma.com/oy36bdpy"
+
+- name: "AI Tinkerers London — Cofounder Speed Dating: Consumer and Prosumer AI"
+  start: "2026-10-04T09:00:00.000Z"
+  end: "2026-10-04T11:00:00.000Z"
+  cover: "/ai-tinkerers-cofounder-speed-dating.png"
+  location: "London, England"
+  url: "https://london.aitinkerers.org/p/cofounder-speed-dating-consumer-and-prosumer-ai"
+  featured: true
+  borderColors: ["#1DE9D0", "#F59E4B"]
