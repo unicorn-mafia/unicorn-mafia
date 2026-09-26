@@ -46,6 +46,22 @@ export async function loadEvents(): Promise<EventsData> {
   }
 }
 
+// External event links get UTM params so hosts (e.g. Luma) can attribute
+// signups to us; our links use rel="noreferrer", so no referrer is sent.
+export function getEventLink(event: CalendarEvent): string | undefined {
+  if (!event.externalUrl) return event.htmlLink;
+  try {
+    const url = new URL(event.externalUrl);
+    if (!url.searchParams.has("utm_source")) {
+      url.searchParams.set("utm_source", "unicrnmafia.com");
+      url.searchParams.set("utm_medium", "referral");
+    }
+    return url.toString();
+  } catch {
+    return event.externalUrl;
+  }
+}
+
 export function formatDateRange(event: CalendarEvent): string {
   const start = new Date(event.start.dateTime || event.start.date || "");
   const end = new Date(event.end.dateTime || event.end.date || "");

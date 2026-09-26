@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import posthog from "posthog-js";
 import type { CalendarEvent } from "../../_types/calendar";
-import { formatDateRange } from "../../_lib/calendar-data";
+import { formatDateRange, getEventLink } from "../../_lib/calendar-data";
 import { BRAND_COLORS } from "../../_lib/consts";
 import styles from "./calendar.module.css";
 
@@ -46,7 +46,7 @@ export function EventCard({ event, index }: EventCardProps) {
   const accentColor = BRAND_COLORS[index % BRAND_COLORS.length];
   const live = isHappeningNow(event);
   const past = !live && isPast(event);
-  const linkUrl = event.externalUrl || event.htmlLink;
+  const linkUrl = getEventLink(event);
   const dateRange = formatDateRange(event);
 
   const featured = event.featured && event.borderColors?.length === 2;
