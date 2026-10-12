@@ -59,18 +59,6 @@ const foundingMembers: YugiohCardProps[] = [
     linkedinUrl: "https://www.linkedin.com/in/charliecheesman/",
   },
   {
-    name: "FERGUS MCKENZIE-WILSON",
-    title: "Founding Member",
-    avatar: "/team-deck/avatar-fergus.png",
-    description:
-      "Serial entrepreneur and deep-tech engineer. Previously exited a jet-powered drone company. Pioneer in Multi-Agent AI and Knowledge Graphs.",
-    faction: "green",
-    isFounder: false,
-    hideBadge: true,
-    personalIcon: "/team-deck/icon-fergus.png",
-    linkedinUrl: "https://www.linkedin.com/in/fergtech/",
-  },
-  {
     name: "DAVID GELBERG",
     title: "Founding Member",
     avatar: "/team-deck/avatar-david.png",
