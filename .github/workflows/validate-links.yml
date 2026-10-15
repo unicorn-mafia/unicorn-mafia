@@ -130,11 +130,14 @@ jobs:
                   url = url.rstrip(',')
                   print(f"  Checking website: {url}")
                   is_valid, status = check_url_accessible(url)
-                  if not is_valid:
+                  # Some sites block GitHub runner IPs with a 403 while serving browsers normally
+                  if not is_valid and status == 403:
+                      warnings.append(f"Website URL returned 403, likely bot protection: {url}")
+                  elif not is_valid:
                       errors.append(f"Website URL not accessible: {url} (Status: {status})")
                   else:
                       print(f"    ✅ OK")
-              
+
               # Check external logo URLs
               for logo_url in external_logo_urls:
                   logo_url = logo_url.rstrip(',')
