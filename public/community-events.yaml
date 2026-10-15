@@ -1210,6 +1210,13 @@
   location: "London, England"
   url: "https://luma.com/1d7szvu5"
 
+- name: "Agentic Engineering with Alibaba Cloud"
+  start: "2026-06-25T17:00:00.000Z"
+  end: "2026-06-25T20:00:00.000Z"
+  cover: "https://images.lumacdn.com/uploads/dx/6a5d6ee2-87e6-46f9-8376-c88c914d1fb6.png"
+  location: "Tessl, King's Cross, London"
+  url: "https://luma.com/hdygxmyx"
+
 - name: "The Agent Economy Buildathon | $20k in bounties"
   start: "2026-06-01T09:30:00+01:00"
   end: "2026-06-06T16:00:00+01:00"
