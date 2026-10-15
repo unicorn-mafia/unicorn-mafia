@@ -191,9 +191,15 @@ export async function GET() {
 
   if (!umCalendarId || !apiKey) {
     console.warn(
-      "Missing GOOGLE_CALENDAR_ID or GOOGLE_CALENDAR_API_KEY env vars",
+      "Missing GOOGLE_CALENDAR_ID or GOOGLE_CALENDAR_API_KEY env vars; serving YAML events only",
     );
-    return NextResponse.json({ events: [] });
+    // Still serve community events so local dev works without credentials
+    const yamlEvents = loadCommunityEventsFromYaml().sort(
+      (a, b) =>
+        new Date(b.start.dateTime || "").getTime() -
+        new Date(a.start.dateTime || "").getTime(),
+    );
+    return NextResponse.json({ events: yamlEvents });
   }
 
   try {
