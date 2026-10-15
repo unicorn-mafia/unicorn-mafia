@@ -19,17 +19,6 @@ const theTeam: YugiohCardProps[] = [
     linkedinUrl: "https://www.linkedin.com/in/charliecheesman/",
   },
   {
-    name: "FERGUS MCKENZIE-WILSON",
-    title: "Director",
-    avatar: "/team-deck/avatar-fergus.png",
-    description:
-      "Serial entrepreneur and deep-tech engineer. Previously exited a jet-powered drone company. Pioneer in Multi-Agent AI and Knowledge Graphs.",
-    faction: "green",
-    isFounder: false,
-    personalIcon: "/team-deck/icon-fergus.png",
-    linkedinUrl: "https://www.linkedin.com/in/fergtech/",
-  },
-  {
     name: "FATEMA AL KHALIFA",
     title: "Unicorn Stable Master (CEO)",
     avatar: "/team-deck/avatar-fatema.png",
@@ -68,18 +57,6 @@ const foundingMembers: YugiohCardProps[] = [
     hideBadge: true,
     personalIcon: "/team-deck/icon-charlie.png",
     linkedinUrl: "https://www.linkedin.com/in/charliecheesman/",
-  },
-  {
-    name: "FERGUS MCKENZIE-WILSON",
-    title: "Founding Member",
-    avatar: "/team-deck/avatar-fergus.png",
-    description:
-      "Serial entrepreneur and deep-tech engineer. Previously exited a jet-powered drone company. Pioneer in Multi-Agent AI and Knowledge Graphs.",
-    faction: "green",
-    isFounder: false,
-    hideBadge: true,
-    personalIcon: "/team-deck/icon-fergus.png",
-    linkedinUrl: "https://www.linkedin.com/in/fergtech/",
   },
   {
     name: "DAVID GELBERG",
