@@ -23,7 +23,16 @@ async function fetchCalendarEvents(
       res.status,
       errText,
     );
-    return [];
+    let message = `Google Calendar API error (${res.status})`;
+    try {
+      const errJson = JSON.parse(errText);
+      if (errJson?.error?.message) {
+        message = errJson.error.message;
+      }
+    } catch {
+      // not JSON, use generic message
+    }
+    throw new Error(message);
   }
   const data = await res.json();
   return data.items || [];
@@ -272,9 +281,10 @@ export async function GET() {
     );
   } catch (error) {
     console.error("Calendar API error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch calendar events" },
-      { status: 500 },
-    );
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Failed to fetch calendar events";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
