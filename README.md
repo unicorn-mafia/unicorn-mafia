@@ -1,16 +1,23 @@
 # Unicorn Mafia
 
-*"The highest signal community of developers in London."*
+_"The highest signal community of developers in London."_
 
 ### About Us
 
-- **40+ hackathon wins**
+- **500+ hackathon wins**
 - **30+ companies being built**
-- **350+ developers**
+- **500+ developers**
+
+### Features
+
+- **Member Companies Showcase**: Discover innovative companies built by our community members
+- **Interactive Company Directory**: Browse companies by category and filter by tags
+- **Grid and List Views**: Switch between visual card layout and detailed table view
+- **Company Contributions**: Easy process for members to add their companies
 
 ### Contact
 
-- **Email**: um@unicrnmafia.com
+- **Email**: [stable@unicrnmafia.com](mailto:stable@unicrnmafia.com)
 - **GitHub**: [github.com/unicorn-mafia](https://github.com/unicorn-mafia)
 - **Events**: [lu.ma/mafia](https://lu.ma/mafia?period=past)
 

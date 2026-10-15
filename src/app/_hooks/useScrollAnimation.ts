@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 export const useScrollAnimation = (threshold = 0.1) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -15,17 +15,18 @@ export const useScrollAnimation = (threshold = 0.1) => {
       },
       {
         threshold,
-        rootMargin: '0px 0px -100px 0px',
-      }
+        rootMargin: "0px 0px -100px 0px",
+      },
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const node = ref.current;
+    if (node) {
+      observer.observe(node);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (node) {
+        observer.unobserve(node);
       }
     };
   }, [threshold]);

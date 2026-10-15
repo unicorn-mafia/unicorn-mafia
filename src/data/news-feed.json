@@ -1,0 +1,317 @@
+[
+  {
+    "id": "1",
+    "platform": "linkedin",
+    "category": "hackathon_wins",
+    "author": "Charlie Cheesman",
+    "date": "2025-08-18",
+    "blurb": "Can you build, launch and sell a company in 20 hours? We just did. The 20hr.co finale just dropped — what a ride.",
+    "postUrl": "https://www.linkedin.com/posts/charliecheesman_can-you-build-launch-and-sell-a-company-activity-7363154526922502144-pVr-"
+  },
+  {
+    "id": "2",
+    "platform": "linkedin",
+    "category": "hackathon_wins",
+    "author": "Henry Allen",
+    "date": "2025-08-18",
+    "blurb": "20 hours. £20k exit. 20 years old. Here's how it happened — one of the wildest Unicorn Mafia builds to date.",
+    "postUrl": "https://www.linkedin.com/posts/henry-allen-52868926b_20-hours-20k-exit-20-years-old-here-activity-7363170946574106624-BCKH"
+  },
+  {
+    "id": "3",
+    "platform": "linkedin",
+    "category": "hackathon_wins",
+    "author": "Charlie Cheesman",
+    "date": "2025-08-12",
+    "blurb": "We get acquired at 10:00am CEST. That's in a few hours. Built it at a hackathon, sold it before lunchtime.",
+    "postUrl": "https://www.linkedin.com/posts/charliecheesman_we-get-acquired-at-1000am-cest-thats-activity-7360910720101720066-rcfo"
+  },
+  {
+    "id": "4",
+    "platform": "linkedin",
+    "category": "hackathon_wins",
+    "author": "Charlie Cheesman",
+    "date": "2025-08-11",
+    "blurb": "The response has been unreal. Introducing what the team built at the hackathon — the community showed up.",
+    "postUrl": "https://www.linkedin.com/posts/charliecheesman_the-response-had-been-unreal-introducing-activity-7360786732377612288-_vuK"
+  },
+  {
+    "id": "18",
+    "platform": "linkedin",
+    "category": "hackathon_wins",
+    "author": "Jeremy",
+    "date": "2025-08-05",
+    "blurb": "We won one of the tracks at the AI Engine hackathon. Rebuilt Cluely but for good in a day — the product is actually pretty cool.",
+    "postUrl": "https://www.linkedin.com/posts/jeremy-sh_ai-agents-startup-activity-7358520328307855362-04S3"
+  },
+  {
+    "id": "19",
+    "platform": "linkedin",
+    "category": "hackathon_wins",
+    "author": "Kamil Zak",
+    "date": "2025-11-08",
+    "blurb": "Won the GCP x ElevenLabs x Economist x Foundry Labs hackathon with two fellow UM members. First post ever — appreciate any love.",
+    "postUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7392987390899867649/"
+  },
+  {
+    "id": "20",
+    "platform": "linkedin",
+    "category": "hackathon_wins",
+    "author": "UM Community",
+    "date": "2025-09-29",
+    "blurb": "Recap from TomoroHack this weekend — UM teams showed up and showed out.",
+    "postUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7378321566084014080/"
+  },
+  {
+    "id": "21",
+    "platform": "x",
+    "category": "hackathon_wins",
+    "author": "Fatema Al Khalifa",
+    "date": "2026-04-27",
+    "blurb": "UM hack 1st place 🦄 — the builders delivered.",
+    "postUrl": "https://x.com/fatemallk/status/2048838301902090305"
+  },
+  {
+    "id": "22",
+    "platform": "linkedin",
+    "category": "hackathon_wins",
+    "author": "Paul Enaihouwas",
+    "date": "2026-04-28",
+    "blurb": "We won £10,000 at a hackathon — me and Aman. Can't quite believe it.",
+    "postUrl": "https://www.linkedin.com/posts/enaihouwaspaul_we-won-10000-at-a-hackathon-me-and-aman-activity-7454949722408038401-l2ZM/"
+  },
+  {
+    "id": "23",
+    "platform": "linkedin",
+    "category": "hackathon_wins",
+    "author": "Ruum",
+    "date": "2026-04-20",
+    "blurb": "Ruum won joint 3rd place at Brunel Ventures. We keep shipping.",
+    "postUrl": "https://www.linkedin.com/posts/enaihouwaspaul_ruum-won-joint-3rd-place-at-brunel-ventures-activity-7451950773925711872-kYpz/"
+  },
+  {
+    "id": "24",
+    "platform": "linkedin",
+    "category": "hackathon_wins",
+    "author": "Hacktron",
+    "date": "2026-04-17",
+    "blurb": "We won Vercel's AI accelerator demo day. Now launching on Product Hunt — Vercel Day edition.",
+    "postUrl": "https://www.producthunt.com/products/hacktron?launch=hacktron"
+  },
+  {
+    "id": "5",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Nordlys Labs",
+    "date": "2026-01-14",
+    "blurb": "We just beat Anthropic's Claude Opus to become the world's best coding model. Launching Nordlys Hypernova — open benchmarks, open source.",
+    "postUrl": "https://www.linkedin.com/posts/nordlyslabs_we-just-beat-anthropics-claude-opus-to-become-activity-7417133029619343360-CzAt"
+  },
+  {
+    "id": "25",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Ben Clarke",
+    "date": "2026-01-29",
+    "blurb": "A2A Net is live for developers — the open protocol for agent-to-agent communication. Video, code examples and full walkthrough.",
+    "postUrl": "https://www.linkedin.com/posts/benclarkeio_following-a2a-nets-launch-in-september-activity-7422655319727792129-DTpc"
+  },
+  {
+    "id": "26",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Rippletide",
+    "date": "2026-03-03",
+    "blurb": "Rippletide is live on Product Hunt today — go show the team some love.",
+    "postUrl": "https://www.producthunt.com/products/rippletide"
+  },
+  {
+    "id": "27",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Callosum",
+    "date": "2026-02-25",
+    "blurb": "Introducing Callosum — we just launched. Check out what we've been building.",
+    "postUrl": "https://www.linkedin.com/posts/callosumtechnologies_introducing-callosum-activity-7432691830598680576-RAAq"
+  },
+  {
+    "id": "28",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Ben Clarke",
+    "date": "2026-04-01",
+    "blurb": "A2A v1.0 is out — the first stable, production-ready release. Three months of building. This one matters.",
+    "postUrl": "https://www.linkedin.com/posts/benclarkeio_a2a-v10-is-out-its-the-first-stable-production-ready-share-7445168898930434048-a-aY"
+  },
+  {
+    "id": "29",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Ben Clarke",
+    "date": "2026-04-07",
+    "blurb": "Released A2A Utils — a package for handling long-running async tasks in A2A. Three weeks of nights building this. Code examples inside.",
+    "postUrl": "https://www.linkedin.com/posts/benclarkeio_today-im-releasing-the-a2a-utils-package-ugcPost-7447357695772323841-QXXn"
+  },
+  {
+    "id": "30",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Yapit",
+    "date": "2026-04-08",
+    "blurb": "Yapit.md just launched — open-source TTS that handles messy real-world formats like PDFs with math, citations, and code. 170+ voices, 15 languages.",
+    "postUrl": "https://www.producthunt.com/products/yapit?launch=yapit"
+  },
+  {
+    "id": "6",
+    "platform": "linkedin",
+    "category": "product",
+    "author": "Mozart AI",
+    "date": "2026-02-11",
+    "blurb": "Mozart AI just announced a raise from Balderton Capital. Congrats Arjun and the team — one to watch.",
+    "postUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7427324569524367360/"
+  },
+  {
+    "id": "7",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Mozart AI",
+    "date": "2026-02-17",
+    "blurb": "Mozart AI is now on iOS. We've been building this for a while — today we launch on Product Hunt. Support appreciated.",
+    "postUrl": "https://www.producthunt.com/products/mozart-ai?launch=mozart-for-ios"
+  },
+  {
+    "id": "8",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Ryan Codrai",
+    "date": "2026-02-18",
+    "blurb": "Sourced.dev is live — an open source tool that gives coding agents access to 3.5M+ pypi and npm packages as if they existed locally.",
+    "postUrl": "https://sourced.dev"
+  },
+  {
+    "id": "9",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Emily Tench",
+    "date": "2026-02-18",
+    "blurb": "PermitPal just launched. Many too many months of building — today it's real. Show the team some love.",
+    "postUrl": "https://www.linkedin.com/posts/emily-tench-922232129_ive-spent-many-too-many-months-of-my-activity-7432118988563709952-4vMM"
+  },
+  {
+    "id": "10",
+    "platform": "linkedin",
+    "category": "product",
+    "author": "Lydia Miller",
+    "date": "2026-03-02",
+    "blurb": "I cannot believe I am typing this. Big tech launch and raise announcement today — go show some love.",
+    "postUrl": "https://www.linkedin.com/posts/amelia--miller_i-cannot-believe-i-am-typing-this-ivee-activity-7434176576994312192-qZQc"
+  },
+  {
+    "id": "11",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Casero",
+    "date": "2026-03-02",
+    "blurb": "Casero is live on Product Hunt — automating legal workflows for law firms. Upvote and share.",
+    "postUrl": "https://www.producthunt.com/products/casero"
+  },
+  {
+    "id": "12",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Bren",
+    "date": "2026-03-23",
+    "blurb": "Just launched PromptLabX — a place to get better at prompting, and more importantly, to see how other people think.",
+    "postUrl": "https://promptlabx.dev"
+  },
+  {
+    "id": "13",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Floris Fok",
+    "date": "2025-09-01",
+    "blurb": "Launched BESH: an open source batch endpoint for unlocking async LLM workflows. Star the repo and let me know what you think.",
+    "postUrl": "https://www.linkedin.com/posts/floris-jan-fok_besh-an-open-source-batch-endpoint-for-unlocking-activity-7368255367618674691-oqWO"
+  },
+  {
+    "id": "14",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Floris Fok",
+    "date": "2025-08-13",
+    "blurb": "GitDaddy: automated git commits — if we get enough people on the waiting list, we take it to prod. Sign up.",
+    "postUrl": "https://www.linkedin.com/posts/floris-jan-fok_gitdaddy-automated-git-commits-activity-7361340751231782912-7FeK"
+  },
+  {
+    "id": "15",
+    "platform": "linkedin",
+    "category": "product",
+    "author": "Pratyaksh Mishra",
+    "date": "2025-08-09",
+    "blurb": "What if you gave AI agents access to virtual chips and wires? We built it — AI agents now controlling virtual hardware.",
+    "postUrl": "https://www.linkedin.com/posts/pratyakshmishra_what-if-you-gave-ai-access-to-virtual-hardware-activity-7359731472682921985-neA0"
+  },
+  {
+    "id": "16",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Mozart AI",
+    "date": "2025-12-12",
+    "blurb": "Music Videos by Mozart just hit Product Hunt. AI-generated music videos — give it an upvote.",
+    "postUrl": "https://www.producthunt.com/posts/music-videos-by-mozart"
+  },
+  {
+    "id": "17",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Ashkan",
+    "date": "2026-02-03",
+    "blurb": "AMARA just launched on Product Hunt. A few hours left — upvote and drop your feedback.",
+    "postUrl": "https://www.producthunt.com/products/amara-3?launch=amara-4"
+  },
+  {
+    "id": "31",
+    "platform": "linkedin",
+    "category": "product",
+    "author": "Fergus McKenzie-Wilson",
+    "date": "2026-02-02",
+    "blurb": "Called it early. The trajectory is clear — here's why I've been bullish on this since day one.",
+    "postUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7424122121829658624/"
+  },
+  {
+    "id": "32",
+    "platform": "x",
+    "category": "product",
+    "author": "Fatema Al Khalifa",
+    "date": "2026-04-01",
+    "blurb": "UM party post 🦄 — the community is alive and building.",
+    "postUrl": "https://x.com/fatemallk/status/2039364318240636937"
+  },
+  {
+    "id": "33",
+    "platform": "linkedin",
+    "category": "product",
+    "author": "UM Builder Programme",
+    "date": "2026-04-06",
+    "blurb": "8 weeks. Nights and weekends. Office space in central London. 0 equity, 0 fees. We're running a builder programme — check it out.",
+    "postUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7446980416198078464"
+  },
+  {
+    "id": "34",
+    "platform": "x",
+    "category": "product",
+    "author": "Fatema Al Khalifa",
+    "date": "2026-04-26",
+    "blurb": "Last hour of the hack — the energy in this room is something else.",
+    "postUrl": "https://x.com/fatemallk/status/2048358481632129336"
+  },
+  {
+    "id": "35",
+    "platform": "linkedin",
+    "category": "launches",
+    "author": "Hacktron",
+    "date": "2026-04-28",
+    "blurb": "Introducing Hacktron Review — an AI security review tool built for teams that ship fast.",
+    "postUrl": "https://www.linkedin.com/posts/hacktron_introducing-hacktron-review-an-ai-security-activity-7454914844903927808-BhKW"
+  }
+]

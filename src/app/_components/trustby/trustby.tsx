@@ -1,60 +1,58 @@
-'use client';
+import React from "react";
+import Image from "next/image";
 
-import React from 'react';
-import Image from 'next/image';
-import { InfiniteSlider } from '../ui/infinite-slider';
-import { useScrollAnimation } from '../../_hooks/useScrollAnimation';
-import animationStyles from '../../_styles/animations.module.css';
-
+/** High-res / vector logos only — crisp on screen (no pixelated layer). */
 const companies = [
-  { name: 'Amazon', logo: '/companies/amazon.svg' },
-  { name: 'Anthropic', logo: '/companies/anthropic.svg' },
-  { name: 'Apple', logo: '/companies/apple.svg' },
-  { name: 'Cambridge', logo: '/companies/cambridge.svg' },
-  { name: 'Google', logo: '/companies/google.svg' },
-  { name: 'Imperial', logo: '/companies/imperial.svg' },
-  { name: 'Meta', logo: '/companies/meta.svg' },
-  { name: 'Nvidia', logo: '/companies/nvidia.svg' },
-  { name: 'OpenAI', logo: '/companies/openai.svg' },
-  { name: 'Oxford', logo: '/companies/oxford.svg' },
-  { name: 'UCL', logo: '/companies/ucl.svg' },
-  { name: 'Y Combinator', logo: '/companies/ycombinator.svg' },
+  { name: "Amazon", logo: "/companies/amazon.svg" },
+  { name: "Anthropic", logo: "/companies/anthropic.svg" },
+  { name: "Apple", logo: "/companies/apple.svg" },
+  { name: "Cambridge", logo: "/companies/cambridge.svg" },
+  { name: "Google", logo: "/companies/google.svg" },
+  { name: "Imperial", logo: "/companies/imperial.svg" },
+  { name: "Meta", logo: "/companies/meta.svg" },
+  { name: "Nvidia", logo: "/companies/nvidia.svg" },
+  { name: "OpenAI", logo: "/companies/openai.svg" },
+  { name: "Oxford", logo: "/companies/oxford.svg" },
+  { name: "UCL", logo: "/companies/ucl.svg" },
+  { name: "Y Combinator", logo: "/companies/ycombinator.svg" },
+  { name: "xAI", logo: "/companies/xai-hd.svg" },
+  { name: "Palantir", logo: "/companies/palantir-hd.svg" },
 ];
 
 export default function TrustBy() {
-  const [ref, isVisible] = useScrollAnimation();
-
   return (
-    <section 
-      ref={ref}
-      className={`w-full py-16 md:py-24 border-b border-gray-200 ${animationStyles.fadeInUp} ${isVisible ? animationStyles.visible : ''}`}
-    >
+    <section className="w-full py-16 md:py-24 border-b border-gray-200">
       <div className="px-6 md:px-12 lg:px-20 mb-12">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold font-inter tracking-tighter text-black text-center">
-          The best hackers from
+        <h2 className="font-title normal-case text-xl sm:text-2xl tracking-tight text-neutral-900 text-center">
+          the best hackers from
         </h2>
       </div>
 
-      <InfiniteSlider
-        duration={60}
-        durationOnHover={120}
-        gap={48}
-        reverse={false}
-      >
-        {companies.map((company) => (
-          <div
-            key={company.name}
-            className="flex-shrink-0 w-32 md:w-40 h-16 md:h-20 relative grayscale hover:grayscale-0 transition-all duration-300"
-          >
-            <Image
-              src={company.logo}
-              alt={company.name}
-              fill
-              className="object-contain"
-            />
-          </div>
-        ))}
-      </InfiniteSlider>
+      <div className="overflow-hidden">
+        <div
+          className="flex items-center animate-scroll-left"
+          style={{ width: "max-content" }}
+        >
+          {[...companies, ...companies].map((company, i) => {
+            const isDuplicate = i >= companies.length;
+            return (
+              <div
+                key={`${company.name}-${i}`}
+                className="flex-shrink-0 w-36 h-14 mx-8 relative grayscale hover:grayscale-0 transition-[filter] duration-300"
+                aria-hidden={isDuplicate || undefined}
+              >
+                <Image
+                  src={company.logo}
+                  alt={isDuplicate ? "" : company.name}
+                  fill
+                  className="object-contain"
+                  sizes="144px"
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 }
