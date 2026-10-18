@@ -1,5 +1,6 @@
 import type { LondonLocation } from "../_types/london";
 import type { CalendarEvent } from "../_types/calendar";
+import { getEventLink } from "./calendar-data";
 
 // Known London venue coordinates for mapping calendar events to the map
 const VENUE_COORDINATES: Record<string, [number, number]> = {
@@ -69,7 +70,7 @@ export function calendarEventsToLocations(
         lat: coords[0],
         lng: coords[1],
         area: e.location || "London",
-        url: e.externalUrl || e.htmlLink || "",
+        url: getEventLink(e) || "",
         tagline: start
           .toLocaleDateString("en-GB", {
             weekday: "short",

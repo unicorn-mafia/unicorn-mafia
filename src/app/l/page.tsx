@@ -6,7 +6,7 @@ import type { LondonLocation, LocationCategory } from "../_types/london";
 import { CATEGORY_META } from "../_types/london";
 import type { CalendarEvent } from "../_types/calendar";
 import { loadLocations, calendarEventsToLocations } from "../_lib/london-data";
-import { loadEvents } from "../_lib/calendar-data";
+import { loadEvents, getEventLink } from "../_lib/calendar-data";
 import { Sidebar } from "../_components/london/sidebar";
 import { LocationCard } from "../_components/london/location-card";
 import { EventTimeline } from "../_components/london/event-timeline";
@@ -144,7 +144,7 @@ export default function LondonPage() {
   }, [hoveredEventId, eventLocations, eventToVenueMap]);
 
   const handleClickTimelineEvent = useCallback((event: CalendarEvent) => {
-    const url = event.externalUrl || event.htmlLink;
+    const url = getEventLink(event);
     if (url) window.open(url, "_blank");
   }, []);
 

@@ -9,6 +9,7 @@ import React, {
   forwardRef,
 } from "react";
 import type { CalendarEvent } from "../../_types/calendar";
+import { getEventLink } from "../../_lib/calendar-data";
 
 export interface WeekGridHandle {
   scrollDays: (n: number) => void;
@@ -94,7 +95,7 @@ function groupEventsByDay(
 
 function EventChip({ event }: { event: CalendarEvent }) {
   const start = new Date(event.start.dateTime || event.start.date || "");
-  const linkUrl = event.externalUrl || event.htmlLink;
+  const linkUrl = getEventLink(event);
   return (
     <a
       href={linkUrl}
@@ -152,7 +153,7 @@ function DayEventList({ day, events }: { day: Date; events: CalendarEvent[] }) {
             const start = new Date(
               event.start.dateTime || event.start.date || "",
             );
-            const linkUrl = event.externalUrl || event.htmlLink;
+            const linkUrl = getEventLink(event);
             return (
               <a
                 key={event.id}
