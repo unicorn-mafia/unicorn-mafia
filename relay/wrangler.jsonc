@@ -1,0 +1,18 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "um-contact-relay",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "observability": { "enabled": true },
+  // The relay URL is public in this repo, so this caps how much spam can reach the destination.
+  "unsafe": {
+    "bindings": [
+      {
+        "name": "LIMITER",
+        "type": "ratelimit",
+        "namespace_id": "1001",
+        "simple": { "limit": 10, "period": 60 },
+      },
+    ],
+  },
+}

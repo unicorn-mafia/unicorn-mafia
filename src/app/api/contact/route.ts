@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPostHogClient } from "@/lib/posthog-server";
 
+// Hardcoded because the Vercel project's env vars are out of reach. The relay
+// (relay/) holds the real destination, so this URL is safe to be public.
+// CONTACT_RELAY_URL overrides it once someone can set env vars again.
+const CONTACT_RELAY_URL = "https://um-contact-relay.REPLACE_ME.workers.dev";
+
 export async function POST(req: NextRequest) {
   let body: Record<string, string>;
   try {
@@ -18,36 +23,18 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // --- Google Chat ---
-  const lines = [
-    "*New Contact Form Submission*",
-    "",
-    `*Name:* ${name}`,
-    ...(company ? [`*Company:* ${company}`] : []),
-    `*Email:* ${email}`,
-    ...(whatsapp ? [`*WhatsApp:* ${whatsapp}`] : []),
-    "",
-    "*Message:*",
-    message,
-  ];
-
-  const webhook = process.env.GOOGLE_CHAT_WEBHOOK;
-  if (!webhook) {
-    console.error("GOOGLE_CHAT_WEBHOOK env var is not set");
-    return NextResponse.json(
-      { error: "Failed to send notification" },
-      { status: 500 },
-    );
-  }
-
-  const chatRes = await fetch(webhook, {
+  const relay = process.env.CONTACT_RELAY_URL ?? CONTACT_RELAY_URL;
+  const relayRes = await fetch(relay, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text: lines.join("\n") }),
+    body: JSON.stringify({ name, company, email, whatsapp, message }),
+  }).catch((err) => {
+    console.error("Contact relay unreachable:", err);
+    return null;
   });
 
-  if (!chatRes.ok) {
-    console.error("Google Chat webhook failed:", await chatRes.text());
+  if (!relayRes?.ok) {
+    console.error("Contact relay failed:", await relayRes?.text());
     return NextResponse.json(
       { error: "Failed to send notification" },
       { status: 500 },
