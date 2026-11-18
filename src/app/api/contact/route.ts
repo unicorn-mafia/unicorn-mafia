@@ -4,7 +4,7 @@ import { getPostHogClient } from "@/lib/posthog-server";
 // Hardcoded because the Vercel project's env vars are out of reach. The relay
 // (relay/) holds the real destination, so this URL is safe to be public.
 // CONTACT_RELAY_URL overrides it once someone can set env vars again.
-const CONTACT_RELAY_URL = "https://um-contact-relay.REPLACE_ME.workers.dev";
+const CONTACT_RELAY_URL = "https://um-contact-relay.cheddarjobs.workers.dev";
 
 export async function POST(req: NextRequest) {
   let body: Record<string, string>;
