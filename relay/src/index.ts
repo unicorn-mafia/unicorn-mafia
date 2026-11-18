@@ -60,9 +60,16 @@ export default {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: format(submission) }),
+    }).catch((err) => {
+      console.error("Destination webhook unreachable", err);
+      return null;
     });
-    if (!res.ok) {
-      console.error("Destination webhook failed", res.status, await res.text());
+    if (!res?.ok) {
+      console.error(
+        "Destination webhook failed",
+        res?.status,
+        await res?.text(),
+      );
       return new Response("Upstream failed", { status: 502 });
     }
     return new Response("ok");
