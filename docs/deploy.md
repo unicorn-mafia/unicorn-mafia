@@ -16,4 +16,4 @@ The contact form posts to `/api/contact`, which forwards to the Worker in `relay
 
 To change where leads go, run `wrangler secret put DESTINATION_WEBHOOK` again. The site needs no redeploy.
 
-The relay URL is public. The Worker caps traffic at 10 requests a minute and rejects malformed or oversized submissions.
+The relay URL is public. The Worker rejects malformed or oversized submissions, then allows about 10 deliveries a minute per Cloudflare location. Cloudflare does not share the count across locations, so this is not a strict worldwide cap.

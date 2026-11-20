@@ -4,7 +4,7 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-10-01",
   "observability": { "enabled": true },
-  // The relay URL is public in this repo, so this caps how much spam can reach the destination.
+  // The relay URL is public, so this caps spam reaching Slack. Cloudflare counts per location, so the cap is approximate.
   "unsafe": {
     "bindings": [
       {

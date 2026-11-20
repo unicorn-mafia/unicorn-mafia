@@ -50,11 +50,12 @@ export default {
       return new Response("Method not allowed", { status: 405 });
     }
 
-    const { success } = await env.LIMITER.limit({ key: "global" });
-    if (!success) return new Response("Too many requests", { status: 429 });
-
     const submission = parse(await req.json().catch(() => null));
     if (!submission) return new Response("Invalid submission", { status: 400 });
+
+    // Checked after validation so junk requests can't use up the allowance for real leads.
+    const { success } = await env.LIMITER.limit({ key: "global" });
+    if (!success) return new Response("Too many requests", { status: 429 });
 
     const res = await fetch(env.DESTINATION_WEBHOOK, {
       method: "POST",

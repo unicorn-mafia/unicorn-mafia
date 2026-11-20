@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const relay = process.env.CONTACT_RELAY_URL ?? CONTACT_RELAY_URL;
+  const relay = process.env.CONTACT_RELAY_URL?.trim() || CONTACT_RELAY_URL;
   const relayRes = await fetch(relay, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -32,6 +32,19 @@ export async function POST(req: NextRequest) {
     console.error("Contact relay unreachable:", err);
     return null;
   });
+
+  if (relayRes?.status === 400) {
+    return NextResponse.json(
+      { error: "Please check your details and try again" },
+      { status: 400 },
+    );
+  }
+  if (relayRes?.status === 429) {
+    return NextResponse.json(
+      { error: "Too many messages right now. Please try again in a minute" },
+      { status: 429 },
+    );
+  }
 
   if (!relayRes?.ok) {
     console.error("Contact relay failed:", await relayRes?.text());
