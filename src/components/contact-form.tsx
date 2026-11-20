@@ -58,7 +58,7 @@ export default function ContactForm({
 
   const isValid =
     form.name.trim() !== "" &&
-    form.email.trim() !== "" &&
+    form.email.includes("@") &&
     form.message.trim() !== "" &&
     !whatsappError;
 
@@ -161,6 +161,7 @@ export default function ContactForm({
             <input
               id="cf-name"
               name="name"
+              maxLength={200}
               type="text"
               required
               value={form.name}
@@ -177,6 +178,7 @@ export default function ContactForm({
             <input
               id="cf-company"
               name="company"
+              maxLength={200}
               type="text"
               value={form.company}
               onChange={handleChange}
@@ -192,6 +194,7 @@ export default function ContactForm({
             <input
               id="cf-email"
               name="email"
+              maxLength={320}
               type="email"
               required
               value={form.email}
@@ -208,6 +211,7 @@ export default function ContactForm({
             <input
               id="cf-whatsapp"
               name="whatsapp"
+              maxLength={40}
               type="tel"
               value={form.whatsapp}
               onChange={handleChange}
@@ -226,6 +230,7 @@ export default function ContactForm({
             <textarea
               id="cf-message"
               name="message"
+              maxLength={5000}
               required
               rows={4}
               value={form.message}
