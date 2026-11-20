@@ -6,6 +6,31 @@ import { getPostHogClient } from "@/lib/posthog-server";
 // CONTACT_RELAY_URL overrides it once someone can set env vars again.
 const CONTACT_RELAY_URL = "https://um-contact-relay.cheddarjobs.workers.dev";
 
+const FIELD_LIMITS = {
+  name: { label: "Name", max: 200 },
+  company: { label: "Company", max: 200 },
+  email: { label: "Email", max: 320 },
+  whatsapp: { label: "WhatsApp", max: 40 },
+  message: { label: "Message", max: 5000 },
+} as const;
+
+function validateFields(
+  fields: Record<keyof typeof FIELD_LIMITS, unknown>,
+): string | null {
+  for (const [key, { label, max }] of Object.entries(FIELD_LIMITS)) {
+    const value = fields[key as keyof typeof FIELD_LIMITS];
+    if (value === undefined || value === "") continue;
+    if (typeof value !== "string") return `${label} must be text`;
+    if (value.length > max) {
+      return `${label} must be ${max} characters or fewer`;
+    }
+  }
+  if (typeof fields.email !== "string" || !fields.email.includes("@")) {
+    return "Please enter a valid email address";
+  }
+  return null;
+}
+
 export async function POST(req: NextRequest) {
   let body: Record<string, string>;
   try {
@@ -21,6 +46,18 @@ export async function POST(req: NextRequest) {
       { error: "Missing required fields" },
       { status: 400 },
     );
+  }
+
+  // Mirrors the relay's checks so the user learns which field to fix.
+  const fieldError = validateFields({
+    name,
+    company,
+    email,
+    whatsapp,
+    message,
+  });
+  if (fieldError) {
+    return NextResponse.json({ error: fieldError }, { status: 400 });
   }
 
   const relay = process.env.CONTACT_RELAY_URL?.trim() || CONTACT_RELAY_URL;

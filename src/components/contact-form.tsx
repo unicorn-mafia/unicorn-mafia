@@ -58,7 +58,7 @@ export default function ContactForm({
 
   const isValid =
     form.name.trim() !== "" &&
-    form.email.trim() !== "" &&
+    form.email.includes("@") &&
     form.message.trim() !== "" &&
     !whatsappError;
 
